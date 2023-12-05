@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Saudi-Reddit{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Saudi-Reddit{% endblock %}</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'Fourm:index' %}">Home</a></li>
+                <!-- Add more navigation links as needed -->
+            </ul>
+        </nav>
+    </header>
+    <!-- myredditapp/templates/base.html -->
+
+    <!-- ... (previous content) -->
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'signup' %}">Sign up</a></li>
+            <!-- Add more navigation links as needed -->
+        </ul>
+    </nav>
+
+    <!-- ... (remaining content) -->
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Saudi-Reddit. All rights reserved.</p>
+    </footer>
+</body>
+</html>

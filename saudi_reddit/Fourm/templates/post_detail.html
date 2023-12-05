@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Author: {{ post.author.username }} | Votes: {{ post.votes }}</p>
+  <a href="{% url 'Fourm:upvote_post' post.id %}">Upvote</a>
+
+  <h2>Comments</h2>
+  {% for comment in comments %}
+    <div class="comment">
+      <p>{{ comment.content }}</p>
+      <p>Author: {{ comment.author.username }} | Votes: {{ comment.votes }}</p>
+      <a href="{% url 'Fourm:upvote_comment' comment.id %}">Upvote</a>
+    </div>
+  {% endfor %}
+
+  <h3>Add a Comment</h3>
+  <form method="post" action="{% url 'Fourm:add_comment' post.id %}">
+    {% csrf_token %}
+    <textarea name="content" rows="4" cols="50" required></textarea><br>
+    <input type="submit" value="Add Comment">
+  </form>
+{% endblock %}
