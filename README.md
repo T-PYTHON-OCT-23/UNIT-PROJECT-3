@@ -1,5 +1,8 @@
 # Saudi Reddit
 
+![LimeWire AI Studio Asset](https://github.com/BDR-Pro/Saudi-reddit/assets/91114465/62bebe35-b98d-4363-9a95-5be323188243)
+
+
 Saudi Reddit is a simple Reddit-like web application built with Django.
 
 ## Features
