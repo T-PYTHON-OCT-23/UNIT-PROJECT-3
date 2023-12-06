@@ -1,15 +1,40 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
   <h1>Welcome to Saudi-Reddit</h1>
 
-  {% for post in posts %}
-    <div class="post">
-      <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-      <p>{{ post.content }}</p>
-      <p>Author: {{ post.author.username }} | Votes: {{ post.votes }}</p>
-      <a href="{% url 'upvote_post' post.id %}">Upvote</a>
+  <div class="row mt-4">
+    <div class="col-md-4">
+      <h2>Top Subreddits</h2>
+      <ul>
+        {% for subreddit in top_subreddits %}
+          <li><a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}">{{ subreddit.name }}</a></li>
+        {% endfor %}
+      </ul>
+      <a href="{% url 'subreddit:subreddit_create' %}">Create Subreddit</a>
     </div>
-  {% endfor %}
+
+    <div class="col-md-4">
+      <h2>Top Posts</h2>
+      {% for post in top_posts %}
+        <div class="post">
+          <h3><a href="{% url 'Fourm:post_detail' post.id %}">{{ post.title }}</a></h3>
+          <p>{{ post.content }}</p>
+          <p>Author: {{post.author.full_name}}{{ post.author.username }} | Votes: {{ post.votes }}</p>
+          <a href="{% url 'Fourm:upvote_post' post.id %}">Upvote</a>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-md-4">
+      <h2>Top Comments</h2>
+      {% for comment in top_comments %}
+        <div class="comment">
+          <p>{{ comment.content }}</p>
+          <p>Author: {{ comment.author.username }} | Votes: {{ comment.votes }}</p>
+          <a href="{% url 'Fourm:upvote_comment' comment.id %}">Upvote</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
 {% endblock %}

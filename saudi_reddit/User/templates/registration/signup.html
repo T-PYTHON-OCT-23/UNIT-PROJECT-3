@@ -1,11 +1,98 @@
 
-{% extends 'base.html' %}
+<!-- registration/signup.html -->
+
+{% extends 'registration/base.html' %}
 
 {% block content %}
-  <h2>Sign up</h2>
-  <form method="post" action="{% url 'User:signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign up</button>
-  </form>
+  <div class="signup-container">
+    <h2>Sign up</h2>
+
+    <form method="post" action="{% url 'User:signup' %}" class="signup-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Sign up</button>
+    </form>
+
+    <a class="google-signup-btn" href="{% url 'social:begin' 'google-oauth2' %}">
+      <button type="button" class="btn btn-google">Sign up with Google</button>
+    </a>
+  </div>
+
+<style> 
+
+  /* Add this style to your existing stylesheet or create a new one */
+/* You can customize these styles based on your preferences */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa; /* Bootstrap background color */
+}
+
+.signup-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-top: 50px;
+}
+
+h2 {
+  text-align: center;
+}
+
+
+.signup-form,
+.google-signup-btn {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px; /* Adjust margin to separate form and Google signup button */
+}
+
+.signup-form label {
+  margin-bottom: 5px;
+}
+
+.signup-form input,
+.google-signup-btn button {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da; /* Bootstrap form border color */
+  border-radius: 3px;
+  width: 100%; /* Make both buttons full-width */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+
+.signup-form button,
+.google-signup-btn button {
+  background-color: #28a745; /* Bootstrap success color */
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.signup-form button:hover,
+.google-signup-btn button:hover {
+  background-color: #218838; /* Darker shade of the success color on hover */
+}
+
+.btn-google {
+  background-color: #4285f4; /* Google's brand color */
+  color: #ffffff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-google:hover {
+  background-color: #2a4bff; /* Darker shade on hover */
+}
+
+/* Add more styles as needed */
+
+</style>
 {% endblock %}

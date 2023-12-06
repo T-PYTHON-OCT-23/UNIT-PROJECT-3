@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>{% block title %}Saudi-Reddit{% endblock %}</title>
 </head>
 <body>
@@ -13,12 +14,18 @@
             <ul>
                 <li><a href="{% url 'Fourm:index' %}">Home</a></li>
                 <!-- Add more navigation links as needed -->
+                <li><a href="{% url 'User:login' %}">Login</a></li>
+                <li><a href="{% url 'User:signup' %}">Sign up</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         {% block content %}{% endblock %}
+         <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </main>
 
     <footer>

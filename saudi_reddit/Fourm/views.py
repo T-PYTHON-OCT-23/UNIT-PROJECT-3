@@ -5,13 +5,20 @@ from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
 
 def index(request):
-    posts = Post.objects.all()
-    return render(request, 'Fourm/index.html', {'posts': posts})
+    if request.user.is_authenticated:
+        posts = Post.objects.filter(Subreddit__in=request.user.profile.subreddit.all())
+    else:
+        posts = Post.objects.all()
+    return render(request, 'index.html', {'posts': posts})
+
+
 
 def post_detail(request, post_id):
     post = get_object_or_404(Post, pk=post_id)
     comments = Comment.objects.filter(post=post)
-    return render(request, 'Fourm/post_detail.html', {'post': post, 'comments': comments})
+    post.views += 1
+    post.save()
+    return render(request, 'post_detail.html', {'post': post, 'comments': comments})
 
 @login_required
 def add_comment(request, post_id):

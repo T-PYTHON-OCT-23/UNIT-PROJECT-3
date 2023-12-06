@@ -13,30 +13,88 @@
             <ul>
                 <li><a href="{% url 'Fourm:index' %}">Home</a></li>
                 <!-- Add more navigation links as needed -->
+                    
+                <li><a href="{% url 'User:login' %}">Login</a></li>
+                <li><a href="{% url 'User:signup' %}">Sign up</a></li>
+                <!-- Add more navigation links as needed -->
             </ul>
         </nav>
     </header>
-    <!-- myredditapp/templates/base.html -->
-
-    <!-- ... (previous content) -->
-
-    <nav>
-        <ul>
-            <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'login' %}">Login</a></li>
-            <li><a href="{% url 'signup' %}">Sign up</a></li>
-            <!-- Add more navigation links as needed -->
-        </ul>
-    </nav>
-
-    <!-- ... (remaining content) -->
-
     <main>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         {% block content %}{% endblock %}
     </main>
-
+    <!-- Include Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <footer>
         <p>&copy; 2023 Saudi-Reddit. All rights reserved.</p>
     </footer>
+    
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Bootstrap background color */
+        }
+
+        header {
+            background-color: rgb(248, 102, 102); /* Bootstrap primary color */
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #e9ecef; /* Bootstrap light gray color */
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        form button {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        footer {
+            background-color: #343a40; /* Bootstrap dark color */
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
 </body>
 </html>
