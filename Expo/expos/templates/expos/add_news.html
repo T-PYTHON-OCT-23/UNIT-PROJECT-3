@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New news {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Add new news</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+            <form action="{% url 'expos:add_news_view' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="Title" />
+
+                <label>Content:</label>
+                <textarea class="form-control" name="content"></textarea>
+
+                <label>Category</label>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                
+                <label>Blog Poster:</label>
+                <input type="file" name="poster"  class="form-control" accept="image/*"/>
+                <br>
+                <input class="btn btn-primary" type="submit" value="post news" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

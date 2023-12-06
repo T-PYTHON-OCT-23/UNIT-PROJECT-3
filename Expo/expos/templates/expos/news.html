@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All News {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+
+    <h1>All News</h1>
+
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+        {% for news in news %}
+
+        <div class="col">
+            <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow h-100">
+                <img height="200px" src="{{news.poster.url}}" />
+                <a href="{% url 'expos:news_detail_view' news.id %}"><h2>{{news.title }} {{news.id}}</h2></a>
+                <h5>Date at :{{post.publishd_at}}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+   
+</section>
+
+{% endblock %}
