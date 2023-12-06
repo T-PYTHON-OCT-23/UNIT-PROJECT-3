@@ -28,7 +28,13 @@
             <li><a class="nav-link" href="{% url 'accounts:login_user_view' %}" class="nav-link" >Log in</a></li>
           </ul>
           {% endif %}
-
+          {% if request.user.is_staff %}
+            {% if clinic %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'hospitall:delete_clinic' clinic.id %}">حذف عيادة</a>
+            </li>
+            {% endif %}
+          {% endif %}
       </header>
 
       {% block content %} content {% endblock %}

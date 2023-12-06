@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.urls import path
+from .views import delete_clinic
 
 app_name="hospitall"
 
@@ -10,7 +12,10 @@ urlpatterns = [
     path('create_appointment/', views.create_appointment, name='create_appointment'),
     path('clinic/<int:clinic_id>/',views.clinic_detail_view, name='clinic_detail_view'),
 
+    path('delete_clinic/<int:clinic_id>/',views.delete_clinic, name='delete_clinic'),
 
     path('create_appointment/<int:doctor_id>/',views.create_appointment, name='create_appointment'),
 
+    path('delete_clinic/<int:clinic_id>/', views.delete_clinic, name='delete_clinic'),
 ]
+

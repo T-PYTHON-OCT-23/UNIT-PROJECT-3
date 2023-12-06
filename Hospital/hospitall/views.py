@@ -6,6 +6,10 @@ from .models import Clinic, Doctor, Appointment
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from .models import Clinic
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Clinic
+from django.contrib.auth.decorators import login_required, user_passes_test
+
 
 # Create your views here.
 
@@ -41,3 +45,16 @@ def create_appointment(request):
 def clinic_detail_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
     return render(request, 'hospitall/clinic_detail.html', {'clinic': clinic})
+
+
+def is_staff(user):
+    return user.is_staff
+
+@user_passes_test(is_staff)
+def delete_clinic(request, clinic_id):
+    clinic = get_object_or_404(Clinic, id=clinic_id)
+    clinic.delete()
+    return redirect('hospitall:show_clinics')
+def clinic_view(request, clinic_id):
+    clinic = get_object_or_404(Clinic, id=clinic_id)
+    return render(request, 'hospitall/clinic.html', {'clinic': clinic})
