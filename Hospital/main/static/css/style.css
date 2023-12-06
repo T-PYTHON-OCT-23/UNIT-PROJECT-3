@@ -1,0 +1,87 @@
+.menu {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    list-style: none;
+  }
+  li a {
+    position: relative;
+    color: #2691d9;
+  }
+  li a:after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+  }
+  li a:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+
+  * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    min-height: 70vh;
+}
+
+p {
+    white-space: pre-wrap;
+}
+
+.blog-card a {
+    color: black ;
+    transition: all .2s ease-out;
+}
+
+.blog-card a:hover {
+    color: rgba(255, 100, 100, 1.0);
+}
+
+.Action {
+    background-color: rgb(240, 83, 83);
+}
+
+.Fantasy {
+    background-color: rgb(103, 56, 156);
+}
+
+.Drama {
+    background-color: rgb(49, 110, 181);
+}
+
+.Horro {
+    background-color: rgb(216, 143, 65);
+}
+
+.poster {
+    height: 350px;
+    object-fit: cover;
+}
+
+.detail-poster {
+    max-height: 50vh;
+}
+
+.fav-card img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
+
+.favored i{
+    color: red;
+}

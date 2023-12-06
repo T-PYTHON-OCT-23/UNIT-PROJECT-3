@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% block title%} عرض العيادات {%endblock%}
+
+{% block content %}
+<section class="container">
+    <div class="row">
+        {% for clinic in clinics %}
+            <div class="col-10 m-2">
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                    <a href="{% url 'hospitall:clinic_detail_view' clinic.id %}"><h2>{{ clinic.name }}</h2></a>
+                    <h5>{{clinic.specialization}}</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

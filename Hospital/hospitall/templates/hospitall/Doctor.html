@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title%} عرض الأطباء {%endblock%}
+
+{% block content %}
+<section class="container">
+    <h1>جميع الأطباء</h1>
+    <select name="doctor">
+        {% for doctor in doctors %}
+            <option value="{{ doctor.id }}">{{ doctor.user.username }}</option>
+        {% endfor %}
+    
+    <div class="row">
+        {% for doctor in doctors %}
+            <div class="col-10 m-2">
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
+                    <h2>{{ doctor.user.username }}</h2>
+                    <h5>{{doctor.clinic.name}}</h5>
+                    <a href="{% url 'hospitall:create_appointment' doctor.id %}">حجز موعد</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% block title%} عرض المواعيد {%endblock%}
+
+{% block content %}
+<section class="container">
+    <h1>جميع المواعيد</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">اسم الطبيب</th>
+                <th scope="col">اسم العيادة</th>
+                <th scope="col">تاريخ الموعد</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.doctor.user.username }}</td>
+                    <td>{{ appointment.doctor.clinic.name }}</td>
+                    <td>{{ appointment.date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+{% endblock %}
