@@ -1,5 +1,12 @@
 # UNIT-Project-3
 
+
+## Edit the README.md file to include (include the info at the top):
+- Project Name : Event Managment System
+- Project Description : An Online platform that assists users to explore events and book online in various fields.
+- Features list : Registration / Booking Online / Events schedule / Explore various events 
+
+
 ## Create a Project of your own choosing
 
 Base on what you’ve learned until now , create a project of your choosing. Impress us with your creativity and execution.
@@ -127,11 +134,6 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 - At lease commit and sync the changes once at the end of everyday.
 
 
-
-## Edit the README.md file to include (include the info at the top):
-- Project Name
-- Project Description
-- Features list.
 
  
 
