@@ -1,0 +1,121 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Baytak{% endblock %}
+
+
+{% block content  %}
+<div class = "container">
+       <div class = "row">
+        <div id="myCarousel" class="carousel slide mb-6 pointer-event" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active" aria-current="true"></button>
+              <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class=""></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+                <div class="container">
+                  <div class="carousel-caption text-start">
+                    <h1>Example headline.</h1>
+                    <p class="opacity-75">Some representative placeholder content for the first slide of the carousel.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item active">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+                <div class="container">
+                  <div class="carousel-caption">
+                    <h1>Another example headline.</h1>
+                    <p>Some representative placeholder content for the second slide of the carousel.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#">Learn more</a></p>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="var(--bs-secondary-color)"></rect></svg>
+                <div class="container">
+                  <div class="carousel-caption text-end">
+                    <h1>One more for good measure.</h1>
+                    <p>Some representative placeholder content for the third slide of this carousel.</p>
+                    <p><a class="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+       </div>
+
+       <div class = "row">
+            <div>
+                    <p>Welcome to Baytak, your final destination for effective home services. We connect you with skilled professionals for quick repairs, household tasks and routine maintenance. Our easy-to-use platform ensures a smooth and stress-free experience, putting you in control of your home's needs. Choose Baytak for fast, reliable and excellence-based services - because your comfort is our priority.</p>
+            </div>
+       </div>
+
+        <div class = "row">
+            <div class = "col-6">
+                    <h1>How It Work</h1>
+                    <h2>Select Your area requrment</h2>
+                    <h2>Select Your area requrment</h2>
+                    <h2>Select Your area requrment</h2>
+            </div>
+        </div> 
+
+        <div class = "row">
+            <h1>Choose your service</h1>
+        </div>
+
+        <div class = "row">
+              <div class = "col-6">
+                <span class="material-symbols-outlined">
+                    electrical_services
+                    </span>
+                  <h1>Electrician & Plumber</h1>
+              </div>
+
+              <div class = "col-6">
+                <span class="material-symbols-outlined">
+                    cleaning_services
+                    </span>
+                <h1>Clean</h1>
+              </div>
+
+              <div class = "col-6">
+                <span class="material-symbols-outlined">
+                    water_drop
+                    </span>
+                <h1>Water</h1>
+              </div>
+
+              <div class = "col-6">
+                <span class="material-symbols-outlined">
+                    local_shipping
+                    </span>
+                <h1>move</h1>
+              </div>
+             
+        </div>
+
+
+        <div class = "row">
+            <h2>want to work with us?</h2>
+            <h2>Please fill the registration form,</h2>
+            <h3>(Only for Electrician, Plumber, Carpenter, Painter, Pest Control, Home Appliance and Computer Services )</h3>
+            <a></a>
+        </div>
+
+</div>
+
+
+
+{% endblock %}
