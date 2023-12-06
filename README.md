@@ -1,5 +1,8 @@
 # UNIT-Project-3
 
+## the project Features
+- A website for booking appointments in clinics
+
 ## Create a Project of your own choosing
 
 Base on what you’ve learned until now , create a project of your choosing. Impress us with your creativity and execution.
