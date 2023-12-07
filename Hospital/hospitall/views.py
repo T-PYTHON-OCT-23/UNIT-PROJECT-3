@@ -44,13 +44,16 @@ def create_appointment(request):
         clinic = Clinic.objects.get(id=clinic_id)
         date = request.POST["date"]
 
+        # Get the first doctor that works in the selected clinic
         doctor = Doctor.objects.filter(clinics=clinic).first()
 
         if doctor is not None:
-            appointment = Appointment(user=request.user, doctor=doctor, date=date)
+            appointment = Appointment(user=request.user, doctor=doctor, clinic=clinic, date=date)  # Include the clinic
             appointment.save()
             return redirect('hospitall:show_appointments')
         else:
+            # Handle the case where no doctor is found for the selected clinic
+            # This is just an example, you might want to handle this differently
             return render(request, 'hospitall/create_appointment.html', {'error': 'No doctor found for the selected clinic.'})
     else:
         clinics = Clinic.objects.all()

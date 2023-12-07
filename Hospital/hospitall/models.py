@@ -17,7 +17,8 @@ class Doctor(models.Model):
 class Appointment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)  # New field
     date = models.DateTimeField()
 
     def __str__(self):
-        return f"{self.user.username} appointment with {self.doctor.user.username} on {self.date}"
+        return f"{self.user.username} appointment with {self.doctor.user.username} at {self.clinic.name} on {self.date}"

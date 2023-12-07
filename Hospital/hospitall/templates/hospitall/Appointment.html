@@ -17,12 +17,7 @@
     {% for appointment in appointments %}
         <tr>
             <td>{{ appointment.doctor.user.username }}</td>
-            <td>
-                {% for clinic in appointment.doctor.clinics.all %}
-                    {{ clinic.name }}
-                    {% if not forloop.last %}, {% endif %}
-                {% endfor %}
-            </td>
+            <td>{{ appointment.clinic.name }}</td>  <!-- Display the clinic of the appointment -->
             <td>{{ appointment.date }}</td>
             <td>
                 <form method="post" action="{% url 'hospitall:delete_appointment' appointment.id %}">
