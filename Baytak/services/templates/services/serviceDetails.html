@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{service.name}}  {% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <div class = "row d-flexflex-column">
+    
+    <h1>{{service.category}} </h1>
+    <div class = "row d-flexflex-column">
+        {{service.name}}
+        {{service.address}}
+        <input class="btn btn-dark mt-3" type="submit" value="Order" />
+    </div>
+    
+</div>
+
+{% endblock %}

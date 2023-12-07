@@ -1,0 +1,67 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add Service {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Add new service</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+           
+
+            <form action="{% url 'services:addServices' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Name:</label>
+                <input class="form-control " type="text" name="name"  />
+
+                <label>Address:</label>
+                <textarea class="form-control" name="address"></textarea>
+
+                <label>Description of the service:</label>
+                <textarea class="form-control" name="about"></textarea>
+
+                <label>Personal Image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                {% for key, value in durations.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="duration" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <label>Nationality:</label>
+                <input class="form-control mt-3" type="text" name="nationality"  />
+
+                <label>Quantity:</label>
+                <input class="form-control mt-3" type="number" name="quantity"  />
+
+                <label>City:</label>
+                <input class="form-control mt-3" type="text" name="city"  />
+
+            
+                <input class="btn btn-dark mt-3" type="submit" value="Add Service" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+</div>
+{% endblock %}

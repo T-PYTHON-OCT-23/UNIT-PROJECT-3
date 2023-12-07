@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Update  User {% endblock %}
+
+
+{% block content %}
+
+<section class="container ">
+    <h1>Update your profile</h1>
+
+    {% if message %}
+        <div class="alert alert-danger" role="alert">
+        {{ message }}
+        </div>
+    {% endif %}
+    <div class="row">
+    
+        <div class="col-6">
+
+            <form class="d-flex flex-column gap-1" action="{% url 'accounts:updateProfile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+                <label>Fisrt Name:</label>
+                <input class="form-control " type="text" name="first_name" value="{{ request.user.first_name }}" />
+    
+                <label>Last Name:</label>
+                <input class="form-control " type="text" name="last_name"  value="{{ request.user.last_name }}"/>
+        
+                <label>Email:</label>
+                <input class="form-control" type="email" name="email" required minlength="3" value="{{ request.user.email }}"/>
+
+                
+                <div class="d-flex align-items-center gap-2 ">
+                    <img src="{{ request.user.profile.avatar.url }}"  class=" imgProfile"/>
+                    <input class="form-control" type="file" name="avatar"  placeholder="choose avatar"/>
+                </div>
+                
+                <label>City:</label>
+                <input class="form-control" type="text" name="city" required minlength="3" value="{{ request.user.profile.email }}"/>
+                <label>Mobile Number:</label>
+                <input class="form-control" type="text" name="mobileNumber" required minlength="3" value="{{ request.user.profile.email }}"/>
+                
+
+                <input class="btn btn-primary" type="submit" value="Update profile" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

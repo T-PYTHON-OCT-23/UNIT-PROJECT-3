@@ -50,7 +50,7 @@ def logoutUser(request: HttpRequest):
 def userProfile(request: HttpRequest, user_id):
    try:
         
-        user = User.objects.get(id=user_id)
+        user = User.objects.get(id = user_id)
 
    except:
         return render(request, 'main/not_found.html')
@@ -58,6 +58,34 @@ def userProfile(request: HttpRequest, user_id):
 
    return render(request, 'accounts/profile.html', {"user":user})
 
-def updateProfile():
-   pass
+def updateProfile(request: HttpRequest):
+    message = None
+
+    if request.method == "POST":
+        try:
+            if request.user.is_authenticated:
+                user : User = request.user
+                user.first_name = request.POST["first_name"]
+                user.last_name = request.POST["last_name"]
+                user.email = request.POST["email"]
+                user.save()
+
+                profile : Profile = request.user.profile
+            
+                if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
+                profile.city =request.POST["city"]
+                profile.mobileNumber = request.POST["mobileNumber"]
+                profile.save()
+
+                return redirect("accounts:userProfile", user_id = request.user.id)
+            else:
+                return redirect("accounts:loginUser")
+            
+        except Exception as e:
+            message = f"A typing error occurred {e}"
+
+
+    return render(request, "accounts/update.html", {"message" : message})
+
+
 

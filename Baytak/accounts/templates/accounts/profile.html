@@ -11,11 +11,10 @@
         <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
         <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
         <h1>{{ user.first_name }} {{ user.last_name }} </h1>
-        <a href="" class="btn btn-primary">Update</a>
         <h1>{{ user.username}}</h1>
         <h1>{{ user.profile.city}}</h1>
-        <h1>{{ user.profile.number}}</h1>
-        <a href="" class="btn btn-primary">Update</a>
+        <h1>{{ user.profile.mobileNumber}}</h1>
+        <a href="{% url 'accounts:updateProfile' %}" class="btn btn-primary">Update</a>
     </div>
 
 
