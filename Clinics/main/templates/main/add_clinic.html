@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} Add Clinic {% endblock %}
+
+{% block header %} Add a New clinic {% endblock %}
+
+{% block content %}
+<section class="container">
+    <h1 class="title"> Add new Clinic </h1>
+    <div class="row">
+        <div class="col-6">
+            <form action="{% url 'main:add_clinic' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label><b> Clinic Name:</b></label><br>
+                <input class="form-control" type="text" name="name" placeholder="What is the clinic name?" required />
+
+                <label><b>Category:</b></label><br>
+                {% for key, value in categories.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}"
+                        required>
+                    <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <label><b> About the clinic:</b></label><br>
+                <textarea class="form-control" name="about" placeholder="..." required></textarea>
+
+                <label><b> Clinic Image: </b></label>
+                <input type="file" name="image" class="form-control" accept="image/*" required />
+
+                <label><b> Clinic location:</b></label><br>
+                <input class="form-control" type="urls" name="location" required />
+                <br>
+                <input class="btn btn-secondary" type="submit" value="Create Clinic" />
+
+            </form>
+            <br>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% block title %} All Clinics {% endblock %}
+{% block content %}
+
+<section class="container">
+    <h1 class="title">All Clinics </h1>
+    <div class="row gap-5 row-cols-1 row-cols-md-3">
+        {% for clinic in Clinic %}
+        <div>
+            <div class="col">
+                <div class="d-flex flex-column gap-1 p-3 border border-1 rounder-6 shadow h-100">
+                    <img src="{{clinic.image.url}}" /><br>
+                    <a href="{% url 'main:detail_clinic' clinic.id %}" class="h1"> {{ clinic.name }} </a>
+                    <h5> {{ clinic.about }} </h5>
+                    <button class="btn btn-secondary" type="botton" aria-e> {{clinic.category}} </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock %}

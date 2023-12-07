@@ -2,6 +2,11 @@
 
 ## the project Features
 - A website for booking appointments in clinics
+- creat a home page
+- Creat the clinics adding page & its views and urls
+- Creat pages to show the clinics with thiere category & viwes and urls
+- Creat the client login, logout and register procces
+- Creat page for client profile & update it 
 
 ## Create a Project of your own choosing
 
