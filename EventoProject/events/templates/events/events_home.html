@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Events {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+
+    <div class="d-flex justify-content-between">
+    <h1>All Events ({{events_count}})</h1>
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Edit
+            </button>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'events:delete_event_view' event.id %}">Delete</a></li>
+            </ul>
+        </div>
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+        {% for event in events %}
+            <div class="col">
+                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow h-100">
+                    <h2> Title :{{ event.title }}</h2>
+                    <h4> description:  {{event.description}}</h4>
+                    <h4>posting_date: {{ event.release_date}} </h4>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

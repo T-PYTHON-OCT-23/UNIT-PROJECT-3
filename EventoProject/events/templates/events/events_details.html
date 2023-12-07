@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{ event.title }} {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex flex-column gap-2">
+                <h1>{{ event.title }}</h1>
+                <h5>{{ event.category }}</h5>
+                <div class="d-flex justify-content-between ">
+                    <h4>{{event.release_date}}</h4>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Edit
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="{% url 'events:delete_event_view' event.id %}">Delete</a></li>
+                        </ul>
+                      </div>
+                </div>
+                <p>{{ event.description }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
