@@ -1,0 +1,47 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New Products {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Add New Products</h1>
+
+    <div class="col-6">
+
+    <form action="{% url 'products:add_products_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+        {% csrf_token %}
+        
+        <label>Product Name:</label>
+        <input class="form-control" type="text" name="name" placeholder="Name" required minlength="4" />
+
+        <label>Content:</label>
+        <textarea class="form-control" name="content" required></textarea>
+
+        <label>Size:</label>
+        <select name="size" class="form-select" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+         </select>
+        <label>Choose Color:</label>
+
+        {% for key, value in choose_color.choices  %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="choose_color" id="{{ key }}" value="{{ value }}">
+                <label class="form-check-label" for="{{ key }}">
+                    {{ value }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <label>product:</label>
+        <input type="file" name="product" class="form-control" accept="image/*"/>
+
+        <input class="btn btn-primary mt-4" type="submit" value="Product" />
+    </form>
+</section>
+{% endblock %}
