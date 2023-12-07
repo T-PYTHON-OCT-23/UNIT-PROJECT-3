@@ -1,0 +1,30 @@
+{% extends 'home/base.html' %}
+{% load static }
+{% block title %}
+<title>Login</title>
+{% endblock %}
+
+{% block body %}
+<section class="container">
+    <div class="row d-flex justify-content-center mt-5">
+            {% if msg %}
+            <div class="alert alert-danger" role="alert">
+                {{msg}}
+              </div>
+            {% endif %}
+        <div class="col-4">
+            <form action="{% url 'user:login_view' %}" method="POST">
+                {% csrf_token %}
+                <h2>Login:</h2>
+                <label>Username:</label>
+                <input type="text" name="username" class="form-control">
+                
+                <label>Password:</label>
+                <input type="text" name="password" class="form-control">
+
+                <input type="submit" class="btn btn-success form-control mt-2">
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}
