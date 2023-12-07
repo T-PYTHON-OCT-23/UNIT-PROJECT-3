@@ -18,6 +18,9 @@
           <li><a href="{% url 'hospitall:show_appointments' %}">مواعيدي</a></li>
           <li><a href="{% url 'hospitall:show_doctors' %}">الدكاتره المتوفرين</a></li>
           <li><a href="{% url 'hospitall:show_clinics' %}">العيادات المتوفرة</a></li>
+          {% if request.user.is_staff %}
+            <li><a href="{% url 'hospitall:create_clinic' %}">إضافة عيادة جديدة</a></li>
+          {% endif %}
           {% if request.user.is_authenticated %}
           <ul class="nav nav-pills">
             <li><a class="nav-link m-0">welcome, {{ request.user.username }}</a></li>

@@ -5,28 +5,37 @@
 {% block content %}
 <section class="container py-5">
     <h1 class="mb-4">حجز موعد</h1>
-    <form method="POST" class="row g-3" id="appointmentForm">
+
+    <form method="post" action="{% url 'hospitall:create_appointment' %}">
         {% csrf_token %}
-        <div class="col-12">
-            <label for="clinic" class="form-label">اختر العيادة</label>
-            <select name="doctor" class="form-select" id="clinicSelect">
-                {% for doctor in doctors %}
-                    <option value="{{ doctor.clinic.id }}" data-doctor-name="{{ doctor.user.username }}">{{ doctor.clinic.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="col-12">
-            <label for="doctor" class="form-label">اسم الطبيب</label>
-            <span id="selectedDoctor"></span>
-        </div>
-        <div class="col-12">
-            <label for="date" class="form-label">اختر التاريخ والوقت</label>
-            <input type="datetime-local" name="date" class="form-control">
-        </div>
-        <div class="col-12">
-            <input type="submit" value="حجز موعد" class="btn btn-primary">
-        </div>
+
+        <!-- Dropdown menu for selecting a clinic -->
+        <label for="clinic">اختر العيادة:</label>
+        <select name="clinic" id="clinicSelect">
+            {% for clinic in clinics %}
+                <option value="{{ clinic.id }}" data-doctor-name="{{ clinic.get_doctor_name }}">{{ clinic.name }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Display the selected doctor name -->
+        <p>الطبيب المختار: <span id="selectedDoctor"></span></p>
+
+        <!-- Dropdown menu for selecting a doctor -->
+        <label for="doctor">اختر الطبيب:</label>
+        <select name="doctor" id="doctor">
+            {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.user.username }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Date and time input -->
+        <label for="date">اختر التاريخ والساعة:</label>
+        <input type="datetime-local" name="date" id="date" required>
+
+        <input type="submit" value="حجز الموعد">
     </form>
+
+    <!-- Your existing HTML code -->
 
     <script>
         // Add event listener to update the selected doctor when clinic is changed

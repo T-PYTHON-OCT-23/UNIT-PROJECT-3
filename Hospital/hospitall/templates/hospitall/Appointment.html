@@ -12,15 +12,20 @@
                 <th scope="col">تاريخ الموعد</th>
             </tr>
         </thead>
-        <tbody>
-            {% for appointment in appointments %}
-                <tr>
-                    <td>{{ appointment.doctor.user.username }}</td>
-                    <td>{{ appointment.doctor.clinic.name }}</td>
-                    <td>{{ appointment.date }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
+<tbody>
+    {% for appointment in appointments %}
+        <tr>
+            <td>{{ appointment.doctor.user.username }}</td>
+            <td>
+                {% for clinic in appointment.doctor.clinics.all %}
+                    {{ clinic.name }}
+                    {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ appointment.date }}</td>
+        </tr>
+    {% endfor %}
+</tbody>
     </table>
 </section>
 {% endblock %}

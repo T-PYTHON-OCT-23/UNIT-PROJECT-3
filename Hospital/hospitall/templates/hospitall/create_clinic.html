@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+  <h2>إضافة عيادة جديدة</h2>
+  <form method="post">
+    {% csrf_token %}
+    <label for="clinic_name">اسم العيادة:</label><br>
+    <input type="text" id="clinic_name" name="clinic_name"><br>
+    <label for="doctor_user">اسم الطبيب:</label><br>
+    <select id="doctor_user" name="doctor_user">
+      {% for doctor in doctors %}
+        <option value="{{ doctor.user.id }}">{{ doctor.user.username }}</option>
+      {% endfor %}
+    </select><br>
+    <button type="submit">إضافة</button>
+  </form>
+  {% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+  {% endif %}
+{% endblock %}
+
+

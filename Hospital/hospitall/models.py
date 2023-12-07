@@ -8,7 +8,8 @@ class Clinic(models.Model):
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE)
+    clinics = models.ManyToManyField(Clinic)
+
 
     def __str__(self):
          return self.user.username
