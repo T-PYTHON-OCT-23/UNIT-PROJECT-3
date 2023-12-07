@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{%block title%} Stable Horses {%endblock%}
+
+{% block contant %}
+<section class="container">
+    <h1> All Stable Horses </h1>
+    <div class="row g-4 row-cols-1 row-cols-md-3">
+        {% for stable in stables %}
+            <div class="col">
+            
+                    <img class="imgStable" src="{{stable.img.url}}" />
+                    <a class="text-decoration-none" href="{% url 'horses:stable_details_view' stable.id %}" ><h3> {{stable.name}}</h3></a>
+                    <h3>{{stable.city}}</h3>
+                    <h5>{{stable.description}}</h5>
+                    <h3>{{stable.rating}} ★ </h3>
+            </div>
+
+
+
+        {%endfor%}
+
+           
+    </div>
+
+</section>
+
+{%endblock%}

@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{%block title%} Details Horses {%endblock%}
+
+{% block contant %}
+<img src="{{stable.img.url}}"/>
+<h1>{{stable.name}} </h1>
+<h5>{{stable.description}}</h5>
+<h4>{{stable.city}}</h4>
+<h3>{{stable.rating}} ★ </h3>
+
+{%endblock%}
