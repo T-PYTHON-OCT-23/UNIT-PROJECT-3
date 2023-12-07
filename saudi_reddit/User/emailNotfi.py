@@ -1,5 +1,8 @@
 
 from django.core.mail import send_mail
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 def send_notification(subject, message, recipient_list):
     """
@@ -13,7 +16,7 @@ def send_notification(subject, message, recipient_list):
     send_mail(
         subject,
         message,
-        'your@example.com',  # Replace with your sender email address
+        os.getenv("EMAIL_HOST_USER"),  
         recipient_list,
         fail_silently=False,
     )

@@ -1,12 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from Fourm.models import Post, Comment, Subreddit
-# Create your models here.
 
 class Profile(models.Model):
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', default=1)
     full_name = models.TextField(default='New_Redditor')
-    email = models.EmailField(blank=True)
+    email = models.EmailField(blank=True,unique=True)
     bio = models.TextField(blank=True)
     image = models.ImageField(upload_to='images/profiles/', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

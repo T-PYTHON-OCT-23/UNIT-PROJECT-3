@@ -1,40 +1,48 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Welcome to Saudi-Reddit</h1>
+  <div class="container mt-4">
+    <h1 class="text-center">Welcome to Saudi-Reddit</h1>
 
-  <div class="row mt-4">
-    <div class="col-md-4">
-      <h2>Top Subreddits</h2>
-      <ul>
-        {% for subreddit in top_subreddits %}
-          <li><a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}">{{ subreddit.name }}</a></li>
+    <div class="row mt-4">
+      <div class="col-md-4">
+        <h2>Top Subreddits</h2>
+        <ul class="list-group">
+          {% for subreddit in top_subreddits %}
+            <li class="list-group-item"><a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}">{{ subreddit.name }}</a></li>
+          {% endfor %}
+        </ul>
+        {% if user.is_authenticated %}
+          <a href="{% url 'subreddit:subreddit_create' %}" class="btn btn-primary mt-3">Create Subreddit</a>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4">
+        <h2>Top Posts</h2>
+        {% for post in top_posts %}
+          <div class="card mb-4">
+            <div class="card-body">
+              <h3 class="card-title"><a href="{% url 'Fourm:post_detail' post.id %}">{{ post.title }}</a></h3>
+              <p class="card-text">{{ post.content }}</p>
+              <p class="card-text">Author: {{post.author.full_name}}{{ post.author.username }} | Votes: {{ post.votes }}</p>
+              <a href="{% url 'Fourm:upvote_post' post.id %}" class="btn btn-success">Upvote</a>
+            </div>
+          </div>
         {% endfor %}
-      </ul>
-      <a href="{% url 'subreddit:subreddit_create' %}">Create Subreddit</a>
-    </div>
+      </div>
 
-    <div class="col-md-4">
-      <h2>Top Posts</h2>
-      {% for post in top_posts %}
-        <div class="post">
-          <h3><a href="{% url 'Fourm:post_detail' post.id %}">{{ post.title }}</a></h3>
-          <p>{{ post.content }}</p>
-          <p>Author: {{post.author.full_name}}{{ post.author.username }} | Votes: {{ post.votes }}</p>
-          <a href="{% url 'Fourm:upvote_post' post.id %}">Upvote</a>
-        </div>
-      {% endfor %}
-    </div>
-
-    <div class="col-md-4">
-      <h2>Top Comments</h2>
-      {% for comment in top_comments %}
-        <div class="comment">
-          <p>{{ comment.content }}</p>
-          <p>Author: {{ comment.author.username }} | Votes: {{ comment.votes }}</p>
-          <a href="{% url 'Fourm:upvote_comment' comment.id %}">Upvote</a>
-        </div>
-      {% endfor %}
+      <div class="col-md-4">
+        <h2>Top Comments</h2>
+        {% for comment in top_comments %}
+          <div class="card mb-4">
+            <div class="card-body">
+              <p class="card-text">{{ comment.content }}</p>
+              <p class="card-text">Author: {{ comment.author.username }} | Votes: {{ comment.votes }}</p>
+              <a href="{% url 'Fourm:upvote_comment' comment.id %}" class="btn btn-success">Upvote</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 {% endblock %}

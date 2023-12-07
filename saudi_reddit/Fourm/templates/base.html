@@ -14,8 +14,13 @@
             <ul>
                 <li><a href="{% url 'Fourm:index' %}">Home</a></li>
                 <!-- Add more navigation links as needed -->
-                <li><a href="{% url 'User:login' %}">Login</a></li>
-                <li><a href="{% url 'User:signup' %}">Sign up</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'User:profile' %}">{{request.user.profile.full_name}}</a></li>
+                    <li><a href="{% url 'User:logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'User:login' %}">Login</a></li>
+                    <li><a href="{% url 'User:signup' %}">Sign up</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
@@ -31,5 +36,85 @@
     <footer>
         <p>&copy; 2023 Saudi-Reddit. All rights reserved.</p>
     </footer>
+    <!-- Add these styles to the <style> section in your base.html -->
+
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa; /* Bootstrap background color */
+    }
+
+    header {
+        background-color: rgb(248, 102, 102); /* Bootstrap primary color */
+        color: #ffffff;
+        padding: 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center items horizontally */
+    }
+
+    nav {
+        background-color: #e9ecef; /* Bootstrap light gray color */
+        padding: 10px;
+        width: 100%; /* Make the nav take the full width of the container */
+        display: flex;
+        justify-content: center; /* Center items horizontally */
+    }
+
+    nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between; /* Space items evenly */
+        max-width: 600px; /* Set a max width for the nav links */
+        width: 100%; /* Make the ul take the full width */
+    }
+
+    nav ul li {
+        display: inline;
+    }
+
+    main {
+        padding: 20px;
+        background-color: #ffffff; /* White background for main content */
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    form button {
+        background-color: #007bff;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    footer {
+        background-color: #343a40; /* Bootstrap dark color */
+        color: #ffffff;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+
 </body>
 </html>

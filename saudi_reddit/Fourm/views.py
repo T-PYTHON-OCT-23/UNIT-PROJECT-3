@@ -3,10 +3,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Post, Comment
+from User.models import Profile
 
 def index(request):
     if request.user.is_authenticated:
-        posts = Post.objects.filter(Subreddit__in=request.user.profile.subreddit.all())
+        try:
+            subscribed_subreddits = request.user.profile.subreddit.all()
+            if subscribed_subreddits:
+                posts = Post.objects.filter(Subreddit__in=subscribed_subreddits)
+            else:
+                posts = Post.objects.all()
+        except Profile.DoesNotExist:
+            posts = Post.objects.all()  
+            print('Profile DoesNotExist')
     else:
         posts = Post.objects.all()
     return render(request, 'index.html', {'posts': posts})
