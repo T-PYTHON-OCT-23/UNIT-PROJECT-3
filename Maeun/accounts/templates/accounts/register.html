@@ -1,0 +1,89 @@
+{% extends "main/base.html" %}
+
+{% block title%} New register {% endblock %}
+
+{% block section %} New register {% endblock %}
+
+{% block content %}
+<form class="row g-3 needs-validation" action="{% url 'accounts:register_user_view' %}" method="post" novalidate>
+    {% csrf_token %}
+    <div class="col-md-4 position-relative">
+      <label for="validationTooltip01" class="form-label">First name</label>
+      <input type="text" class="form-control" id="validationTooltip01" value="Mark" required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-4 position-relative">
+      <label for="validationTooltip02" class="form-label">Last name</label>
+      <input type="text" class="form-control" id="validationTooltip02" value="Otto" required>
+      <div class="valid-tooltip">
+        Looks good!
+      </div>
+    </div>
+    <div class="col-md-4 position-relative">
+      <label for="validationTooltipUsername" class="form-label">Username</label>
+      <div class="input-group has-validation">
+        <span class="input-group-text" id="validationTooltipUsernamePrepend">@</span>
+        <input type="text" class="form-control" id="validationTooltipUsername" aria-describedby="validationTooltipUsernamePrepend" required>
+        <div class="invalid-tooltip">
+          Please choose a unique and valid username.
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 position-relative">
+      <label for="validationTooltip03" class="form-label">Password</label>
+      <input type="password" class="form-control" id="validationTooltip03" required>
+      <div class="invalid-tooltip">
+        Please provide a valid password.
+      </div>
+    </div>
+    <div class="col-md-6 position-relative">
+        <label for="validationTooltip03" class="form-label">Email</label>
+        <input type="email" class="form-control" id="validationTooltip03" required>
+        <div class="invalid-tooltip">
+          Please provide a valid email .
+        </div>
+      </div>
+      <div class="col-md-6 position-relative">
+        <label for="validationTooltip03" class="form-label">phone number</label>
+        <input type="phone" class="form-control" id="validationTooltip03" required>
+        <div class="invalid-tooltip">
+          Please provide a valid phone number .
+        </div>
+      </div>
+
+      {% for key, value in cities.choices %}
+      <div class="form-check">
+          <input class="form-check-input" type="radio" name="city" id="{{key}}" value="{{value}}" required>
+          <label class="form-check-label" for="{{key}}">
+          {{value}}
+          </label>
+      </div>
+  {% endfor %}
+
+    <div class="col-md-3 position-relative">
+      <label for="validationTooltip04" class="form-label">City</label>
+      <select class="form-select" id="validationTooltip04" required>
+        <option selected disabled value="">Choose...</option>
+        <option>Riyadh</option>
+        <option>Jeddah</option>
+        <option>Dammam</option>
+
+      </select>
+      <div class="invalid-tooltip">
+        Please select a valid City.
+      </div>
+    </div>
+    <div class="col-md-3 position-relative">
+      <label for="validationTooltip05" class="form-label">Zip</label>
+      <input type="text" class="form-control" id="validationTooltip05" required>
+      <div class="invalid-tooltip">
+        Please provide a valid zip.
+      </div>
+    </div>
+    <div class="col-12">
+      <button class="btn btn-primary" type="submit">Submit form</button>
+    </div>
+  </form>
+{% endblock %}

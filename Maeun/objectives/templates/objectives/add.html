@@ -1,0 +1,44 @@
+{%extends "main/base.html"%}
+
+{% block title%} Add Objective {% endblock %}
+
+{% block section %} Add Objectives {% endblock %}
+{% block content %}
+<div class="container"> 
+    <div class="row">
+
+        <div class="col-9">
+            <form action="{% url 'objectives:add_view' %}" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <div class="form-floating mb-3">
+                    <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com" >
+                    <label for="floatingInputDisabled">Name objective</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaDisabled" ></textarea>
+                    <label for="floatingTextareaDisabled">description objective </label>
+                </div>
+                <div class="form-floating">
+                    <select class="form-select" id="floatingSelectDisabled" aria-label="Floating label disabled select example" >
+                    <option selected>Category</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    </select>
+                    <label for="floatingSelectDisabled">Works with selects</label>
+                </div>
+
+
+                <div class="pt-3">
+                    <h6> poster uplode</h6>
+                    <input type="file" name="poster"  class="form-control" accept="image/*"/>
+                </div>
+
+                <input class="btn btn-primary mt-3" type="submit" value="Add objective" />
+
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
