@@ -13,18 +13,7 @@
         <label for="clinic">اختر العيادة:</label>
         <select name="clinic" id="clinicSelect">
             {% for clinic in clinics %}
-                <option value="{{ clinic.id }}" data-doctor-name="{{ clinic.get_doctor_name }}">{{ clinic.name }}</option>
-            {% endfor %}
-        </select>
-
-        <!-- Display the selected doctor name -->
-        <p>الطبيب المختار: <span id="selectedDoctor"></span></p>
-
-        <!-- Dropdown menu for selecting a doctor -->
-        <label for="doctor">اختر الطبيب:</label>
-        <select name="doctor" id="doctor">
-            {% for doctor in doctors %}
-                <option value="{{ doctor.id }}">{{ doctor.user.username }}</option>
+                <option value="{{ clinic.id }}">{{ clinic.name }}</option>
             {% endfor %}
         </select>
 
@@ -34,16 +23,5 @@
 
         <input type="submit" value="حجز الموعد">
     </form>
-
-    <!-- Your existing HTML code -->
-
-    <script>
-        // Add event listener to update the selected doctor when clinic is changed
-        document.getElementById('clinicSelect').addEventListener('change', function () {
-            var selectedOption = this.options[this.selectedIndex];
-            var doctorName = selectedOption.getAttribute('data-doctor-name');
-            document.getElementById('selectedDoctor').innerText = doctorName;
-        });
-    </script>
 </section>
 {% endblock %}

@@ -16,8 +16,6 @@ from django.shortcuts import render
 from .models import Appointment
 
 
-# Create your views here.
-
 def clinic_detail_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
     return render(request, 'hospitall/clinic_detail.html', {'clinic': clinic})
@@ -42,16 +40,21 @@ def show_appointments(request):
 @login_required
 def create_appointment(request):
     if request.method == "POST":
-        doctor_id = request.POST["doctor"]
-        doctor = Doctor.objects.get(id=doctor_id)
+        clinic_id = request.POST["clinic"]
+        clinic = Clinic.objects.get(id=clinic_id)
         date = request.POST["date"]
-        appointment = Appointment(user=request.user, doctor=doctor, date=date)
-        appointment.save()
-        return redirect('hospitall:show_appointments')
+
+        doctor = Doctor.objects.filter(clinics=clinic).first()
+
+        if doctor is not None:
+            appointment = Appointment(user=request.user, doctor=doctor, date=date)
+            appointment.save()
+            return redirect('hospitall:show_appointments')
+        else:
+            return render(request, 'hospitall/create_appointment.html', {'error': 'No doctor found for the selected clinic.'})
     else:
-        doctors = Doctor.objects.all()  # Corrected variable name
         clinics = Clinic.objects.all()
-        return render(request, 'hospitall/create_appointment.html', {'doctors': doctors, 'clinics': clinics})
+        return render(request, 'hospitall/create_appointment.html', {'clinics': clinics})
 
 def is_staff(user):
     return user.is_staff
@@ -73,12 +76,8 @@ def create_clinic(request):
         clinic_name = request.POST["clinic_name"]
         doctor_user_id = request.POST["doctor_user"]
         doctor_user = User.objects.get(id=doctor_user_id)
-
-        # إنشاء كائن Clinic جديد وحفظه في قاعدة البيانات
         clinic = Clinic(name=clinic_name)
         clinic.save()
-
-        # جلب كائن Doctor الموجود أو إنشاء واحد جديد وحفظه في قاعدة البيانات
         doctor, created = Doctor.objects.get_or_create(user=doctor_user)
         doctor.clinics.add(clinic)
 
@@ -86,4 +85,10 @@ def create_clinic(request):
     else:
         doctors = Doctor.objects.all()
         return render(request, 'hospitall/create_clinic.html', {'doctors': doctors})
+    login_required
+def delete_appointment(request, appointment_id):
+    appointment = get_object_or_404(Appointment, id=appointment_id)
+    if request.user == appointment.user:
+        appointment.delete()
+    return redirect('hospitall:show_appointments')
     
