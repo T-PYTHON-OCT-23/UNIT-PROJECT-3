@@ -1,0 +1,68 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}  login  {% endblock %}
+
+
+{% block content %}
+
+{% if msg %}
+<div class="alert alert-danger" role="alert"> {{msg}} </div>
+{% endif %}
+
+
+
+
+<section class="container">
+    <div class="row">
+
+        <div class="col">
+            
+<section class="text-center">
+  
+    <div class="card mx-4 mx-md-5 shadow-5-strong" style="margin-top: -100px;background: hsla(0, 0%, 100%, 0.8);backdrop-filter: blur(30px);">
+      <div class="card-body py-5 px-md-5">
+  
+        <div class="row d-flex justify-content-center">
+          <div class="col-lg-10">
+            <h2 class="fw-bold mb-5">login: </h2>
+             <form class="d-flex flex-column gap-1" style="width: 40vw;" action="{% url 'account:login_view' %}" method="POST">
+              {% csrf_token %}
+              <div class="row">
+
+                  <div class="form-outline ">
+                    <input type="text" id="form3Example1" class="form-control" name="username" />
+                    <label class="form-label" for="form3Example1">username</label>
+                  </div>
+      
+              <!-- Password input -->
+              <div class="form-outline mb-4">
+                <input type="password" id="form3Example4" class="form-control" name="password"/>
+                <label class="form-label" for="form3Example4">Password</label>
+              </div>
+  
+   
+  
+              <!-- Submit button -->
+              <input class="btn btn-primary" type="submit" value="Sing Up" />
+
+              <!-- Register buttons -->
+              <div class="text-center">
+                <p>or <a href="{% url 'account:register_view' %}"> sign up</a> :</p>
+             
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
