@@ -1,0 +1,58 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Contact Us {% endblock %}
+{% block content  %}
+
+   
+<div class = "container content d-flex flex-column align-items-center">
+        <div class = "row">
+            <h1> Contact US</h1>
+        </div>
+        <div class = "row d-flex flex-column align-items-center">
+            <form action="{% url 'main:contact' %}" method="POST">
+
+                {% csrf_token %}
+
+            <label>Fisrt Name:</label>
+            <input class="form-control " type="text" name="first_name"  />
+
+            <label>Last Name:</label>
+            <input class="form-control " type="text" name="last_name"  />
+    
+            <label>Email:</label>
+            <input class="form-control" type="email" name="email" required minlength="3" />
+
+            <label>Contact Number:</label> 
+            <input class="form-control " type = "tel" pattern = "\d{10}\"  placeholder = "05********" /> 
+
+            <label>Request Type::</label>
+                <select name="rating" class="form-select" required>
+                    <option value="suggestions">Suggestions</option>
+                    <option value="complaints">Complaints</option>
+                    <option value="inquiry">Inquiry</option>
+                    <option value="report">Report</option>
+                </select>
+
+                <p><label>Comments:</label>
+                <textarea class="form-control " name = "comments" rows = "3" cols="50" >Message</textarea></label></p>
+
+                <label>What do you think about our site:</label>
+                <select name="rating" class="form-select" required>
+                    <option value="veryGood">Very Good</option>
+                    <option value="good">Good</option>
+                    <option value="unsatisfactory">Unsatisfactory</option>
+                </select>
+
+                <input type = "submit" value = "Submit" onclick = "alert('Thank you..your information has been submited !!')">
+            </form>
+
+
+        </div>
+
+</div>
+
+
+
+
+{% endblock %}

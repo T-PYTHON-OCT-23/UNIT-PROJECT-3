@@ -6,3 +6,11 @@ def homePage(request : HttpRequest):
 
     return render(request ,"main/homePage.html")
 
+def contact(request : HttpRequest):
+
+    return render(request ,"main/contact.html")
+
+def about(request : HttpRequest):
+
+    return render(request ,"main/about.html")
+
