@@ -1,4 +1,24 @@
 {% extends 'main/base.html' %}
 
 
-{% block content %}  {% endblock %}
+{% block content %} 
+
+<section class="container">
+    <div class="row rounded border border-black shadow">
+        <div class="col justify-conten-between">
+            {{ flight.departure_time}}
+
+            <div>
+                flightـduration <br>
+                -------- <span class="material-symbols-outlined">flight_takeoff</span> --------
+            </div>
+
+            {{ flight.arrival_time}}
+            <a href="#"> <button class="btn btn-primary"> Reservation </button> </a>
+
+        </div>
+       
+    </div>
+</section>
+
+{% endblock %}

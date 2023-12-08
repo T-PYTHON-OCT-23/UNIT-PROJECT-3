@@ -13,18 +13,22 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{% url 'main:home_view' %}"> <img class="d-flex justify-content-start rounded-circle" style="position: relative; width: 12%; height: auto;" src="{% static 'images/logo.png' %}" /> </a>
+  <!-- <a class="navbar-brand" href="{% url 'main:home_view' %}"> <img class="d-flex rounded-circle" style="position: relative; width: 12%; height: auto;" src="{% static 'images/logo.png' %}" /> </a> -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'main:home_view' %}">Home </a>
+    <ul class="navbar-nav mr-auto" >
+      <li class="nav-item active " >
+        <a class="nav-link"  href="{% url 'main:home_view' %}">Home </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'main:booking_trip_view' %}">Booking</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'main:add_trip_view' %}">Add Trip</a>
       </li>
 
       
@@ -39,7 +43,7 @@
       </li>
         <div class="d-flex flex-row algin-items-center">
             <li class="nav-item">
-                <a class="nav-link " href="#"><span class="material-symbols-outlined">account_circle </span><br> sign in </a>
+                <a class="nav-link " href="{% url 'account:register_view' %}"><span class="material-symbols-outlined">account_circle </span><br> sign in </a>
             </li>
         </div>
 
