@@ -17,15 +17,24 @@
         <div class="container">
           <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <a href="{% url 'main:homePage' %}" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-              <img  id= "logo" src="/static/image/logoServices.jpg" alt="logo" />
+              <img  id= "logo" src="/static/image/baytak.JPG" alt="logo" />
             </a>
     
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
               <li><a href="{% url 'services:addServices' %}" class="nav-link px-2 link-secondary">Add Service</a></li>
-              <li><a href="{% url 'services:viewServices' %}?category=Electrician and Plumber" class="nav-link px-2 link-body-emphasis">Electrician and Plumber</a></li>
-              <li><a href="{% url 'services:viewServices' %}?category=Clining" class="nav-link px-2 link-body-emphasis">Clining</a></li>
+              <li class="nav-item dropdown">
+                <a class="  nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Electrician and Plumber">Electrician and Plumber</a></li>
+                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Clining">Clining</a></li>
+                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Clining">Horror</a></li>
+                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Clining">Horror</a></li>
+                </ul>
+              </li>
+              
               <li><a href="{% url 'main:about' %}" class="nav-link px-2 link-body-emphasis">About Us</a></li>
               <li><a href="{% url 'main:contact' %}" class="nav-link px-2 link-body-emphasis">Contact Us</a></li>
+              <li><a href="{% url 'accounts:loginUser' %}" class="nav-link px-2 link-body-emphasis">Login</a></li>
             </ul>
     
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -47,6 +56,8 @@
           </div>
         </div>
       </header>
+
+      
 
       {% block content %}
 

@@ -4,20 +4,24 @@
 
 
 {% block content %}
-
+<div class = "wrapper pages-content">
 <div class = "container">
 
-    <div class="row">
-        <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
-        <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
-        <h1>{{ user.first_name }} {{ user.last_name }} </h1>
-        <h1>{{ user.username}}</h1>
+    <div class="row content d-flex flex-column align-items-center">
+        
+        <img class="avatar" src="{{ user.profile.avatar.url }}" />
+        <label>Name:</label>
+        <h4>{{ user.first_name }} {{ user.last_name }}</h4>
+        <label>Email:</label>
+        <h4>{{ user.email }}</h4>
+        <label>City:</label>
         <h1>{{ user.profile.city}}</h1>
+        <label>Mobile Number:</label>
         <h1>{{ user.profile.mobileNumber}}</h1>
-        <a href="{% url 'accounts:updateProfile' %}" class="btn btn-primary">Update</a>
+        <a href="{% url 'accounts:updateProfile' %}" class="btn btn-dark mt-3">Update</a>
     </div>
 
 
 </div>
-
+</div>
 {% endblock %}

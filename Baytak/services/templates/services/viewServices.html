@@ -3,22 +3,24 @@
 {% block title %} view{{service.category}}  {% endblock %}
 
 {% block content %}
-
-<div class="container">
-
-    <div class = "row d-flexflex-column">
-    {%for service in service%}
-    <h1>{{service.category}} </h1>
-    <div class = "row d-flexflex-column">
-        <a href="{% url 'services:serviceDetails' service.id %}">{{service.name}}</a>
+<div class = "wrapper pages-content">
+<div class="container content ">
+    <h1 class ="centerWord mb-4 mt-5">Service providers</h1>
+    <div class = "row">
+    <div class = "col-4 d-flex flex-column align-items-center mb-5">
+        {%for service in service%}
+        <img src="/static/image/cleanIcon.jpeg" class="icons" alt="CleanIcon">
+        <h3 class = "mb-1">{{service.name}}</h3>
         {{service.address}}
-        <input class="btn btn-dark mt-3" type="submit" value="Order" />
+        <a href="{% url 'services:serviceDetails' service.id %}" class="btn btn-dark text-center mb-5 ">Discover More</a>
+        {% endfor %}
+      </div>
     </div>
-    {% endfor %}
-</div>
+
+    
 
 
 
 </div>
-
+</div>
 {% endblock %}

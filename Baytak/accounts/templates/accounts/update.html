@@ -4,8 +4,8 @@
 
 
 {% block content %}
-
-<section class="container ">
+<div class = "wrapper pages-content">
+<section class="container content d-flex flex-column align-items-center ">
     <h1>Update your profile</h1>
 
     {% if message %}
@@ -15,7 +15,7 @@
     {% endif %}
     <div class="row">
     
-        <div class="col-6">
+        <div class="col">
 
             <form class="d-flex flex-column gap-1" action="{% url 'accounts:updateProfile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -41,7 +41,7 @@
                 <input class="form-control" type="text" name="mobileNumber" required minlength="3" value="{{ request.user.profile.email }}"/>
                 
 
-                <input class="btn btn-primary" type="submit" value="Update profile" />
+                <input class="btn btn-dark mt-3 mb-3" type="submit" value="Update profile" />
             </form>
 
         </div>
@@ -49,5 +49,6 @@
     </div>
 
 </section>
+</div>
 
 {% endblock %}

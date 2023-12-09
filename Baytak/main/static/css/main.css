@@ -5,7 +5,7 @@
 
 #logo{
     width: 100px;
-    height: 80px;
+    height: 60px;
     
 }
 .wrapper {
@@ -34,6 +34,8 @@
     background-color:rgba(255, 255, 255, 0.824);
     border-radius: 15px;
     text-align: center;
+    box-shadow: 100px;
+   
 }
  
 .centerWord{
@@ -49,14 +51,19 @@
 }
 
 .back{
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.749);
+    border-radius: 15px;
+    
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 100px;
 }
 
 .backh1{
     color: white;
 }
 
-p h1 h2 h3 h4 h5 h6 {
+p {
     font-family: 'Barlow Condensed', sans-serif;
 font-family: 'Libre Baskerville', serif;
 font-family: 'Open Sans', sans-serif;
@@ -64,5 +71,17 @@ font-family: 'Phudu', sans-serif;
 font-family: 'Playfair Display', serif;
 font-family: 'Roboto Slab', serif;
 font-family: 'Ubuntu', sans-serif;
-color: blue;
+font-size: 20px;
+}
+.nav-item{
+    color: black;
+}
+.avatar{
+width: 10px;
+height: 100px;
+}
+.imgProfile{
+    width: 20px;
+    height: 20px;
+
 }

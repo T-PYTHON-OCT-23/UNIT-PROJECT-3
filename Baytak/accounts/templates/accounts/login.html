@@ -3,9 +3,11 @@
 {% block title %} Register New User {% endblock %}
 
 {% block content %}
-<h1>Sign In </h1>
+<div class = "wrapper pages-content">
 
-    <div class="row">
+
+    <div class="row content d-flex flex-column align-items-center ">
+        <h1>Sign In </h1>
         {% if message %}
         <div class="alert alert-danger" role="alert">
         {{ message }}
@@ -32,6 +34,6 @@
         </div>
 
     </div>
-
+</div>
 
 {% endblock %}
