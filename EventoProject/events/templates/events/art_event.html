@@ -23,6 +23,16 @@
                         <li><a class="dropdown-item" href="{% url 'events:delete_event_view' art_event.id %}">Delete event</a></li>
                     </ul>
                 </div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <h5>Book Your Tickets Now!</h5>
+                    <div class="warpper border border-secondary text-center">
+                        <h6>Quantity</h6>
+                        <span class="minus">-</span>
+                        <span class="num">1</span>
+                        <span class="plus">+</span>
+                    </div>
+                    <button class="btn btn-primary" type="button">Book</button>
+                  </div>
 
             {% endfor %}
 
