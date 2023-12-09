@@ -18,7 +18,12 @@ from .models import Appointment
 
 def clinic_detail_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
-    return render(request, 'hospitall/clinic_detail.html', {'clinic': clinic})
+    if clinic.name == "عيادة الاسنان":  # check the clinic name
+        info = "وضع الزرع هو إجراء جراحي تحت التخدير الموضعي، يبدأ الجراح بعمل شق في الغشاء المخاطي للوصول إلى عظم الفك، سيقوم بعد ذلك بحفر التجاويف التي تتلاءم مع الغرسة (الغرسات)، سيتم ثني الغرسات في هذه التجاويف ثم يقوم الممارس بإغلاق اللثة عن طريق إجراء غرز، والتي سيمتصها الجسم في الأسابيع التالية. التدخل بسيط للغاية، ولكن لا يزال من الممكن أن يكون له عواقب طفيفة غير سارة أكثر أو أقل، وبالتالي يمكن أن يؤدي إلى تورم طفيف في الوجه ويسبب ألمًا طفيفًا."
+    else:
+        info = ""  # no additional info for other clinics
+    return render(request, 'hospitall/clinic_detail.html', {'clinic': clinic, 'info': info})
+
 
 def show_clinics(request):
     clinics = Clinic.objects.all()
@@ -77,9 +82,10 @@ def clinic_view(request, clinic_id):
 def create_clinic(request):
     if request.method == "POST":
         clinic_name = request.POST["clinic_name"]
+        clinic_image = request.FILES["clinic_image"]  # handle the uploaded image
         doctor_user_id = request.POST["doctor_user"]
         doctor_user = User.objects.get(id=doctor_user_id)
-        clinic = Clinic(name=clinic_name)
+        clinic = Clinic(name=clinic_name, image=clinic_image)  # include the image
         clinic.save()
         doctor, created = Doctor.objects.get_or_create(user=doctor_user)
         doctor.clinics.add(clinic)
@@ -88,6 +94,7 @@ def create_clinic(request):
     else:
         doctors = Doctor.objects.all()
         return render(request, 'hospitall/create_clinic.html', {'doctors': doctors})
+
     login_required
 def delete_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)

@@ -1,14 +1,7 @@
 {% extends 'main/base.html' %}
-{% block title%} تفاصيل العيادة {%endblock%}
 
 {% block content %}
-<section class="container">
-    <h1>{{ clinic.name }}</h1>
-    <h2>الأطباء:</h2>
-    <ul>
-        {% for doctor in clinic.doctor_set.all %}
-            <li>{{ doctor.user.username }}</li>
-        {% endfor %}
-    </ul>
-</section>
+<h2>{{ clinic.name }}</h2>
+<img src="{{ clinic.image.url }}" alt="{{ clinic.name }}">
+<p>{{ info }}</p>  <!-- display the info -->
 {% endblock %}

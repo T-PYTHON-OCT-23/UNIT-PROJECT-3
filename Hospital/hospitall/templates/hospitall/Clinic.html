@@ -1,7 +1,27 @@
 {% extends 'main/base.html' %}
-{% block title%} عرض العيادات {%endblock%}
 
 {% block content %}
+<style>
+    .list-group-item {
+        transition: all 0.3s ease;
+    }
+
+    .list-group-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .list-group-item .text-muted {
+        font-size: 0.8rem;
+    }
+
+    .clinic-image {
+        max-width: 100%;
+        max-height: 200px;
+        width: auto;
+        height: auto;
+    }
+</style>
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -9,14 +29,14 @@
                 {% for clinic in clinics %}
                     <a href="{% url 'hospitall:clinic_detail_view' clinic.id %}" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
+                            <img class="clinic-image" src="{{ clinic.image.url }}" alt="{{ clinic.name }}">  <!-- display the image -->
                             <h5 class="mb-1">{{ clinic.name }}</h5>
+                            <small class="text-muted">اضغط لمشاهدة التفاصيل</small>
                         </div>
-                        <p class="mb-1">اضغط لمشاهدة التفاصيل</p>
                     </a>
                 {% endfor %}
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}

@@ -3,8 +3,10 @@ from django.contrib.auth.models import User
 
 class Clinic(models.Model):    
     name = models.CharField(max_length=255)
+    image = models.ImageField(upload_to='clinics/', default='images/default.jpg')  # new field
     def __str__(self):
         return self.name
+
 
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
