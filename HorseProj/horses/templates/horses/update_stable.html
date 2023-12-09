@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block contant %}
+
+<div class="container-add">
+    <h1>Update {{stable.name}}:</h1>
+    <br>
+    <div class="row">
+        <div class="col-8">
+            <form action="{% url 'horses:update_stable_views' stable.id %}"method="POST">
+                {% csrf_token %}
+              
+                <label> Name Stable</label>
+                <input class="form-control" name="name" type="text" required minlength="4"/>
+                
+                <label>Image Stable</label>
+                <input class="form-control" name="img" type="file"  accept="image/*"/>
+
+                <label>City</label>
+                <input class="form-control" name="city" type="text" required minlength="4"/>
+
+                <label>Description</label>
+                <input class="form-control" name="description" type="text" required minlength="25"/>
+
+                <label>Rating Stable</label>
+                <select name="rating" class="form-select" required>
+                    <option value="1">★</option>
+                    <option value="2">★★</option>
+                    <option value="3">★★★</option>
+                    <option value="4">★★★★</option>
+                    <option value="5">★★★★★</option>
+                </select>
+
+                <input class="btn btn-primary" type="submit" value="Update" />
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+{%endblock%}

@@ -2,17 +2,30 @@ from django.shortcuts import render ,redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
+from django.db import IntegrityError
 # Create your views here.
 
 
 def register_views(request:HttpRequest):
-
+    msg=None
     if request.method == "POST":
-        user= User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
-        user.save()
-        return redirect("users:login_views")
-    
-    return render(request,"users/register.html")
+        try:
+            user= User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
+            user.save()
+            return redirect("users:login_views")
+        
+        except IntegrityError as e:
+            # Handle IntegrityError for email uniqueness
+            if 'unique constraint' in str(e).lower() and 'email' in str(e).lower():
+                msg = "Email address must be unique. Please choose another email."
+            else:
+                msg = "Username must be unique. Please choose another username."
+
+        except Exception as e:
+            # Handle other exceptions
+            msg = "Something went wrong. Please try again."
+
+    return render(request,"users/register.html",{"msg":msg})
 
 def login_views(request:HttpRequest):
 
@@ -36,3 +49,23 @@ def logout_views(request:HttpRequest):
         logout(request)    
 
     return redirect("users:login_views")
+
+
+def update_profile_view(request: HttpRequest, user_id):
+
+    
+    return render (request, "users/update_profile.html")
+
+
+def user_profile_view(request: HttpRequest, user_id):
+
+    try:
+        
+        user = User.objects.get(id=user_id)
+
+    except Exception as e :
+        print(e)
+       
+    
+
+    return render(request, 'usres/profile.html', {"user":user})

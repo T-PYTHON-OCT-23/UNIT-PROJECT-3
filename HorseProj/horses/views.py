@@ -38,5 +38,27 @@ def add_services_view(request:HttpRequest,stable_id):
         return redirect("horses:stable_details_view", stable_id=stable.id)
     return render (request, "horses/add_services.html")
      
+    
+def delete_stable_views(request:HttpRequest, stable_id):
+    stable= StableHorses.objects.get(id=stable_id)
+    stable.delete()
+
+    return redirect( "horses:home_stable_view")
+
+def update_stable_views(request:HttpRequest,stable_id):
+    stable= StableHorses.objects.get(id=stable_id)
+
+    if request.method=="POST":
+        stable.name=request.POST["name"]
+        stable.city=request.POST["city"]
+        stable.description=request.POST["description"]
+        stable.rating=request.POST["rating"]
+        stable.img=request.FILES["img"]
+        stable.save()
+
+        return redirect("horses:stable_details_view",stable_id=stable.id)
+    
+    return render(request,"horses/update_stable.html",{"stable":stable})
+
 
 

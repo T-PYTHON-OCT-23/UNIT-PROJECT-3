@@ -2,28 +2,34 @@
 
 {% block contant %}
 
-   <section class="container">
-        <h1>Sign Up New User : </h1>
-        <div class="row">
-            <div class="col-4">
-                <form class="d-flex flex-column gap-2" action="{% url 'users:register_views' %}" method="post">
-                    {% csrf_token %}
-                    <input class="form-control" type="text" required minlength="3" name="first_name" placeholder="Frist Name" />
-                    <input class="form-control" type="text"  required minlength="3" name="last_name" placeholder="Last Name" />
-                    <input class="form-control" type="text" required minlength="3" name="username" placeholder="Username" />
-                    <input class="form-control" type="email"required minlength="9" name="email" placeholder="Email" />
-                    <input class="form-control" type="password" required minlength="8"name="password" placeholder="Password" />
+<section class="container">
+    <h1>Sign Up New User : </h1>
 
-                    <input class="btn btn-secondary" type="submit" value="Sing Up"/>
+    {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-4">
+            <form class="d-flex flex-column gap-2" action="{% url 'users:register_views' %}" method="post">
+                {% csrf_token %}
+                <input class="form-control" type="text" required minlength="3" name="first_name" placeholder="Frist Name" />
+                <input class="form-control" type="text"  required minlength="3" name="last_name" placeholder="Last Name" />
+                <input class="form-control" type="text" required minlength="3" name="username" placeholder="Username" />
+                <input class="form-control" type="email"required minlength="9" name="email" placeholder="Email" />
+                <input class="form-control" type="password" required minlength="8"name="password" placeholder="Password" />
 
-                </form>
-                
-            <h5>You have an account please <a href="{% url 'users:login_views' %}">Login</a>.</h5>
-            </div>
+                <input class="btn btn-secondary" type="submit" value="Sing Up"/>
 
+            </form>
+            
+        <h5>You have an account please <a href="{% url 'users:login_views' %}">Login</a>.</h5>
         </div>
 
-   </section>
+    </div>
+
+</section>
 
 
 

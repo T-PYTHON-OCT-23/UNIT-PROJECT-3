@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{%block title%} Details Horses {%endblock%}
+
+{% block contant %}
+<div class="container5">
+  <div class="row">
+    <div class="col">
+      <img src="{{store.img.url}}"/>
+      <h1>{{store.name}} </h1>
+      <h5>{{store.location}}</h5>
+      <h4>{{store.work_time}}</h4>
+      <h3>{{store.rating}} ★ </h3>
+    </div>
+
+  </div>
+  
+</div>
+
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Edit Store
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="#">delete Store </a></li>
+      <li><a class="dropdown-item" href="#">Update Store</a></li>
+     
+    </ul>
+  </div>
+  
+  <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Edit Menu 
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Add Menu</a></li>
+        <li><a class="dropdown-item" href="#">Update Menu</a></li>
+        <li><a class="dropdown-item" href="#">delete Menu</a></li>
+      </ul>
+    </div>
+
+{%endblock%}

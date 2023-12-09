@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{%block title%} All Store {%endblock%}
+
+{% block contant %}
+<section class="container">
+    <h1> All Store </h1>
+    <div class="row g-4 row-cols-1 row-cols-md-3">
+        {% for store in stores %}
+            <div class="col">
+               <div class="d-flex flex-column gap-2 p-10 border border-1 rounded-4 h-100 justify-content-start">
+            
+                    <img class="imgStable" src="{{store.img.url}}" />
+                    <a class="text-decoration-none" href="{% url 'horses:stable_details_view' stable.id %}" ><h3> {{store.name}}</h3></a>
+                    <h3>{{store.location}}</h3>
+                    <h5>{{store.work_time}}</h5>
+                    <h3>{{store.rating}} ★ </h3>
+                </div>
+            </div>
+
+
+        {%endfor%}
+
+                 
+    </div>
+
+</section>
+
+{%endblock%}
