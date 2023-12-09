@@ -10,4 +10,32 @@
 <h4>{{stable.city}}</h4>
 <h3>{{stable.rating}} ★ </h3>
 
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Add 
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'horses:add_services_view' stable.id %}"> Add Service </a></li>
+      <li><a class="dropdown-item" href="#">Another action</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+  </div>
+
+{% if services.count > 0 %}
+    <section class="row">
+        <h3> services ({{services.count}}): </h3>
+        <div class="col-4">
+            {% for service in services %}
+                <h2>{{services.name_Servic}}</h2>
+                <h5>{{services.description_Servic}}</h5>
+                <h3>{{services.duration_service}}</h3>
+                <h3>{{services.price}}</h3>
+
+            {%endfor%}
+
+        </div>
+    </section>
+{% endif %}
 {%endblock%}
+

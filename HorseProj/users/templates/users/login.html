@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+
+{% block contant %}
+
+<section class="container">
+    <h1>Login: </h1>
+    <div class="row">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+          </div>
+        {% endif %}
+        <div class="col-5">
+            <form action="{% url 'users:login_views' %}" method="post">
+                {% csrf_token %}
+                <input class="form-control" type="text" required minlength="3" name="username" placeholder="Username" />
+                <input class="form-control" type="password" required minlength="8" name="password" placeholder="Password" />
+
+                <input class="btn btn-secondary" type="submit" value="Login"/>
+
+            </form>
+            <h5>You don't have an account  <a href="{% url 'users:register_views' %}">Sign up</a>.</h5>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+{%endblock%}
