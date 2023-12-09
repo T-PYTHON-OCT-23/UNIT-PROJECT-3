@@ -18,7 +18,7 @@ def add_event_view(request: HttpRequest):
 
 
 def events_home_view(request: HttpRequest):
-    events = Event.objects.all()
+    events = Event.objects.all().order_by("posting_date")
     return render(request, "events/events_home.html", {"events" : events})
 
 

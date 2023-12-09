@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 class Event(models.Model):
 
-    categories = models.TextChoices("Categories", ["Art", "Healthcare", "Technology", "Entertainment"])
+    categories = models.TextChoices("Categories", ["Art", "Technology", "Entertainment","Exclusive"])
 
     title = models.CharField(max_length=2010)
     content = models.TextField()
