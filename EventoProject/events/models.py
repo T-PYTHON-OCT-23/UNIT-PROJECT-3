@@ -13,3 +13,5 @@ class Event(models.Model):
     category = models.CharField(max_length=100, choices=categories.choices)
     image = models.ImageField(upload_to="images/", default="images/default.jpg")
 
+
+
