@@ -15,9 +15,9 @@
         <div class="col">
             <div class="d-flex flex-column gap-2 p-2 border border-1 rounded-4 shadow h-100">
                 <div class="card-body gap-2 p-3 border border-3 rounded-4  shadow h-80  ">
-                    <img src="{{products.product.url}}" />
-                    <a href="{% url 'products:display_products_view' products.id %}"><h2 >{{ products.name }}</h2></a>
-                    <h6>{{products.choose_co }}</h6>
+                    <img src="{{products.product.url}}" height="200px" width="290px"  />
+                    <a href="{% url 'products:detail_view' products.id %}"><h2 >{{ products.name }}</h2></a>
+                    <h6> {{products.choose_product}}</h6>
                     <h5>size:{{ products.size}}</h5>
                 </div>
             </div>

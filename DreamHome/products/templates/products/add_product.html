@@ -7,10 +7,11 @@
 <section class="container">
 
     <h1>Add New Products</h1>
+    <div class="row">
 
     <div class="col-6">
 
-    <form action="{% url 'products:add_products_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+    <form action="{% url 'products:add_products_view' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         
         <label>Product Name:</label>
@@ -20,20 +21,21 @@
         <textarea class="form-control" name="content" required></textarea>
 
         <label>Size:</label>
-        <select name="size" class="form-select" required>
+        <select name="size" class="form-select">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
          </select>
+
         <label>Choose Color:</label>
 
-        {% for key, value in choose_color.choices  %}
+        {% for key, value in choose_color.choices %}
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="choose_color" id="{{ key }}" value="{{ value }}">
                 <label class="form-check-label" for="{{ key }}">
-                    {{ value }}
+                {{ value }}
                 </label>
             </div>
         {% endfor %}
@@ -42,6 +44,10 @@
         <input type="file" name="product" class="form-control" accept="image/*"/>
 
         <input class="btn btn-primary mt-4" type="submit" value="Product" />
-    </form>
+    
+     </form>
+   </div> 
+ 
+</div> 
 </section>
 {% endblock %}

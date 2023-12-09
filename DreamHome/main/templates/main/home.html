@@ -4,7 +4,105 @@
 
 {% block content %}
 
-    <h2 >Welcome to your dream home</h2>
-    <img src="https://www.ikea.com/images/knbh-ekebol-wtawlh-janbyh-tingby-wmsbah-tertial-mn-aykya-ymk-1ec4df57d515a9b753d448ded860d452.jpg?f=xxxl" class="rounded float-end h-50 w-50" alt="...">
-           
+<div class="main-content">
+<div class="navbar-top"> 
+<div class="content">
+    <h1>Welcome to your
+        <br> dream home
+    </h1>
+    <p> A Leading Furniture Company In The Kingdom of Saudi Arabia</p>
+    <div id="btn1">
+        <button> <a href="{% url 'products:display_products_view' %}">Shop Now</a></button>
+  </div>
+</div>
+</div>
+</div>
+
+      
+</div>
+<div class="homepage">
+     <h3 class="text-center" style="padding-top: 30px;">SERVICES WE OFFER</h3>
+     <img src="https://www.ikea.com/images/knbh-ekebol-wtawlh-janbyh-tingby-wmsbah-tertial-mn-aykya-ymk-1ec4df57d515a9b753d448ded860d452.jpg?f=xxxl" class="rounded float-end h-50 w-50 col-md-4" alt="...">   
+     <img src="https://www.ikea.com/images/knbh-ekebol-wtawlh-janbyh-tingby-wmsbah-tertial-mn-aykya-ymk-1ec4df57d515a9b753d448ded860d452.jpg?f=xxxl" class="rounded float-end h-50 w-50 col-md-4" alt="...">       
+
+</div>   
+<br><br><br><br><br><br><hr>
+
+<hr>
+
+<div class="container">
+    <h3 class="text-center" style="padding-top: 30px;">SERVICES WE OFFER</h3>
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-md-4 py-3 py-md-0">
+            <div class="card">
+                <img src="static/images/background.jpg" alt="" class="card image-top" height="200px">
+                <div class="card-body">
+                    <h5 class="card-titel text-center">BLACK FRIDAY SALES</h5>
+                    <p class="text-center">test</p>
+                    <div id="btn2" class="text-center"><button>View More</button></div>
+                </div>
+            </div>
+       
+        </div>
+        <div class="col-md-4 py-3 py-md-0">
+            <div class="card">
+                <img src="static/images/background.jpg" alt="" class="card image-top" height="200px">
+                <div class="card-body">
+                    <h5 class="card-titel text-center">LATEST PRODUCTS</h5>
+                    <p class="text-center">test</p>
+                    <div id="btn2" class="text-center"><button>View More</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-3 py-md-0">
+            <div class="card">
+                <img src="static/images/background.jpg" alt="" class="card image-top" height="200px">
+                <div class="card-body">
+                    <h5 class="card-titel text-center">USER FRIENDLEY</h5>
+                    <p class="text-center">test</p>
+                    <div id="btn2" class="text-center"><button>View More</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="container">
+    <div class="row" style="margin-top: 100px;">
+        <div class="col-md-4 py-3 py-md-0">
+            <div class="card" id="tpc">
+                <img src="static/images/background.jpg" alt="" class="card image-top">
+                <div class="card-img-overlay">
+                    <h4 class="card-titel">Best Chair</h4>
+                    <p class="card-text">test.</p>
+                    <div id="btn2"><button>View More</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-3 py-md-0">
+            <div class="card" id="tpc">
+                <img src="static/images/background.jpg" alt="" class="card image-top">
+                <div class="card-img-overlay">
+                    <h4 class="card-titel">Sofa</h4>
+                    <p class="card-text">test.</p>
+                    <div id="btn2"><button>View More</button></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 py-3 py-md-0">
+            <div class="card" id="tpc">
+                <img src="static/images/background.jpg" alt="" class="card image-top">
+                <div class="card-img-overlay">
+                    <h4 class="card-titel">Work Desk</h4>
+                    <p class="card-text">test.</p>
+                    <div id="btn2"><button>View More</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
