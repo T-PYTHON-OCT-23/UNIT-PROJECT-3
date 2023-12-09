@@ -1,0 +1,77 @@
+*{
+padding: 0;
+margin: 0;
+box-sizing: border-box;
+}
+
+.navbar-brand{
+    font-family: 'Caveat', cursive;
+    font-size: 40px;
+}
+.nav-item a {
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-right: 15px;
+    transition: all 0.4s;
+}
+
+.nav-item a:hover{
+    color: rgb(20,219,20);
+}
+.search {
+    height: 45px;
+    outline: none;
+    border: 2px solid rgb(20,219,20) ;
+    background-color: transparent;
+    border-radius: 20px 0px 0px 20px;
+    border-right: none;
+}
+
+.btn1{
+    height: 45px;
+    outline: none;
+    border:none;
+    background-color: rgb(20,219,20) ;
+    color:white;
+    border-radius: 0px 20px 20px 0px;
+    transition: all 0.4;
+}
+
+.btn1:hover{
+    background-color: rgb(20,219,20) ;
+
+}
+.navbar-toggler{
+    font-size: 20px;
+    color:black;
+}
+.navbar-toggler:focus{
+    outline:none ;   
+    box-shadow: none;
+}
+.home-img{
+    height: 30rem;
+    width: 40rem;
+    object-fit: cover;
+    object-position:center;
+    display: block;
+
+}
+.avatar1 img {
+    object-fit: cover; 
+    width: 10vw ;
+    height: 10vh;
+}
+
+.link-muted {
+     color: #aaa; 
+    }
+
+    
+.link-muted:hover { 
+    color: #1266f1;
+ }
+
+

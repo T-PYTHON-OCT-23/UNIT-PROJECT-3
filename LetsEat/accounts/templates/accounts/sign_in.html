@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Add recipe {% endblock %}
+</title>
+
+{% block content %}
+   
+
+<section class=" display-inline-block" style="background-color:  rgb(214, 239, 214); ">
+    <div class="container p-5">
+    <h1>Sign in</h1>
+<br>
+    <div class="row">
+
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+
+        <div class="col-6">
+            <form action="{% url 'accounts:sign_in_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2 " >
+                {% csrf_token %}
+                <label>Username:</label>
+                <input class="form-control" type="text" name="username" required  />
+
+                <label>Password:</label>
+                <input class="form-control" type="password" name="password" required  />
+
+                <input class="btn btn-success" type="submit" value="Sign in" />
+
+                <p>Don't have account <a href="{%url 'accounts:sign_up_view' %}">Sign up</a></p>
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+</section>
+
+{%endblock%}

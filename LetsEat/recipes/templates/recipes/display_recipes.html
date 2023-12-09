@@ -1,0 +1,154 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}details {% endblock %}
+</title>
+
+{% block content %}
+<script>
+    function myFunction() {
+      let text = "Are you sure you want to delete recipe?";
+      confirm(text) == true ;
+      document.getElementById("demo").innerHTML = text;
+    }
+    </script>
+    
+<div class="container p-5">
+    <div class="d-flex justify-content-between">
+        <div class="dropdown">
+            <button   class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Edit
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'recipes:update_recipe_view' recipe.id %} ">Update</a></li>
+              <li onclick="myFunction()"><a class="dropdown-item" href="{% url 'recipes:delete_recipe_view' recipe.id %} ">Delet</a></li>
+            </ul>
+          </div>
+        </div> 
+
+
+
+
+        
+    <br>
+            <div class="row mt-4">
+                <div class="col-12 col-md-6 order-2 order-md-1">
+                        <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                            <h1>{{recipe.name}}</h1>
+                            <p>{{recipe.category}} | {{recipe.published_at}}<br>__________________________________________</p>
+                            <h5>{{recipe.description}}</h5>
+                        </div>
+                </div>
+                    <div class="col-12 col-md-6 order-2 order-md-1 ">
+                        <img class="img-fluid" src="{{recipe.picture.url}}" alt="recipe" />
+                    </div>
+                    <br>
+                </div>
+                <hr><br><br>
+                <h2>The Ingredients</h2>
+                    <p>{{ recipe.ingredients }}</p>
+                    <br><br>
+                    <p>_____________________________________________________________</p><br>
+                <h2>How to prepare: </h2>
+                    <p>{{ recipe.preparing }}</p>
+
+              
+               
+            
+                     
+
+<br>
+<hr />
+
+<!-- to show reviews -->
+
+<section  style="background-color: rgb(230, 255, 190);">
+    <div class="container my-5 py-5 ">
+        {% if reviews_count > 0 %}
+        <h4 class="mb-0">Recent comments {{reviews_count}} </h4>  
+
+      <div class="row row-cols-1 row-cols-md-4 mt-3  d-flex ">
+        {% for review in reviews %} 
+        <div class="col">
+          <div class="card text-dark">
+            <div class="card-body p-4">
+              <div class="d-flex flex-start">
+                     <img class="rounded-circle shadow-1-strong me-3" src="{{ request.user.profile.avatar.url }}" width="60" height="60" />
+                <div>
+                  <h6 class="fw-bold mb-1"> {{request.user.first_name}} {{request.user.last_name}}</h6>
+                  <div class="d-flex align-items-center mb-3">
+                    <p class="mb-0">
+                        {{review.date}} | {{review.rating}} <span class="material-symbols-outlined">star</span>
+
+                    </p>
+                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                  </div>
+                  <p class="mb-0">
+                    {{review.review}}
+                    
+                  </p>
+                  <img src="{{review.image}}" alt="pic" height="100" width="100" />
+                </div>
+
+              </div>
+              </div>
+              </div>
+            </div>
+            {%endfor%}
+
+   
+      </div>
+      {%else%}
+      <h5>Be the first one to comment</h5>
+      {%endif%}
+     
+    </div>
+</section>
+        
+            <hr/>
+  
+  
+
+<!-- to add review -->
+    <section class="row mt-5">
+      {% if request.user.is_authenticated %}
+
+      <h2>Add Review</h2>
+      <div class="col-6">
+
+        <form class="d-flex flex-column gap-2" action="{% url 'recipes:recipe_detail_view' recipe.id  %}" method="POST">
+          {% csrf_token %}
+
+          <lable>Rating:</lable>
+          <select class="form-select" name="rating">
+            <option value="1">1 Star</option>
+            <option value="2">2 Star</option>
+            <option value="3">3 Star</option>
+            <option value="4">4 Star</option>
+            <option value="5">5 Star</option>
+          </select>
+          <lable>Review:</lable>
+          <textarea class="form-control" name="review" placeholder="Enter Your review"></textarea>
+
+          <label>Upload recipes:</label>
+          <input type="file" name="image"  class="form-control" accept="image/*"/>
+
+          <input type="submit" value="Add Review" class="btn btn-success" />
+        </form>
+
+
+      </div>
+      {%  else %}
+
+      <p class="p-3 border border-1 ">
+        To post a review please <a href="{% url 'accounts:sign_in_view' %}">sign in</a>.
+      </p>
+      {%endif%}
+
+    </section>
+
+         
+  </div>
+
+{%endblock%}

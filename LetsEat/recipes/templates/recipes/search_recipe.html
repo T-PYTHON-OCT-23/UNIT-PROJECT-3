@@ -1,0 +1,54 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Add recipe {% endblock %}
+</title>
+
+{% block content %}
+   
+<section class="container p-5">
+    <div class="d-flex justify-content-between">
+        <h1>Search results for ` {{ request.GET.search }}` ({{ recipe_count }})</h1>
+
+        <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Order By
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'recipes:home_recipes_view' %}">Earliest</a></li>
+              <li><a class="dropdown-item" href="{% url 'recipes:home_recipes_view' %}?sort=oldest">Oldest</a></li>
+            </ul>
+          </div>
+        </div>
+
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+    {% for recipe in recipes %}
+    <div class="col">
+        <!-- Card -->
+        <div class="card">
+
+        <!-- Card image -->
+        <img class="card-img-top" src="{{recipe.picture.url}}" alt="Card image cap">
+
+        <!-- Card content -->
+        <div class="card-body">
+
+            <!-- Title -->
+            <h4 class="card-title"><a>{{recipe.name}}</a></h4>
+            <!-- Text -->
+            <p class="card-text">{{recipe.description}}</p>
+            <!-- Button -->
+            <a href="{% url 'recipes:recipe_detail_view' recipe.id %}" class="btn btn-success">Button</a>
+
+        </div>
+
+        </div>
+        <!-- Card -->
+    </div>
+            
+    {% endfor %}
+    </div>
+</section> 
+{%endblock%}

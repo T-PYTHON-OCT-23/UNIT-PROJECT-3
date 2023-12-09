@@ -1,0 +1,63 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Add recipe {% endblock %}
+</title>
+
+{% block content %}
+   
+
+<section class=" display-inline-block" style="background-color:  rgb(214, 239, 214); ">
+    <div class="container p-5">
+    <h1>Share your recipe</h1>
+<br>
+    <div class="row">
+
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+
+        <div class="col-6">
+            <form action="{% url 'recipes:add_recipe_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2 " >
+                {% csrf_token %}
+                <label>Recipe Name:</label>
+                <input class="form-control" type="text" name="name" required  />
+
+                <label>Description:</label>
+                <textarea class="form-control" name="description" required></textarea>
+
+                <label>Recipe category</label>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" required>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                
+                
+                <label>Ingredients:</label>
+                <textarea class="form-control" name="ingredients" required></textarea>
+
+                <label>Preparing method:</label>
+                <textarea class="form-control" name="preparing" required></textarea>
+
+                <label>Recipe picture:</label>
+                <input type="file" name="picture"  class="form-control" accept="image/*"/>
+
+                <input class="btn btn-success" type="submit" value="share Recipe" />
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+</section>
+
+{%endblock%}

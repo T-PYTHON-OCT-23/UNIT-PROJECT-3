@@ -1,0 +1,66 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Sign Up {% endblock %}
+</title>
+
+{% block content %}
+<section class=" display-inline-block" style="background-color:  rgb(214, 239, 214); ">
+    <div class="container p-5">
+    <h1>Join </h1>
+<br>
+    <div class="row">
+
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+
+        <div class="col-6">
+                    <form  action="{% url 'accounts:sign_up_view' %}"  method="post" style="width: 26rem; padding: 40px;">
+                                {% csrf_token %}
+                            <div class="row">
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                <label class="form-label" for="form4Example1">First Name</label>
+                                <input class="form-control" type="text" name="first_name" required minlength="3" />
+                            </div>
+
+                            <!-- First Name input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="form4Example1">Last Name</label>
+                            <input class="form-control"  type="text" name="last_name" required minlength="3" />
+                            </div>
+
+                        </div>
+                            
+                            <!-- Last Name input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="form4Example1">Username</label>
+                            <input class="form-control" type="text" name="username" required minlength="3"/>
+                            </div>
+
+                            <!-- Email input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="form4Example2">Email address</label>
+                            <input class="form-control" type="email" name="email" required minlength="3" />
+                            </div>
+                        
+                            <!-- Password input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                            <label class="form-label" for="form4Example3">Password</label>
+                            <input class="form-control" type="password" name="password" required minlength="8" />
+                            </div>
+
+                            <input type="submit" class="btn btn-success" value="Sign up">
+
+                            <p>Already have account <a href="{% url 'accounts:sign_in_view' %}">Sign in</a></p>
+                    </form>
+            </div>
+            
+        </div>
+</div>
+</section>
+
+{% endblock%}

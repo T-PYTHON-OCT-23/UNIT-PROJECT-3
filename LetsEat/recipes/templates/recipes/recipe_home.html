@@ -1,0 +1,96 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Add recipe {% endblock %}
+</title>
+
+{% block content %}
+   
+<section class="container p-5">
+ 
+        <div class=" pt-5 row row-cols-1 row-cols-md-6">
+            <div class="col  d-flex  col-md-10 col-md-8" >
+                <a href="{%url 'recipes:recipe_category_view' %}?category=brakfast">
+                    <figure>
+                    <img class=" rounded-circle avatar1"  width="220" height="250" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmLhYAE0C3aheP7245Cjhnq5vhMvtptAGV2w&usqp=CAU" />
+                    <figcaption style="text-align: center; text-decoration: none; color:black">Breakfast</figcaption>
+                     </figure></a>
+
+                     <a href="{%url 'recipes:recipe_category_view' %}?category=lunch">
+                     <figure>
+                        <img class="rounded-circle avatar1"   width="220" height="250" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR04euvw2bTyVXkTHv2Bfyuca9M4Scd1MzRJw&usqp=CAU" />                  
+                        <figcaption style="text-align: center; text-decoration: none; color:black">Lunch</figcaption>    
+                    </figure></a>
+
+                       <a href="{%url 'recipes:recipe_category_view' %}?category=dinner">                        <figure>
+                        <img class="rounded-circle avatar1"   width="220" height="250"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE_zf-YDuOsLY0jdsVhPEffTESIuPeJHkWBw&usqp=CAU" />
+                        <figcaption style="text-align: center; text-decoration: none; color:black">Dinner</figcaption>    
+                       </figure></a>
+
+                     <a href="{%url 'recipes:recipe_category_view' %}?category=salad">                
+                            <figure>
+                        <img class="rounded-circle avatar1"    width="220" height="250" src="https://feelgoodfoodie.net/wp-content/uploads/2019/02/Mediterranean-Chopped-Salad-12.jpg" />
+                        <figcaption style="text-align: center; text-decoration: none; color:black">Salad</figcaption>    
+                       </figure></a>
+
+                       <a href="{%url 'recipes:recipe_category_view' %}?category=smoothie">                        <figure>
+                        <img class="rounded-circle avatar1"    width="220" height="250" src="https://insanelygoodrecipes.com/wp-content/uploads/2022/07/Healthy-Homemade-Refreshing-Green-Smoothies-with-Kiwi-Lime-and-Vegetables-500x500.jpg" />
+                        <figcaption style="text-align: center; text-decoration: none; color:black">Smothies</figcaption>    
+                       </figure></a>
+
+                       <a href="{%url 'recipes:recipe_category_view' %}?category=sweet">
+                        <img class="rounded-circle avatar1" width="220" height="250" src="https://fitfoodiefinds.com/wp-content/uploads/2022/12/Peanut-Butter-Oat-Cups-sq-550x550.jpg" />
+                        <figcaption style="text-align: center; text-decoration: none; color:black">Sweet</figcaption>    
+                       </figure></a>
+
+
+            </div>
+        </div>
+<br> <br>
+<hr>
+<div class="d-flex justify-content-between">
+       
+    <div class="dropdown">
+        <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Order By
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{% url 'recipes:home_recipes_view' %}">Earliest</a></li>
+          <li><a class="dropdown-item" href="{% url 'recipes:home_recipes_view' %}?sort=oldest">Oldest</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row  g-4 row-cols-1 row-cols-md-3 p-5">
+
+    {% for recipe in recipes %}
+    <div class="col">
+        <!-- Card -->
+        <div class="card">
+
+        <!-- Card image -->
+        <img class="card-img-top" src="{{recipe.picture.url}}" alt="Card image cap">
+
+        <!-- Card content -->
+        <div class="card-body">
+
+            <!-- Title -->
+            <h4 class="card-title"><a>{{recipe.name}}</a></h4>
+            <!-- Text -->
+            <p class="card-text">{{recipe.description}}</p>
+            <!-- Button -->
+            <a href="{% url 'recipes:recipe_detail_view' recipe.id %}" class="btn btn-success">Button</a>
+
+        </div>
+
+        </div>
+        <!-- Card -->
+    </div>
+            
+
+
+    {% endfor %}
+    </div>
+</section> 
+{%endblock%}
