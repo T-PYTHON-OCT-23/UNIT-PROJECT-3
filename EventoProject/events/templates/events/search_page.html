@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All events {% endblock %}
+
+{% block content %}
+
+<section class="container-2 m-3 p-5">
+    <h1 class="display-1 text-center">All Events</h1>
+    <h1>Search results for : {{ request.GET.search }} ({{ events.count }})</h1>
+        <div class="container">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div class="col">
+                    <div class="card">
+                        {% for event in events %}
+                        <img src="{{event.image.url}}" class="card-img-top" alt="Event image">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.title }}</h5>
+                            <h5>{{ event.content }}</h5>
+                            <h5>{{ event.posting_date }}</h5>
+                            <h6>{{ event.category }}</h6>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+        </div>
+
+</section>
+
+
+
+{% endblock %}

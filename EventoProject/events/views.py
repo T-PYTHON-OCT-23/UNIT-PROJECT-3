@@ -19,8 +19,6 @@ def add_event_view(request: HttpRequest):
 
 def events_home_view(request: HttpRequest):
     events = Event.objects.all()
-    
-
     return render(request, "events/events_home.html", {"events" : events})
 
 
@@ -79,3 +77,14 @@ def event_details_view(request:HttpRequest, event_id):
     event_detail = Event.objects.get(id=event_id)
    
     return render(request , "events/event_details.html", {"event_detail":event_detail})
+
+
+def search_page_view(request:HttpRequest):
+
+    if "search" in request.GET:
+        keyword = request.GET["search"]
+        events = Event.objects.filter(title__contains=keyword)
+    else:
+        events = Event.objects.all()
+
+    return render(request,"events/search_page.html",{"events": events})
