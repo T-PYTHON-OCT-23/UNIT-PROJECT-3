@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Healthcare Events {% endblock %}
+
+{% block content %}
+
+<div class="container m-5 p-5">
+    <div class="row">
+        <div class="col">
+            <h1>Healthcare Events</h1>
+            {% for health_event in health_events %}
+                <img src="{{health_event.image.url}}" class="card-img-top h-50" alt="Technology Event image">
+                <h1>{{ health_event.title}}</h1>
+                <h2>{{ health_event.content }}</h2>
+                <h3>{{ health_event.posting_date }}</h3>
+                <h4>{{ health_event.category }}</h4>
+                <div class="btn-group">
+                    <button type="button" class="btn  btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Edit event
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'events:update_event_view' health_event.id %}">Update event</a></li>
+                        <li><a class="dropdown-item" href="{% url 'events:delete_event_view' health_event.id %}">Delete event</a></li>
+                    </ul>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

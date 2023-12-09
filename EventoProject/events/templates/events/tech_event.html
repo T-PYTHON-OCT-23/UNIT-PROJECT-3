@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Technology Events {% endblock %}
+
+{% block content %}
+
+<div class="container m-5 p-5">
+    <div class="row">
+        <div class="col">
+            <h1>Technology Events</h1>
+            {% for tech_event in tech_events %}
+                <img src="{{tech_event.image.url}}" class="card-img-top h-50" alt="Technology Event image">
+                <h1>{{ tech_event.title}}</h1>
+                <h2>{{ tech_event.content }}</h2>
+                <h3>{{ tech_event.posting_date }}</h3>
+                <h4>{{ tech_event.category }}</h4>
+                <div class="btn-group">
+                    <button type="button" class="btn  btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Edit event
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'events:update_event_view' tech_event.id %}">Update event</a></li>
+                        <li><a class="dropdown-item" href="{% url 'events:delete_event_view' tech_event.id %}">Delete event</a></li>
+                    </ul>
+                </div>
+
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

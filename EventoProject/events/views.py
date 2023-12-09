@@ -1,36 +1,81 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Event
-
-
 # Create your views here.
 
+
+
 def add_event_view(request: HttpRequest):
-    #Creating a new entry into the database for an event
+
     if request.method == "POST":
-        new_event = Event(title=request.POST["title"], description=request.POST["description"],release_date=request.POST["release_date"], category=request.POST["category"])
-        new_event.save()
-        return redirect("events:event_home_view")
+        event = Event(title=request.POST["title"],content=request.POST["content"], posting_date=request.POST["posting_date"],category=request.POST["category"],image=request.FILES["image"])
+        event.save()
+
+        return redirect("events:events_home_view")
+
     return render(request, "events/add_event.html", {"categories" : Event.categories})
 
 
 
-def event_home_view(request: HttpRequest):
+def events_home_view(request: HttpRequest):
     events = Event.objects.all()
-    events_count = events.count()
-    return render(request, "events/events_home.html", {"events" : events , "events_count":events_count})
+    
 
-def event_detail_view(request:HttpRequest, event_id):
-
-    event = Event.objects.get(id=event_id)
-
-    return render(request, "events/events_details.html", {"event" : event})
+    return render(request, "events/events_home.html", {"events" : events})
 
 
+def art_events_view(request: HttpRequest):
+    art_events = Event.objects.filter(category="Art")
 
-def delete_event_view(request: HttpRequest, event_id):
+    return render(request,"events/art_event.html",{"art_events": art_events} )
 
-    event = Event.objects.get(id=event_id)
+
+
+def tech_events_view(request: HttpRequest):
+    tech_events = Event.objects.filter(category="Technology")
+
+    return render(request,"events/tech_event.html",{"tech_events": tech_events} )
+
+
+def entertainment_events_view(request:HttpRequest):
+    enter_events = Event.objects.filter(category="Entertainment")
+
+    return render(request,"events/entertainment_event.html",{"enter_events": enter_events} )
+
+
+def healthcare_events_view(request:HttpRequest):
+    health_events = Event.objects.filter(category="Healthcare")
+
+    return render(request,"events/health_event.html",{"health_events": health_events})
+
+
+    
+def delete_event_view(request:HttpRequest,event_id):
+
+    event= Event.objects.get(id=event_id)
     event.delete()
 
-    return redirect("events:event_home_view")
+    return redirect("events:events_home_view")
+
+
+def update_event_view(request: HttpRequest, event_id):
+
+    event = Event.objects.get(id=event_id)
+    if request.method == "POST":
+        event.title = request.POST["title"]
+        event.content = request.POST["content"]
+        event.posting_date = request.POST["posting_date"]
+        event.category = request.POST["category"]
+        event.image = request.FILES["image"]
+        event.save()
+
+        return redirect('events:event_details_view', event_id=event.id)
+
+    return render(request,"events/update_event.html", {"event" : event, "categories": Event.categories})
+
+
+def event_details_view(request:HttpRequest, event_id):
+
+    event_detail = Event.objects.get(id=event_id)
+   
+    return render(request , "events/event_details.html", {"event_detail":event_detail})

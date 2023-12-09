@@ -38,12 +38,12 @@
                   Events
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Tech Event</a></li>
-                  <li><a class="dropdown-item" href="#">Art Event</a></li>
-                  <li><a class="dropdown-item" href="#">Fashion Event</a></li>
-                  <li><a class="dropdown-item" href="#">Healthcare Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:Tech_events_view' %}">Tech Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:art_events_view' %}">Art Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:healthcare_events_view' %}">Healthcare Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:entertainment_events_view' %}">Entertainment Event</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">All events</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:events_home_view' %}">All events</a></li>
                   <li><a class="dropdown-item" href="{% url 'events:add_event_view' %}"> Add events</a></li>
                 </ul>
               </li>
