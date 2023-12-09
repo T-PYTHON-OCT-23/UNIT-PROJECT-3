@@ -66,6 +66,10 @@ def user_logout(request):
 
 @login_required
 def edit_profile(request):
+    
+    if not userauth.is_authenticated:
+        return redirect('User:login')
+    
     user = request.user
     profile = get_object_or_404(Profile, user=user)
 
@@ -82,8 +86,10 @@ def edit_profile(request):
     return render(request, 'registration/edit_profile.html', {'form': form, 'user_profile': profile})
 
 
-
+@login_required
 def profile(request):
+    if not userauth.is_authenticated:
+        return redirect('User:login')
     user = request.user
     user.Profile = Profile.objects.get(user=user)
     user_profile = {
