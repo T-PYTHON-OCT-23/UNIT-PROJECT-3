@@ -41,12 +41,19 @@
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
+      {% if not request.user.is_authenticated %}
         <div class="d-flex flex-row algin-items-center">
             <li class="nav-item">
                 <a class="nav-link " href="{% url 'account:register_view' %}"><span class="material-symbols-outlined">account_circle </span><br> sign in </a>
             </li>
         </div>
-
+{% else %}
+<div class="d-flex flex-row algin-items-center">
+  <li class="nav-item">
+      <a class="nav-link " href="{% url 'account:logout_view' %}"><span class="material-symbols-outlined">logout</span><br> logout </a>
+  </li>
+</div>
+{% endif %}
     </ul>
     <form class="form-inline my-2 my-lg-0 position-absolute end-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

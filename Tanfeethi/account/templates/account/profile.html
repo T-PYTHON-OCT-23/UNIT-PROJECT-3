@@ -1,0 +1,41 @@
+
+{% extends 'main/base.html' %}
+
+
+{% block title %}  Profile  {% endblock %}
+
+
+{% block content %}
+<section class="container mt-5">
+    
+    <div class="row g-3">
+        <div class="col-3">
+            <div class="d-flex flex-column gap-1">
+                <div class="d-flex align-items-center justify-content-center gap-2">
+  
+                    <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class=" d-flex justify-content-between align-items-center">
+                <h1>{{ user.first_name }} {{ user.last_name }} </h1>
+                <a href="{% url 'account:update_profile_view'%}" class="btn btn-primary">Update</a>
+                {% endif %}
+            </div>
+
+            <h5>@{{ user.username}}</h5>
+          
+
+            <section class="row">
+                <div class="col">
+                  <div class="d-flex flex-column gap-2">
+                    <div class="d-flex flex-column gap-2 border border-1 p-3">
+                      <a href="{% url 'account:profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ user.first_name }} {{ user.last_name }}</h4></a>
+                      
+
+        </div>
+    </div>
+
+</section>
+{% endblock %}

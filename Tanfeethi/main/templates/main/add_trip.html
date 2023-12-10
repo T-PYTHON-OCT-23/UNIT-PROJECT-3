@@ -3,23 +3,31 @@
 
 {% block content %}
 <form action="{% url 'main:add_trip_view' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <!-- 2 column grid layout with text inputs for the first and last names -->
-    <div class="row mb-4 justify-content-center" style="margin-top: 120px;">
-      <div class="col-4" >
+    <div class="row mb-4 justify-content-center border shadow" style="margin-top: 120px; margin-left: 300px; margin-right: 300px;">
+      <div class="col-2" >
         <div data-mdb-input-init class="form-outline" >
+          <label class="form-label" for="form6Example1"><b> Departure Time:</b> </label>
           <input type="datetime-local" id="form6Example1" class="form-control" name="departure_time" value="2023-09-19T08:30"  />
-          <label class="form-label" for="form6Example1"> Departure Time</label>
+          
         </div>
       </div>
-      <div class="col-4">
+      
+      <div class="col-2">
         <div data-mdb-input-init class="form-outline">
+          <label class="form-label" for="form6Example2"><b> Arrival Time:</b> </label>
           <input type="datetime-local" id="form6Example2" class="form-control" name="arrival_time" value="2023-09-19T08:30" />
-          <label class="form-label" for="form6Example2"> Arrival Time</label>
+
         </div>
     </div>
  
 
-    <button data-mdb-ripple-init type="button" class="btn btn-primary btn-block mb-4">Add</button>
+
+      <div class="col-2 mt-4">
+      <button type="submit" class="btn btn-success col-sm-12 col-md-10 col-lg-9 col-xl-8" name="submit">Submit</button>
+
+    </div>
   </form>
 
 </div>

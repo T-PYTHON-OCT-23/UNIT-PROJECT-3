@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -17,18 +18,18 @@ class Flight(models.Model):#flight detailes
     
 
 
-class Passenger(models.Model):#passenger information
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
+# class Passenger(models.Model):#passenger information
+#     first_name = models.CharField(max_length=50)
+#     last_name = models.CharField(max_length=50)
+#     email = models.EmailField(unique=True)
 
-    def __str__(self):
-        return f"Passenger name : {self.first_name} {self.last_name}"
+#     def __str__(self):
+#         return f"Passenger name : {self.first_name} {self.last_name}"
     
 
 class Reservation(models.Model):#reservation and relation with flight and passenger
     flight = models.ForeignKey(Flight, on_delete=models.CASCADE)
-    passenger = models.ForeignKey(Passenger, on_delete=models.CASCADE)
+    passenger = models.ForeignKey(User, on_delete=models.CASCADE)
 
     seat_number = models.CharField(max_length=10)
 

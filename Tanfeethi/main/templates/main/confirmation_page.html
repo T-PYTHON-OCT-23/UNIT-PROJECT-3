@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+
+    <h1>Booking Confirmation</h1>
+
+    <p>Your trip has been booked successfully!</p>
+
+    <h2>Details:</h2>
+    <ul>
+        <li><strong>Trip ID:</strong> {{ confirmation_data.trip_id }}</li>
+        <li><strong>Departure Time:</strong> {{ confirmation_data.departure_time }}</li>
+        <li><strong>Arrival Time:</strong> {{ confirmation_data.arrival_time }}</li>
+        <li><strong>Passenger:</strong> {{ confirmation_data.first_name }} {{confirmation_data.last_name}}</li>
+
+
+    </ul>
+
+    <p>Thank you for choosing our service.</p>
+
+
+
+{% endblock %}
