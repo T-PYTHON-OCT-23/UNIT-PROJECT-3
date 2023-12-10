@@ -1,0 +1,21 @@
+<!-- evalhub/templates/evalhub/feedback_detail.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Feedback for: {{ task.title }}</h2>
+
+  <!-- Display Feedback -->
+  <p>{{ task.feedback.notes }}</p>
+  <p>Completion Status: {{ task.feedback.completion_status }}</p>
+  {% if task.feedback.completion_status %}
+    <p>Due Date Extension: {{ task.feedback.due_date_extension }}</p>
+  {% endif %}
+
+  <!-- Allow Manager to Provide Feedback -->
+  <form method="post" action="{% url 'evalhub:feedback_detail' task.id %}">
+    {% csrf_token %}
+    {{ feedback_form.as_p }}
+    <button type="submit">Provide Feedback</button>
+  </form>
+{% endblock %}
