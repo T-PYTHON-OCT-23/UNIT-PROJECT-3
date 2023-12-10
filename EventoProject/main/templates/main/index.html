@@ -3,84 +3,92 @@
 
 {% block content %}
 
-<div class="Container d-flex justify-content-center align-items-center m-4">
-    <div class="row">
-        <div class="col-12 text-center">
-            <h1 class="text-center m-5 animate__animated animate__bounce">Evento - Event Management System</h1>
-            <p>Online platform that assists users to explore events and book online in various fields.</p>
-            <button type="button" class="btn btn-primary">Explore more ..</button>
-            <a href="{% url 'accounts:login_user_view' %}" class="text-center">Login</a>
-        </div>
-
+<div class="test  d-flex justify-content-center align-items-center m-4">
+  <div class="row">
+    <div class="col">
+      <h1 class="d-flex justify-content-center align-items-center logo animate__animated animate__bounce">Evento</h1>
+      <h1 class="text-center m-5 animate__animated animate__bounce">Evento - Event Management System</h1>
+      <p class="text-center">Online platform that assists users to explore events and book online in various fields.</p>
     </div>
-
+  </div>
 </div>
 
-</div>
-<div class="container">
-  <div class="row ">
-    <div class="col-6">
-      <div class="card text-bg-dark">
-        <img src="{% static 'images/tech-eve.jpg' %}" class="card-img" alt="...">
-        <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small>Last updated 3 mins ago</small></p>
-        </div>
-      </div>
 
+<div class="box-profile">
+  <div class="row">
+    <div class="col-12">
+      <div class="sub-content">
+        <h2 class="para1">Welcome to Evento Website to explore your events in various fields.</h2>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+        <a href="{% url 'accounts:login_user_view' %}" class="btn btn-secondary text-center">Login</a>
+      </div>
     </div>
-    <div class="col-6">
-      <div class="card text-bg-dark">
-        <img src="{% static 'images/art-eve.jpg' %}" class="card-img" alt="...">
-        <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small>Last updated 3 mins ago</small></p>
-        </div>
-      </div>
+  </div>
+</div>?
 
+
+<div class="box">
+  <div class="row d-flex justify-content-evenly">
+    <div class="polaroid">
+      <img src="{% static 'images/art-eve-background.jpg' %}" alt="5 Terre" style="width:100%">
+      <div class="container">
+      <p class="para">Art Events</p>
+      <button type="button" class="btn btn-outline-secondary">Discover</button>
+      </div>
     </div>
-    <div class="col-6">
-      <div class="card text-bg-dark">
-        <img src="{% static 'images/enter-eve1.jpg' %}" class="card-img" alt="...">
-        <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small>Last updated 3 mins ago</small></p>
-        </div>
+    
+    <div class="polaroid">
+      <img src="{% static 'images/tech-eve.jpg' %}" alt="Norther Lights" style="width:100%">
+      <div class="container">
+      <p class="para">Technology Events</p>
+      <button type="button" class="btn btn-outline-secondary">Discover</button>
       </div>
-
     </div>
-    <div class="col-6">
-      <div class="card text-bg-dark">
-        <img src="{% static 'images/tech-eve.jpg' %}" class="card-img" alt="...">
-        <div class="card-img-overlay">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-          <p class="card-text"><small>Last updated 3 mins ago</small></p>
-        </div>
-      </div>
 
+    <div class="polaroid">
+      <img src="{% static 'images/art-eve.jpg' %}" alt="5 Terre" style="width:100%">
+      <div class="container">
+      <p class="para">Exclusive Events</p>
+      <button type="button" class="btn btn-outline-secondary">Dscover</button>
+      </div>
+    </div>
+    
+    <div class="polaroid">
+      <img src="{% static 'images/enter-eve.jpg' %}" alt="Norther Lights" style="width:100%">
+      <div class="container">
+      <p class="para">Entertainment Events</p>
+      <button type="button" class="btn btn-outline-secondary">Discover</button>
+      </div>
     </div>
 
   </div>
 
 </div>
 
-<div class="Container d-flex justify-content-center align-items-center">
-    <div class="row">
-        <div class="col">
-            <h1 class="text-center m-5">Features</h1>
-            <ul>
-                <li>Booking Online</li>
-                <li>Many events of various fields</li>
-                <li>Best Prices</li>
-            </ul>
-        </div>
-
-    </div>
-
+<div class="w3-container w3-black">
+  <h1 class="display-3">Features</h1>
+  <p>Features and Exclusive!</p>
 </div>
+
+<div class="w3-row-padding">
+  <div class="w3-third">
+    <h2>1.Booking Online <span class="material-symbols-outlined">local_activity</span>
+    </h2>
+    <p>You can booking your tickets online in our website.</p>
+    
+  </div>
+
+  <div class="w3-third">
+    <h2>2.Veraity of Events <span class="material-symbols-outlined">celebration</span></h2>
+    <p>You can discover all the events in our website.</p>
+  </div>
+
+  <div class="w3-third">
+    <h2>3.Only in one place <span class="material-symbols-outlined">festival</span></h2>
+    <p>Many events Categories in one place.</p>
+  </div>
+</div>
+
+
 
 {% endblock %}

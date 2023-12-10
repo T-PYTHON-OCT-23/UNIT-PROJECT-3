@@ -17,13 +17,14 @@ class Event(models.Model):
 
 
 
-class Review(models.Model):
-    ratings = models.TextChoices("Ratings", ["Excellent","Good", "Average", "Poor", "Very poor"])
+class Ticket(models.Model):
+    quantity = models.TextChoices("Quantity", ["1","2", "3", "4", "5"])
 
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    comment = models.TextField()
-    rating = models.CharField(max_length=80,choices=ratings.choices)
-    posting_date = models.DateTimeField(auto_now_add=True)
+    quantity = models.CharField(max_length=80,choices=quantity.choices)
+    start_date = models.DateTimeField(auto_now_add=True)
+    last_date = models.DateTimeField(auto_now_add=True)
+
 
 

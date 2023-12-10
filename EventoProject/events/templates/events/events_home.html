@@ -12,6 +12,7 @@
             {% for event in events %}
               <img src="{{event.image.url}}" class="card-img-top" alt="Event image">
               <div class="card-body">
+                <a href="{% url 'events:event_details_view' event.id %}" class="link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h5>{{ event.title }}</h5></a>
                 <h5 class="card-title">{{ event.title }}</h5>
                 <h5>{{ event.content }}</h5>
                 <h5>{{ event.posting_date }}</h5>

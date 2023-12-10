@@ -8,10 +8,15 @@ from django.db import IntegrityError
 
 
 def register_user_view(request:HttpRequest):
+    msg = None
     if request.method == "POST":
         try:
             user = User.objects.create_user( first_name = request.POST["first_name"], last_name = request.POST["last_name"],username = request.POST["username"], email=request.POST["email"], password=request.POST["password"])
             user.save()
+
+            user_profile = Profile(user=user, avatar=request.FILES["avatar"], birth_date=request.POST["birth_date"])
+            user_profile.save()
+
             return redirect("accounts:login_user_view")
 
         except IntegrityError as e:
@@ -19,7 +24,7 @@ def register_user_view(request:HttpRequest):
         except Exception as e:
             msg = f"something went worng {e}"
 
-    return render(request, "accounts/register_page.html")
+    return render(request, "accounts/register_page.html", {"msg" : msg})
 
 
 
@@ -30,7 +35,7 @@ def login_user_view(request:HttpRequest):
         
         if user:
             login(request, user)
-            return redirect("main:home_view")
+            return redirect("main:home_page_view")
         else:
             msg = "Please provide correct username and password"
 
@@ -45,3 +50,9 @@ def logout_user_view(request:HttpRequest):
 
     return redirect("accounts:login_user_view")
 
+
+def user_profile_view(request: HttpRequest, user_id):
+        
+    user = User.objects.get(id=user_id)
+
+    return render(request, 'accounts/profile_page.html', {"user":user})

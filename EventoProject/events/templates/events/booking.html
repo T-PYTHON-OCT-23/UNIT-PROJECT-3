@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Booking page 1 {% endblock %}
+
+{% block content %}
+
+<div class="container m-5 p-5">
+    <div class="row">
+        <h1>Your booking page</h1>
+        <div class="col">
+            {% for tick in ticket_detail %}
+            <h2>Ttile:{{ tick.tickets.event.title}}</h2>
+            {% endfor %}
+            <h2>Image:</h2>
+            <h3>Category:</h3>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <h5>Book Your Tickets Now!</h5>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>How many tickets:</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                  </select>
+                <div class="warpper border border-secondary text-center">
+                    <h6>Quantity</h6>
+                    <span class="minus">-</span>
+                    <span class="num">1</span>
+                    <span class="plus">+</span>
+                </div>
+                <button class="btn btn-primary" type="button">Book</button>
+              </div>
+              <script>
+                const plus = document.querySelector(".plus"),
+                minus = document.querySelector(".minus"),
+                num = document.querySelector(".num");
+
+                let a = 1;
+
+                plus.addEventListener("click", ()=>{
+                    a++;
+                    a = (a < 10) ? "0" + a : a;
+                    num.innerText = a;
+
+                    console.log(a);
+
+                });
+              </script>
+
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

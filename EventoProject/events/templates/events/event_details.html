@@ -3,19 +3,18 @@
 {% block title %} Detail event {% endblock %}
 
 {% block content %}
-
-
 <div class="container">
     <div class="row">
         <div class="col">
             <img src="{{event_detail.image.url}}" class="card-img-top h-50" alt="Technology Event image">
             <h2>{{ event_detail.title }}</h2>
             <h3>{{ event_detail.content }}</h3>
+            <h4>{{ event_detail.posting_date }}</h4>
+
         </div>
 
     </div>
 
 </div>
-
 
 {% endblock %}

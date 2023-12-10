@@ -3,6 +3,9 @@ from django.http import HttpRequest, HttpResponse
 from .models import Event
 # Create your views here.
 
+def booking_page_view(request:HttpRequest):
+    ticket = Event.objects.all()
+    return render(request,"events/booking.html")
 
 
 def add_event_view(request: HttpRequest):
@@ -41,10 +44,10 @@ def entertainment_events_view(request:HttpRequest):
     return render(request,"events/entertainment_event.html",{"enter_events": enter_events} )
 
 
-def healthcare_events_view(request:HttpRequest):
-    health_events = Event.objects.filter(category="Healthcare")
+def exclusive_events_view(request:HttpRequest):
+    exclusive_events = Event.objects.filter(category="Exclusive")
 
-    return render(request,"events/health_event.html",{"health_events": health_events})
+    return render(request,"events/exclusive_event.html",{"exclusive_events": exclusive_events})
 
 
     

@@ -1,16 +1,29 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Profile page {% endblock %}
+{% block title %} User profile {% endblock %}
+
 
 {% block content %}
+
 <div class="container">
     <div class="row">
         <div class="col">
-            
-
+            <div class="text-center border-primary">
+                <h1> Welcome,{{ user.first_name }} {{ user.last_name }} </h1>
+            </div>
+            <h5> Username : @{{ user.username}}</h5>
+            <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
+            <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
+            <div class="box">
+                <ul>
+                    <li><a href="#">My Favorites:</a></li>
+                    <li><a href="#">My Tickets:</a></li>
+                </ul>
+            </div>
         </div>
 
     </div>
 
 </div>
+
 {% endblock %}

@@ -11,11 +11,15 @@
             <form action="{% url 'accounts:register_user_view' %}" method="POST">
                 {% csrf_token %}
 
-                <input class="form-control m-2" type="text" name="first_name" required minlength="5" placeholder="first name"/>
-                <input class="form-control m-2" type="text" name="last_name" required minlength="5" placeholder="last name"/>
+                <input class="form-control m-2" type="text" name="first_name" required minlength="3" placeholder="first name"/>
+                <input class="form-control m-2" type="text" name="last_name" required minlength="3" placeholder="last name"/>
                 <input class="form-control m-2" type="text" name="username" required minlength="5" placeholder="username"/>
                 <input class="form-control m-2" type="email" name="email" required minlength="5" placeholder="email"/>
                 <input class="form-control m-2" type="password" name="password" required minlength="8" placeholder="password"/>
+                
+                <input class="form-control m-2" type="file" name="avatar" required  placeholder="choose avatar"/>
+                <input class="form-control m-2" type="date" name="birth_date" required />
+
 
                 <div class="d-flex flex-column justify-content-center align-items-center">
                     <input class="btn btn-success" type="submit" value="Sign up"/>
