@@ -17,7 +17,6 @@ def add_doctor(request: HttpRequest):
     if not request.user.has_perm("doctor.add_doctor"):
         return render(request, 'main/not_authorized.html')
 
-    #Creating a new entry into the database for a movie
     if request.method == "POST":
         new_doctor = Doctor(name=request.POST["name"], bio=request.POST["bio"], avatar=request.FILES.get("avatar", "image/avatar.jpg"))
         new_doctor.save()

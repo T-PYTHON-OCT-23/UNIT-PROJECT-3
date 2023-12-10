@@ -1,19 +1,17 @@
 {% extends 'main/base.html' %}
 {% load static %}
-
 {% block title %} Admin {% endblock %}
 
 {% block content %}
-<div class="home">
-    <h1 class="home-title"> Log in as Admin!</h1>
-</div>
-<div>
-    <ul class="category">
-        <li> <a href="#" class="catogary"></a> Add New Clinic </li>
-        <li> <a href="#" class="catogary"></a> Viwe & Edit Clinics </li>
-        <li> <a href="#" class="catogary"></a> Recently Appointment </li>
-        <li> <a href="#" class="catogary"></a> Client inquiries </li>
-    </ul>
+<div class="manage-con">
+    <div class="manage">
+        <h3> Allowed For Admin</h3>
+    </div>
+    <div class="manage-links">
+        <a href="{% url 'main:add_clinic' %}" class="man"> Add New Clinic </a>
+        <a href="{% url 'main:display' %}" class="man"> Viwe & Edit Clinics </a>
+        <a href="{% url 'main:client_contact' %}" class="man"> Client Inquiries</a>
+    </div>
 </div>
 
 {% endblock %}

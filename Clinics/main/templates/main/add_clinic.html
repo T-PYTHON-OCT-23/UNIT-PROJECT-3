@@ -6,14 +6,15 @@
 {% block header %} Add a New clinic {% endblock %}
 
 {% block content %}
+
+<h2 class="title"><b> Add New Clinic </b></h2>
 <section class="container">
-    <h1 class="title"> Add new Clinic </h1>
     <div class="row">
         <div class="col-6">
             <form action="{% url 'main:add_clinic' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <label><b> Clinic Name:</b></label><br>
-                <input class="form-control" type="text" name="name" placeholder="What is the clinic name?" required />
+                <input class="form-control" type="text" name="name" placeholder="clinic name..." required />
 
                 <label><b>Category:</b></label><br>
                 {% for key, value in categories.choices %}
@@ -27,17 +28,14 @@
                 {% endfor %}
 
                 <label><b> About the clinic:</b></label><br>
-                <textarea class="form-control" name="about" placeholder="..." required></textarea>
+                <textarea class="form-control" name="about" placeholder="write the main services the clinic provide..."
+                    required></textarea>
 
                 <label><b> Clinic Image: </b></label>
                 <input type="file" name="image" class="form-control" accept="image/*" required />
 
-                <label><b> Clinic location:</b></label><br>
-<<<<<<< HEAD
-                <input class="form-control" type="url" name="location" required />
-=======
-                <input class="form-control" type="urls" name="location" required />
->>>>>>> 1e237c9a2d4ecd9f48e08e0227f820e6137edb07
+                <label><b> Clinic location:</b></label>
+                <input class="form-control" type="url" name="location" placeholder="urls maps..." required />
                 <br>
                 <input class="btn btn-secondary" type="submit" value="Create Clinic" />
 

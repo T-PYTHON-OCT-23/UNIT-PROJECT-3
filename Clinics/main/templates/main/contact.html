@@ -3,20 +3,21 @@
 {% block title %} Contant {% endblock %}
 {% block content %}
 
+
+<h3 class="title"><b>Contact With Us:</b></h3>
 <div class="contant-us">
-    <h3 class="con-title"> Contact With Us:</h3>
+    <form action="{% url 'main:contact' %}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button class="btn btn-secondary" type="submit" value="Send">Submit</button>
+    </form>
 </div>
-<form action="{% url 'main:contact' %}" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
-
-    <label for="message">Message:</label>
-    <textarea id="message" name="message" rows="4" required></textarea>
-
-    <button type="submit">Submit</button>
-</form>
-
-    {% endblock %}
+{% endblock %}

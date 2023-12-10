@@ -3,7 +3,8 @@ from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
-from .models import Profile
+from .models import Profile, Appointment
+from main.models import Clinic
 # Create your views here.
 
 
@@ -87,3 +88,25 @@ def update_user(request: HttpRequest):
             msg = f"something went wrong {e}"
 
     return render(request, "client/update.html", {"msg": msg})
+
+
+def appoinment(request: HttpRequest, clinic_id): 
+    if not request.user.is_authenticated:
+        return redirect("client:login_user")
+
+    try:
+        clinic = Clinic.objects.get(id=clinic_id)
+        
+        new_appointment = Appointment(user=request.user, clinic=clinic)
+        new_appointment.save()
+
+        return redirect("main:clinic_detail", clinic_id=clinic.id)
+    except Exception as e:
+        return redirect("main:home_view")
+    
+def my_appoinment(request: HttpRequest):
+
+    appoinment = Appointment.objects.filter(user=request.user)
+    return render(request, 'client/appoinment.html', {"appoinment" : appoinment})
+    
+

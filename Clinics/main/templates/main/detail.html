@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} details {% endblock %}
+{% block content %}
+
+<style>
+    body {
+        background-color: rgb(196, 216, 208);
+    }
+</style>
+
+<div class="detail_clinic">
+    <div class="d-flex flex-column gap-1 p-5 border border-1 rounder-6 shadow h-100">
+        <img class="detail-image" src="{{clinic.image.url}}" />
+        <h2>{{ clinic.name }}</h2>
+        <h4>{{ clinic.about }}</h4>
+        <h4 class="category">{{clinic.category}}</h4>
+        <h6><a href="{{ clinic.location }}"></a> Location : {{ clinic.location }} </h6>
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+            id="button">
+            Edit </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'main:update_clinic' clinic.id %}"> update </a>
+            </li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"> delete</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<hr>
+<div class="review">
+    <section class="row">
+        <h4>Reviews:</h4>
+        <div class="col">
+            <div class="d-flex flex-column gap-2">
+                {% for review in review %}
+                <div class="d-flex flex-column gap-2 border border-1 p-3">
+                    <h4>{{ review.full_name }}</h4>
+                    <h6 class="text-muted">{{ review.created_at }}</h6>
+                    <h6>{{ review.rating }}</h6>
+                    <p>{{ review.comment }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </section>
+
+    <section class="row mt-5">
+        <h4>Add Review Reviews:</h4>
+        <div class="col-6">
+
+            <form class="d-flex flex-column gap-2" action="{% url 'main:detail_clinic' clinic.id  %}" method="POST">
+                {% csrf_token %}
+                <input type="text" class="form-control" name="full_name" placeholder="Full Name" />
+                <select class="form-select" name="rating">
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Star</option>
+                    <option value="3">3 Star</option>
+                    <option value="4">4 Star</option>
+                    <option value="5">5 Star</option>
+                </select>
+
+                <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
+                <input type="submit" value="Add Review" class="btn btn-secondary" />
+            </form>
+
+
+        </div>
+    </section>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Clinic</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                you are going to delete the {{ clinic.name }} clinic , are you sure ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{% url 'main:delete_clinic' clinic.id %}" class="btn btn-danger">Yes, delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

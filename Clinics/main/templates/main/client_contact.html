@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Client inquiries {% endblock %}
+
+{% block content %}
+
+<h2 class="title"><b> Client Inquiries: </b></h2>
+<div class="col">
+    <div class="d-flex flex-column gap-2">
+        {% for contact in contact %}
+        <div class="d-flex flex-column gap-2 border border-1 p-3">
+            <h4>{{ contact.name }}</h4>
+            <h4>{{ contact.email }}</h4>
+            <p>{{ contact.message }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+
+{% extends 'main/base.html' %}
+
+{% block title %} Doctor profile {% endblock %}
+
+
+{% block content %}
+
+<section class="container mt-5">
+    
+    <div class="row g-3">
+        <div class="col-3">
+            <div class="d-flex flex-column gap-1">
+                <img class="w-100 rounded-circle actor-img" src="{{ doctor.avatar.url }}" />
+            </div>
+        </div>
+        <div class="col">
+            <div class=" d-flex justify-content-between align-items-center">
+                <h1>{{ dotor.name }}  </h1>
+            </div>
+            <p>
+                {{ doctor.bio }}
+            </p>
+
+            <div>
+                <h2>{{ doctor.name}} worked in: </h2>
+                <div class="row g-4 row-cols-12 row-cols-md-2">
+                {% for clinic in doctor.clinic_set.all %}
+                <div class="col">
+                    <div class="clinic-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                        <img class="poster" src="{{clinic.poster.url}}" />
+                        <div class="p-3 d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-1">
+                                <span class="cat ps-3 pe-3 rounded-pill text-white {{clinic.category}}"><a class="text-decoration-none text-white" href="{% url 'main:detail_clinic' clinic.category %}">{{movie.category}}</a></span>
+                            </div>
+
+                        </div>
+                        <div class="p-3 d-flex flex-column">
+                            <a class=" text-decoration-none" href="{% url 'main:detail_clinic'  clinic.id %}"><h2>{{ clinic.name }}</h2></a>
+    
+                        </div>
+                    </div>
+                </div>
+                {% endfor%}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

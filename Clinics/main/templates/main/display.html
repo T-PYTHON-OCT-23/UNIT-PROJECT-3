@@ -2,10 +2,10 @@
 {% block title %} All Clinics {% endblock %}
 {% block content %}
 
+<h3 class="title"><b> All Clinics </b></h3>
 <section class="container">
-    <h1 class="title">All Clinics </h1>
-    <div class="row gap-5 row-cols-1 row-cols-md-3">
-        {% for clinic in Clinic %}
+    <div class="row gap-1 row-cols-3 row-cols-md-4">
+        {% for clinic in clinics %}
         <div>
             <div class="col">
                 <div class="d-flex flex-column gap-1 p-3 border border-1 rounder-6 shadow h-100">

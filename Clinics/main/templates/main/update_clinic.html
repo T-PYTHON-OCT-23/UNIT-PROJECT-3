@@ -1,0 +1,44 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Update Clinic {% endblock %}
+
+{% block content %}
+
+<div class="update">
+    <div class="row">
+        <h2> Update {{clinic.name}} </h2>
+        <div class="col">
+            <form action="{% url 'main:update_clinic' clinic.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label><b> Clinic Name: </b></label>
+                <input class="form-control" type="text" name="name" placeholder="Enter Clinic name.."
+                    value="{{clinic.name}}" />
+
+                <label><b> About The Clinic: </b></label>
+                <textarea class="form-control" name="about">{{clinic.about}} </textarea>
+
+                <label><b> Category: </b></label>
+                {% for key, value in categories.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" {% if blog.category == key %} checked {% endif %}
+                        name="category" id="{{key}}" value="{{key}}" />
+                    <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                    </label>
+                </div>
+                {% endfor %}
+
+                <label><b> Image: </b></label>
+                <input type="file" name="image" class="form-control" accept="image/*" />
+
+                <label><b> Clinin location: </b></label>
+                <input class="form-control" name="location" value="{{clinic.location}}" />
+
+
+                <input class="btn btn-secondary mt-2 " type="submit" value="Update Clinic" />
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

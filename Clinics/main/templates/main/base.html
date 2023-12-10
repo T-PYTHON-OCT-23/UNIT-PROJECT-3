@@ -40,8 +40,27 @@
 
 <style>
     body {
-        font-family: 'Exo', sans-serif;
+        font-family: 'Hedvig Letters Serif', serif;
         background-color: rgb(187, 206, 200);
+    }
+
+    .background {
+        width: 450px;
+        height: auto;
+        overflow-x: none;
+        margin-left: 300px;
+        margin-top: -250px;
+        padding-top: 0;
+        padding-bottom: 0;
+        margin-bottom: 0;
+
+        box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.553);
+    }
+
+    .home {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
     }
 
     .nav-item,
@@ -52,7 +71,7 @@
     }
 
     .logo {
-        color: rgb(79, 18, 137);
+        color: rgb(18, 137, 56);
     }
 
     #navbar a {
@@ -108,23 +127,22 @@
 
     footer {
         color: rgb(27, 1, 1);
-        font-family: 'Playfair Display', serif;
         background-color: rgb(1, 46, 43);
-        box-shadow: 10px 10px 15px rgba(101, 101, 99, 0.642);
+        box-shadow: 5px 5px 10px rgba(24, 20, 20, 0.553);
         opacity: 100%;
         border-top-left-radius: 20px;
         padding-left: 10px;
         margin-left: 30%;
-        padding-top: 30px;
-        padding-bottom: 10px;
+        padding-top: 20px;
+        padding-bottom: 0px;
         margin-bottom: 30px;
+        margin-top: 0;
         justify-content: center;
         align-items: center;
         align-content: center;
         width: 70%;
-        position: fixed;
         bottom: 0;
-
+        gap: 10px;
     }
 
     .links,
@@ -149,11 +167,157 @@
         text-decoration: none;
         list-style: none;
         color: aliceblue;
+        padding-left: 20px;
+    }
+
+    .manage,
+    .title {
+        width: 100%;
+        padding-left: 550px;
+        background-color: rgba(240, 248, 255, 0.669);
+        box-shadow: 3px 3px 7px rgba(101, 101, 99, 0.16);
+    }
+
+    .man {
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        background-color: rgb(65, 92, 65);
+        width: 60%;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        padding: 25px;
+    }
+
+    .man:hover {
+        background-color: aliceblue;
+    }
+
+    .manage-links {
+        margin-left: 350px;
+        justify-content: center;
+        padding-bottom: 50px;
+
+    }
+
+    .manage-links a {
+        text-decoration: none;
+        align-items: center;
+        justify-content: center;
+        color: aliceblue;
+        margin: 20px;
+        padding-left: 50px;
+    }
+
+    .manage-links a:hover {
+        color: rgb(65, 92, 65);
+        font-size: larger;
+        transition: 0.5s;
+    }
+
+    .detail_clinic {
+        width: 100%;
+        border-radius: 10px;
+    }
+
+    .detail-image {
+        width: 50%;
+        height: auto;
+        margin-left: 220px;
+        margin-top: -40px;
+        border-radius: 20px;
+    }
+
+    .col a {
+        text-decoration: none;
+        overflow-x: none;
+    }
+
+    .col a:hover {
+        transition: 0.3s;
+        color: #4e864f;
+    }
+
+    .review {
+        width: 50%;
+        padding-left: 30px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-right: 20px;
+        margin: 10px 10px 10px 85px;
+    }
+
+    .contant-us {
+        width: 100%;
+        padding-left: 120px;
+        padding-top: 15px;
+        padding-bottom: 30px;
+        overflow-x: none;
+    }
+
+    .user {
+        width: 100%;
+        padding-left: 350px;
+        padding-top: 15px;
+        padding-bottom: 30px;
+        overflow-x: none;
+    }
+
+    .about-us {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        color: black;
+        text-shadow: 3px 3px 10px rgb(101, 101, 99);
+        font-size: 20px;
+        margin-left: 50px;
+        padding-left: 50px;
+    }
+
+    .video {
+        width: 550px;
+        height: auto;
+        margin-left: 30px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 10px 10px 10px rgba(101, 101, 99, 0.642);
+    }
+
+    .about {
+        position: relative;
+        color: rgb(3, 45, 77);
+        text-shadow: 1px 1px 5px rgb(101, 101, 99);
+        width: 40%;
+        height: auto;
+        padding-top: 30px;
+        margin-left: 30px;
+        font-size: 30px;
+    }
+
+    .h {
+        margin-top: 15px;
+        padding-top: 15px;
+    }
+
+    .update {
+        overflow-x: none;
+    }
+
+    .container {
+        padding-bottom: 29px;
+        margin-bottom: 20px;
+        padding-left: 110px;
+        margin-left: 110px;
+    }
+
+    .h1 {
+        font-size: 30px;
     }
 </style>
 
 <body>
-<<<<<<< HEAD
     <div class="back-nav">
         <nav class="navbar sticky-top nav-underline navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -188,9 +352,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:add_clinic' %}"> Add Clinic </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="{% url 'main:about_clinic' %}"> About Us </a>
                         </li>
                         <li class="nav-item">
@@ -214,7 +375,7 @@
                     {% endif %}
                     </ul>
 
-                    <form class="d-flex" role="search">
+                    <form class="d-flex" role="search" action="{% url 'main:search' %}" method="get">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
@@ -222,59 +383,12 @@
             </div>
         </nav>
     </div>
-=======
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Clinical </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'main:home_view' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:display' %}"> All Clinics </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'main:add_clinic' %}"> Add Clinic </a>
-                    </li>
-                </ul>
-                {% if request.user.is_authenticated %}
-                <li class="nav-item">
-                    <h6 class="nav-link">welcome, {{ request.user.username }}</h6>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'client:logout_user' %}"> Log out</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'client:login_user' %}"> log in</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'client:register' %}"> sign up</a>
-                </li>
-                {% endif %}
-                </ul>
-
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
->>>>>>> 1e237c9a2d4ecd9f48e08e0227f820e6137edb07
 
     {% block content %}
 
     {% endblock %}
 
 </body>
-<<<<<<< HEAD
 <footer>
     <div class="links">
         <ul style="display: inline-flex;" class="fSocialMedia pb-3">
@@ -303,10 +417,11 @@
                 <a href="https://www.instagram.com/saudimoh/" aria-label="instagram link"><i
                         class="fa-brands fa-instagram"></i><span style="display:none">instagram</span></a>
             </li>
+
+            <li class="px-2">
+                <a href="{% url 'main:manage' %}"></i> Administraction </a>
+            </li>
         </ul>
-    </div>
 </footer>
-=======
->>>>>>> 1e237c9a2d4ecd9f48e08e0227f820e6137edb07
 
 </html>
