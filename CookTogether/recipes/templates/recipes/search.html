@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Recipes{% endblock%}
+{% block content%}
+<div class="container">
+    <h1 class="text-center">{{request.GET.search}}{{cat}} Recipe</h1>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for recipe in recipes %}
+    <div class="col">
+      <div class="card">
+        <a href="{% url 'recipes:detail_recipe' recipe.id %}"><img src="{{recipe.image.url}}" class="card-img-top" height="220px" alt="..."></a>
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+          <a href="{% url 'recipes:detail_recipe' recipe.id %}"><h5 class="card-title">{{recipe.name}}</h5></a>
+          </div>
+          <p class="card-text">{{recipe.description}}</p>
+          <a type="button" class="btn btn-primary btn-sm" href="{% url 'recipes:update_recipe' recipe.id %}">Update</a>
+          <a type="button" class="btn btn-secondary btn-sm" href="{% url 'recipes:delete_recipe' recipe.id %}">Delete</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

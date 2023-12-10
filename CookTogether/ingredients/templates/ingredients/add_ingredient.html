@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Add Ingredient{% endblock%}
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'ingredients:add_ingredient' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Name:</label>
+                <input class="form-control" type="text" name="name" placeholder="Name of ingredient" />
+                <label>Description:</label>
+                <textarea class="form-control" name="description"></textarea>
+                <label>brand:</label>
+                <input class="form-control" type="text" name="brand" placeholder="Brand of ingredient"/>
+                <label>image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+                <input class="btn btn-success" type="submit" value="Add ingredient" />
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Update {{recipe.name}}{% endblock%}
+{% block content%}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'recipes:update_recipe' recipe.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Name:</label>
+                <input class="form-control" type="text" name="name" placeholder="Name of Recipe" value="{{recipe.name}}"/>
+                <label>Description:</label>
+                <textarea class="form-control" name="description">{{recipe.description}}</textarea>
+                <label>Time:</label>
+                <input class="form-control" type="number" name="time" placeholder="Time of Recipe" value="{{recipe.time}}"/>
+                <label>Kall:</label>
+                <input class="form-control" type="number" name="kall" placeholder="kall of Recipe" value="{{recipe.kall}}"/>
+                <label>Instructions:</label>
+                <textarea class="form-control" name="instructions">{{recipe.description}}</textarea>
+                {% for key, value in categories.choices %}
+                <div class="form-check">
+                <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if recipe.category == key %} checked {% endif %}>
+                <label class="form-check-label" for="{{key}}">{{value}}</label>
+                </div>
+                {% endfor %}
+                <img src="{{recipe.image.url}}" height="200px" width="250" class="rounded"/>
+                <br>
+                <label>image:</label>
+                <input type="file" name="image"  class="form-control" accept="image/*"/>
+                <input class="btn btn-success" type="submit" value="Update recipe" />
+            </form> 
+        </div>
+    </div>
+</div>
+{% endblock %}

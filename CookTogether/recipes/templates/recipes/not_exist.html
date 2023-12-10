@@ -1,0 +1,7 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Not exist{% endblock%}
+{% block content%}
+<h1>The recipe does not exist.</h1>
+<a type="button" class="btn btn-primary" href="{% url 'recipes:browse_recipes'%}"></a>
+{% endblock %}

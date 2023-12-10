@@ -1,0 +1,109 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Detail Recipe{% endblock%}
+{% block content%}
+<div class="container">
+<div class="row">
+<div class="col">
+<img src="{{recipe.image.url}}" height="500" width="800"/>
+</div>
+{% if recipe.ingredients.count > 0 %}
+<h2>Ingredients in this recipe</h2>
+<section class="row row-cols-12 row-cols-md-4">
+  {% for ingredients in recipe.ingredients.all %}
+
+  <div class="col">
+    <div class="d-flex gap-2 justify-content-between align-items-center">
+      <a href="{% url 'ingredients:detail_ingredient' ingredients.id%}" class="text-decoration-none text-black">
+      <div class="d-flex align-items-center gap-3">
+        <img src="{{ ingredients.image.url}}" height="50px"  class="rounded" />
+        <h5>{{ingredients.name}}</h5>
+      </div>
+      </a>
+      <a href="{% url 'ingredients:delete_ingredients_from_recipe' recipe.id ingredients.id %}" class="btn btn-danger">remove</a>
+    </div>
+  </div>
+  {% endfor %}
+
+</section>
+{% endif %}
+
+<h5>{{recipe.name}}</h5>
+{% if not is_favored %}
+<a href="{% url 'favorites:add_favorite_recipe' recipe.id %}"><i class="bi bi-heart"></i></a>
+{% else %}
+<a href="{% url 'favorites:add_favorite_recipe' recipe.id %}"><i class="bi bi-heart-fill"></i></a>
+{% endif %}
+<h5>{{recipe.description}}</h5>
+<h5>{{recipe.kall}}</h5>
+<h5>{{recipe.time}}</h5>
+<p>{{recipe.instructions}}</p>
+<h5>{{recipe.category}}</h5>
+<a type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#ModalIngredient">Add ingredient</a>
+</div>
+
+<div class="modal fade" id="ModalIngredient" tabindex="-1" aria-labelledby="ModalIngredient" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="ModalIngredient">Ingredients</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% for ingredient in ingredients %}
+          <div class="d-flex gap-2 justify-content-between align-items-center mt-2">
+            <div class="d-flex align-items-center gap-3">
+              <img src="{{ ingredient.image.url}}" height="140px" class="rounded" />
+              <h5>{{ ingredient.name}}</h5>
+           </div>
+            <a href="{% url 'ingredients:add_ingredients_to_recipe' recipe.id ingredient.id %}" class="btn btn-primary">Add</a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<section class="row">
+  <h2>Comment:</h2>
+    <div class="col">
+      <div class="d-flex flex-column gap-2">
+        {% for comment in comments %}
+        <div class="d-flex flex-column gap-2 border border-success border-3 p-3">
+          <h3 >{{ comment.user.username}}</h3>
+          <p>{{ comment.content }}</p>
+          <h6 class="text-muted">{{ comment.date }}</h6>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+</section>
+<section>
+  {% if request.user.is_authenticated %}
+    <h2>Add reviews</h2>
+    <form action="{% url 'recipes:detail_recipe' recipe.id %}" method="POST">
+      {% csrf_token %}
+          <label>rating?</label>
+          <select name="rating" class="form-select" required>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+          </select>
+      <label>Content:</label>
+      <textarea class="form-control" name="content" required></textarea>
+      <input class="btn btn-success mt-4" type="submit" value="Add comment" />
+    </form>
+    {%  else %}
+    <h2>Let's add a comment!!</h2>
+    <h3 class="">
+      To post a comment please <a href="{% url 'accounts:login_page' %}">sign in</a>.
+    </h3>
+    {% endif %}
+    </section>
+</div>
+{% endblock %}

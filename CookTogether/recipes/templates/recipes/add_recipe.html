@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{%load static %}
+{% block title %}Add Recipe{% endblock%}
+{% block content%}
+<div class="container">
+<div class="row">
+    <div class="col">
+        <form action="{% url 'recipes:add_recipe' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Name:</label>
+            <input class="form-control" type="text" name="name" placeholder="Name of Recipe" />
+            <label>Description:</label>
+            <textarea class="form-control" name="description"></textarea>
+            <label>Time:</label>
+            <input class="form-control" type="number" name="time" placeholder="Time of Recipe" />
+            <label>Kall:</label>
+            <input class="form-control" type="number" name="kall" placeholder="kall of Recipe" />
+            <label>Instructions:</label>
+            <textarea class="form-control" name="instructions"></textarea>
+            {% for key, value in categories.choices %}
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+            <label class="form-check-label" for="{{key}}">{{value}}</label>
+            </div>
+            {% endfor %}
+            <label>image:</label>
+            <input type="file" name="image"  class="form-control" accept="image/*"/>
+            <input class="btn btn-success" type="submit" value="Add Recipe" />
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}
