@@ -1,0 +1,50 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Update {{ blog.titel }}{% endblock %}
+
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Update Book</h1>
+
+    <div class="row">
+        <div class="col-6">
+ 
+            <form action="{% url 'books:update' book_id=book.id %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+                {% csrf_token %}
+                <label>Book Name:</label>
+                <input class="form-control" type="text" name="name" placeholder="Book Name"  minlength="2" value="{{book.name}}"/>
+
+                <label>Book brief:</label>
+                <textarea class="form-control" name="brief">{{book.brief}}</textarea>
+
+                <label>Writer:</label>
+                <input class="form-control" type="text" name="writer" placeholder="Writer" minlength="3" value="{{book.writer}}" />
+
+                <label>Category</label>
+
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if book.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                <label>Publishing House:</label>
+                <input class="form-control" type="text" name="publishing_house" placeholder="Publishing House"  minlength="4" value="{{book.publishing_house}}" />
+                <label>Book Release Date:</label>
+                <input class="form-control" name="release_date" type="date" value="{{book.release_date|date:'Y-m-d' }}"/>
+
+                <input class="btn btn-primary mt-4" type="submit" value="Update Book" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
