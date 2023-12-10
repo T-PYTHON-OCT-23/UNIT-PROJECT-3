@@ -85,3 +85,21 @@ p {
 .favored i{
     color: red;
 }
+.image-container {
+    position: relative;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+.navbar {
+    border-radius: 40px;  /* adjust as needed */
+}
+
+.navbar {
+    padding: 0.1rem 1rem; /* يمكنك تعديل هذه القيم حسب الحاجة */
+}
