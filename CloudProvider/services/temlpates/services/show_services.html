@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+{% load static }
+{% block title %}
+<title>Services</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% if massage %}
+            <div class="alert alert-danger" role="alert">
+                massage
+            </div>
+        {% endif %}
+        {% for service in services %}
+        <div class="col-4 justify-content-center align-items-center border">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <legend> {{service.service_name}}</legend>
+                <img src="{{ service.image.url }}" alt="service image">
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

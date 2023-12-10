@@ -1,0 +1,40 @@
+{% extends 'home/base.html' %}
+{% load static }
+{% block title %}
+<title>Review Services</title>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-4 justify-content-center align-items-center">
+            {% if massage %}
+            <div class="alert alert-danger" role="alert">
+                massage
+            </div>
+            {% endif %}
+            <form action="" method="POST" enctype="multipart/form-data">
+                <fieldset disabled>
+                <legend>Review Service </legend>
+                <label class="form-label">Service Name:</label>
+                <input type="text" name="service_name" class="form-control" required>
+
+                <label class="form-label">Description:</label>
+                <input type="text" name="description" class="form-control" required>
+
+                <label class="form-label">Type:</label>
+                <input type="text" name="type" class="form-control" required>
+
+                <label class="form-label">Image:</label>
+                <input type="file" name="image" class="form-control" required>
+
+                <label class="form-label">Price</label>
+                <input type="text" name="price" class="form-control" required>
+
+                <input type="submit" class="btn btn-primary mt-3">
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

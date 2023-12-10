@@ -5,5 +5,9 @@
 {% endblock %}
 
 {% block body %}
-<h1>Page not founds!</h1>
+{% if massage %}
+<div class="alert alert-danger" role="alert">
+    {{massage}}
+  </div>
+{% endif %}
 {% endblock %}

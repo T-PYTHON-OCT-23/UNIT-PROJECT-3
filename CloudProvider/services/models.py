@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class Service(models.Model):
-    types = models.TextChoices('types',['storage','server'])
+    types = models.TextChoices('types',['Simple Storage','Server','RestFullAPI','Mobile SDK','Monitor Clint','Clint Endpoint', ])
 
     service_name = models.CharField(max_length=2028)
     description = models.TextField()

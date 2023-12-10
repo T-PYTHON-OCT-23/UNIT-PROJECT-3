@@ -13,6 +13,11 @@
             <h5>{{profile}}</h5>
         </div>
         <div class="col-4 mt-5">
+            {% if massage %}
+              <div class="alert alert-danger" role="alert">
+                massage
+              </div>
+            {% endif %}
             <form action="{% url 'user:profile_view' profile.id %}" method="POST" enctype="multipart/form-data">
                 <fieldset disabled>
                 <legend>User Profile</legend>

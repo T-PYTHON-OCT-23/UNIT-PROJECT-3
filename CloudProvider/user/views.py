@@ -8,7 +8,7 @@ from django.db import IntegrityError
 
 
 def user_create_view(request:HttpRequest):
-    msg = ''
+    massage = ''
     if request.method == 'POST':
 
         try:
@@ -16,14 +16,14 @@ def user_create_view(request:HttpRequest):
             new_user.save()
             return redirect('user:login_view')
         except Exception as e:
-            msg = f'something went wrong, {e}'
+            massage = f'something went wrong, {e}'
     
 
-    return render(request,'user/registraction.html',{'msg':msg})
+    return render(request,'user/registraction.html',{'massage':massage})
 
 
 def login_view(request:HttpRequest):
-    msg = ''
+    massage = ''
     
     if request.method == 'POST':
 
@@ -34,11 +34,11 @@ def login_view(request:HttpRequest):
                 login(request,user)
                 return redirect('home:home_view')
             else:
-                msg = 'email or password is not valid'
+                massage = 'email or password is not valid'
         except Exception as e:
-            msg = f'something went wrong, {e}'
+            massage = f'something went wrong, {e}'
 
-    return render(request,'user/login.html',{'msg':msg})
+    return render(request,'user/login.html',{'massage':massage})
 
 
 def logout_view(request:HttpRequest):
