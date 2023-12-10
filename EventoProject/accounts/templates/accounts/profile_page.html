@@ -16,8 +16,7 @@
             <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
             <div class="box">
                 <ul>
-                    <li><a href="#">My Favorites:</a></li>
-                    <li><a href="#">My Tickets:</a></li>
+                    <li><a href="{% url 'favorites:my_favorites_view' %}">My Favorites:</a></li>
                 </ul>
             </div>
         </div>
@@ -25,5 +24,26 @@
     </div>
 
 </div>
+
+{% if user.ticket_set.count > 0 %}
+<section class="row">
+  <h2>Tickets ({{user.ticket_set.count}}):</h2>
+    <div class="col">
+      <div class="d-flex flex-column gap-2">
+        {% for ticket in user.ticket_set.all %}
+        <div class="d-flex flex-column gap-2 border border-1 p-3">
+          <a href="{% url 'accounts:user_profile_view' ticket.user.id %}" class="text-decoration-none text-black"><h4 >{{ ticket.user.first_name }} {{ ticket.user.last_name }}</h4></a>
+          <a href="{% url 'events:event_details_view' ticket.event.id %}"><h6>{{ ticket.event.title }}</h6></a>
+          <h3>{{ ticket.event.category }}</h3>
+          <h6 class="text-muted">{{ ticket.posting_date}}</h6>
+          <h6>{{ ticket.start_date }}</h6>
+          <h6>{{ ticket.last_date }}</h6>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+</section>
+{% endif %}
 
 {% endblock %}

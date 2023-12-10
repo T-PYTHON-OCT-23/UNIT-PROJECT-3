@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %} The Bill {% endblock %}
+
+{% block content %}
+
+{% if tickets.count > 0 %}
+<div class="container m-5 p-5">
+    <div class="row">
+        <h2>tickets ({{tickets.count}}):</h2>
+        <h1>The bill :</h1>
+        {% for ticket in tickets %}
+        <div class="col">
+            <a href="{% url 'accounts:user_profile_view' ticket.user.id %}" class="text-decoration-none text-black"><h4 >{{ ticket.user.first_name }} {{ ticket.user.last_name }}</h4></a>
+            <h2>Ttile:{{ticket.event.title}}</h2>
+            <h3>Tickets:{{ticket.quantity}}<span class="material-symbols-outlined">local_activity</span></h3>
+            <h3>Category:{{ticket.event.category}}</h3>
+            <h6 class="text-muted">Start date: {{ ticket.start_date }}</h6>
+            <h6 class="text-muted">Last date: {{ ticket.last_date }}</h6>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

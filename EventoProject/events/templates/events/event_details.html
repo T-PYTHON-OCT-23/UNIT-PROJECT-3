@@ -6,15 +6,57 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <img src="{{event_detail.image.url}}" class="card-img-top h-50" alt="Technology Event image">
-            <h2>{{ event_detail.title }}</h2>
-            <h3>{{ event_detail.content }}</h3>
-            <h4>{{ event_detail.posting_date }}</h4>
+            <h1> Title: {{ event_detail.title }}</h1>
+            <img src="{{event_detail.image.url}}" class="img-fluid rounded-5 object-fit-cover" alt="Event image">
+            <h2> Category: {{ event_detail.category }}</h2>
+            <h3> Content: {{ event_detail.content }}</h3>
+            <h4>Posting date: {{ event_detail.posting_date }}</h4>
+            {% if not is_favored %}
+            <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><h5 class="p-0 m-0"><i class="bi bi-heart"></h5></i></a>
+            {% else %}
+            <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+            {% endif %}
 
         </div>
 
     </div>
 
 </div>
+
+<div class="book-box m-5">
+    <div class="row">
+        <div class="col">
+            {% if request.user.is_authenticated %}
+            <h3>Booking Online</h3>            
+            <div class="col-6">
+                <form class="d-flex flex-column gap-2 d-flex justify-content-center align-items-center" action="{% url 'events:add_ticket_view' event_detail.id  %}" method="POST" >
+                    {% csrf_token %}
+                <select class="form-select text-center" name="quantity">
+                <option value="1">1 </option>
+                <option value="2">2 </option>
+                <option value="3">3 </option>
+                <option value="4">4 </option>
+                <option value="5">5 </option>
+                </select>
+                <input type="submit" value="Book!" class="btn btn-primary" />
+            </form>
+
+
+            </div>
+
+            {%  else %}
+
+            <p class="p-3 border border-1 ">
+            To Book please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+            </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
 
 {% endblock %}

@@ -15,6 +15,8 @@ urlpatterns = [
     path("update/<event_id>/", views.update_event_view , name="update_event_view"),
     path("details/<event_id>", views.event_details_view , name="event_details_view"),
     path("search/", views.search_page_view, name="search_page_view"),
-    path("ticket/", views.booking_page_view, name="booking_page_view"),
+    path("bill/<event_id>/", views.the_bill_view, name="the_bill_view"),
+    path("booking/", views.booking_page_view , name="booking_page_view"),
+    path("ticket/<event_id>/", views.add_ticket_view , name="add_ticket_view"),
 
 ]

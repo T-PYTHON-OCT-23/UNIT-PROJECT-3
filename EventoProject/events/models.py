@@ -18,11 +18,10 @@ class Event(models.Model):
 
 
 class Ticket(models.Model):
-    quantity = models.TextChoices("Quantity", ["1","2", "3", "4", "5"])
 
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    quantity = models.CharField(max_length=80,choices=quantity.choices)
+    quantity = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add=True)
     last_date = models.DateTimeField(auto_now_add=True)
 

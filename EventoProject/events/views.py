@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Event
+from .models import Event, Ticket
+from favorites.models import Favorite
+
 # Create your views here.
 
 def booking_page_view(request:HttpRequest):
@@ -78,8 +80,10 @@ def update_event_view(request: HttpRequest, event_id):
 def event_details_view(request:HttpRequest, event_id):
 
     event_detail = Event.objects.get(id=event_id)
+
+    is_favored = request.user.is_authenticated and Favorite.objects.filter(event=event_detail, user=request.user).exists()
    
-    return render(request , "events/event_details.html", {"event_detail":event_detail})
+    return render(request , "events/event_details.html", {"event_detail":event_detail, "is_favored": is_favored})
 
 
 def search_page_view(request:HttpRequest):
@@ -91,3 +95,30 @@ def search_page_view(request:HttpRequest):
         events = Event.objects.all()
 
     return render(request,"events/search_page.html",{"events": events})
+
+def booking_page_view(request:HttpRequest):
+    return render(request,"events/booking.html")
+
+def the_bill_view(request:HttpRequest, event_id):
+        
+    event_detail = Event.objects.get(id=event_id)
+    tickets = Ticket.objects.filter(event=event_detail)
+    all_tickets = Ticket.objects.all()
+
+    return render(request,"events/the_bill.html",{"event_detail":event_detail, "tickets":tickets, "all_tickets":all_tickets})
+
+
+def add_ticket_view(request: HttpRequest, event_id):
+
+    if request.method == "POST":
+
+        if not request.user.is_authenticated:
+            return render(request, "main/not_uth.html", status=401)
+
+        event_id = Event.objects.get(id=event_id)
+        new_ticket = Ticket(event=event_id, user=request.user, quantity=request.POST["quantity"])  
+        new_ticket.save()
+        return redirect("events:the_bill_view", event_id=event_id.id )
+
+
+

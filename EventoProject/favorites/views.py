@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Favorite
-from events.models import Event
+from events.models import Event, Ticket
 # Create your views here.
 
 
@@ -21,7 +21,7 @@ def add_favorite_view(request:HttpRequest, event_id):
         else:
             user_favored.delete()
 
-        return redirect("event:event_details_view", event_id=event.id)
+        return redirect("events:event_details_view", event_id=event.id)
     except Exception as e:
         return redirect("main:home_page_view")
     
