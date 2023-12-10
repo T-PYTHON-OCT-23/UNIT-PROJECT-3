@@ -7,6 +7,7 @@
 <section class="container">
 
     <h1>Add New Products</h1>
+
     <div class="row">
 
     <div class="col-6">
@@ -33,7 +34,7 @@
 
         {% for key, value in choose_color.choices %}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="choose_color" id="{{ key }}" value="{{ value }}">
+                <input class="form-check-input" type="radio" name="choose_product" id="{{ key }}" value="{{ value }}">
                 <label class="form-check-label" for="{{ key }}">
                 {{ value }}
                 </label>
@@ -42,9 +43,9 @@
 
         <label>product:</label>
         <input type="file" name="product" class="form-control" accept="image/*"/>
-
-        <input class="btn btn-primary mt-4" type="submit" value="Product" />
-    
+        
+        <input class="btn btn-primary mt-2" type="submit" value=" Create Product" />
+ 
      </form>
    </div> 
  

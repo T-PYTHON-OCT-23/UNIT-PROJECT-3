@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Product
+from .models import Product,Review
 
 # Create your views here.
 
@@ -14,13 +14,22 @@ def add_products_view(request:HttpRequest):
 
 def display_products_view(request: HttpRequest):
 
-     product = Product.objects.all()
+     products = Product.objects.all()
+    
+     return render(request, "products/display.html", {"products": products})
 
-     return render(request, "products/display.html", {"product": product})
+
+def product_detail_view(request:HttpRequest, product_id):
+
+    product_detail = Product.objects.get(id=product_id)
+    
+
+    return render(request, "products/detail.html", {"product_detail" : product_detail})
 
 
-def detail_view(request:HttpRequest, post_id):
+def delete_product_view(request: HttpRequest, product_id):
+    
+    product = Product.objects.get(id=product_id)
+    product.delete()
 
-    product=Product.objects.get(id=post_id )
-
-    return render(request, "products/detail.html", {"product" : product})
+    return redirect("products:display_products_view")

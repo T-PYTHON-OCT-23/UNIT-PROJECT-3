@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
 
 * {
     padding: 0px;
     margin: 0px;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+   
 }
+
 
 
 bady{
@@ -13,7 +17,7 @@ bady{
   }
 
 .login{
-    background-color: #e0f2f1;
+    background-color:rgb(238 224 208 / 59%);
 }
 
 /* navbar top */
@@ -111,3 +115,90 @@ bady{
  #tpc:hover{
         transform: translateY(-10px);
     }
+
+   
+
+    .container_a{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .container_a form{
+      padding:20px;
+      width:700px;
+      background: #fff;
+      box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    }
+    
+    .container_a form .row{
+      display: flex;
+      flex-wrap: wrap;
+      gap:15px;
+    }
+    
+    .container_a form .row .col{
+      flex:1 1 250px;
+    }
+    
+    .container_a form .row .col .title{
+      font-size: 20px;
+      color:#333;
+      padding-bottom: 5px;
+      text-transform: uppercase;
+    }
+    
+    .container_a form .row .col .inputBox{
+      margin:15px 0;
+    }
+    
+    .container_a form .row .col .inputBox span{
+      margin-bottom: 10px;
+      display: block;
+    }
+    
+    .container_a form .row .col .inputBox input{
+      width: 100%;
+      border:1px solid #ccc;
+      padding:10px 15px;
+      font-size: 15px;
+      text-transform: none;
+    }
+    
+    .container_a form .row .col .inputBox input:focus{
+      border:1px solid #000;
+    }
+    
+    .container_a form .row .col .flex{
+      display: flex;
+      gap:15px;
+    }
+    
+    .container_a form .row .col .flex .inputBox{
+      margin-top: 5px;
+    }
+    
+    .container_a form .row .col .inputBox img{
+      height: 34px;
+      margin-top: 5px;
+      filter: drop-shadow(0 0 1px #000);
+    }
+    
+    .container_a form .submit-btn{
+      width: 100%;
+      padding:12px;
+      font-size: 17px;
+      background: #27ae60;
+      color:#fff;
+      margin-top: 5px;
+      cursor: pointer;
+    }
+    
+    .container_a form .submit-btn:hover{
+      background: #2ecc71;
+    }
+    
+
+
+    
+   

@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} {{ products.name }} {% endblock %}
+{% block title %} {{ product.name }} {% endblock %}
 
 {% block content %}
 
@@ -9,13 +9,23 @@
         <div class="col">
 
             <div class="d-flex flex-column gap-2">
-            <h1>{{ products.name }}</h1>
-            <h4>{{ products.choose_product }}</h4>
+            <h1>{{ product_detail.name }}</h1>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Edit
+                </button>
+                
+              </div>
+            <img src="{{product_detail.product.url}}" class="rounded mx-auto d-block h-50 w-50" alt="Responsive image"/>
+            <div class="d-flex align-items-center gap-1 ">
+            <h4>{{ product_detail.choose_product }}</h4>
             <div class="d-flex justify-content-between ">
-            <h5>{{ products.content}}</h5>
+            <h5>{{ product_detail.content}}</h5>
             </div>
-        </div>
-        </div>
+            </div>
+            </div>
+   
+    </div>
     </div>
 </section>
  

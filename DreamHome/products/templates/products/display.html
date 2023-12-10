@@ -4,28 +4,32 @@
 
 {% block content %}
 
-<section class="container">
+<section class="container pt-4">
 
     <h1>All Products</h1>
 
-    <div class="row">
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
 
         {% for product in products %}
 
         <div class="col">
-            <div class="d-flex flex-column gap-2 p-2 border border-1 rounded-4 shadow h-100">
-                <div class="card-body gap-2 p-3 border border-3 rounded-4  shadow h-80  ">
-                    <img src="{{products.product.url}}" height="200px" width="290px"  />
-                    <a href="{% url 'products:detail_view' products.id %}"><h2 >{{ products.name }}</h2></a>
-                    <h6> {{products.choose_product}}</h6>
-                    <h5>size:{{ products.size}}</h5>
+            <div class="d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                <div class="card-body gap-2 p-3 border border-1 rounded-4  shadow h-30 ">
+                    <img src="{{product.product.url}}" height="200px" width="290px"/>
+                    <div class="p-3 d-flex justify-content-between align-items-center">
+                   <a href="{% url 'products:product_detail_view' product.id %}"><h2 >{{product.name }}</h2></a>
+                    <h6> {{product.choose_product}}</h6>
+                    <h5>size:{{product.size}}</h5>
                 </div>
             </div>
         </div>
-
-        {% endfor %}
-
+    
     </div>
+      
+
+{% endfor %}
+
+</div>
 
 </section>
 
