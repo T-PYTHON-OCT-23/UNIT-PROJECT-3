@@ -11,22 +11,22 @@
             <form action="{% url 'objectives:add_view' %}" method="POST" enctype="multipart/form-data" >
                 {% csrf_token %}
                 <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="floatingInputDisabled" placeholder="name@example.com" >
+                    <input type="text" class="form-control" id="floatingInputDisabled" name="name" placeholder="name@example.com" >
                     <label for="floatingInputDisabled">Name objective</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextareaDisabled" ></textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" name="description" id="floatingTextareaDisabled" ></textarea>
                     <label for="floatingTextareaDisabled">description objective </label>
                 </div>
-                <div class="form-floating">
-                    <select class="form-select" id="floatingSelectDisabled" aria-label="Floating label disabled select example" >
-                    <option selected>Category</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    </select>
-                    <label for="floatingSelectDisabled">Works with selects</label>
+                <label>Category</label>
+                {% for key, value in categories.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" required>
+                    <label class="form-check-label" for="{{key}}">
+                    {{value}}
+                    </label>
                 </div>
+                {% endfor %}
 
 
                 <div class="pt-3">

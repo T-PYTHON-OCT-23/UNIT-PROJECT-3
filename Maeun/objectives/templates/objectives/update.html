@@ -1,0 +1,60 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Update {{ obj.name }}{% endblock %}
+
+{% block section %} Update {% endblock %}
+
+{% block content %}
+    <div class="container"> 
+
+        <div class="row">
+            <h2>Update {{obj.name}}:</h2>
+            <div class="col">
+
+                <form action="{% url 'objectives:update_objective_view' obj.id %}" method="POST" >
+
+                    {% csrf_token %}
+                <label>objective Name:</label>
+                <input class="form-control" type="text" name="name" placeholder="Movie Name" value="{{obj.name}}" />
+
+                <label>description:</label>
+                <textarea class="form-control" name="description">{{obj.description}}</textarea>
+
+
+
+                <label>Category:</label>
+                {% for key, value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" {% if obj.category == key %} checked {% endif %}>
+                        <label class="form-check-label" for="{{key}}">
+                        {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+
+                <label>Available:</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="reserved" id="flexRadioDefault1" value="1" checked>
+                    <label class="form-check-label" for="flexRadioDefault1">
+                        Available
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="reserved" id="flexRadioDefault2" value="0" checked>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                      Not Available
+                    </label>
+                  </div>
+
+                <input class="btn btn-primary mt-2" type="submit" value="Update objective" />
+            
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

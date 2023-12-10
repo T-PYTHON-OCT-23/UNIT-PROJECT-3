@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    cities = models.Choices("cities",["Riyadh","Jeddah","Damamm"])
+    cities = models.TextChoices("cities",["Riyadh","Jeddah","Damamm"])
     
     phone_number=models.CharField(max_length=64)
-    city = models.CharField(max_length=64,choices=cities.choices)
+    city = models.CharField(max_length=64, choices=cities.choices, default=cities.Riyadh)
     
