@@ -35,3 +35,13 @@ text-align: center;
     height: 350px;
     object-fit: cover; 
 }
+
+
+.container_services{
+    background-color: bisque;
+}
+
+.img_stable{
+    height:10px ;
+    width: 10px;
+}

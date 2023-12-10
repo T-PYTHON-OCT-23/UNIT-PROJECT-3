@@ -4,60 +4,76 @@
 {%block title%} Details Horses {%endblock%}
 
 {% block contant %}
-<div class="container5">
-  <div class="row">
-    <div class="col">
-      <img src="{{stable.img.url}}"/>
+<div class="container5 p-4">
+  <div class="d-flex flex-row justify-content-between gap-4">
+    <img class="img_stable" src="{{stable.img.url}}" width="600px" height="400px"/>
+    <div class="d-flex flex-column g-4 justify-content-center">
+      
       <h1>{{stable.name}} </h1>
       <h5>{{stable.description}}</h5>
       <h4>{{stable.city}}</h4>
       <h3>{{stable.rating}} ★ </h3>
     </div>
+    
 
+    <div class="dropdown p-2">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Edit  
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'horses:delete_stable_views' stable.id %}"> delete Stable </a></li>
+        <li><a class="dropdown-item" href="{% url 'horses:update_stable_views' stable.id %}">Update Stable</a></li>
+       
+      </ul>
+    </div>
   </div>
   
 </div>
 
+<hr>
 
 
-<div class="dropdown">
+
+
+
+<div class="container_services row">
+  <h3> services ({{services.count}}): </h3>
+  
+  {% for service in services %}
+  <div class="col-4 d-flex flex-row justify-content-center ">
+    <div class="card text-bg-light" style="width: 30rem;">
+     
+
+        <div class="card-body">
+        
+          <h5 class="card-title">{{service.name_Servic}}</h5>
+          <p class="card-text">{{service.description_Servic}}</p>
+          <h6 class="card-subtitle mb-2 text-body-secondary align-items-center"><span style="color: red;" class="material-symbols-outlined">
+            payments
+            </span> {{service.price}} Riyal </h6>
+          <h6 class="card-subtitle mb-2 text-body-secondary"><span style="color: red;" class="material-symbols-outlined">
+            calendar_month
+            </span>{{service.duration_service}}</h6>
+          <a href="#" class="btn btn-primary">To order </a>
+       
+        </div>
+     
+    </div>
+  </div>
+  {%endfor%}
+</div>
+<hr>
+<div class="dropdown p-4">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Edit  
+    Edit Service 
   </button>
   <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="{% url 'horses:delete_stable_views' stable.id %}"> delete Stable </a></li>
-    <li><a class="dropdown-item" href="{% url 'horses:update_stable_views' stable.id %}">Update Stable</a></li>
-   
+    <li><a class="dropdown-item" href="{% url 'horses:add_services_view' stable.id %}"> Add Service </a></li>
+    <li><a class="dropdown-item" href="#">Update Service</a></li>
+    <li><a class="dropdown-item" href="#">delete Service</a></li>
   </ul>
 </div>
+    
 
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Edit Service 
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="{% url 'horses:add_services_view' stable.id %}"> Add Service </a></li>
-      <li><a class="dropdown-item" href="#">Update Service</a></li>
-      <li><a class="dropdown-item" href="#">delete Service</a></li>
-    </ul>
-  </div>
-
-
-
-{% if services.count > 0 %}
-    <section class="row">
-        <h3> services ({{services.count}}): </h3>
-        <div class="col-4">
-            {% for service in services %}
-                <h2>{{services.name_Servic}}</h2>
-                <h5>{{services.description_Servic}}</h5>
-                <h3>{{services.duration_service}}</h3>
-                <h3>{{services.price}}</h3>
-
-            {%endfor%}
-
-        </div>
-    </section>
-{% endif %}
 {%endblock%}
 

@@ -4,38 +4,63 @@
 {%block title%} Details Horses {%endblock%}
 
 {% block contant %}
-<div class="container5">
-  <div class="row">
-    <div class="col">
-      <img src="{{store.img.url}}"/>
+<div class="container5 p-4">
+  <div class="d-flex flex-row justify-content-between ">
+    <img src="{{store.img.url}}"width="600px" height="400px"/>
+    <div class="d-flex flex-column g-4 justify-content-center">
       <h1>{{store.name}} </h1>
-      <h5>{{store.location}}</h5>
-      <h4>{{store.work_time}}</h4>
+      <a href="{{store.location}}"><h3>location</h3></a>
+      <h4> work time : {{store.work_time}}</h4>
       <h3>{{store.rating}} ★ </h3>
     </div>
-
+    <div class="dropdown p-4">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Edit Store
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{ % url 'delete_store_views' store.id % }">delete Store </a></li>
+        <li><a class="dropdown-item" href="#">Update Store</a></li>
+       
+      </ul>
+    </div>
   </div>
-  
+
 </div>
 
-
-<div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      Edit Store
-    </button>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">delete Store </a></li>
-      <li><a class="dropdown-item" href="#">Update Store</a></li>
-     
-    </ul>
-  </div>
+<div class="container3">
+  <h3> Prodects ({{stores.count}}): </h3>
   
+  {% for stores in store %}
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="{{stores.img.url}}" class="img-fluid rounded-start" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{stores.name}}</h5>
+            <p class="card-text">{{stores.description}}</p>
+            <p class="card-text"><small class="text-body-secondary"> <span style="color: red;" class="material-symbols-outlined">
+              payments</span> {{stores.price}} Riyal </small></p>
+              
+            <a href="#" class="btn btn-primary">To order </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  {%endfor%}
+</div>
+
+<hr>
+
+
   <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Edit Menu 
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="#">Add Menu</a></li>
+        <li><a class="dropdown-item" href="{% url 'delivery:add_menu_view' store.id %}">Add Menu</a></li>
         <li><a class="dropdown-item" href="#">Update Menu</a></li>
         <li><a class="dropdown-item" href="#">delete Menu</a></li>
       </ul>

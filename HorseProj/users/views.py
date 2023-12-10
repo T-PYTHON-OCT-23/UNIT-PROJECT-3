@@ -10,20 +10,17 @@ def register_views(request:HttpRequest):
     msg=None
     if request.method == "POST":
         try:
+            if User.objects.filter(email=request.POST["email"]).exists():
+                raise Exception("Email address must be unique. Please choose another email.")
             user= User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
             return redirect("users:login_views")
         
         except IntegrityError as e:
-            # Handle IntegrityError for email uniqueness
-            if 'unique constraint' in str(e).lower() and 'email' in str(e).lower():
-                msg = "Email address must be unique. Please choose another email."
-            else:
-                msg = "Username must be unique. Please choose another username."
+            msg = "Username must be unique. Please choose another username."
 
         except Exception as e:
-            # Handle other exceptions
-            msg = "Something went wrong. Please try again."
+            msg = f"Something went wrong. Please try again. {e}"
 
     return render(request,"users/register.html",{"msg":msg})
 
@@ -52,7 +49,7 @@ def logout_views(request:HttpRequest):
 
 
 def update_profile_view(request: HttpRequest, user_id):
-
+    pass
     
     return render (request, "users/update_profile.html")
 
@@ -65,7 +62,5 @@ def user_profile_view(request: HttpRequest, user_id):
 
     except Exception as e :
         print(e)
-       
-    
 
     return render(request, 'usres/profile.html', {"user":user})

@@ -65,6 +65,8 @@
               </a> 
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="{% url 'users:register_views' %}">Sign Up</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:user_profile_view' user.id %}">Profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'users:user_profile_view' user.id %}">Update Profile</a></li>
                 <li><a class="dropdown-item" href="{%url 'users:logout_views' %}">LogOut</a></li>
                 
               </ul>

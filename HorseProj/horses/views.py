@@ -30,13 +30,16 @@ def stable_details_view(request:HttpRequest, stable_id):
     return render(request , "horses/details_stable.html", {"stable":details , "services":services})
 
 def add_services_view(request:HttpRequest,stable_id):
+    stable=StableHorses.objects.get(id=stable_id)
 
     if request.method=="POST":
-        stable=StableHorses.objects.get(id=stable_id)
+        
         new_services=ServicesStable(stbleHorse=stable,name_Servic=request.POST["name_Servic"],description_Servic=request.POST["description_Servic"],duration_service=request.POST["duration_service"], price=request.POST["price"])
         new_services.save()
         return redirect("horses:stable_details_view", stable_id=stable.id)
-    return render (request, "horses/add_services.html")
+    
+
+    return render (request, "horses/add_services.html", {"stable" : stable})
      
     
 def delete_stable_views(request:HttpRequest, stable_id):

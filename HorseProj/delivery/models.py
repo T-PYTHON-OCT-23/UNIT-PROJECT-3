@@ -16,4 +16,4 @@ class Menu(models.Model):
     name=models.CharField(max_length=256,default="")
     img=models.ImageField(upload_to="images/", default="images/default_menu.jpg")
     description=models.TextField(default="")
-    price=models.IntegerField(default="")
+    price=models.IntegerField(default=0)
