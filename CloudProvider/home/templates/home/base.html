@@ -20,18 +20,27 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:login_view' %}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:user_create_view' %}">SignIn</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'user:logout_view' %}">Logout</a>
+              <a class="nav-link" href="#">Services</a>
             </li>
           </ul>
-          <span class="navbar-text">
-            user session
-          </span>
+          <div class="d-flex gap-2">
+            {% if user.is_authenticated %}
+            <lu class="nav-item dropdown me-4">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Welcome, Mr.{{user.username}}
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item w-50" href="{% url 'user:profile_view' request.user.id %}">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{% url 'user:logout_view' %}">Logout</a></li>
+              </ul>
+            </lu>
+            
+            {% else%}
+              <a class="nav-link" href="{% url 'user:login_view' %}">Login</a>
+              <a class="nav-link" href="{% url 'user:user_create_view' %}">SignIn</a>
+            {% endif %}
+          </div>
         </div>
       </div>
     </nav>

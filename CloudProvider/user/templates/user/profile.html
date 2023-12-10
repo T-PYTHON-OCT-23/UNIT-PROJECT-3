@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+{% load static }
+{% block title %}
+<title>{{profile}} Profile</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-4 d-flex flex-column mt-4 justify-content-center align-items-center">
+            <img src="{{ profile.profile.image.url }}" alt="user image" style="width: 80px; height: 80px; border-radius: 50%;">
+            <h5>{{profile}}</h5>
+        </div>
+        <div class="col-4 mt-5">
+            <form action="{% url 'user:profile_view' profile.id %}" method="POST" enctype="multipart/form-data">
+                <fieldset disabled>
+                <legend>User Profile</legend>
+                <label for="disabledTextInput" class="form-label">First Name:</label>
+                <input type="text" name="first_name" value="{{profile.first_name}}" class="form-control" id="disabledTextInput">
+                <label for="disabledTextInput" class="form-label">Last Name:</label>
+                <input type="text" name="last_name" value="{{profile.last_name}}" class="form-control" id="disabledTextInput">
+                <label for="disabledTextInput" class="form-label">Email:</label>
+                <input type="email" name="last_name" value="{{profile.email}}" class="form-control" id="disabledTextInput">
+
+                <label for="disabledTextInput" class="form-label">Image:</label>
+                <input type="file" name="image" class="form-control" id="disabledTextInput">
+                </fieldset>
+            </form>
+        </div>
+        <div class="col mt-4 justify-content-center">
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Profile management
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'user:edit_profile_view' profile.id %}">Edit</a></li>
+                  </ul>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

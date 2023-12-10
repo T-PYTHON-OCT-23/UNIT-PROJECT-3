@@ -1,0 +1,37 @@
+{% extends 'home/base.html' %}
+{% load static }
+{% block title %}
+<title>{{profile}} Profile</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-4 d-flex flex-column mt-4 justify-content-center align-items-center">
+            <img src="{{ profile.profile.image.url }}" alt="user image" style="width: 80px; height: 80px; border-radius: 50%;">
+            <h5>{{profile}}</h5>
+        </div>
+        <div class="col-4 mt-5">
+            {% if massage %}
+                <div class="alert alert-danger" role="alert">
+                {{ massage }}
+                </div>
+            {% endif %}
+            <form action="{% url 'user:edit_profile_view' profile.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>First Name:</label>
+                <input type="text" name="first_name" value="{{profile.first_name}}" class="form-control">
+                <label>Last Name:</label>
+                <input type="text" name="last_name" value="{{profile.last_name}}" class="form-control">
+                <label>Email:</label>
+                <input type="email" name="email" value="{{profile.email}}" class="form-control">
+
+                <label>Image:</label>
+                <input type="file" name="image" class="form-control">
+                <input type="submit" class="btn btn-primary form-control mt-3" value="profile update">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
