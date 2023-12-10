@@ -2,10 +2,10 @@
 {%load static %}
 {% block title %}Detail Recipe{% endblock%}
 {% block content%}
-<div class="container">
+<div class="container-fluid">
 <div class="row">
 <div class="col">
-<img src="{{recipe.image.url}}" height="500" width="800"/>
+<img src="{{recipe.image.url}}" class=""/>
 </div>
 {% if recipe.ingredients.count > 0 %}
 <h2>Ingredients in this recipe</h2>

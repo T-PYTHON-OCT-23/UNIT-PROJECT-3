@@ -3,7 +3,7 @@ from ingredients.models import Ingredient
 from django.contrib.auth.models import User
 
 class Recipe(models.Model):
-    categories=models.TextChoices('categories',['Breakfast&Brunch','Lunch','Healthy','Appetizers&Snacks','Salad','SideDishes','Soups','Bread','Drinks','Desserts'])
+    categories=models.TextChoices('categories',['Breakfast&Brunch','Lunch','Appetizers','Salad','Soups','Bread','Drinks','Desserts'])
     name=models.CharField(max_length=1000)
     description=models.TextField()
     kall=models.FloatField()

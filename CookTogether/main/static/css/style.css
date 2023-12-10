@@ -1,3 +1,50 @@
 p {
     white-space: pre-wrap;
 }
+body{
+    overflow-x: hidden;
+}
+.main{
+    background-image: url("/static/images/home.jpg");
+    background-size: cover;
+    height: 80vh;
+    width: 100vw;
+    z-index: -1;
+}
+.style{
+    font-family: 'Anton', sans-serif;
+    font-size:6rem;
+}
+
+.bottom-container{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.bottom-nav{
+    background-color:seagreen;
+    padding: 1.5rem 7rem;
+    border-radius: 8rem;
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    margin-top: -3.5rem;
+}
+.service-item{
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Phudu', sans-serif;
+}
+.service-item h5{
+    color: white;
+}
+.service-item span{
+    font-size: 250px;
+    color:seagreen;
+}
+.test{
+    height: 200px;
+}
