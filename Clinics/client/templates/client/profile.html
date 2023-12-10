@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %} User profile {% endblock %}
+{% block content %}
+
+<section class="container mt-5">
+
+    <div class="row g-3">
+        <div class="col-3">
+            <div class="d-flex flex-column gap-1">
+                <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
+                <div class="d-flex align-items-center justify-content-center gap-2">
+                    <a href="{{ user.profile.instagram_link }}"><i class="bi bi-instagram social"></i></a>
+                    <a href="{{ user.profile.twitter_link }}"><i class="bi bi-twitter-x social"></i></a>
+                    <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class=" d-flex justify-content-between align-items-center">
+                <h1>{{ user.first_name }} {{ user.last_name }} </h1>
+                {% if request.user.is_authenticated and request.user.id == user.id %}
+                <a href="{% url 'client:update_user'%}" class="btn btn-primary">Update</a>
+                {% endif %}
+            </div>
+
+            <h5>@{{ user.username}}</h5>
+            <p>
+                {{ user.profile.about }}
+            </p>
+
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}
