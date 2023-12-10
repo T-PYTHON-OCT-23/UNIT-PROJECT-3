@@ -14,7 +14,6 @@ Saudi Reddit is a simple Reddit-like web application built with Django.
 - User registration and authentication.
 - ...
 ![image](https://github.com/BDR-Pro/Saudi-reddit/assets/91114465/ed51ed6f-48fa-485c-bafb-bde83efa231d)
-------------------------------------------------------------------------------
 ![image](https://github.com/BDR-Pro/Saudi-reddit/assets/91114465/684003a5-24a7-41df-87c2-c6182fcf7bfc)
 
 
