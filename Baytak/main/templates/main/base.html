@@ -46,7 +46,7 @@
                 <img src="{{ request.user.profile.avatar.url }}" alt="avatar" width="32" height="32" class="rounded-circle">
               </a>
               <ul class="dropdown-menu text-small">
-                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="{% url 'request:veiwRequest' %}">My Request</a></li>
                 <li><a class="dropdown-item" href="{% url 'accounts:updateProfile' %}">Update Profile</a></li>
                 <li><a class="dropdown-item" href="{% url 'accounts:userProfile' user.id %}">Profile</a></li>
                 <li><hr class="dropdown-divider"></li>

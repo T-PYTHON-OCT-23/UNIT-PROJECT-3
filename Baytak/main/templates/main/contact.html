@@ -14,18 +14,12 @@
 
                 {% csrf_token %}
 
-            <label>Fisrt Name:</label>
-            <input class="form-control " type="text" name="first_name"  />
+           
 
-            <label>Last Name:</label>
-            <input class="form-control " type="text" name="last_name"  />
-    
-            <label>Email:</label>
-            <input class="form-control" type="email" name="email" required minlength="3" />
+           
+            
 
-            <label>Contact Number:</label> 
-            <input class="form-control " type = "tel" pattern = "\d{10}\"  placeholder = "05********" /> 
-
+            
             <label>Request Type::</label>
                 <select name="rating" class="form-select" required>
                     <option value="suggestions">Suggestions</option>
@@ -35,7 +29,7 @@
                 </select>
 
                 <p><label>Comments:</label>
-                <textarea class="form-control " name = "comments" rows = "3" cols="50" >Message</textarea></label></p>
+                <textarea class="form-control " name = "comment" rows = "3" cols="50" >Message</textarea></label></p>
 
                 <label>What do you think about our site:</label>
                 <select name="rating" class="form-select" required>
@@ -43,6 +37,7 @@
                     <option value="good">Good</option>
                     <option value="unsatisfactory">Unsatisfactory</option>
                 </select>
+                
 
                 <input class = "btn btn-dark text-center mt-3 mb-3"type = "submit" value = "Submit" onclick = "alert('Thank you..your information has been submited !!')">
             </form>

@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} About US  {% endblock %}
+{% block content  %}
+<div class ="wrapper pages-content">
+    <div class = "row content d-flex flex-column align-items-center ">
+ 
+        <div class="row row-cols-12 row-cols-md-3 g-3">
+            {% if requests.count == 0 %}
+             <div class="alert alert-info">You don't have any favorites yet.</div>
+            {% endif %}
+            {% for request in requests %}
+                <div class="col">
+                    
+                            {{request.service.name}}
+                            {{request.orderTime}}
+                           
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+     </div>
+</div>
+
+
+
+{% endblock %}

@@ -6,15 +6,101 @@
 
 <div class="container">
 
-    <div class = "row d-flexflex-column">
-    
-    <h1>{{service.category}} </h1>
-    <div class = "row d-flexflex-column">
-        {{service.name}}
-        {{service.address}}
-        <input class="btn btn-dark mt-3" type="submit" value="Order" />
+     <div class = "row d-flexflex-column">
+        
+        <h1>{{service.category}} </h1>
+        <div class = "row d-flex flex-column">
+            {{service.name}}
+            {{service.address}}
+
+            <a class="btn btn-dark "   data-bs-toggle="modal" data-bs-target="#deleteModal">Order</a>
+            
+        </div>
+        
     </div>
-    
+    <div class ="row d-flex flex-row mt-5 gap-2">
+    {% for review in userReviews %}
+        <div class="col-3 review d-flex flex-column  ">
+
+
+            <img class="" src="{{ user.profile.avatar.url }}" />
+            
+                {{ review.user.first_name }}
+                {{ review.user.last_name }}
+                {{ review.comment }}<br>
+                <div class = "row">
+        
+                  <span style="font-size:200%;color:yellow;"> {{ review.rating }} &starf;</span>
+                </div>
+                
+                {{ review.createdAt }}<br>
+                
+                {% if review.user == request.user %}
+                <a class="btn btn-dark " href="" >Delete</a> {% endif %}
+            
+
+        </div>
+        {% endfor %} 
+    </div>
+                <div class = "row">
+                    <div class = "col d-flexflex-column">
+                        <form action="{% url 'services:serviceDetails' service.id %}" method="POST" >
+                            {% csrf_token %}
+                            
+            
+                            <label>Comment:</label>
+                            <textarea class="form-control mt-3" name="comment"></textarea>
+            
+                            <label>Rating:</label>
+                            <br>
+                            
+                            <div class="rate">
+                                <input type="radio" id="star5" name="rating" value="5" />
+                                <label for="star5" title="text">5 stars</label>
+                                <input type="radio" id="star4" name="rating" value="4" />
+                                <label for="star4" title="text">4 stars</label>
+                                <input type="radio" id="star3" name="rating" value="3" />
+                                <label for="star3" title="text">3 stars</label>
+                                <input type="radio" id="star2" name="rating" value="2" />
+                                <label for="star2" title="text">2 stars</label>
+                                <input type="radio" id="star1" name="rating" value="1" />
+                                <label for="star1" title="text">1 star</label>
+                            </div>
+                            <br>
+                            <input class="btn btn-dark mt-3" type="submit" value="Submit " />
+                        </form>
+                    </div>
+                    
+                </div>
+
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Order</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        do you want to order this service {{ service.name }} ? click yes if yes
+
+                        <form action="{% url 'request:addRequest' service.id %}" method="POST" >
+                            {% csrf_token %}
+                            <label>order time:</label>
+                                <input class="form-control mt-3" name="orderTime" type="datetime-local" />
+                                <label>Address:</label>
+                            <textarea class="form-control mt-3" name="address"></textarea>
+                                <input type="submit" value="Order" class="btn btn-primary"/>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                
 </div>
 
 {% endblock %}

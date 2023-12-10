@@ -20,13 +20,13 @@
             <form class="d-flex flex-column gap-1" action="{% url 'accounts:updateProfile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <label>Fisrt Name:</label>
+                <label class="align-self-start">Fisrt Name:</label>
                 <input class="form-control " type="text" name="first_name" value="{{ request.user.first_name }}" />
     
-                <label>Last Name:</label>
+                <label class="align-self-start">Last Name:</label>
                 <input class="form-control " type="text" name="last_name"  value="{{ request.user.last_name }}"/>
         
-                <label>Email:</label>
+                <label class="align-self-start">Email:</label>
                 <input class="form-control" type="email" name="email" required minlength="3" value="{{ request.user.email }}"/>
 
                 
@@ -35,9 +35,9 @@
                     <input class="form-control" type="file" name="avatar"  placeholder="choose avatar"/>
                 </div>
                 
-                <label>City:</label>
+                <label class="align-self-start">City:</label>
                 <input class="form-control" type="text" name="city" required minlength="3" value="{{ request.user.profile.email }}"/>
-                <label>Mobile Number:</label>
+                <label class="align-self-start">Mobile Number:</label>
                 <input class="form-control" type="text" name="mobileNumber" required minlength="3" value="{{ request.user.profile.email }}"/>
                 
 
