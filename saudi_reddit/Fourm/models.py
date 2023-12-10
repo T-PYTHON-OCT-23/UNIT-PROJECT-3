@@ -7,6 +7,8 @@ from subreddit.models import Subreddit
 
 class Post(models.Model):
     subreddit = models.ForeignKey(Subreddit, on_delete=models.CASCADE)
+    upvoters = models.ManyToManyField(User, related_name='upvoted_posts', blank=True)
+    downvoters = models.ManyToManyField(User, related_name='downvoted_posts', blank=True)
     title = models.CharField(max_length=255,default='New Post')
     slug = models.SlugField(max_length=255,unique=True)
     views = models.IntegerField(default=0)
@@ -22,7 +24,7 @@ class Post(models.Model):
             base_slug = slugify(self.title)
             self.slug = base_slug
             count = 1
-            while self.objects.filter(slug=self.slug).exists():
+            while Post.objects.filter(slug=self.slug).exists():
                 self.slug = f"{base_slug}-{count}"
                 count += 1
         super().save(*args, **kwargs)
@@ -39,14 +41,16 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     votes = models.IntegerField(default=0)
+    upvoters = models.ManyToManyField(User, related_name='upvoted_comments', blank=True)
+    downvoters = models.ManyToManyField(User, related_name='downvoted_comments', blank=True)
     
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.title)
+            base_slug = slugify(self.content)
             self.slug = base_slug
             count = 1
-            while self.objects.filter(slug=self.slug).exists():
+            while Comment.objects.filter(slug=self.slug).exists():
                 self.slug = f"{base_slug}-{count}"
                 count += 1
         super().save(*args, **kwargs)

@@ -22,9 +22,10 @@
         {% for post in top_posts %}
           <div class="card mb-4">
             <div class="card-body">
-              <h3 class="card-title"><a href="{% url 'Fourm:post_detail' post.id %}">{{ post.title }}</a></h3>
-              <p class="card-text">{{ post.content }}</p>
-              <p class="card-text">Author: {{post.author.full_name}}{{ post.author.username }} | Votes: {{ post.votes }}</p>
+              <h3 class="card-title"><a href="{% url 'Fourm:post_detail' post.slug %}">{{ post.title }}</a></h3>
+              <p class="card-text">{{ post.content | slice:":100" }}</p>
+              <p class="card-text"><a href="{% url 'subreddit:subreddit_detail' post.subreddit.slug %}">{{ post.subreddit.name }}</a></p>
+              <p class="card-text">{{post.author.full_name}}{{ post.author.username }} |{{ post.votes }}</p>
               <a href="{% url 'Fourm:upvote_post' post.id %}" class="btn btn-success">Upvote</a>
             </div>
           </div>

@@ -11,6 +11,8 @@ from django.contrib.auth.models import User as userauth
 from User.models import Profile 
 from User.forms import ProfileForm
 from django.contrib.auth.decorators import login_required
+from User.models import Post , Comment 
+from subreddit.models import Subreddit
 
 load_dotenv()
 
@@ -37,26 +39,28 @@ def signup(request):
         messages.error(request, 'Invalid username or password.')
     return render(request, 'registration/signup.html', {'form': form})
 
-def user_login(request,):
+def user_login(request):
     if request.method == 'POST':
 
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                messages.success(request, f'Welcome, {form.username}!')
+                messages.success(request, f'Welcome, {username}!')
                 return redirect('/')
             else:
                 messages.error(request, 'Invalid username or password.')
+                return redirect('User:login')
         else:
-            print(form.errors, form.error_messages)    
+            print(form.errors, form.error_messages)  
+            return redirect('User:login')  
         
     else:   
         form = AuthenticationForm()
+        return render(request, 'registration/login.html', {'form': form})
 
 
 def user_logout(request):
@@ -86,26 +90,36 @@ def edit_profile(request):
     return render(request, 'registration/edit_profile.html', {'form': form, 'user_profile': profile})
 
 
-@login_required
-def profile(request):
-    if not userauth.is_authenticated:
-        return redirect('User:login')
-    user = request.user
-    user.Profile = Profile.objects.get(user=user)
+
+
+def profile_Data(request,username):
+    
+    userauth1 = userauth.objects.get(username=username)
+    user = Profile.objects.get(user=userauth1)
+    
+    posts = Post.objects.filter(author=userauth1)
+    comments = Comment.objects.filter(author=userauth1)
+    subreddits = Subreddit.objects.filter(subscribers=userauth1)
+    author_subreddits = Subreddit.objects.filter(author=userauth1)
+    
     user_profile = {
-        'username': user.username,
-        'email': user.Profile.email,
-        'full_name': user.Profile.full_name,
-        'bio': user.Profile.bio,
-        'image': user.Profile.image.url if user.Profile.image else '',
-        'created_at': user.Profile.created_at,
-        'updated_at': user.Profile.updated_at,
-        'post': user.Profile.post,
-        'comment': user.Profile.comment,
-        'subreddit': user.Profile.subreddit,
+        
+        'username': username,
+        'email': user.email,
+        'full_name': user.full_name,
+        'bio': user.bio,
+        'image': user.image.url if user.image else '',
+        'created_at': user.created_at,
+        'updated_at': user.updated_at,
+        'post': posts,
+        'comment': comments,
+        'subreddit': subreddits,
+        'author_subreddits': author_subreddits,
+        'last_login': userauth1.last_login,
         
         
     }
+    
     return render(request, 'registration/profile.html', {'user_profile': user_profile})
 
 

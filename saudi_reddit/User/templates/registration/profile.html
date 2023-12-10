@@ -17,58 +17,55 @@
             <div class="col-md-8">
                 <h2>{{ user_profile.username }}</h2>
                 <p class="mb-2">Email: {{ user_profile.email }}</p>
+                <p class="mb-2">last login: {{ user_profile.last_login }}</p>
                 <p class="mb-2">Full Name: {{ user_profile.full_name }}</p>
                 <p class="mb-2">Bio: {{ user_profile.bio }}</p>
                 <p class="mb-2">Created At: {{ user_profile.created_at }}</p>
                 <p class="mb-2">Updated At: {{ user_profile.updated_at }}</p>
                 <p class="mb-2">Number of Posts: {{ user_profile.post.count }}</p>
                 <p class="mb-2">Number of Comments: {{ user_profile.comment.count }}</p>
+                <p class="mb-2">Number of subscribed Subreddits: {{ user_profile.subreddit.count }}</p>
+            
                 <p class="mb-2">Subreddits subscribed to:</p>
                 <ul>
-                    {% for subreddit in user_profile.subreddit.all %}
+                    {% for subreddit in user_profile.subreddit %}
                         <li>{{ subreddit.name }}</li>
                     {% endfor %}
                 </ul>
-                
-                    {% if user.is_authenticated  and user.username == user_profile.username  %}
-                        <a href="{% url 'User:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
-                    {% endif %}
+
+                <!-- Links to user's comments and posts -->
+                <p class="mb-2">Comments:</p>
+                {% for comment in user_profile.comment %}
+                    <p class="mb-2"><a href="{% url 'subreddit:comment_detail' comment.slug %}">View Comment</a></p>
+                {% endfor %}
+                <p class="mb-2">Posts:</p>
+                {% for post in user_profile.post %}
+                <p class="mb-2"><a href="{% url 'Fourm:post_detail' post.slug %}">{{ post.title }}</a></p>
+                {% endfor %}
+                {% if user.is_authenticated and user.username == user_profile.username %}
+                    <a href="{% url 'User:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+                {% endif %}
             </div>
         </div>
     </div>
     <style>
-
         /* Add these styles to the <style> section in your base.html */
-
-            body {
-                font-family: 'Arial', sans-serif;
-                margin: 0;
-                padding: 0;
-                background-color: #f8f9fa; /* Bootstrap background color */
-            }
-            
-            /* ... existing styles ... */
-            
-            main {
-                padding: 20px;
-                background-color: #ffffff; /* White background for main content */
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                margin-top: 20px;
-            }
-            
-            .container {
-                max-width: 800px;
-            }
-            
-            img.img-fluid.rounded {
-                border-radius: 8px;
-                max-width: 100%;
-                height: auto;
-            }
-            
-            /* ... additional styles ... */
-            
-
+        /* ... existing styles ... */
+        main {
+            padding: 20px;
+            background-color: #ffffff; /* White background for main content */
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+        .container {
+            max-width: 800px;
+        }
+        img.img-fluid.rounded {
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+        /* ... additional styles ... */
     </style>
 {% endblock %}

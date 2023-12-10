@@ -1,0 +1,111 @@
+<!-- templates/subreddit.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2 class="mb-3">{{ subreddit.name }} Subreddit</h2>
+
+        <!-- Subreddit Header and Icon -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <img src="{{ subreddit.header.url }}" alt="{{ subreddit.name }} Header" class="img-fluid">
+            </div>
+            <div class="col-md-6">
+                <img src="{{ subreddit.icon.url }}" alt="{{ subreddit.name }} Icon" class="img-fluid">
+            </div>
+        </div>
+
+        <!-- Subreddit Details Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ subreddit.name }}</h5>
+                <p class="card-text">Description: {{ subreddit.description }}</p>
+                <p class="card-text">Created at: {{ subreddit.created_at|date:"F j, Y, g:i a" }}</p>
+                <p class="card-text">
+                    Created by: <a href="{% url 'User:profile_with_username' username=subreddit.author.username %}">{{ subreddit.author.username }}</a>
+                </p>
+                <!-- Add more details as needed -->
+            </div>
+        </div>
+
+        <!-- Create New Post Button -->
+        <a href="{% url 'subreddit:post_create' subreddit.slug %}" class="btn btn-primary mb-3">Create New Post</a>
+
+        <!-- Posts -->
+        <h2 class="mb-3">Posts</h2>
+        {% for post in posts %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{% url 'Fourm:post_detail' post.slug %}">{{ post.title }}</a>
+                    </h5>
+                    <p class="card-text">{{ post.content }}</p>
+                    <img src="{{ post.image.url }}" alt="{{ post.title }} Image" class="img-fluid mb-2">
+                    <p class="card-text">Created at: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
+                    <p class="card-text">
+                        Created by: <a href="{% url 'User:profile_with_username' username=post.author.username %}">{{ post.author.username }}</a>
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <style>
+
+        /* styles.css */
+
+/* Style for the main container */
+.container {
+    max-width: 800px; /* Adjust the maximum width as needed */
+    margin: 0 auto;
+}
+
+/* Style for the subreddit header and icon images */
+.img-fluid {
+    width: 100%;
+    height: auto;
+    border-radius: 8px; /* Add rounded corners if desired */
+    margin-bottom: 10px;
+}
+
+/* Style for the subreddit details card */
+.card {
+    border: 1px solid #ddd; /* Add a border for separation */
+    border-radius: 8px; /* Add rounded corners if desired */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    margin-bottom: 20px;
+}
+
+/* Style for the "Create New Post" button */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+/* Style for the individual post cards */
+.card.mb-3 {
+    border: 1px solid #ddd; /* Add a border for separation */
+    border-radius: 8px; /* Add rounded corners if desired */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+    margin-bottom: 20px;
+}
+
+.card-title a {
+    color: #333; /* Set the link color for post titles */
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    color: #007bff; /* Change link color on hover */
+    text-decoration: underline;
+}
+
+
+
+    </style>
+{% endblock %}
