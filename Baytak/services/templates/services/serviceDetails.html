@@ -13,11 +13,21 @@
             {{service.name}}
             {{service.address}}
 
-            <a class="btn btn-dark "   data-bs-toggle="modal" data-bs-target="#deleteModal">Order</a>
+            <a class="btn btn-dark "   data-bs-toggle="modal" data-bs-target="#orderModal">Order</a>
             
         </div>
         
     </div>
+    {% if request.user.is_staff %}
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Edit
+      </button>
+      <ul class="dropdown-menu ">
+        
+        <li><a class="dropdown-item" href="{% url 'services:updateService' service.id %}">Update</a></li>
+        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
+        {% endif%}
+      </ul>
     <div class ="row d-flex flex-row mt-5 gap-2">
     {% for review in userReviews %}
         <div class="col-3 review d-flex flex-column  ">
@@ -73,7 +83,7 @@
                     
                 </div>
 
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -99,6 +109,23 @@
                     </div>
                     </div>
                 </div>
+                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Post</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                         do you want to delete the post {{ service.name }} ? click yes if yes
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <a href="{% url 'services:deleteService' service.id %}" class="btn btn-danger">Yes, delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 
                 
 </div>

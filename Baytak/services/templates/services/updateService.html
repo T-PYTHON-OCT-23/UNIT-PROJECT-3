@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add Service {% endblock %}
+
+{% block content %}
+
+
+
+<div class = "wrapper pages-content">
+    
+    <section class="container">
+        <div class="row content d-flex flex-column align-items-center">
+        <h1>Update Service</h1>
+    
+    
+            <div class="col-6">
+               
+    
+                <form class="d-flex flex-column gap-1"action="{% url 'services:updateService' service.id %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label class="align-self-start">Name:</label>
+                    <input class="form-control " type="text" name="name"  />
+    
+                    <label class="align-self-start">Address:</label>
+                    <textarea class="form-control" name="address"></textarea>
+    
+                    <label class="align-self-start">Description of the service:</label>
+                    <textarea class="form-control" name="about"></textarea>
+    
+                    <label class="align-self-start">Personal Image:</label>
+                    <input type="file" name="image"  class="form-control" accept="image/*"/>
+                    
+                    <label class = "align-self-start">Category:</label>
+                    {% for key, value in categories.choices %}
+                        <div class="align-self-start form-check">
+                            <input class=" form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                            <label class="form-check-label" for="{{key}}">
+                            {{value}}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    <label class = "align-self-start">Duration:</label>
+                    {% for key, value in durations.choices %}
+                        <div class="align-self-start form-check">
+                            <input class="form-check-input" type="radio" name="duration" id="{{key}}" value="{{value}}">
+                            <label class="form-check-label" for="{{key}}">
+                            {{value}}
+                            </label>
+                        </div>
+                    {% endfor %}
+            
+                    <label class="align-self-start">Nationality:</label>
+                    <input class="form-control mt-3" type="text" name="nationality"  />
+    
+                    <label class="align-self-start">Quantity:</label>
+                    <input class="form-control mt-3" type="number" name="quantity"  />
+    
+                    <label class="align-self-start">City:</label>
+                    <input class="form-control mt-3" type="text" name="city"  />
+    
+                
+                    <input class="btn btn-dark mt-3 mb-5" type="submit" value="Update Service" />
+                </form>
+    
+            </div>
+    
+        
+        </div>
+    </section>
+    </div>
+{% endblock %}

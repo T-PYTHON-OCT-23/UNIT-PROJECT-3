@@ -8,17 +8,19 @@
 <div class = "container">
 
     <div class="row content d-flex flex-column align-items-center">
-        
+        <h1 class = "mt-5">Profile</h1>
+        <div class="col-3 review d-flex flex-column mb-5 w-50 align-items-center">
         <img class="avatar" src="{{ user.profile.avatar.url }}" />
-        <label>Name:</label>
+        <h2>Name:</h2>
         <h4>{{ user.first_name }} {{ user.last_name }}</h4>
-        <label>Email:</label>
+        <h2>Email:</h2>
         <h4>{{ user.email }}</h4>
-        <label>City:</label>
-        <h1>{{ user.profile.city}}</h1>
-        <label>Mobile Number:</label>
-        <h1>{{ user.profile.mobileNumber}}</h1>
-        <a href="{% url 'accounts:updateProfile' %}" class="btn btn-dark mt-3">Update</a>
+        <h2>City:</h2>
+        <h4>{{ user.profile.city}}</h4>
+        <h2>Mobile Number:</h2>
+        <h4>{{ user.profile.mobileNumber}}</h4>
+        <a href="{% url 'accounts:updateProfile' %}" class="btn btn-dark mt-3 mb-5">Update</a>
+        </div>
     </div>
 
 

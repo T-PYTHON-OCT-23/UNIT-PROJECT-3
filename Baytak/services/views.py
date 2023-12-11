@@ -17,7 +17,7 @@ def addServices(request : HttpRequest):
 def viewServices(request : HttpRequest):
 
     if "category" in request.GET and request.GET["category"] =="Electrician and Plumber":
-      service = Service.objects.filter(category__contains ="Electrician and Plumber")
+        service = Service.objects.filter(category__contains ="Electrician and Plumber")
 
     elif "category" in request.GET and request.GET["category"] =="Clining":
         service = Service.objects.filter(category__contains ="Clining")
@@ -27,7 +27,8 @@ def viewServices(request : HttpRequest):
         
     elif "category" in request.GET and request.GET["category"] =="Moving furniture":
         service = Service.objects.filter(category__contains ="Moving furniture")
-
+    else:
+        service=Service.objects.all()
     return render(request ,"services/viewServices.html" , {"service" : service})
 
 def serviceDetails(request : HttpRequest ,service_id):
@@ -47,3 +48,55 @@ def serviceDetails(request : HttpRequest ,service_id):
        return render(request, "main/not_found.html"  )
        
     return render(request ,"services/serviceDetails.html" , {"service" : service , "userReviews" : userReviews })
+
+def updateService(request : HttpRequest , service_id):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
+    try:
+            service = Service.objects.get(id = service_id)
+
+            if request.method == "POST":
+                service.name = request.POST["name"]
+                service.address = request.POST["address"]
+                service.about=  request.POST["about"]
+                service.image = request.FILES["image"]
+                service.nationality = request.POST["nationality"]
+                service.city = request.POST["city"]
+                service.duration = request.POST["duration"]
+                service.quantity = request.POST["quantity"]
+                service.category = request.POST["category"]
+                
+                service.save()
+
+                return redirect( "services:serviceDetails" , service_id = service.id)
+    
+           
+            return render(request ,"services/updateService.html" , {"service" : service , "categories" : Service.categories , "durations" : Service.durations})                    
+    except  Exception as e:
+
+       return render(request, "main/not_found.html")
+    
+    
+   
+
+def deleteService(request : HttpRequest , service_id):
+     if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
+     
+     try:
+        service = Service.objects.get(id = service_id)
+        service.delete()
+
+        return redirect("services:viewServices")
+     except  Exception as e:
+
+       return render(request, "main/not_found.html")
+       
+def searchService(request : HttpRequest):
+   if "search" in request.GET:
+      nameSearch = request.GET["search"]
+      service = Service.objects.filter(name__contains = nameSearch)
+   else:
+      service = Service.objects.all() 
+
+   return render(request, "services/search.html" ,  {"service" : service}) 

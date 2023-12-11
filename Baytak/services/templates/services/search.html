@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+
+{% block title %} view{{service.category}}  {% endblock %}
+
+{% block content %}
+<div class = "wrapper pages-content">
+<div class="container content ">
+    <h1 class = "text-uppercase fw-bold fs-1 text-center">Search results for "{{ request.GET.search }}"</h1>
+
+    <div class = "row">
+        {%for service in service%}
+    <div class = "col-4 d-flex flex-column align-items-center mb-5">
+        <img src="/static/image/cleanIcon.jpeg" class="icons" alt="CleanIcon">
+        <h3 class = "mb-1">{{service.name}}</h3>
+        {{service.address}}
+        <a href="{% url 'services:serviceDetails' service.id %}" class="btn btn-dark text-center mb-5 ">Discover More</a>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+</div>
+    
+
+
+
+</div>
+</div>
+{% endblock %}

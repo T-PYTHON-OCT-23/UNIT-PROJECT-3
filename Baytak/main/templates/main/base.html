@@ -27,8 +27,8 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Electrician and Plumber">Electrician and Plumber</a></li>
                   <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Clining">Clining</a></li>
-                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Clining">Horror</a></li>
-                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Clining">Horror</a></li>
+                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Water filling">Water filling</a></li>
+                  <li><a class="dropdown-item" href="{% url 'services:viewServices' %}?category=Moving furniture">Moving furniture</a></li>
                 </ul>
               </li>
               
@@ -36,8 +36,9 @@
               <li><a href="{% url 'main:contact' %}" class="nav-link px-2 link-body-emphasis">Contact Us</a></li>
               <li><a href="{% url 'accounts:loginUser' %}" class="nav-link px-2 link-body-emphasis">Login</a></li>
             </ul>
-    
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            
+        
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" action="{% url 'services:searchService'  %}" name="search" method="GET">
               <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
             </form>
     
