@@ -3,25 +3,25 @@
 {% block title%} حجز موعد {% endblock %}
 
 {% block content %}
-<section class="container py-5">
-    <h1 class="mb-4">حجز موعد</h1>
+<section class="container py-5" style="background-color: #f8f9fa; border-radius: 15px;">
+    <h1 class="mb-4" style="color: #6c757d;">حجز موعد</h1>
 
-    <form method="post" action="{% url 'hospitall:create_appointment' %}">
+    <form method="post" action="{% url 'hospitall:create_appointment' %}" style="font-size: 1.2em;">
         {% csrf_token %}
 
         <!-- Dropdown menu for selecting a clinic -->
-        <label for="clinic">اختر العيادة:</label>
-        <select name="clinic" id="clinicSelect">
+        <label for="clinic" style="display: block; margin-bottom: 10px;">اختر العيادة:</label>
+        <select name="clinic" id="clinicSelect" style="width: 100%; padding: 10px; margin-bottom: 20px;">
             {% for clinic in clinics %}
                 <option value="{{ clinic.id }}">{{ clinic.name }}</option>
             {% endfor %}
         </select>
 
         <!-- Date and time input -->
-        <label for="date">اختر التاريخ والساعة:</label>
-        <input type="datetime-local" name="date" id="date" required>
+        <label for="date" style="display: block; margin-bottom: 10px;">اختر التاريخ والساعة:</label>
+        <input type="datetime-local" name="date" id="date" required style="width: 100%; padding: 10px; margin-bottom: 20px;">
 
-        <input type="submit" value="حجز الموعد">
+        <input type="submit" value="حجز الموعد" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;">
     </form>
 </section>
 {% endblock %}

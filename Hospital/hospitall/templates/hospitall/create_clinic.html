@@ -1,20 +1,20 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-  <h2>إضافة عيادة جديدة</h2>
-  <form method="post" enctype="multipart/form-data">  <!-- add enctype attribute -->
+  <h2 style="color: #6c757d;">إضافة عيادة جديدة</h2>
+  <form method="post" enctype="multipart/form-data" style="font-size: 1.2em;">  <!-- add enctype attribute -->
     {% csrf_token %}
-    <label for="clinic_name">اسم العيادة:</label><br>
-    <input type="text" id="clinic_name" name="clinic_name"><br>
-    <label for="clinic_image">صورة العيادة:</label><br>  <!-- new field -->
-    <input type="file" id="clinic_image" name="clinic_image"><br>  <!-- new field -->
-    <label for="doctor_user">اسم الطبيب:</label><br>
-    <select id="doctor_user" name="doctor_user">
+    <label for="clinic_name" style="display: block; margin-bottom: 10px;">اسم العيادة:</label><br>
+    <input type="text" id="clinic_name" name="clinic_name" style="width: 100%; padding: 10px; margin-bottom: 20px;"><br>
+    <label for="clinic_image" style="display: block; margin-bottom: 10px;">صورة العيادة:</label><br>  <!-- new field -->
+    <input type="file" id="clinic_image" name="clinic_image" style="width: 100%; padding: 10px; margin-bottom: 20px;"><br>  <!-- new field -->
+    <label for="doctor_user" style="display: block; margin-bottom: 10px;">اسم الطبيب:</label><br>
+    <select id="doctor_user" name="doctor_user" style="width: 100%; padding: 10px; margin-bottom: 20px;">
       {% for doctor in doctors %}
         <option value="{{ doctor.user.id }}">{{ doctor.user.username }}</option>
       {% endfor %}
     </select><br>
-    <button type="submit">إضافة</button>
+    <button type="submit" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;">إضافة</button>
   </form>
   {% if error_message %}
     <p><strong>{{ error_message }}</strong></p>
