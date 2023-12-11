@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    role = models.CharField(max_length=20, choices=[("manager", "Manager"), ("employee", "Employee")])
-    pfp = models.ImageField(upload_to="images/", default="images/avatar-default.png")
-
+    manager_of = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='employees')
+    performance_rating = models.FloatField(null=True, blank=True)
+    
     def __str__(self):
         return self.user.username
 
@@ -39,4 +39,3 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"Feedback for Task: {self.task.title}"
-    

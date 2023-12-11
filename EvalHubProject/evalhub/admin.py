@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import CustomUser, Task, Report, Feedback
 
 class CustomUserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'role',)
-    search_fields = ('user__username', 'role',)
+    list_display = ('user', )
+    search_fields = ('user__username',)
 
 admin.site.register(CustomUser, CustomUserAdmin)
 
