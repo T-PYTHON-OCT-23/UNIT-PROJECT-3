@@ -1,9 +1,10 @@
-<!-- evalhub/templates/evalhub/feedback_detail.html -->
-
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Feedback Detail{% endblock %}
 
 {% block content %}
-  <h2>Feedback for: {{ task.title }}</h2>
+  <h2>Feedback for Task: {{ task.title }}</h2>
 
   <!-- Display Feedback -->
   <p>{{ task.feedback.notes }}</p>
@@ -13,7 +14,7 @@
   {% endif %}
 
   <!-- Allow Manager to Provide Feedback -->
-  <form method="post" action="{% url 'evalhub:feedback_detail' task.id %}">
+  <form method="post" action="{% url 'feedback_detail' task.id %}">
     {% csrf_token %}
     {{ feedback_form.as_p }}
     <button type="submit">Provide Feedback</button>
