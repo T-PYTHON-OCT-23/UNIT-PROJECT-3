@@ -3,20 +3,53 @@
 {% block title %} Detail event {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h1> Title: {{ event_detail.title }}</h1>
-            <img src="{{event_detail.image.url}}" class="img-fluid rounded-5 object-fit-cover" alt="Event image">
-            <h2> Category: {{ event_detail.category }}</h2>
-            <h3> Content: {{ event_detail.content }}</h3>
-            <h4>Posting date: {{ event_detail.posting_date }}</h4>
-            {% if not is_favored %}
-                <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><h5 class="p-0 m-0"><span class="material-symbols-outlined">favorite</span></h5></a>
-            {% else %}
-                <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><span class="material-symbols-outlined">heart_plus</span></a>
+
+
+  <div class="d-flex justify-content-between">
+    <h1 class="display-3 m-5">
+        Event Details 
+        </h1>
+        <div class="dropdown mt-5 p-3">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Edit
+            </button>
+            <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'events:new_events_view' %}">Update Event</a></li>
+            {% if  perms.events.delete_event %}
+
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Event</a></li>
+
             {% endif %}
 
+            </ul>
+        </div>
+  </div>
+
+<hr/>
+
+<div class="box m-5">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-6">
+            <img src="{{event_detail.image.url}}" class="img-fluid rounded-5 object-fit-cover" alt="Event image">
+        </div>
+        <div class="col-6">
+            <div class="d-flex justify-content-between">
+                <h1> Title: {{ event_detail.title }}</h1>
+                {% if not is_favored %}
+                <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                    </svg></h5></a>
+                {% else %}
+                    <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                    </svg></a>
+                {% endif %}
+
+            </div>
+            
+            <h6 class="display-6"> Category: {{ event_detail.category }}</h6>
+            <p class="display-6">Posting date: {{ event_detail.posting_date }}</p>
+            
             {% if request.user.is_authenticated %}
             <a class="btn btn-success" href="{% url 'emails:the_bill_view' %}" >Book Now</a>
             
@@ -28,14 +61,40 @@
 
             {% endif %}
 
-
-
+            
         </div>
 
     </div>
 
 </div>
+<div class="box m-5">
+    <div class="row">
+        <div class="col-12">
+            <p> Content: {{ event_detail.content }}</p>
+        </div>
+
+    </div>
+</div>
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Event</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         do you want to delete the Event {{ event_detail.title }} ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="{% url 'events:delete_event_view' event_detail.id %}" class="btn btn-danger">Yes, delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

@@ -1,28 +1,64 @@
 {% extends 'main/base.html' %}
+{% load static %}
+
 
 {% block title %} User profile {% endblock %}
 
 
 {% block content %}
 
-<div class="container">
+<div class="container border border-warning">
+    <div class="row">
+      <div class="col-sm-3">
+        <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}"/>
+      </div>
+      <div class="col-sm-9">
+        <div class="row">
+          <div class="col-8 col-sm-6 mt-4">
+            <h3>First name: {{ user.first_name }}</h3>
+          </div>
+          <div class="col-4 col-sm-6 mt-4">
+            <h3>Last name: {{ user.last_name }}</h3>
+          </div>
+          <div class="col-4 col-sm-6 mt-4">
+            <h6>Logout</h6>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="box text-center">
+    <div class="row gap-2 m-4">
+      <div class="col border border-warning btn btn-dark">
+        Favorites<span class="material-symbols-outlined">favorite</span>
+        <div>
+            <a href="{% url 'favorites:my_favorites_view' %}">My Favorites:</a>
+        </div>
+      </div>
+      <div class="col border border-primary btn btn-dark">
+        Tickets<span class="material-symbols-outlined">local_activity</span>
+      </div>
+      <div class="col border border-warning btn btn-dark">
+        Update Profile<span class="material-symbols-outlined">manage_accounts</span>
+      </div>
+    </div>
+  </div>
+
+
+<div class="container border border-warning">
     <div class="row">
         <div class="col">
-            <div class="text-center border-primary">
-                <h1> Welcome,{{ user.first_name }} {{ user.last_name }} </h1>
-            </div>
-            <h5> Username : @{{ user.username}}</h5>
-            <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
-            <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
-            <div class="box">
-                <ul>
-                    <li><a href="{% url 'favorites:my_favorites_view' %}">My Favorites:</a></li>
-                </ul>
+            <h4>Rate your experiences</h4>
+            <h5>Help us improve and make your experiences more fun </h5>
+            <div class="icons">
+                <span class="material-symbols-outlined">sentiment_very_satisfied</span>
+                <span class="material-symbols-outlined">mood_bad</span>
+                <span class="material-symbols-outlined">sentiment_extremely_dissatisfied</span>
             </div>
         </div>
-
     </div>
-
 </div>
 
 {% if user.ticket_set.count > 0 %}
@@ -45,5 +81,26 @@
     
 </section>
 {% endif %}
+
+
+<div class="row">
+    <div class="col">
+        {% for ticket in user.ticket_set.all %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ ticket.event.title }}</h6>
+                    <h6>{{ ticket.event.category }}</h6>
+                    <p class="card-text">This ticket is only for entry into this event.</p>
+                    <h6>Start date: {{ ticket.start_date }}</h6>
+                    <h6>Last date: {{ ticket.last_date  }}</h6>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
 
 {% endblock %}

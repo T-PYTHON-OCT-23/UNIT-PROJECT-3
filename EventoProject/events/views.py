@@ -24,6 +24,10 @@ def events_home_view(request: HttpRequest):
     
 def delete_event_view(request:HttpRequest,event_id):
 
+    #check for delete permission on movie
+    if not request.user.has_perm("events.delete_event"):
+        return render(request, "main/not_uth.html", status=401)
+
     event= Event.objects.get(id=event_id)
     event.delete()
 
@@ -101,6 +105,22 @@ def events_home_view_catego(request: HttpRequest, cat):
 
     return render(request, "events/events_home.html", {"events" : events, "events_count" : events_count})
 
+
+
+
+def old_events_view(request: HttpRequest):
+
+    events = Event.objects.filter().order_by("posting_date")
+
+    return render(request, "events/events_home.html", {"events" : events})
+
+
+
+def new_events_view(request: HttpRequest):
+
+    events = Event.objects.filter().order_by("-posting_date")
+
+    return render(request, "events/events_home.html", {"events" : events})
 
 
 

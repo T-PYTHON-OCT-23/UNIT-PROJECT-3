@@ -1,5 +1,4 @@
 
-
 div.polaroid {
   width: 40%;
   background-color: white;
@@ -82,8 +81,7 @@ div.container {
 
 .para{
     font-family: 'Merriweather', serif;
-    font-size:20px;
-
+    font-size: 1rem;
 }
 
 
@@ -92,25 +90,6 @@ div.container {
     font-size:2rem;
 }
 
-
-.box-profile{
-    height: 20vh;
-    display: grid;
-    position: relative;
-
-}
-
-
-.box-profile::before{
-    background-image: url('/static/images/color-background.jpg');
-    background-size: cover;
-    content: '';
-    position: absolute;
-    inset: 0;
-    opacity: 0.2;
-    margin-bottom: 10px;
-
-}
 
 .icons{
     height: 50px;

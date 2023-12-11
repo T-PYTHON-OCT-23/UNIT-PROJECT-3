@@ -4,24 +4,37 @@
 
 
 {% block content %}
-    <section class="container">
-        <h1>My Favorites</h1>
-        <div class="row row-cols-12 row-cols-md-3 g-3">
+
+    <div class="box m-4">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1 class="display-3 mb-3">My Favorites</h1>
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown button
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Latest</a></li>
+              <li><a class="dropdown-item" href="#">Oldest</a></li>
+              <li><a class="dropdown-item" href="#">Exclusive</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row row-cols-2 row-cols-lg-5 g-2 g-lg-3">
             {% if favorites.count == 0 %}
              <div class="alert alert-info">You don't have any favorites yet.</div>
             {% endif %}
             {% for fav in favorites %}
                 <div class="col">
-                    <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded">
-                        <img class="rounded" src="{{ fav.event.image.url }}" />
-                        <div>
-                            <a href="{% url 'events:event_details_view' fav.event.id %}"><h4>{{ fav.event.title }}</h4></a>
-                        </div>
-
-                    </div>
+                <div class="card p-3 border border-warning">
+                    <img class="h-3 w-1" src="{{ fav.event.image.url }}" />
+                    <a href="{% url 'events:event_details_view' fav.event.id %}"><h4>{{ fav.event.title }}</h4></a>
+                    <h4>{{ fav.event.category }}</h4>
+                    <h5>{{ fav.created_at }}</h5>
+                </div>
                 </div>
             {% endfor %}
         </div>
-    </section>
-
+      </div>
+      
 {% endblock %}

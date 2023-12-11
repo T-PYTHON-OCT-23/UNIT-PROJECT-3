@@ -1,0 +1,10 @@
+.hehe{
+    background-image:url('/static/images/color-background.jpg');
+    background-size: cover;
+
+}
+
+
+.barcode{
+    height: 10px;
+}
