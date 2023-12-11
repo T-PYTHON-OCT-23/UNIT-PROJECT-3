@@ -7,8 +7,13 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2 class="display-4 text-center">Register New User</h2>
-            <form action="{% url 'accounts:register_user_view' %}" method="POST">
+            <h2 class="display-4 text-center">Register New User</h2>       
+                {% if msg %}
+                    <div class="alert alert-danger" role="alert">
+                    {{ msg }}
+                    </div>
+                {% endif %}
+            <form action="{% url 'accounts:register_user_view' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <input class="form-control m-2" type="text" name="first_name" required minlength="3" placeholder="first name"/>

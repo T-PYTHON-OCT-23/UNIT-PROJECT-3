@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Email test {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Succefully send it to the Manager
+                Thank you for your time!
+            </h1>
+            <a href="{% url 'main:home_page_view' %}">Home</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+

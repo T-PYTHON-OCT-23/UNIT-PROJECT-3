@@ -1,0 +1,18 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Success page {% endblock %}
+
+{% block content %}
+
+<div class="container p-5">
+    <div class="row">
+        <div class="col">
+            <h1>
+                You are registerd successfully yay!
+            </h1>
+            <h3>Now you can login to our website :</h3>
+            <a href="{% url 'accounts:login_user_view' %}">Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

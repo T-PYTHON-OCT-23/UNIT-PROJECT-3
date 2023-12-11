@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Contact us {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-1">Booking Online </h1>
+            {% if email_sent %}
+                <h3>The bill was send to you</h3>
+            {% else %}
+            <form action="{% url 'emails:the_bill_view' %}" method="POST">
+                {% csrf_token %}
+                <input class="form-control m-2" type="text" name="name" required minlength="3" placeholder="Name"/>
+                <input class="form-control m-2" type="email" name="email" required minlength="5" placeholder="email"/>
+                <input class="form-control m-2" type="text" name="quantity" required minlength="5" placeholder="quantity"/>
+                <label>Quantity of Tickets:</label>
+                <select class="form-select text-center" name="quantity">
+                    <option value="1">1 ticket</option>
+                    <option value="2">2 tuckets</option>
+                    <option value="3">3 tickets</option>
+                    <option value="4">4 tickets</option>
+                    <option value="5">5 tickets</option>
+                    </select>
+                <div class="d-flex flex-column justify-content-center align-items-center">
+                    <input class="btn btn-success" type="submit" value="Book Now!"/>
+                </div>
+            </form>
+            {% endif %}
+            
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}
+

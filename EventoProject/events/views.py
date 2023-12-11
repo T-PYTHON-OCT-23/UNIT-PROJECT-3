@@ -3,13 +3,6 @@ from django.http import HttpRequest, HttpResponse
 from .models import Event, Ticket
 from favorites.models import Favorite
 
-# Create your views here.
-
-def booking_page_view(request:HttpRequest):
-    ticket = Event.objects.all()
-    return render(request,"events/booking.html")
-
-
 def add_event_view(request: HttpRequest):
 
     if request.method == "POST":
@@ -26,30 +19,6 @@ def events_home_view(request: HttpRequest):
     events = Event.objects.all().order_by("posting_date")
     return render(request, "events/events_home.html", {"events" : events})
 
-
-def art_events_view(request: HttpRequest):
-    art_events = Event.objects.filter(category="Art")
-
-    return render(request,"events/art_event.html",{"art_events": art_events} )
-
-
-
-def tech_events_view(request: HttpRequest):
-    tech_events = Event.objects.filter(category="Technology")
-
-    return render(request,"events/tech_event.html",{"tech_events": tech_events} )
-
-
-def entertainment_events_view(request:HttpRequest):
-    enter_events = Event.objects.filter(category="Entertainment")
-
-    return render(request,"events/entertainment_event.html",{"enter_events": enter_events} )
-
-
-def exclusive_events_view(request:HttpRequest):
-    exclusive_events = Event.objects.filter(category="Exclusive")
-
-    return render(request,"events/exclusive_event.html",{"exclusive_events": exclusive_events})
 
 
     
@@ -119,6 +88,20 @@ def add_ticket_view(request: HttpRequest, event_id):
         new_ticket = Ticket(event=event_id, user=request.user, quantity=request.POST["quantity"])  
         new_ticket.save()
         return redirect("events:the_bill_view", event_id=event_id.id )
+
+
+def events_home_view_catego(request: HttpRequest, cat):
+
+    if "order" in request.GET and request.GET["order"] == "top":
+        events = Event.objects.filter(category=cat).order_by("-posting_date")[0:10]
+    else:
+        events = Event.objects.filter(category=cat).order_by("-posting_date")[0:10]
+
+    events_count = events.count()
+
+    return render(request, "events/events_home.html", {"events" : events, "events_count" : events_count})
+
+
 
 
 

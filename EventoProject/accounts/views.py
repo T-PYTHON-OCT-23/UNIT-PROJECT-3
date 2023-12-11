@@ -3,30 +3,34 @@ from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from .models import Profile
 
 # Create your views here.
 
 
-def register_user_view(request:HttpRequest):
+def register_user_view(request: HttpRequest):
     msg = None
+
     if request.method == "POST":
         try:
-            user = User.objects.create_user( first_name = request.POST["first_name"], last_name = request.POST["last_name"],username = request.POST["username"], email=request.POST["email"], password=request.POST["password"])
+            #create a new user
+            user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
 
             user_profile = Profile(user=user, avatar=request.FILES["avatar"], birth_date=request.POST["birth_date"])
             user_profile.save()
-
-            return redirect("accounts:login_user_view")
+            return redirect("accounts:success_page_view")
 
         except IntegrityError as e:
             msg = f"Please select another username"
         except Exception as e:
-            msg = f"something went worng {e}"
+            msg = f"something went wrong {e}"
+        
 
-    return render(request, "accounts/register_page.html", {"msg" : msg})
+    return render(request, "accounts/register.html", {"msg" : msg})
 
-
+def success_page_view(request:HttpRequest):
+    return render(request, "accounts/success_page.html")
 
 def login_user_view(request:HttpRequest):
     msg = None

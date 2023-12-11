@@ -7,6 +7,15 @@
 
 <div class="box-1 m-5">
   <div class="row">
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Order By
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="#">Latest</a></li>
+        <li><a class="dropdown-item" href="#">Rating</a></li>
+      </ul>
+    </div>
     {% for event in events %}
     <div class="col-3">
       <div class="card mb-3" style="max-width: 540px;">
@@ -19,7 +28,6 @@
               <a href="{% url 'events:event_details_view' event.id %}" class="card-title link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h5>{{ event.title }}</h5></a>
               <h5>{{ event.posting_date }}</h5>
               <h6>{{ event.category }}</h6>
-              <button type="button" class="btn btn-outline-secondary">Discover</button>
             </div>
           </div>
         </div>
@@ -28,6 +36,8 @@
     {% endfor %}
   </div>
 </div>
+
+
 
 
 {% endblock %}

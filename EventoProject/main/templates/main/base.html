@@ -44,17 +44,20 @@
               </li>
               {% endif %}
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'favorites:my_favorites_view' %}">Favorites</a>
+                <a class="nav-link" href="{% url 'emails:contact_us_view' %}" >Contact us</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'emails:the_bill_view' %}" >Test bill</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Events
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'events:Tech_events_view' %}">Tech Event</a></li>
-                  <li><a class="dropdown-item" href="{% url 'events:art_events_view' %}">Art Event</a></li>
-                  <li><a class="dropdown-item" href="{% url 'events:exclusive_events_view' %}">Exclusive Event</a></li>
-                  <li><a class="dropdown-item" href="{% url 'events:entertainment_events_view' %}">Entertainment Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Technology' %}">Tech Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Art' %}">Art Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Exclusive' %}">Exclusive Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Entertainment' %}">Entertainment Event</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'events:events_home_view' %}">All events</a></li>
                   <li><a class="dropdown-item" href="{% url 'events:add_event_view' %}"> Add events</a></li>
@@ -80,10 +83,10 @@
       <div class="footer-col">
         <h4>Events</h4>
         <ul>
-          <li><a href="{% url 'events:art_events_view' %}">Art Events</a></li>
-          <li><a href="{% url 'events:Tech_events_view' %}">Tech Event</a></li>
-          <li><a href="{% url 'events:exclusive_events_view' %}">Exclusive Event</a></li>
-          <li><a href="{% url 'events:entertainment_events_view' %}">Entertainment Event</a></li>
+          <li><a href="{% url 'events:events_home_view_catego' 'Art' %}">Art Events</a></li>
+          <li><a href="{% url 'events:events_home_view_catego' 'Technology' %}">Tech Event</a></li>
+          <li><a href="{% url 'events:events_home_view_catego' 'Exclusive' %}">Exclusive Event</a></li>
+          <li><a href="{% url 'events:events_home_view_catego' 'Entertainment' %}">Entertainment Event</a></li>
         </ul>
       </div>
 
@@ -100,7 +103,7 @@
         <h4>Contact us</h4>
         <ul>
           <li><a href="tel:+966562736534">Tel:+966 57263883764</a></li>
-          <li><a href="mailto:info@Evento.sa">Email:info@Evento.sa</a></h2>
+          <li><a href="mailto:sufanamarouf@gmail.com">Email:info@Evento.sa</a></h2>
           </a></li>
           <li><a href="https://www.google.com/maps/place/Riyadh/@24.7254554,46.4928685,10z/data=!3m1!4b1!4m6!3m5!1s0x3e2f03890d489399:0xba974d1c98e79fd5!8m2!3d24.7135517!4d46.6752957!16zL20vMGRsbV8?entry=ttu">Riyadh, Saudi Arabia</a></li>
         </ul>
