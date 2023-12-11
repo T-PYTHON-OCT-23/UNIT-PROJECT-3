@@ -1,0 +1,51 @@
+{% extends 'main/base.html' %}
+
+{% block title %} {{ obj.name }} {% endblock %}
+{% block section %} Order: '{{ obj.name }}' {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex flex-column gap-2">
+                
+                <img class="rounded mx-auto d-block" src="{{obj.poster.url}}" />
+                <div class=" d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-1">
+                        <h6>Category: <span class="cat ps-3 pe-3 rounded-pill text-white {{obj.category}}">{{obj.category}}</span></h6>
+                    </div>
+
+                </div>
+                <div>
+                    <label>description:</label>
+                    <p>{{ obj.description }}</p>
+                </div>
+                <form action="{% url 'objectives:objective_order_view' obj.id %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+                    {% csrf_token %}
+                <div class="row g-3">
+                    <label>Pricing duration</label>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Day" aria-label="Day" name="day">
+                    </div>
+                    <div class="col">
+                      <input type="text" class="form-control" placeholder="Hour" aria-label="Hour" name="hour">
+                    </div>
+                  </div>
+                  <input class="btn btn-primary mt-3" type="submit" value="Order objective" />
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</section>
+
+
+
+
+{% endblock %}

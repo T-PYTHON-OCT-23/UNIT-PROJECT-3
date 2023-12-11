@@ -54,3 +54,24 @@ def update_objective_view(request: HttpRequest, obj_id):
         return redirect('objectives:my_objectives_view', obj_id=obj_id)
 
     return render(request, "objectives/update.html", {"obj" : obj, "categories"  : Objective.categories})
+
+def my_objectives_borrowed_view(request:HttpRequest):
+    objs = Objective.objects.all()
+    obj_count=objs.count()
+    
+    return render(request, "objectives/borrowed.html",{"objs":objs , "obj_count" : obj_count})
+
+def objective_retrieved_view(request:HttpRequest,obj_id):
+    obj = Objective.objects.get(id=obj_id)
+    obj.reserved = False
+    obj.save()
+
+    return redirect("objectives:my_objectives_borrowed_view")
+    
+def objective_order_view(request:HttpRequest,obj_id):
+    if request.method == "POST" :
+        obj = Objective.objects.get(id=obj_id)
+        
+    
+        return render(request,"objectives/order.html",{"obj":obj})
+    

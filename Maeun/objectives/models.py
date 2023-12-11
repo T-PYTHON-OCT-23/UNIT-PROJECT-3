@@ -16,5 +16,12 @@ class Objective(models.Model):
 
 
     
+class Order(models.Model):
+    objective = models.ForeignKey(Objective, on_delete=models.CASCADE)
+
+    day = models.IntegerField(default=0)
+    hour= models.IntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+
 
 

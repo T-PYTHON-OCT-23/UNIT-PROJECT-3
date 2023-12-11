@@ -123,4 +123,13 @@
   .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
   }
-  
+
+.poster {
+    height: 3rem;
+    object-fit: cover;
+}
+
+
+.detail-poster {
+    max-height: 20vh;
+}

@@ -1,25 +1,20 @@
 {% extends "main/base.html" %}
-{% block title%} My Objectives {% endblock %}
+{% block title%} My borrowed stuff  {% endblock %}
 
-{% block section %} My Objectives {% endblock %}
+{% block section %} My borrowed stuff {% endblock %}
 
 
 {% block content %}
 
 <section class="container pt-4">
 
-    <div class="d-flex justify-content-between">
-    <h1>count my objectives ({{obj_count}})</h1>
 
-
-    </div>
 
 
     <div class="row  g-4 row-cols-1 row-cols-md-3">
 
         {% for obj in objs %}
-        {% if obj.reserved == False %}
-
+            {% if obj.reserved == True %}
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="{{obj.poster.url}}" class="card-img-top" alt="...">
@@ -27,8 +22,7 @@
                       <h5 class="card-title">{{obj.name}}</h5>
                       <p class="card-text">{{obj.description}}</p>
                       <div class="d-flex justify-content-between">
-                        <a href="{% url 'objectives:update_objective_view' obj.id %}" class="btn btn-info">Update</a>
-                        <a href="{% url 'objectives:delete_objective_view' obj.id %}" class="btn btn-danger">Delete</a>
+                        <a href="{% url 'objectives:objective_retrieved_view' obj.id %}" class="btn btn-success">Retrieved</a>
                       </div>
 
 
@@ -37,8 +31,8 @@
                   </div>
             </div>
             
-            {% endif %}
 
+            {% endif %}
         {% endfor %}
 
     </div>

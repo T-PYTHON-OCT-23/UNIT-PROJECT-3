@@ -18,19 +18,21 @@
     <div class="row  g-4 row-cols-1 row-cols-md-3">
 
         {% for obj in objs %}
+        {% if obj.reserved == False %}
 
             <div class="col">
                 <div class="card" style="width: 18rem;">
                     <img src="{{obj.poster.url}}" class="card-img-top" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">{{obj.name}}</h5>
-                      <p class="card-text">{{obj.description}}</p>
-                      <a href="#" class="btn btn-primary">Order</a>
+                      <p class="card-text"> {{obj.description}} </p>
+                      <a href="{% url 'objectives:objective_order_view' obj.id %}" class="btn btn-primary">Order</a>
                     </div>
                   </div>
             </div>
             
 
+            {% endif %}
 
         {% endfor %}
 
