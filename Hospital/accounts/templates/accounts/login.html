@@ -17,10 +17,17 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <header>
+      <ul class="menu">
+        <li>
+          <a href="/">home</a>
+        </li>
+    </header>
   </head>
+
   
   <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 * {
   box-sizing: border-box;
@@ -185,6 +192,8 @@ input {
 }
 
 .container {
+    display: flex; /* Add this to make the forms side by side */
+
   border-radius: 25px;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 0px 10px rgba(0, 0, 0, 0.22);
   position: relative;
@@ -195,13 +204,16 @@ input {
 }
 
 .form-container {
-  position: absolute;
+  position: static;
+  width: 50%; /* Add this to make each form take up half the container */
+
   top: 0;
   height: 100%;
   transition: all 0.6s ease-in-out;
 }
 
 .form-control {
+
   width: 100%;
   position: relative;
 }
@@ -270,27 +282,18 @@ input {
 .login-container {
   left: 0;
   width: 50%;
-  z-index: 2;
 }
 
-.container.right-panel-active .login-container {
-  transform: translateX(100%);
-}
+
 
 .register-container {
   /* position: relative; */
   left: 0;
   width: 50%;
-  opacity: 0;
-  z-index: 1;
+  opacity: 1;
 }
 
-.container.right-panel-active .register-container {
-  transform: translateX(100%);
-  opacity: 1;
-  z-index: 5;
-  animation: show 0.6s;
-}
+
 
 @keyframes show {
   0%,
@@ -317,9 +320,7 @@ input {
   z-index: 100;
 }
 
-.container.right-panel-active .overlay-container {
-  transform: translate(-100%);
-}
+
 
 .overlay {
   background-image: url(https://png.pnjpgtree.com/background/20230611/original/pngtree-wallpaper-of-a-scenic-mountain-landscape-with-trees-picture-image_3137681.g);
@@ -349,9 +350,7 @@ input {
   );
 }
 
-.container.right-panel-active .overlay {
-  transform: translateX(50%);
-}
+
 
 .overlay-panel {
   position: absolute;
@@ -372,18 +371,14 @@ input {
   transform: translateX(-20%);
 }
 
-.container.right-panel-active .overlay-left {
-  transform: translateX(0);
-}
+
 
 .overlay-right {
   right: 0;
   transform: translateX(0);
 }
 
-.container.right-panel-active .overlay-right {
-  transform: translateX(20%);
-}
+
 
 .social-container {
   margin: 20px 0;
@@ -442,112 +437,58 @@ li a:hover:after {
   transform: scaleX(1);
   transform-origin: bottom left;
 }
-
-</style>
-<body>
-  <div class="container">
-    <header>
-      <ul class="menu">
-        <li>
-          <a href="/">home</a>
-        </li>
-    </header>
-    
+  </style>
+  <body>
     <div class="container" id="container">
       <div class="form-container register-container">
         <form action="{% url 'accounts:register_user_view' %}" method="post">
-          <h1>Register here</h1>
-          {% csrf_token %}
-          <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
-          <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email"/>
-          <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
-          <button type="submit" value="submit">Register</button>
-          <span>or use your account</span>
-          <div class="social-container">
-            <a href="#" class="social"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-            <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
-            <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
-        </form>
-      </div>
-
-      <div class="form-container login-container">
-        <form class="form-lg" action="{% url 'accounts:login_user_view' %}" method="post">
-          {% csrf_token %}
-          <h1>Login here.</h1>
-          <div class="form-control2">
-            <input type="text" class="Username" name="username" required minlength="3" placeholder="Username" />
-            <small class="email-error-2"></small>
-            <span></span>
-          </div>
-          <div class="form-control2">
-            <input type="password" class="password-2" name="password" required minlength="8" placeholder="Password" />
-            <small class="password-error-2"></small>
-            <span></span>
-          </div>
-
-          <div class="content">
-          </div>
-          <button type="submit" value="submit">Login</button>
-          <span>Or use your account</span>
-          <div class="social-container">
-            <a href="#" class="social"
-              ><i class="fa-brands fa-facebook-f"></i
-            ></a>
-            <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
-            <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
-          </div>
-        </form>
-      </div>
-
-      <div class="overlay-container">
-        <div class="overlay">
-          <div class="overlay-panel overlay-left">
-            <h1 class="title">
-              Hello <br />
-              friends
-            </h1>
-            <p>If you have an account, login here and have fun</p>
-            <button class="ghost" id="login">
-              Login
-              <i class="fa-solid fa-arrow-left"></i>
-            </button>
-          </div>
-
-          <div class="overlay-panel overlay-right">
-            <h1 class="title">
-              Start your <br />
-              journey now
-            </h1>
-            <p>
-              If you don'n have an account yet, join us and start your journey
-            </p>
-            <button class="ghost" id="register">
-              Register
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </div>
+            <h1>Register here</h1>
+            {% csrf_token %}
+            <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
+            <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email"/>
+            <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
+            <button type="submit" value="submit">Register</button>
+            <span>or use your account</span>
+            <div class="social-container">
+              <a href="#" class="social"
+                ><i class="fa-brands fa-facebook-f"></i
+              ></a>
+              <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+              <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+          </form>
         </div>
-      </div>
-    </div>
-  </body>
-
+        <div class="form-container login-container">
+            <form class="form-lg" action="{% url 'accounts:login_user_view' %}" method="post">
+              {% csrf_token %}
+              <h1>Login here.</h1>
+              <div class="form-control2">
+                <input type="text" class="Username" name="username" required minlength="3" placeholder="Username" />
+                <small class="email-error-2"></small>
+                <span></span>
+              </div>
+              <div class="form-control2">
+                <input type="password" class="password-2" name="password" required minlength="8" placeholder="Password" />
+                <small class="password-error-2"></small>
+                <span></span>
+              </div>
+    
+              <div class="content">
+              </div>
+              <button type="submit" value="submit">Login</button>
+              <span>Or use your account</span>
+              <div class="social-container">
+                <a href="#" class="social"
+                  ><i class="fa-brands fa-facebook-f"></i
+                ></a>
+                <a href="#" class="social"><i class="fa-brands fa-google"></i></a>
+                <a href="#" class="social"><i class="fa-brands fa-tiktok"></i></a>
+              </div>
+            </form>
+          </div>
+    
   <script>
 
-    // Animations
-const registerButton = document.getElementById("register");
-const loginButton = document.getElementById("login");
-const container = document.getElementById("container");
-
-registerButton.addEventListener("click", () => {
-  container.classList.add("right-panel-active");
-});
-
-loginButton.addEventListener("click", () => {
-  container.classList.remove("right-panel-active");
-});
 
 
 // Check Register Error
@@ -715,7 +656,5 @@ lgForm.addEventListener('submit', function (e){
         checkEmail2(lgEmail)
     }
 })
-
   </script>
-  
 </html>
