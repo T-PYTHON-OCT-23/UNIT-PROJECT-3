@@ -1,7 +1,19 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
-<h2>{{ clinic.name }}</h2>
-<img src="{{ clinic.image.url }}" alt="{{ clinic.name }}">
-<p>{{ info }}</p>  <!-- display the info -->
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Display the clinic image -->
+            <img src="{{ clinic.image.url }}" class="img-fluid rounded clinic-image" alt="{{ clinic.name }}">  <!-- add the clinic-image class -->
+        </div>
+        <div class="col-md-6">
+            <!-- Display the clinic name -->
+            <h2 class="my-3">{{ clinic.name }}</h2>
+            <!-- Display the info -->
+            <p>{{ info }}</p>
+        </div>
+    </div>
+</div>
 {% endblock %}

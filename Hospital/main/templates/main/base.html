@@ -17,6 +17,7 @@
 }
 
 body {
+  overflow-x: hidden;
     font-size: 15px;  /* adjust as needed */
 }
 .navbar {
@@ -25,6 +26,23 @@ body {
 .navbar {
     border: 1px solid rgb(44, 38, 38);  /* adjust as needed */
 }
+body, .footer {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.footer {
+    width: 100%;
+    position: relative;
+}
+
+
 
   </style>
   <body>
@@ -53,16 +71,16 @@ body {
                 <a class="nav-link" href="{% url 'hospitall:show_clinics' %}">Available clinics
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'hospitall:show_clinics' %}">Contact Us
-                </a>
-              </li>
               {% if request.user.is_staff %}
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'hospitall:create_clinic' %}">Adding a new clinic
                   </a>
                 </li>
               {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="https://hmg.com/ar/Contactus/Pages/contact-us.aspx">Contact Us
+                </a>
+              </li>
               {% if request.user.is_authenticated %}
                 <ul class="nav nav-pills">
                   <li class="nav-item">

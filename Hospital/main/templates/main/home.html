@@ -6,6 +6,8 @@
 {% block content %}
 <style>
     body {
+    overflow-x: hidden;
+
     font-family: Arial, sans-serif;
     background-image: url('/static/img/434.jpg');
     background-size: cover;
@@ -40,6 +42,11 @@
 }
 
 </style>
+<div style="display: flex; align-items: center;">
+  <hr style="flex-grow: 1; border-width: 9px;">
+  <span style="margin: 0 10px; font-family: 'Times New Roman', serif; font-size: 2em; font-weight: bold;">Welcome to the hospital</span>
+  <hr style="flex-grow: 1; border-width: 9px;">
+</div>
 <div id="carouselExampleDark" class="carousel carousel-dark slide">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>

@@ -1,24 +1,14 @@
-from django.shortcuts import render ,redirect
 from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpRequest
-from django.shortcuts import render
 from .models import Clinic, Doctor, Appointment
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
-from .models import Clinic
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Clinic
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
-from django.shortcuts import render, get_object_or_404
-from .models import Clinic
-from django.shortcuts import render
-from .models import Appointment
-
 
 def clinic_detail_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
-    if clinic.name == "عيادة الاسنان":  # check the clinic name
+    if clinic.name == "Dental clinic":  # check the clinic name
         info = "وضع الزرع هو إجراء جراحي تحت التخدير الموضعي، يبدأ الجراح بعمل شق في الغشاء المخاطي للوصول إلى عظم الفك، سيقوم بعد ذلك بحفر التجاويف التي تتلاءم مع الغرسة (الغرسات)، سيتم ثني الغرسات في هذه التجاويف ثم يقوم الممارس بإغلاق اللثة عن طريق إجراء غرز، والتي سيمتصها الجسم في الأسابيع التالية. التدخل بسيط للغاية، ولكن لا يزال من الممكن أن يكون له عواقب طفيفة غير سارة أكثر أو أقل، وبالتالي يمكن أن يؤدي إلى تورم طفيف في الوجه ويسبب ألمًا طفيفًا."
     else:
         info = ""  # no additional info for other clinics
@@ -49,7 +39,6 @@ def create_appointment(request):
         clinic = Clinic.objects.get(id=clinic_id)
         date = request.POST["date"]
 
-        # Get the first doctor that works in the selected clinic
         doctor = Doctor.objects.filter(clinics=clinic).first()
 
         if doctor is not None:
@@ -57,8 +46,7 @@ def create_appointment(request):
             appointment.save()
             return redirect('hospitall:show_appointments')
         else:
-            # Handle the case where no doctor is found for the selected clinic
-            # This is just an example, you might want to handle this differently
+            
             return render(request, 'hospitall/create_appointment.html', {'error': 'No doctor found for the selected clinic.'})
     else:
         clinics = Clinic.objects.all()
@@ -75,8 +63,6 @@ def delete_clinic(request, clinic_id):
 def clinic_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
     return render(request, 'hospitall/clinic.html', {'clinic': clinic})
-
-
 
 @login_required
 def create_clinic(request):
