@@ -3,23 +3,36 @@
 {% block title %}Login{% endblock%}
 {% block content%}
 <div class="container">
-<div class="row">
+<div class="row mt-4">
     <div class="col">
         {% if msg %}
         <div class="alert alert-danger" role="alert">
             {{msg}}
           </div>
         {% endif %}
-        <form action="{% url 'accounts:login_page'%}" method="post">
-            {% csrf_token %}
-            <label>Username:</label>
-            <input class="form-control" type="text" name="username"/>
-            <label>Password:</label>
-            <input class="form-control" type="password" name="password"/>
-            <input class="btn btn-success" type="submit" value="Sign In" />
-            <h5>You don't have an account ? please <a href="{% url 'accounts:register_user' %}">Sign up</a>.</h5>
-        </form>
     </div>
 </div>
+<div class="row mt-1">
+        <h1 class="text-center mb-4">Welcome to Cook Together</h1>
+            <div class="col">
+                <div class="login-item">
+            <a type="button" class="btn btn-outline-success btn-lg px-5" href="{% url 'accounts:login_page'%}">Log in</a>
+            <a type="button" class="btn btn-outline-success btn-lg px-5" href="{% url 'accounts:register_user'%}">Sign up</a>
+                </div>
+            </div>
 </div>
+<div class="row">
+<div class="col-10">
+    <form action="{% url 'accounts:login_page'%}" method="post">
+        {% csrf_token %}
+        <label>Username:</label>
+        <input class="form-control" type="text" name="username" required minlength="4"/>
+        <label>Password:</label>
+        <input class="form-control" type="password" name="password"/>
+        <input class="btn btn-success mt-4 px-3" type="submit" value="Sign In" />
+    </form>
+</div>
+</div>
+</div>
+
 {% endblock %}

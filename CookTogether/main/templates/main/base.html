@@ -48,15 +48,10 @@
                 </ul>
                 {% if request.user.is_staff %}
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Edit Recipes</a>
+                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Edit</a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'recipes:add_recipe' %}">Add Recipe</a></li>
                   <li><a class="dropdown-item" href="{% url 'recipes:browse_recipes'%}">Update-Delete Recipe</a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">Edit ingredients</a>
-                <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'ingredients:add_ingredient' %}">Add ingredient</a></li>
                   <li><a class="dropdown-item" href="{% url 'ingredients:browse_ingredients'%}">Update-Delete ingredient</a></li>
                 </ul>

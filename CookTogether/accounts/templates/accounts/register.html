@@ -3,18 +3,27 @@
 {% block title %}Register{% endblock%}
 {% block content%}
 <div class="container">
-    <div class="row">
+  <div class="row mt-4">
+    <h1 class="text-center mb-4">Welcome to Cook Together</h1>
         <div class="col">
-        <h2>Register New User</h2>
+            <div class="login-item">
+              <a type="button" class="btn btn-outline-success btn-lg px-5" href="{% url 'accounts:login_page'%}">Log in</a>
+        <a type="button" class="btn btn-outline-success btn-lg px-5" href="{% url 'accounts:register_user' %}">Sign up</a>
+            </div>
+        </div>
+</div>
+    <div class="row">
+        <div class="col-10">
+        <h2 class="text-success">Register New User</h2>
         <form action="{% url 'accounts:register_user'%}" method="POST">
           {% csrf_token %}
           <label>Username:</label>
-          <input class="form-control" type="text" name="username"/>
+          <input class="form-control" type="text" name="username" required minlength="4"/>
           <label>Email:</label>
           <input class="form-control" type="email" name="email"/>
           <label>Password:</label>
-          <input class="form-control" type="password" name="password"/>
-          <input class="btn btn-success" type="submit" value="Sign Up" />
+          <input class="form-control" type="password" name="password" minlength="8"/>
+          <input class="btn btn-success mt-4 px-3" type="submit" value="Sign Up" />
         </form>
         </div>
     </div>

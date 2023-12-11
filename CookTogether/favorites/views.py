@@ -13,10 +13,22 @@ def add_favorite_recipe(request:HttpRequest,recipe_id):
         new_recipe.save()
     else:
         user_recipe.delete()
-    return redirect('recipes:detail_recipe',recipe_id=recipe.id)
+
+    if "next" in request.GET:
+        return redirect('recipes:browse_recipes')
+    else:
+        return redirect('recipes:detail_recipe',recipe_id=recipe.id)
+    
 
 def favorites_page(request:HttpRequest):
     favorites=Favorite.objects.filter(user=request.user)
     return render(request,'favorites/favorites_page.html',{'favorites':favorites})
+
+def delete_favorite_recipe(request:HttpRequest,recipe_id):
+    recipe=Recipe.objects.get(id=recipe_id)
+    favorite=Favorite.objects.get(recipe=recipe,user=request.user)
+    favorite.delete()
+    return redirect('favorites:favorites_page')
+
 
 # Create your views here.

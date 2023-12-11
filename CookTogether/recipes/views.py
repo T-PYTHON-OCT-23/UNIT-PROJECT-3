@@ -7,13 +7,19 @@ from favorites.models import Favorite
 
 def add_recipe(request : HttpRequest):
     if request.method=='POST':
-        recipe=Recipe(name=request.POST['name'],description=request.POST['description'],time=request.POST['time'],kall=request.POST['kall'],instructions=request.POST['instructions'],image=request.FILES['image'],category=request.POST['category'])
+        recipe=Recipe(name=request.POST['name'],description=request.POST['description'],time=request.POST['time'],quantities_ingredients=request.POST['quantities_ingredients'],kall=request.POST['kall'],instructions=request.POST['instructions'],image=request.FILES['image'],category=request.POST['category'])
         recipe.save()
+        return redirect('recipes:browse_recipes')
     return render(request,'recipes/add_recipe.html',{'categories':Recipe.categories})
 
 def browse_recipes(request : HttpRequest):
     recipes=Recipe.objects.all()
-    return render(request,'recipes/browse_recipes.html',{'recipes':recipes})
+
+    recipes_with_favs = []
+    for recipe in recipes:
+        recipe.is_favored = request.user.is_authenticated and Favorite.objects.filter(recipe=recipe,user=request.user)
+        recipes_with_favs.append(recipe)
+    return render(request,'recipes/browse_recipes.html',{'recipes':recipes_with_favs})
 
 def delete_recipe(request : HttpRequest,recipe_id):
     recipe=Recipe.objects.get(id=recipe_id)
@@ -40,7 +46,8 @@ def update_recipe(request : HttpRequest,recipe_id):
         recipe.instructions=request.POST['instructions']
         if 'image' in request.FILES:
             recipe.image=request.FILES['image']
-        recipe.category=category=request.POST['category']
+        recipe.category=request.POST['category']
+        recipe.quantities_ingredients=request.POST['quantities_ingredients']
         recipe.save()
         return redirect('recipes:detail_recipe',recipe_id=recipe.id)
     return render(request,'recipes/update_recipes.html',{'recipe':recipe,'categories':Recipe.categories})

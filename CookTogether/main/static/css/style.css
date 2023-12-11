@@ -30,7 +30,7 @@ body{
     gap: 3rem;
     margin-top: -3.5rem;
 }
-.service-item{
+.category-item{
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -38,13 +38,30 @@ body{
     align-items: center;
     font-family: 'Phudu', sans-serif;
 }
-.service-item h5{
+.category-item h5{
     color: white;
 }
-.service-item span{
+.category-item span{
     font-size: 250px;
     color:seagreen;
 }
 .test{
     height: 200px;
+}
+.test h5{
+    text-decoration: none;
+}
+
+.login-item{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.update{
+    border-radius:30px;
+}
+.card img{
+    background-size: cover;
 }

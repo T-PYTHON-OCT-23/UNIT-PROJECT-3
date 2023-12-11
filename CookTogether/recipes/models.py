@@ -9,9 +9,11 @@ class Recipe(models.Model):
     kall=models.FloatField()
     time=models.IntegerField()
     ingredients = models.ManyToManyField(Ingredient)
+    quantities_ingredients=models.TextField()
     instructions=models.TextField()
     image=models.ImageField(upload_to="images/")
     category=models.CharField(max_length=300,choices=categories.choices)
+
 
 class Comment(models.Model):
     recipe=models.ForeignKey(Recipe,on_delete=models.CASCADE)

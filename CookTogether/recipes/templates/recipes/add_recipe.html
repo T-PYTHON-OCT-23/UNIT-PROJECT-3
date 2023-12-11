@@ -4,28 +4,32 @@
 {% block content%}
 <div class="container">
 <div class="row">
-    <div class="col">
+    <h1 class="mt-2 text-success text-center">Add New Recipe</h1>
+    <div class="col-10">
         <form action="{% url 'recipes:add_recipe' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <label>Name:</label>
-            <input class="form-control" type="text" name="name" placeholder="Name of Recipe" />
-            <label>Description:</label>
-            <textarea class="form-control" name="description"></textarea>
-            <label>Time:</label>
-            <input class="form-control" type="number" name="time" placeholder="Time of Recipe" />
-            <label>Kall:</label>
-            <input class="form-control" type="number" name="kall" placeholder="kall of Recipe" />
-            <label>Instructions:</label>
-            <textarea class="form-control" name="instructions"></textarea>
+            <h5>Name:</h5>
+            <input class="form-control" type="text" name="name" placeholder="Name of Recipe" required minlength="8"/>
+            <h5>Description:</h5>
+            <textarea class="form-control" name="description" required minlength="20"></textarea>
+            <h5>Time:</h5>
+            <input class="form-control" type="number" name="time" placeholder="Time of Recipe" required/>
+            <h5>Kall:</h5>
+            <input class="form-control" type="number" name="kall" placeholder="kall of Recipe" required/>
+            <h5>Quantities of ingredients:</h5>
+            <textarea class="form-control" name="quantities_ingredients" required minlength="50"></textarea>
+            <h5>Instructions:</h5>
+            <textarea class="form-control" name="instructions" required minlength="50"></textarea>
+            <h5>Meals:</h5>
             {% for key, value in categories.choices %}
             <div class="form-check">
-            <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+            <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" required>
             <label class="form-check-label" for="{{key}}">{{value}}</label>
             </div>
             {% endfor %}
-            <label>image:</label>
-            <input type="file" name="image"  class="form-control" accept="image/*"/>
-            <input class="btn btn-success" type="submit" value="Add Recipe" />
+            <h5>image:</h5>
+            <input type="file" name="image"  class="form-control" accept="image/*" required/>
+            <input class="btn btn-success my-4 px-3" type="submit" value="Add Recipe" />
         </form>
     </div>
 </div>
