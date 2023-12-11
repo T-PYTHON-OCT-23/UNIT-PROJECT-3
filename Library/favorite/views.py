@@ -8,7 +8,7 @@ from books.models import Book
 def add_favorite(request:HttpRequest, book_id):
 
     if not request.user.is_authenticated:
-        return redirect("accounts:login_user")
+        return redirect("account:login_user_view")
 
     try:
         book = Book.objects.get(id=book_id)
@@ -23,7 +23,7 @@ def add_favorite(request:HttpRequest, book_id):
 
         return redirect("books:book_detail_view", book_id=book.id)
     except Exception as e:
-         return redirect("main:home")
+         return redirect("main:home_view")
     
 
 
