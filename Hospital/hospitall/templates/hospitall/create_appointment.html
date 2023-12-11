@@ -1,29 +1,56 @@
 {% extends 'main/base.html' %}
-
-{% block title%} Appointment Booking
-{% endblock %}
+{% block title%}Appointment Booking{%endblock%}
 
 {% block content %}
-<section class="container py-5" style="background-color: #f8f9fa; border-radius: 15px;">
-    <h1 class="mb-4" style="color: #6c757d;">Appointment Booking
-    </h1>
+<style>
+    body {
+        background-image: url('/static/img/9099.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .container {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    }
+
+    .btn {
+        background-color: #007bff;
+        color: white;
+        
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.02);
+    }
+</style>
+<section class="container py-5 mt-5">
+    <h1 class="mb-4" style="color: #6c757d;">Appointment Booking</h1>
 
     <form method="post" action="{% url 'hospitall:create_appointment' %}" style="font-size: 1.2em;">
         {% csrf_token %}
 
         <!-- Dropdown menu for selecting a clinic -->
-        <label for="clinic" style="display: block; margin-bottom: 10px;">Choose the clinic:</label>
-        <select name="clinic" id="clinicSelect" style="width: 100%; padding: 10px; margin-bottom: 20px;">
-            {% for clinic in clinics %}
-                <option value="{{ clinic.id }}">{{ clinic.name }}</option>
-            {% endfor %}
-        </select>
+        <div class="form-group">
+            <label for="clinic">Choose the clinic:</label>
+            <select name="clinic" id="clinicSelect" class="form-control">
+                {% for clinic in clinics %}
+                    <option value="{{ clinic.id }}">{{ clinic.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
 
-        
-        <label for="date" style="display: block; margin-bottom: 10px;">Choose the clock and time:</label>
-        <input type="datetime-local" name="date" id="date" required style="width: 100%; padding: 10px; margin-bottom: 20px;">
+        <!-- Input for selecting the date and time -->
+        <div class="form-group">
+            <label for="date">Choose the clock and time:</label>
+            <input type="datetime-local" name="date" id="date" class="form-control" required>
+        </div>
 
-        <input type="submit" value="Appointment Booking" style="background-color: #007bff; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+        <input type="submit" value="Appointment Booking" class="btn">
     </form>
 </section>
 {% endblock %}

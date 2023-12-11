@@ -1,19 +1,31 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<style>
+    body {
+        background-image: url('/static/img/9099.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    </style>
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-md-6">
             <!-- Display the clinic image -->
-            <img src="{{ clinic.image.url }}" class="img-fluid rounded clinic-image" alt="{{ clinic.name }}">  <!-- add the clinic-image class -->
+            <img src="{{ clinic.image.url }}" class="img-fluid rounded clinic-image" alt="{{ clinic.name }}" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s;">
         </div>
         <div class="col-md-6">
             <!-- Display the clinic name -->
-            <h2 class="my-3">{{ clinic.name }}</h2>
-            <!-- Display the info -->
-            <p>{{ info }}</p>
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title" style="color: #2c3e50; text-shadow: 2px 2px 4px #000000;">{{ clinic.name }}</h2>
+                    <!-- Display the info -->
+                    <p class="card-text" style="text-align: justify; text-justify: inter-word;">{{ info }}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

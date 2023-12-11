@@ -8,11 +8,19 @@ from django.contrib.auth.models import User
 
 def clinic_detail_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
+    info = ""
     if clinic.name == "Dental clinic":  # check the clinic name
-        info = "وضع الزرع هو إجراء جراحي تحت التخدير الموضعي، يبدأ الجراح بعمل شق في الغشاء المخاطي للوصول إلى عظم الفك، سيقوم بعد ذلك بحفر التجاويف التي تتلاءم مع الغرسة (الغرسات)، سيتم ثني الغرسات في هذه التجاويف ثم يقوم الممارس بإغلاق اللثة عن طريق إجراء غرز، والتي سيمتصها الجسم في الأسابيع التالية. التدخل بسيط للغاية، ولكن لا يزال من الممكن أن يكون له عواقب طفيفة غير سارة أكثر أو أقل، وبالتالي يمكن أن يؤدي إلى تورم طفيف في الوجه ويسبب ألمًا طفيفًا."
-    else:
-        info = ""  # no additional info for other clinics
+        info = "A dental clinic is where people go to get specialized medical care for their oral health. Dentists can diagnose and treat a wide range of conditions, including tooth decay, gum disease, and orthodontic problems."
+    elif clinic.name == "Ear and throat clinic":
+        info = "An ear, nose and throat clinic is where people with ear, nose and throat problems go. Otolaryngologists can diagnose and treat a wide range of these conditions, including ear infections, sinusitis, sore throat, tinnitus, hearing loss, swallowing problems, and cancer of the ear, nose, and throat."
+    elif clinic.name == "family Medicine":
+        info = "A family medicine clinic is where people go to get comprehensive primary health care. Family doctors can diagnose and treat a wide range of conditions, including common diseases, chronic diseases and serious diseases."
+    elif clinic.name == "Internal Medicine Clinic":
+        info = "An internal medicine clinic is where people go to get specialized medical care for diseases that affect the internal organs of the body. Internists can diagnose and treat a wide range of these conditions, including cardiovascular disease, respiratory disease, kidney disease, liver disease, and gastrointestinal disease."
+    elif clinic.name == "Orthopedic Clinic":
+        info = "An orthopedic clinic is where people go who have problems with their bones, joints and muscles. Orthopedists can diagnose and treat a wide range of these conditions, including fractures, arthritis, and bone deformities."
     return render(request, 'hospitall/clinic_detail.html', {'clinic': clinic, 'info': info})
+
 
 
 def show_clinics(request):
@@ -42,7 +50,7 @@ def create_appointment(request):
         doctor = Doctor.objects.filter(clinics=clinic).first()
 
         if doctor is not None:
-            appointment = Appointment(user=request.user, doctor=doctor, clinic=clinic, date=date)  # Include the clinic
+            appointment = Appointment(user=request.user, doctor=doctor, clinic=clinic, date=date)
             appointment.save()
             return redirect('hospitall:show_appointments')
         else:
@@ -68,10 +76,10 @@ def clinic_view(request, clinic_id):
 def create_clinic(request):
     if request.method == "POST":
         clinic_name = request.POST["clinic_name"]
-        clinic_image = request.FILES["clinic_image"]  # handle the uploaded image
+        clinic_image = request.FILES["clinic_image"]  
         doctor_user_id = request.POST["doctor_user"]
         doctor_user = User.objects.get(id=doctor_user_id)
-        clinic = Clinic(name=clinic_name, image=clinic_image)  # include the image
+        clinic = Clinic(name=clinic_name, image=clinic_image)  
         clinic.save()
         doctor, created = Doctor.objects.get_or_create(user=doctor_user)
         doctor.clinics.add(clinic)
