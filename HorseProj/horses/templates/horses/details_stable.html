@@ -6,11 +6,11 @@
 {% block contant %}
 <div class="container5 p-4">
   <div class="d-flex flex-row justify-content-between gap-4">
-    <img class="img_stable" src="{{stable.img.url}}" width="600px" height="400px"/>
+    <img class="img_stabl" src="{{stable.img.url}}" width="600px" height="400px"/>
     <div class="d-flex flex-column g-4 justify-content-center">
       
-      <h1>{{stable.name}} </h1>
-      <h5>{{stable.description}}</h5>
+      <h1 class="contents">{{stable.name}} </h1>
+      <h5 class="contents">{{stable.description}}</h5>
       <h4>{{stable.city}}</h4>
       <h3>{{stable.rating}} ★ </h3>
     </div>
@@ -36,8 +36,9 @@
 
 
 
-<div class="container_services row">
-  <h3> services ({{services.count}}): </h3>
+<div class="container_services row p-4">
+  <h4 class="contents"> The stable offers you best services. All you have to do is choose the service and live a unique experience</h4>
+  <h4> Our services ({{services.count}}): </h4>
   
   {% for service in services %}
   <div class="col-4 d-flex flex-row justify-content-center ">

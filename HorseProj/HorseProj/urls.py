@@ -23,5 +23,7 @@ urlpatterns = [
     path('',include("main.urls")),
     path('horse/',include("horses.urls")),
     path('users/',include("users.urls")),
-    path('delivery/', include("delivery.urls"))
+    path('delivery/', include("delivery.urls")),
+    path('Consultations/',include("Consultations.urls")),
+    # path('request/',include("request.urls"))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

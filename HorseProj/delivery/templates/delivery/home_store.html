@@ -4,18 +4,18 @@
 {%block title%} All Store {%endblock%}
 
 {% block contant %}
-<section class="container">
-    <h1> For your horse's needs, shop among the displayed stores </h1>
-    <div class="row g-4 row-cols-1 row-cols-md-3">
+<section class="container_services p-4">
+    <h1  class="contents"> For your horse's needs, shop among the displayed stores </h1>
+    <div class="row g-2 row-cols-1 row-cols-md-3">
         {% for store in stores %}
             <div class="col">
-               <div class="d-flex flex-column gap-2 p-10 border border-1 rounded-4 h-100 justify-content-start">
+               <div class="d-flex flex-column  p-10 border border-3 rounded-4 h-100 justify-content-start">
             
                     <img class="imgStable" src="{{store.img.url}}" />
-                    <a class="text-decoration-none" href="{% url 'delivery:store_details_view' store.id %}" ><h3> {{store.name}}</h3></a>
-                    <a href="{{store.location}}"><h3>location</h3></a>
-                    <h5> work time :{{store.work_time}}</h5>
-                    <h3>{{store.rating}} ★ </h3>
+                    <a class="link1 p-2 contents" href="{% url 'delivery:store_details_view' store.id %}" ><h3> {{store.name}}</h3></a>
+                    <a class="link1 p-2" href="{{store.location}}"><h3>Location</h3></a>
+                    <h5 class="p-2"> work time :{{store.work_time}}</h5>
+                    <h3 class="p-2">{{store.rating}} ★ </h3>
                 </div>
             </div>
 

@@ -24,8 +24,9 @@ def home_store_view(request:HttpRequest):
 def store_details_view(request:HttpRequest, store_id):
 
     details=Store.objects.get(id=store_id)
+    store=Menu.objects.filter(menu_store=details)
 
-    return render(request , "delivery/details_store.html", {"store":details})
+    return render(request , "delivery/details_store.html", {"store":details , "stores":store})
 
 
 def delete_store_views(request:HttpRequest, store_id):

@@ -2,11 +2,11 @@
 
 {% block contant %}
 
-<div class="container-add">
-    <h1>Update {{stable.name}}:</h1>
+<div class="container-add container_services p-4">
+    <h1 class="contents">Update {{stable.name}}:</h1>
     <br>
     <div class="row">
-        <div class="col-8">
+        <div class="col-6">
             <form action="{% url 'horses:update_stable_views' stable.id %}"method="POST">
                 {% csrf_token %}
               
@@ -31,7 +31,7 @@
                     <option value="5">★★★★★</option>
                 </select>
 
-                <input class="btn btn-primary" type="submit" value="Update" />
+                <input class="btn btn-primary p-2" type="submit" value="Update" />
             </form>
 
         </div>

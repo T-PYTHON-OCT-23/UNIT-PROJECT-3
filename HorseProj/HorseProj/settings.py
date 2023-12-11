@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'horses',
     'users',
     'delivery',
+    'Consultations',
+    'request',
     
     
 ]

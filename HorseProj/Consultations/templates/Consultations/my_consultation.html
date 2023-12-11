@@ -1,0 +1,48 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{%block title%} My Consultations {%endblock%}
+
+{% block contant %}
+<div class="container">
+    <h1> Welcome to Horse Sense</h1>
+    <p>We provide you with consultations for everything related to equestrianism
+        Just enter your consultations and we will respond to you as soon as possible</p>
+    <div class="row">
+        <div class="col-6">
+
+            <form action="{% url 'Consultations:consultation_views' user.id %}" method="POST" class="d-flex flex-column gap-2">
+               {% csrf_token %}
+
+               <label>Title Consultations </label>
+               <input class="form-control" type="text" name="title" required minlength="4">
+
+               <label>Your consulting category</label>
+               {% for key , value in categories.choices %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                        <label class="form-check-label" for="{{key}}">
+                            {{value}}
+                        </label>
+                    </div>
+                {% endfor %}
+                
+                <label>Description</label>
+                <input class="form-control" type="text" name="description" required minlength="10">
+
+                <label>Horse age</label>
+                <input class="form-control" type="text" name="age_horse" required >
+
+                <label>Horse type</label>
+                <input class="horse_type" type="text" name="horse_type" required >
+
+
+                <input class="btn btn-primary" type="submit" value="Send" />
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

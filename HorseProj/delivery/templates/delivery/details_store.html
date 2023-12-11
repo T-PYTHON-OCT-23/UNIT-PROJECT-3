@@ -4,12 +4,12 @@
 {%block title%} Details Horses {%endblock%}
 
 {% block contant %}
-<div class="container5 p-4">
+<div class="container3 p-2">
   <div class="d-flex flex-row justify-content-between ">
     <img src="{{store.img.url}}"width="600px" height="400px"/>
     <div class="d-flex flex-column g-4 justify-content-center">
-      <h1>{{store.name}} </h1>
-      <a href="{{store.location}}"><h3>location</h3></a>
+      <h1 class="contents">{{store.name}} </h1>
+      <a class="link1 " href="{{store.location}}"><h6>location</h6></a>
       <h4> work time : {{store.work_time}}</h4>
       <h3>{{store.rating}} ★ </h3>
     </div>
@@ -24,17 +24,18 @@
       </ul>
     </div>
   </div>
-
-</div>
-
-<div class="container3">
-  <h3> Prodects ({{stores.count}}): </h3>
   
-  {% for stores in store %}
-    <div class="card mb-3" style="max-width: 540px;">
+</div>
+<hr>
+
+<div class="container_services p-4">
+  <p class="contents">We offer you the best stores in terms of quality, price, and products. Shop with us for everything you need , choose the product you want</p>
+  <h3> Prodects ({{stores.count}}): </h3>
+  {% for stores in stores %}
+    <div class="card mb-4" style="max-width: 560px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="{{stores.img.url}}" class="img-fluid rounded-start" alt="...">
+          <img src="{{stores.img.url}}" style=height:100% class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
           <div class="card-body">

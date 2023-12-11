@@ -50,27 +50,36 @@
               </li>
           
               <li class="nav-item">
-                <a class="nav-link" href="#">Consultations</a>
+                <a class="nav-link" href="{% url 'Consultations:consultation_views' user.id %}">Consultations</a>
               </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-
-            <li class="nav-item dropdown d-flex p-2 justify-content-center">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="material-symbols-outlined mb-8">person</span>
-                Welcome {{ request.user.username }}
-              </a> 
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'users:register_views' %}">Sign Up</a></li>
-                <li><a class="dropdown-item" href="{% url 'users:user_profile_view' user.id %}">Profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'users:user_profile_view' user.id %}">Update Profile</a></li>
-                <li><a class="dropdown-item" href="{%url 'users:logout_views' %}">LogOut</a></li>
-                
               </ul>
-            </li>
+
+
+              <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+
+              {% if request.user.is_authenticated %}
+                <div>
+                  <img class="rounded-circle avatar" src="{{ request.user.profile.avatar.url }}" />
+                </div>
+                <li class="nav-item dropdown d-flex p-2 justify-content-center">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome {{ request.user.username }}
+                  </a> 
+                  <ul class="dropdown-menu">
+                
+                    <li><a class="dropdown-item" href="{% url 'users:user_profile_view' user.id %}">Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'users:update_user_view' %}">Update Profile</a></li>
+                    <li><a class="dropdown-item" href="{%url 'users:logout_views' %}">LogOut</a></li>
+              {% else %}
+                    <li><a class="dropdown-item" href="{% url 'users:register_views' %}">Sign Up</a></li>
+              {% endif%}
+                    
+                  </ul>
+                </li>
+           
           </div>
         </div>
       </nav>

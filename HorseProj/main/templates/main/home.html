@@ -7,15 +7,15 @@
 
 <div class="container-base">
     <div class="row">
-        <div class="col-6 ">
-            <h1>Welcome to Horse Sense <br> where the world of horses exists. We provide you with everything you need through the best horse stables</h1>
+        <div class="col-8 ">
+            <h1 style="width: 900px; margin-top: 400px; margin-left: 250px;">Welcome to Horse Sense <br> where the world of horses exists. We provide you with everything you need through the best horse stables</h1>
         </div>
     </div>
 </div>
 
-<div class="d-flex flex-row gap-2 justify-content-between align-items-center p-4">
+<div class="container_logo d-flex flex-row gap-2 justify-content-between align-items-center p-4 ">
     <h1 class="contant">In Horse Sense , We guarantee you a wonderful experience on your trip on our site, enjoying and practicing your talent, exploring the stables and taking care of your horse. </h1>
-    <img class="imgHome" src="\static\img\logo.png">
+    <img class="imgHome" src="\static\img\logo03.png">
 </div>
 <hr>
 <div class="container p-4 mb-8 ">
@@ -34,7 +34,7 @@
                 <img class="rounded-circle imgHome" src="\static\img\horseTrein.jpg">
                 <h4 >Horse Riding Training</h4>
                 <p>We provide you with a horse stable with the ability to offer multiple options for beginners, amateurs and professionals, designed to suit the abilities and needs of each horseman or horsewoman.</p>
-                <p><a class="btn btn-secondary" href="#">View details »</a></p>
+                <p><a class="btn btn-secondary" href="{% url 'horses:home_stable_view' %}">View details »</a></p>
             </div>
         </div>
         <div class="col-4">
@@ -42,7 +42,7 @@
                 <img class="rounded-circle imgHome" src="\static\img\delivery3.jpeg">
                 <h4 >Delivery</h4>
                 <p>All you have to do is order from your home through our website and we will meet all your horse’s needs from the best stores and closest to you.</p>
-                <p><a class="btn btn-secondary" href="#">View details »</a></p>
+                <p><a class="btn btn-secondary" href="{% url 'delivery:home_store_view'%}">View details »</a></p>
             </div>
         </div>
 

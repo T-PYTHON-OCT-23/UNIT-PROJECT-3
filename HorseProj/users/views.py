@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from .models import Profile
 # Create your views here.
 
 
@@ -14,6 +15,11 @@ def register_views(request:HttpRequest):
                 raise Exception("Email address must be unique. Please choose another email.")
             user= User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
+
+            profile = Profile(user=user)
+            profile.save()
+
+            
             return redirect("users:login_views")
         
         except IntegrityError as e:
@@ -48,12 +54,6 @@ def logout_views(request:HttpRequest):
     return redirect("users:login_views")
 
 
-def update_profile_view(request: HttpRequest, user_id):
-    pass
-    
-    return render (request, "users/update_profile.html")
-
-
 def user_profile_view(request: HttpRequest, user_id):
 
     try:
@@ -63,4 +63,37 @@ def user_profile_view(request: HttpRequest, user_id):
     except Exception as e :
         print(e)
 
-    return render(request, 'usres/profile.html', {"user":user})
+    return render(request, 'users/profile.html', {"user":user})
+
+
+def update_user_view(request: HttpRequest):
+    msg = None
+
+    if request.method == "POST":
+        try:
+            if request.user.is_authenticated:
+                user : User = request.user
+                user.first_name = request.POST["first_name"]
+                user.last_name = request.POST["last_name"]
+                user.email = request.POST["email"]
+                user.save()
+
+               
+                profile : Profile = request.user.profile
+
+                profile.birth_date = request.POST["birth_date"]
+                if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
+                profile.about = request.POST["about"]
+                profile.have_horse= request.POST["have_horse"]
+                profile.level = request.POST["level"]
+                profile.save()
+
+                return redirect("users:user_profile_view", user_id = request.user.id)
+
+            else:
+                return redirect("users:login_views")
+        except IntegrityError as e:
+            msg = f"Username must be unique. Please choose another username."
+       
+
+    return render(request, "users/update_profile.html", {"msg" : msg})
