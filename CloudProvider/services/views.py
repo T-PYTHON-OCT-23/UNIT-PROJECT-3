@@ -9,17 +9,16 @@ from .models import Service
 def add_service_view(request:HttpRequest):
     massage = ''
     #check here if he a staff 
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            try:
-                new_services = Service(services_name=request.POST['service_name'],description=request.POST['description'],type=request.POST['type'],image=request.POST['image'],price=request.POST['price'])
-                new_services.save()
-                redirect('services:show_services_view')
+    #if request.user.is_authenticated:
+    if request.method == 'POST':
+        try:
+            new_services = Service(service_name=request.POST['service_name'],description=request.POST['description'],type=request.POST['type'],image=request.FILES['image'],price=request.POST['price'])
+            new_services.save()
+            return redirect('services:show_services_view')
+        except Exception as e:
+            massage = f"something went wrong{e}"
 
-            except Exception as e:
-                massage = f"something went wrong{e}"
-
-    return render(request,'services/add_services.html',{"massage":massage})
+    return render(request,'services/add_services.html',{"massage":massage,"service_name":Service.types,"pricese":Service.pricese})
 
 
 def show_services_view(request:HttpRequest):
@@ -44,7 +43,11 @@ def review_service_view(request:HttpRequest):
 
     return render(request,'services/review_service.html',{"massage":massage})
 
-def service_detils_view(request:HttpRequest):
+def service_detils_view(request:HttpRequest,service_id):
     massage = ''
+    try:
+        service = Service.objects.get(id=service_id)
+    except Exception as e:
+        massage = f'{e}'
 
-    return render(request,'services/review_service.html',{'massgae':massage})
+    return render(request,'services/service_detils.html',{'massgae':massage,'service':service})

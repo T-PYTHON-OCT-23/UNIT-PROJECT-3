@@ -14,10 +14,15 @@
             </div>
         {% endif %}
         {% for service in services %}
-        <div class="col-4 justify-content-center align-items-center border">
+
+        <div class="col-4 border mt-3 d-flex flex-column p-0 border rounded">
+            <a href="{% url 'services:service_detils_view' service.id %}">
             <div class="d-flex flex-column justify-content-center align-items-center">
-                <legend> {{service.service_name}}</legend>
-                <img src="{{ service.image.url }}" alt="service image">
+                <img class="w-100 object-fit-cover" style="height: 400px;" src="{{ service.image.url }}" alt="service image">
+            </div>
+            </a>
+            <div class="d-flex justify-content-center align-items-center">
+                {{service.service_name}}
             </div>
         </div>
         {% endfor %}

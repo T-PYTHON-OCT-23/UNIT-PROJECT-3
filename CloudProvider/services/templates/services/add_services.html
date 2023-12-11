@@ -6,30 +6,43 @@
 
 {% block body %}
 <div class="container">
-    <div class="row">
+    <div class="row justify-content-center">
         <div class="col-4 justify-content-center align-items-center">
             {% if massage %}
             <div class="alert alert-danger" role="alert">
-                massage
+                {{massage}}
             </div>
             {% endif %}
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{% url 'services:add_service_view' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
                 <legend>Add New Service </legend>
+
                 <label class="form-label">Service Name:</label>
                 <input type="text" name="service_name" class="form-control" required>
-
+                
                 <label class="form-label">Description:</label>
                 <input type="text" name="description" class="form-control" required>
-
                 <label class="form-label">Type:</label>
-                <input type="text" name="type" class="form-control" required>
+                {% for key,value in service_name.choices %}
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="type" id="{{key}}" value="{{value}}" required>
+                    <label class="form-check-label" for="{{key}}">
+                    {{value}}
+                    </label>
+                </div>
+                {% endfor%}
 
                 <label class="form-label">Image:</label>
                 <input type="file" name="image" class="form-control" required>
 
-                <label class="form-label">Price</label>
-                <input type="text" name="price" class="form-control" required>
-
+                <label class="form-label">Price:</label>
+                <select class="form-select" name="price">
+                <option selected>Choose...</option>
+                {% for key,value in pricese.choices %}
+                  <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+                </select>
+                
                 <input type="submit" class="btn btn-primary mt-3">
             </form>
         </div>
