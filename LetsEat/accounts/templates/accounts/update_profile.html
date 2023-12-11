@@ -1,35 +1,41 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Update  User {% endblock %}
+{% block title %} Update {% endblock %}
 
 
 {% block content %}
 
-<section class="container mt-5">
+<section class=" display-inline-block" style="background-color:  rgb(214, 239, 214); ">
+    <div class="container p-5">
     <h1>Update your profile</h1>
-
-    {% if msg %}
-        <div class="alert alert-danger" role="alert">
-        {{ msg }}
-        </div>
-    {% endif %}
+<br>
     <div class="row">
-    
+
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+
         <div class="col-6">
 
-            <form class="d-flex flex-column gap-1" action="{% url 'account:update_user_view' %}" method="post" enctype="multipart/form-data">
+            <form class="d-flex flex-column gap-1" action="{% url 'accounts:update_user_view' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 <lable>First name:</lable>
                 <input class="form-control"  type="text" name="first_name" required minlength="3" value="{{ request.user.first_name }}"/>
+                
                 <lable>Last Name:</lable>
                 <input class="form-control" type="text" name="last_name" required minlength="3"   value="{{ request.user.last_name }}"/>
+                
                 <lable>Email</lable>
                 <input class="form-control" type="email" name="email" required minlength="3"  value="{{ request.user.email }}"/>
+               
                 <lable>Date of birth</lable>
                 <input class="form-control" type="date" name="birth_date" required value="{{ request.user.profile.birth_date.isoformat }}" />
 
                 <lable>About you..</lable>
+               
                 <textarea class="form-control" name="about" >{{ request.user.profile.about }}</textarea>
                 <lable> Avatar </lable>
                 <div class="d-flex align-items-center gap-2 ">
@@ -37,18 +43,17 @@
                     <input class="form-control" type="file" name="avatar"  placeholder="choose avatar"/>
                 </div>
                 
-
-
                 <h3>Social media</h3>
 
-                <input class="form-control" type="url" name="instagram_link"  placeholder="@Instagram" value="{{ request.user.profile.instagram_link }}"/>
+                <input class="form-control" type="url" name="insta_link"  placeholder="@Instagram" value="{{ request.user.profile.insta_link }}"/>
                 <input class="btn btn-primary" type="submit" value="Update profile" />
             </form>
 
         </div>
 
     </div>
-
+    </div>
+    
 </section>
 
 {% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}myFavorites {% endblock %}
+</title>
+
+{% block content %}
+    
+<div class="container p-5">
+<section class="p-5">
+    <h1>My Favorites</h1>
+    <div class="row row-cols-12 row-cols-md-3 g-3">
+        {% if favorites.count == 0 %}
+         <div class="alert alert-info">You don't have any favorites yet.<a href="{% url 'recipes:home_recipes_view' %}">check recipes</a></div>
+        {% endif %}
+
+        {% for favorite in favorites %}
+        <div class=" col">
+
+            <div class="card" style="width: 18rem;">
+                <img src="{{ favorite.recipe.poster.url }}" class="card-img-top" alt="recipe image">
+                <div class="card-body">
+                  <h5 class="card-title">{{ favorite.recipe.name }} </h5>
+                  <p class="card-text">{{ favorite.recipe.description }} | created {{favorite.created_at}}</p>
+                  <a href="{% url 'recipes:recipe_detail_view' favorite.recipe.id %}" class="btn btn-primary">Visit</a>
+                </div>
+              </div>
+
+        </div>
+    </div>
+   
+
+</section>
+</div>
+
+         
+     
+{%endblock%}

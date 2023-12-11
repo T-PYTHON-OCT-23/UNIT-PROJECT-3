@@ -29,8 +29,8 @@
         <h5>is an important motto to follow in this modern sedentary lifestyle with innumerable unhealthy eating options available to save us time and energy. However the importance to eat healthy foods is being realised increasingly to keep good health.</h5>
     <h5><a href="{% url 'recipes:home_recipes_view' %}">Explore recipes</a></h5>
         <br>
-        <div class=" pt-5 row row-cols-1 row-cols-md-6">
-            <div class="col  d-flex  col-md-10 col-md-8" >
+        <div class=" row row-cols-md-3 row-cols-md-6  pt-5">
+            <div class="col  d-flex  " >
                 
                 <a href="{%url 'recipes:recipe_category_view' %}?category=breakfast">
                     <figure>
@@ -68,6 +68,43 @@
 
             </div>
         </div>
+
+
+
+
+
+
+
+        <section  style="background-color: rgb(230, 255, 190);">
+            <div class="container my-5 py-5 ">
+              <div class="row row-cols-1 row-cols-md-4 mt-3  d-flex ">
+                {% for review in latest_review %} 
+                <div class="col">
+                  <div class="card text-dark">
+                    <div class="card-body p-4">
+                      <div class="d-flex flex-start">
+                             <img class="rounded-circle shadow-1-strong me-3" src="{{ review.user.profile.avatar.url }}" width="60" height="60" />
+                        <div>
+                          <h6 class="fw-bold mb-1"> {{review.user.first_name}} {{review.user.last_name}}</h6>
+                          <div class="d-flex align-items-center mb-3">
+                            <p class="mb-0">
+                                {{review.date}} | {{review.rating}} <span class="material-symbols-outlined">star</span>
+        
+                            </p>
+                            <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                          </div>
+                          <p class="mb-0">
+                            {{review.review}}
+                            
+                          </p>
+                          <img src="{{review.image.url}}" height="100" width="100" />
+                        </div>
+        
+                      </div>
+                      </div>
+                      </div>
+                    </div>
+{%endfor%}
 
     </section>
 

@@ -16,6 +16,12 @@
     
 <div class="container p-5">
     <div class="d-flex justify-content-between">
+      {% if is_favored %}
+      <a href="{% url 'favorites:add_favorite_view' recipe.id %}" class="favored"><span class="material-symbols-outlined">star </span></a>
+       {% else %}
+        <a href="{% url 'favorites:add_favorite_view' recipe.id %}" ><span class="material-symbols-outlined">favorite </span></a>
+         {% endif %}
+     
         <div class="dropdown">
             <button   class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               Edit
@@ -25,9 +31,10 @@
               <li onclick="myFunction()"><a class="dropdown-item" href="{% url 'recipes:delete_recipe_view' recipe.id %} ">Delet</a></li>
             </ul>
           </div>
+         
         </div> 
 
-
+      
 
 
         
@@ -35,8 +42,9 @@
             <div class="row mt-4">
                 <div class="col-12 col-md-6 order-2 order-md-1">
                         <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
-                            <h1>{{recipe.name}}</h1>
-                            <p>{{recipe.category}} | {{recipe.published_at}}<br>__________________________________________</p>
+                            <h1>{{recipe.name}} </h1>
+                            
+                            <p>  {{recipe.category}} | {{recipe.published_at}}<br>__________________________________________</p>
                             <h5>{{recipe.description}}</h5>
                         </div>
                 </div>
@@ -62,7 +70,6 @@
 <hr />
 
 <!-- to show reviews -->
-
 <section  style="background-color: rgb(230, 255, 190);">
     <div class="container my-5 py-5 ">
         {% if reviews_count > 0 %}
@@ -74,9 +81,9 @@
           <div class="card text-dark">
             <div class="card-body p-4">
               <div class="d-flex flex-start">
-                     <img class="rounded-circle shadow-1-strong me-3" src="{{ request.user.profile.avatar.url }}" width="60" height="60" />
+                     <img class="rounded-circle shadow-1-strong me-3" src="{{ review.user.profile.avatar.url }}" width="60" height="60" />
                 <div>
-                  <h6 class="fw-bold mb-1"> {{request.user.first_name}} {{request.user.last_name}}</h6>
+                  <h6 class="fw-bold mb-1"> {{review.user.first_name}} {{review.user.last_name}}</h6>
                   <div class="d-flex align-items-center mb-3">
                     <p class="mb-0">
                         {{review.date}} | {{review.rating}} <span class="material-symbols-outlined">star</span>
@@ -88,7 +95,7 @@
                     {{review.review}}
                     
                   </p>
-                  <img src="{{review.image}}" alt="pic" height="100" width="100" />
+                  <img src="{{review.image.url}}" height="100" width="100" />
                 </div>
 
               </div>

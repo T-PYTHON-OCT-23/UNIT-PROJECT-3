@@ -13,6 +13,9 @@ class Recipe(models.Model):
     category = models.CharField(max_length=64, choices=categories.choices)
     picture = models.ImageField(upload_to="img/" , default="img/default.png")
 
+    def __str__(self):
+        return f"{self.name}"
+
 
 class Review(models.Model):
     recipe= models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -22,5 +25,5 @@ class Review(models.Model):
     rating = models.IntegerField()
     image = models.ImageField(upload_to="img/" , default="img/default.png")
 
-def __str__(self):
-    return f"(self.name)"
+    def __str__(self):
+        return f"{self.user} : {self.review}"

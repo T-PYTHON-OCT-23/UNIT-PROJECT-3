@@ -13,5 +13,4 @@ urlpatterns = [
     path("category/", views.recipe_category_view, name="recipe_category_view"),
 
 
-
 ]

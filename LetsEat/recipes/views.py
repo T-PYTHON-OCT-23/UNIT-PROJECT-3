@@ -1,6 +1,8 @@
 from django.shortcuts import render , redirect
 from django.http import HttpRequest , HttpResponse
 from .models import Recipe, Review
+from favorites.models import Favorite
+
 # Create your views here.
 
 
@@ -35,19 +37,18 @@ def recipe_detail_view(request:HttpRequest, recipe_id):
 
     recipe_detail = Recipe.objects.get(id=recipe_id)
     
-    #to add review
-    try:
-            if request.method=="POST":
-                review = Review(recipe=recipe_detail ,user=request.user ,review=request.POST["review"] , rating=request.POST["rating"],image = request.FILES["image"])
-               
-                 
-                review.save()
-            reviews = Review.objects.filter(recipe=recipe_detail)
-            reviews_count =reviews.count()
-    except Exception as e:
-            msg = f"Please fill in all fields and try again. {e}"
+    if request.method=="POST":
+        review = Review(recipe=recipe_detail ,user=request.user ,review=request.POST["review"] , rating=request.POST["rating"])
+        if 'image' in request.FILES: review.image = request.FILES["image"]
+        review.save()
 
-    return render(request, "recipes/display_recipes.html", {"recipe" : recipe_detail , "reviews" : reviews , "reviews_count": reviews_count})
+    reviews = Review.objects.filter(recipe=recipe_detail)
+
+    reviews_count =reviews.count()
+
+    is_favored = request.user.is_authenticated and Favorite.objects.filter(recipes=recipe_detail, user=request.user).exists()
+
+    return render(request, "recipes/display_recipes.html", {"recipe" : recipe_detail , "reviews" : reviews , "reviews_count": reviews_count , "is_favored":is_favored})
 
 
 
@@ -69,6 +70,7 @@ def update_recipe_view(request: HttpRequest, recipe_id):
         return redirect('recipes:recipe_detail_view',  recipe_id=recipe.id)
     
     return render(request, "recipes/update_recipe.html", {"recipe" : recipe ,"categories"  : Recipe.categories})
+
 
 
 def delete_recipe_view(request: HttpRequest, recipe_id):
@@ -119,6 +121,7 @@ def recipe_category_view (request: HttpRequest):
     recipe_count = recipe.count()
 
     return render(request, "recipes/recipe_home.html", {"recipes" : recipe , " recipe_count" :  recipe_count })
+
 
 
 

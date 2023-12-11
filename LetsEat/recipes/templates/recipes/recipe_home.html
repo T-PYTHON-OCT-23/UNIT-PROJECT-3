@@ -2,7 +2,7 @@
 {% load static %}
 
 <title>
-    {% block title %}Add recipe {% endblock %}
+    {% block title %}Home {% endblock %}
 </title>
 
 {% block content %}
@@ -66,26 +66,19 @@
 
     {% for recipe in recipes %}
     <div class="col">
-        <!-- Card -->
         <div class="card">
 
-        <!-- Card image -->
         <img class="card-img-top" src="{{recipe.picture.url}}" alt="Card image cap">
 
-        <!-- Card content -->
         <div class="card-body">
 
-            <!-- Title -->
             <h4 class="card-title"><a>{{recipe.name}}</a></h4>
-            <!-- Text -->
             <p class="card-text">{{recipe.description}}</p>
-            <!-- Button -->
-            <a href="{% url 'recipes:recipe_detail_view' recipe.id %}" class="btn btn-success">Button</a>
+            <a href="{% url 'recipes:recipe_detail_view' recipe.id %}" class="btn btn-success">Read</a>
 
         </div>
 
         </div>
-        <!-- Card -->
     </div>
             
 
