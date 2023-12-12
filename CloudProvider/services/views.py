@@ -65,5 +65,15 @@ def request_service_view(request:HttpRequest,serivce_id,user_id):
                 new_ServiceRequest.save()
             except Exception as e:
                 massage = f"something went wrong {e}"
-                
+
     return render(request,'services/request_service.html',{'massage':massage,'service_request':ServiceDetails})
+
+def view_services_i_reqeust_view(request:HttpRequest):
+    massage = ''
+    if request.user.is_authenticated:
+        try:
+            show_services = ServiceRequest.objects.all()
+        except Exception as e:
+            massage = f'something went wrong "{e}"'
+    
+    return render(request,'services/view_services_i_request.html',{'massage':massage,'show_serivces':show_services})
