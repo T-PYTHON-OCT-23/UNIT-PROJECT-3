@@ -128,6 +128,11 @@ def update_event_view(request: HttpRequest, event_id):
     return render(request, "expos/update.html", {"event" : event })
 
 
+def reservation_event_view(request:HttpRequest):
+
+    return render(request, "expos/reservation.html")
+
+
 
 
 

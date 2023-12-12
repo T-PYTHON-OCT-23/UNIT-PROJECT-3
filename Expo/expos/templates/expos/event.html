@@ -69,18 +69,19 @@
 
 </style>
 
-
 <section class="cards">
-{% for event in event %}
-<div class="card">
-   <a href="{% url 'expos:event_detail_view' event.id %}"> <div class="card-image">
-        <img height="300px" width="400px" src="{{event.poster.url}}" />
-    </div></a>
-      <div class="card-description">
-        <p class="text-title">{{event.title}}</p>
-        <p class="text-body">{{event.content}}</p>
-      </div>
-</div>
+    {% for event in event %}
+    <div class="card">
+        <a href="{% url 'expos:event_detail_view' event.id %}">
+            <div class="card-image">
+                <img height="300px" width="400px" src="{{event.poster.url}}" />
+            </div>
+        </a>
+        <div class="card-description">
+            <p class="text-title">{{event.title}}</p>
+            <p class="text-body">{{event.content}}</p>
+        </div>
+    </div>
     {% endfor %}
 </section>
 
