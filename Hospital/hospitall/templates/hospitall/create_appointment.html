@@ -29,12 +29,11 @@
     }
 </style>
 <section class="container py-5 mt-5">
-    <h1 class="mb-4" style="color: #6c757d;">Appointment Booking</h1>
+    <h1 class="mb-4">Appointment Booking</h1>
 
     <form method="post" action="{% url 'hospitall:create_appointment' %}" style="font-size: 1.2em;">
         {% csrf_token %}
 
-        <!-- Dropdown menu for selecting a clinic -->
         <div class="form-group">
             <label for="clinic">Choose the clinic:</label>
             <select name="clinic" id="clinicSelect" class="form-control">
@@ -44,7 +43,6 @@
             </select>
         </div>
 
-        <!-- Input for selecting the date and time -->
         <div class="form-group">
             <label for="date">Choose the clock and time:</label>
             <input type="datetime-local" name="date" id="date" class="form-control" required>

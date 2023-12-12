@@ -1,64 +1,46 @@
 {% extends 'main/base.html' %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
 <style>
-    body {
-        background-color: #f8f9fa;
-    }
-
-    .container {
-        background-color: #ffffff;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    }
-
-    .btn {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-        transform: scale(1.02);
+        body {
+        background-image: url('/static/img/9099.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
     }
 </style>
-<section class="container py-5 mt-5">
-    <h2 style="color: #6c757d;">إضافة عيادة جديدة</h2>
-    <form method="post" enctype="multipart/form-data" style="font-size: 1.2em;">
-        {% csrf_token %}
-
-        <!-- Input for clinic name -->
-        <div class="form-group">
-            <label for="clinic_name">اسم العيادة:</label>
-            <input type="text" id="clinic_name" name="clinic_name" class="form-control">
+<div class="container py-5 mt-1">
+    <div class="card">
+        <div class="card-header text-center" style="font-family: 'Satisfy', cursive; color: #6c757d; font-size: 2em;">
+            Adding a new clinic
         </div>
-
-        <!-- Input for clinic image -->
-        <div class="form-group">
-            <label for="clinic_image">صورة العيادة:</label>
-            <input type="file" id="clinic_image" name="clinic_image" class="form-control-file">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="clinic_name">Clinic name</label>
+                    <input type="text" id="clinic_name" name="clinic_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="clinic_image">Clinic photo</label>
+                    <input type="file" id="clinic_image" name="clinic_image" class="form-control-file">
+                </div>
+                <div class="form-group">
+                    <label for="doctor_user">Doctor's name</label>
+                    <select id="doctor_user" name="doctor_user" class="form-control">
+                        {% for doctor in doctors %}
+                            <option value="{{ doctor.user.id }}">{{ doctor.user.username }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Addition</button>
+            </form>
+            {% if error_message %}
+                <div class="alert alert-danger mt-3" role="alert">
+                    {{ error_message }}
+                </div>
+            {% endif %}
         </div>
-
-        <!-- Dropdown menu for selecting a doctor -->
-        <div class="form-group">
-            <label for="doctor_user">اسم الطبيب:</label>
-            <select id="doctor_user" name="doctor_user" class="form-control">
-                {% for doctor in doctors %}
-                    <option value="{{ doctor.user.id }}">{{ doctor.user.username }}</option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <button type="submit" class="btn">إضافة</button>
-    </form>
-    {% if error_message %}
-        <div class="alert alert-danger mt-3" role="alert">
-            {{ error_message }}
-        </div>
-    {% endif %}
-</section>
+    </div>
+</div>
 {% endblock %}

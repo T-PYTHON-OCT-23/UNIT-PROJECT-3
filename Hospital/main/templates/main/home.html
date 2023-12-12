@@ -5,6 +5,10 @@
 
 {% block content %}
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+
     body {
     overflow-x: hidden;
 
@@ -42,11 +46,15 @@
 }
 
 </style>
-<div style="display: flex; align-items: center;">
-  <hr style="flex-grow: 1; border-width: 9px;">
-  <span style="margin: 0 10px; font-family: 'Times New Roman', serif; font-size: 2em; font-weight: bold;">Welcome to the hospital</span>
-  <hr style="flex-grow: 1; border-width: 9px;">
+
+
+<div style="display: flex; align-items: center; padding: 20px;">
+  <hr style="flex-grow: 1; border-width: 2px; border-color: #007bff;">
+  <h1 style="margin: 0 10px; font-family: 'Satisfy', cursive; font-size: 2em; font-weight: bold; color: #f1f1f2;  border-radius: 15px; padding: 10px; background-color: rgb(22, 19, 19);">Welcome to the hospital</h1>
+  <hr style="flex-grow: 1; border-width: 2px; border-color: #007bff;">
 </div>
+
+
 <div id="carouselExampleDark" class="carousel carousel-dark slide">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -63,13 +71,13 @@
       <div class="carousel-item" data-bs-interval="2000">
         <img src="{% static 'img/22.jpg' %}" class="d-block w-100" alt="..." style="width: 50%; height: auto; border-radius: 20px;">
         <div class="carousel-caption d-none d-md-block">
-            <h1 class="overlay-text" style="text-align: left; padding-right: 500px; padding-bottom: 500px;">Future of Health Care <br><span style="color: red; font-size: 2em;">Today</span></h1>
+            <h1 class="overlay-text" style="text-align: left; padding-right: 500px; padding-bottom: 500px;">Shaping the Future of Health Care <br><span style="color: red; font-size: 2em;">Today</span></h1>
         </div>
       </div>
       <div class="carousel-item">
         <img src="{% static 'img/33.jpg' %}" class="d-block w-100" alt="..." style="width: 10%; height: auto; border-radius: 20px;">
         <div class="carousel-caption d-none d-md-block">
-            <h1 class="overlay-text" style="text-align: left; padding-right: 500px; padding-bottom: 500px;">Future of Health Care <br><span style="color: red; font-size: 2em;">Today</span></h1>
+            <h1 class="overlay-text" style="text-align: left; padding-right: 500px; padding-bottom: 500px;">Tomorrow’s Health Care<br><span style="color: red; font-size: 2em;">Today</span></h1>
         </div>
       </div>
     </div>
