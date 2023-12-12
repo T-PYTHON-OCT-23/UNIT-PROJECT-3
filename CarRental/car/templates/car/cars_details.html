@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+{% if car %}
+
+
+        <div class="content">
+            <div class="row justify-content-center col-4">
+                <div class="col-md-6">
+                    <a href="{% url 'car:cars_view' %}" class="btn btn-primary">Back</a>
+                    <div class="card m-3" style="width: 18rem;">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ car.name }} - {{ car.year }} ({{ car.available }})</h5>
+                        <h6 class="card-title">{{ car.color }} - {{ car.seats }} - {{ car.pags }}</h6>
+                        <p class="card-text">{{ car.air_conditioner }} - {{ car.transmission_type }} - {{ car.fuel_type }}</p>
+                        <h6 class="card-title"> Price for day "{{ car.price }}"</h6>
+                       
+                        <div>
+                            {{ car.city }}
+                            {{ date.rental_pickup_Datetime }}
+                             {{ date.rental_return_Datetime }}
+                        </div>
+                      
+                        <a href="{% url 'car:cars_delete_view' car.id %}" class="btn btn-danger m-1"> Delete </a>
+                        <a href="{% url 'car:cars_update_view' car.id %}" class="btn btn-primary m-1"> Update </a>
+                        <a href="#" class="btn btn-primary m-1"> Booking Now </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+{%else%}
+<p>No car</p>
+
+{%endif%}
+
+{% endblock %}

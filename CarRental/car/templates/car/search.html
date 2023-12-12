@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+<section class="container pt-4">
+
+    <div class="d-flex justify-content-between">
+    <h1>Search results : </h1>
+<hr>
+{% if cars %}
+
+    {% for car in cars %}
+
+        <div class="content">
+            <div class="row justify-content-center col-4">
+                <div class="col-md-6">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ c.name }} - {{ c.year }} ({{ c.available }})</h5>
+                        <h6 class="card-title"><span class="material-symbols-outlined">person</span> {{ c.seats }} seats</h6>
+                        <h6 class="card-title"><span class="material-symbols-outlined">trip</span> {{ c.pags }}</h6>
+                        <p class="card-text"><span class="material-symbols-outlined">mode_fan</span>{{ c.air_conditioner }}</p>
+                        <p class="card-text"><span class="material-symbols-outlined">auto_transmission</span>{{ c.transmission_type }}</p>
+                        <p class="card-text"><i class="bi bi-fuel-pump"></i>{{ c.fuel_type }}</p>
+                        <h6 class="card-title"> Price for day "{{ car.price }}"</h6>
+                        <a href="{% url 'car:cars_details_view' car.pk %}" class="btn btn-primary">More details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {%else%}
+
+       <p>No car</p>
+    
+{%endif%}
+</div>
+
+</section>
+
+
+{% endblock %}
+

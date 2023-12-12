@@ -1,0 +1,104 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Add New Car</h1>
+
+    <div class="row">
+
+        <div class="col-6">
+            <!-- form for submitting the data -->
+
+            <form action="{% url 'car:add_car_view' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label>Car Name:</label>
+                <input class="form-control" type="text" name="name" placeholder="the name of car" />
+                <label>Car Model(Year):</label>
+                <input class="form-control" type="text" name="year" placeholder="years of release" />
+
+                <div>
+                    <select name="city">
+                        <option value="Riyadh"> Riyadh </option>
+                        <option value="Abha"> Abha </option>
+                        <option value="Khobar"> Khobar </option>
+                        <option value="Hail"> Hail </option>
+                        <option value="Jeddah"> Jeddah </option>
+            
+                    </select>
+                </div>
+
+                <div>
+                    <select name="vehicle_class">
+                        <option value="Economic"> Economic </option>
+                        <option value="Middle Class"> Middle Class </option>
+                        <option value="Top Grade"> Top Grade </option>
+                        <option value="Luxury"> Luxury </option>
+                    </select>
+                </div>
+                
+                <div>
+                    <select name="vehicle_type">
+                        <option value="Sedan"> Sedan </option>
+                        <option value="SUV"> SUV </option>
+                        <option value="VAN"> VAN </option>
+                    </select>
+                </div>
+
+                <div>
+                    <select class="form-select" name="available">
+                        <option value="True">Available</option>
+                        <option value="False">Not Available</option>
+                    </select>
+                </div>
+
+                <label>Car Color:</label>
+                <input class="form-control" type="text" name="color" placeholder="car color" />
+
+                <label>Car Seats:</label>
+                <input class="form-control" type="text" name="seats" placeholder="number of seats" />
+
+                <label>Car Pags:</label>
+                <input class="form-control" type="text" name="pags" placeholder="number of Pags" />
+
+
+                <label>Air Conditionar:</label>
+                <select name="air_conditioner" class="form-select">
+                    {% for key, value in air_conditioner_choices %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Transmission Type:</label>
+                <select name="transmission_type" class="form-select">
+                    {% for key, value in transmission_type_choices %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+
+                <label>Fuel Type:</label>
+                <select name="fuel_type" class="form-select">
+                    {% for key, value in fuel_type_choices %}
+                        <option value="{{ key }}">{{ value }}</option>
+                    {% endfor %}
+                </select>
+
+                <label >Car Image</label>
+                <input type="file" name="image" />
+
+                <label>Car price:</label>
+                <input class="form-control" type="number" name="price" placeholder="price" />
+
+                <input class="btn btn-primary" type="submit" value="Add Car" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

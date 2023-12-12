@@ -1,0 +1,42 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+
+<h1>The number of cars is {{number_of_cars}}</h1>
+{% if cars %}
+
+    {% for car in cars %}
+
+        <div class="content">
+            <div class="row justify-content-center col-4">
+                <div class="col-md-6">
+                    <div class="card" style="width: 18rem;">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ car.name }} - {{ car.year }} ({{ car.available }})</h5>
+                        <h6 class="card-title"><span class="material-symbols-outlined">person</span> {{ car.seats }} seats</h6>
+                        <h6 class="card-title"><span class="material-symbols-outlined">trip</span> {{ car.pags }}</h6>
+                        <p class="card-text"><span class="material-symbols-outlined">mode_fan</span>{{ car.air_conditioner }}</p>
+                        <p class="card-text"><span class="material-symbols-outlined">auto_transmission</span>{{ car.transmission_type }}</p>
+                        <p class="card-text"><i class="bi bi-fuel-pump"></i>{{ car.fuel_type }}</p>
+                        <h6 class="card-title"> Price for day "{{ car.price }}"</h6>
+                        <a href="{% url 'car:cars_details_view' car.pk %}" class="btn btn-primary">More details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    {%else%}
+    <p>No car</p>
+    
+{%endif%}
+
+
+{% endblock %}
+

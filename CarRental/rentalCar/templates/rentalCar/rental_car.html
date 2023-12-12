@@ -1,0 +1,37 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %}  {% endblock %}
+
+{% block content %}
+
+<h1>Rent a Car</h1>
+<form action="{% url 'rentalCar:rental_car_view' %}" method="get">
+
+    <label for="rental_return_location">Return Location:</label>
+    <input type="text" id="rental_return_location" name="rental_return_location" required>
+
+    <label for="rental_pickup_Datetime">Pickup Date and Time:</label>
+    <input type="date" id="rental_pickup_Datetime" name="rental_pickup_Datetime" required>
+
+
+    <label for="rental_return_Datetime">Return Date and Time:</label>
+    <input type="date" id="rental_return_Datetime" name="rental_return_Datetime" required>
+
+    <label for="total_cost">Total Cost ::</label>
+    <input type="number" id="total_cost" name="total_cost" required>
+
+    <div>
+        <label for="renter">Driver Name:</label>
+        <input type="text" id="renter" name="renter" required>
+    </div>
+
+    <div>
+        <label for="Pemint">Pemint:</label>
+        <input type="text" id="Pemint" name="Pemint" required>
+    </div>
+
+
+    <input type="submit" value="Coferm Booking">
+</form>
+
+{% endblock %}

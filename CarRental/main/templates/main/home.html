@@ -1,0 +1,67 @@
+
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title %} Car Rental Search {% endblock %}
+
+{% block content %}
+
+
+<h1>welcom</h1>
+
+    <!-- Available Cars Search Form -->
+    <form action="{% url 'car:booking_search_view' %}" method="get">
+        <h3>Available Cars</h3>
+
+        <select name="vehicle_class">
+            <option value="Economic"> Economic </option>
+            <option value="Middle Class"> Middle Class </option>
+            <option value="Top Grade"> Top Grade </option>
+            <option value="Luxury"> Luxury </option>
+        </select>
+
+        <div>
+            <select name="vehicle_type">
+                <option value="Sedan"> Sedan </option>
+                <option value="SUV"> SUV </option>
+                <option value="VAN"> VAN </option>
+            </select>
+        </div> 
+
+          <select name="city">
+            <option value="Riyadh"> Riyadh </option>
+            <option value="Abha"> Abha </option>
+            <option value="Khobar"> Khobar </option>
+            <option value="Hail"> Hail </option>
+            <option value="Jeddah"> Jeddah </option>
+
+          </select>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Car price:</label>
+                <input class="form-control" type="number" name="price" placeholder="price" />
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Search Available Cars</button>
+    </form>
+
+</div>
+
+<!-- Display Search Results -->
+    <div class="mt-4">
+        <h3>Search Results</h3>
+        {% if cars %}
+            <ul>
+                {% for car in cars %}
+                    <li>{{ car.name }} - {{ car.year }} ({{ car.available }})</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No cars found.</p>
+        {% endif %}
+    </div>
+
+
+    </div>
+
+
+{% endblock %}
