@@ -16,16 +16,18 @@ def register_views(request:HttpRequest):
             user= User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
 
-            profile = Profile(user=user)
+            profile = Profile(user=user, birth_date=request.POST["birth_date"])
             profile.save()
 
             
             return redirect("users:login_views")
         
         except IntegrityError as e:
+            print(e)
             msg = "Username must be unique. Please choose another username."
 
         except Exception as e:
+            print(e)
             msg = f"Something went wrong. Please try again. {e}"
 
     return render(request,"users/register.html",{"msg":msg})
@@ -82,7 +84,8 @@ def update_user_view(request: HttpRequest):
                 profile : Profile = request.user.profile
 
                 profile.birth_date = request.POST["birth_date"]
-                if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
+                if 'avatar' in request.FILES:
+                    profile.avatar = request.FILES["avatar"]
                 profile.about = request.POST["about"]
                 profile.have_horse= request.POST["have_horse"]
                 profile.level = request.POST["level"]

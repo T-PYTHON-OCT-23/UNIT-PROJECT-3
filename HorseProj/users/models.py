@@ -7,7 +7,7 @@ class Profile(models.Model):
     user=models.OneToOneField(User, on_delete=models.CASCADE)
     about=models.TextField(default="")
     have_horse=models.BooleanField(default=True)
-    level=models.BooleanField(default=True)
+    level=models.IntegerField(default=True)
     birth_date = models.DateField()
     avatar = models.ImageField(upload_to="images/", default="images/avatar_default.jpg")
 

@@ -12,7 +12,9 @@
                <div class="d-flex flex-column  p-10 border border-3 rounded-4 h-100 justify-content-start">
             
                     <img class="imgStable" src="{{store.img.url}}" />
-                    <a class="link1 p-2 contents" href="{% url 'delivery:store_details_view' store.id %}" ><h3> {{store.name}}</h3></a>
+                    <a class="link1 p-2 contents" href="{% url 'delivery:store_details_view' store.id %}" ><h3> {{store.name}}</h3> <span class="material-symbols-outlined">
+                        start
+                        </span></a>
                     <a class="link1 p-2" href="{{store.location}}"><h3>Location</h3></a>
                     <h5 class="p-2"> work time :{{store.work_time}}</h5>
                     <h3 class="p-2">{{store.rating}} ★ </h3>

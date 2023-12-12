@@ -27,7 +27,7 @@
 
                 <textarea class="form-control" name="about" placeholder="About you..">{{ request.user.profile.about }}</textarea>
                 <div class="d-flex align-items-center gap-2 ">
-                    <img src="{{ request.user.profile.avatar.url }}"  class="avatar rounded-circle"/>
+                    <img src="{{ request.user.profile.avatar.url }}" width="50px" class="avatar rounded-circle"/>
                     <input class="form-control" type="file" name="avatar" />
                 </div>
 

@@ -4,7 +4,7 @@
 
 
 {% block contant %}
-<h1>hi</h1>
+
     <section class="container">
         <div class="row">
             <div class="col-4">
@@ -17,8 +17,8 @@
             <div class="col-4">
                 <h1> {{user.first_name}} {{user.last_name}}</h1>
                 <p> {{user.profile.about}}</p>
-                <h3> {{user.profile.have_horse}}</h3>
-                <h3> {{user.profile.level}}</h3>
+                <h3>You have horse {{user.profile.have_horse}}</h3>
+                <h3>  level your horse {{user.profile.level}}</h3>
                 <h3>{{user.profile.birth_date}}</h3>
                 
 

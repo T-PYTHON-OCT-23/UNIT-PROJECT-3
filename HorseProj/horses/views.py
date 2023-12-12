@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import StableHorses, ServicesStable
+from .models import StableHorses, ServicesStable, Reviews
 # Create your views here.
 
 def add_stable_views(request:HttpRequest):
@@ -23,11 +23,21 @@ def home_stable_view(request:HttpRequest):
 
 
 def stable_details_view(request:HttpRequest, stable_id):
+    try:
+        details=StableHorses.objects.get(id=stable_id)
+        services=ServicesStable.objects.filter(stbleHorse=details)
 
-    details=StableHorses.objects.get(id=stable_id)
-    services=ServicesStable.objects.filter(stbleHorse=details)
+        if request.method=="POST":
+            if not request.user.is_authenticated:
+                pass
 
-    return render(request , "horses/details_stable.html", {"stable":details , "services":services})
+            reviews=Reviews(horses=details,user=request.user,rating=request.POST["rating"],comment=request.POST["comment"])
+            reviews.save()
+        reviews=Reviews.objects.filter(horses=details)
+    except Exception as e :
+        print(e)
+
+    return render(request , "horses/details_stable.html", {"stable":details , "services":services, "reviews":reviews})
 
 def add_services_view(request:HttpRequest,stable_id):
     stable=StableHorses.objects.get(id=stable_id)
@@ -65,3 +75,6 @@ def update_stable_views(request:HttpRequest,stable_id):
 
 
 
+# def kkd():
+
+#     my_request_stable = StableREquest.objects.filter(user=request.user)

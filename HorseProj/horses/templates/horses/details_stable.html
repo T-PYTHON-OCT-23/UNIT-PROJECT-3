@@ -5,6 +5,7 @@
 
 {% block contant %}
 <div class="container5 p-4">
+
   <div class="d-flex flex-row justify-content-between gap-4">
     <img class="img_stabl" src="{{stable.img.url}}" width="600px" height="400px"/>
     <div class="d-flex flex-column g-4 justify-content-center">
@@ -76,5 +77,55 @@
 </div>
     
 
+<hr />
+<section class="p-3">
+    <div clss="row ">
+        <h2>Reviews</h2>
+        <div class="col-5">
+            {% for review in reviews %}
+            <div>
+                <h3 id="name">{{review.user.username}}</h3>
+                <h3>{{review.rating}} <span class="material-symbols-outlined">grade</span></h>
+                <p>{{review.comment}}</p>
+                <h7>{{review.created_at}}</h7>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+   
+</section>
+ 
+<div class="row add_rev">
+    <div class="col-6 ">
+        <h5> Add Review</h5>
+        <form action="{% url 'horses:stable_details_view' stable.id %}"method="post">
+            {% csrf_token %}
+        <select class="form-select mp-4 " name="rating">
+            <option value="1">1 Star</option>
+            <option value="2">2 Star</option>
+            <option value="3">3 Star</option>
+            <option value="4">4 Star</option>
+            <option value="5">5 Star</option>
+        </select>
+        
+        <label>Comment</label>
+        <input class="form-control mb-4" type="text" name="comment"/>
+        {% if request.user.is_authenticated %}
+        <button  class="btn btn-primary mp-4" type="submit"> Add Review </button> 
+        {% else %}
+        <button  class="btn btn-primary mp-4" type="submit" disabled> Add Review </button>
+        
+        {%endif%}
+        <br>
+
+        <a>To post a review please <a href="{% url 'users:login_views' %}">sign in</a>.
+
+        </form>
+        
+
+
+    </div>
+</div>
 {%endblock%}
 
