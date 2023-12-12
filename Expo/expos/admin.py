@@ -9,5 +9,6 @@ class ReviewModel(admin.ModelAdmin):
 
 admin.site.register(Review, ReviewModel)
 admin.site.register(News)
+admin.site.register(Reservation)
 
 # Register your models here.

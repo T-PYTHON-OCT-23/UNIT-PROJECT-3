@@ -2,6 +2,7 @@ from django.shortcuts import render ,redirect
 from django.http import HttpRequest , HttpResponse
 from .models import *
 from django.utils import timezone
+from django.db.models import Sum
 
 
 # Create your views here.
@@ -128,9 +129,20 @@ def update_event_view(request: HttpRequest, event_id):
     return render(request, "expos/update.html", {"event" : event })
 
 
-def reservation_event_view(request:HttpRequest):
+def reservation_event_view(request:HttpRequest ,event_id):
+    event = Event.objects.get(id=event_id)
 
-    return render(request, "expos/reservation.html")
+
+    user = request.user
+    new_reservation = None
+
+    if request.method == "POST":
+        new_reservation = Reservation(event=event, user=user, quantity=request.POST["quantity"])
+        new_reservation.save()
+
+
+
+    return render(request, "expos/reservation.html",{"event":event, "new_reservation" : new_reservation })
 
 
 

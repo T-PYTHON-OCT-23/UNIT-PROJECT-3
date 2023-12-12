@@ -26,6 +26,15 @@ class Event(models.Model):
 class Reservation(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
+    def total(self):
+        return int(self.quantity) * int(self.event.price)
+    
+    def __str__(self):
+        return f"{self.user}"
+    
+
 
 class Review(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

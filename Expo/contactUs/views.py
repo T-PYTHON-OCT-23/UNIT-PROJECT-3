@@ -13,5 +13,6 @@ def contact_view(request:HttpRequest):
     return render(request, 'contactUs/contact.html')
 
 def thank_you_view(request:HttpRequest):
+    
     return render(request, 'contactUs/thank_you.html')
 

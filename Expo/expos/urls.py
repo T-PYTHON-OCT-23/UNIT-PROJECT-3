@@ -12,7 +12,7 @@ urlpatterns = [
     path("detail/<event_id>",views.event_detail_view,name="event_detail_view"),
     path("delete/<event_id>/", views.delete_event_view, name="delete_event_view"),
     path("update/<event_id>/", views.update_event_view, name="update_event_view"),
-    path("reservation/",views.reservation_event_view, name="reservation_event_view")
+    path("reservation/<event_id>/",views.reservation_event_view, name="reservation_event_view")
 
 
 

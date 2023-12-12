@@ -6,161 +6,190 @@
 {% block content %}
 
 <style media="screen">
-    *,
-*:before,
-*:after{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
+  *,
+  *:before,
+  *:after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
 
-.background{
-  width: 430px;
-  height: 520px;
-  position: absolute;
-  transform: translate(-50%,-50%);
-  left: 50%;
-  top: 50%;
-}
-.background .shape{
-  height: 200px;
-  width: 200px;
-  position: absolute;
-  border-radius: 50%;
-}
-.shape:first-child{
-  background: linear-gradient(
-      #1845ad,
-      #23a2f6
-  );
-  left: -80px;
-  top: -80px;
-}
-.shape:last-child{
-  background: linear-gradient(
-      to right,
-      #ff512f,
-      #f09819
-  );
-  right: -30px;
-  bottom: -80px;
-}
-form{
-  height: 520px;
-  width: 400px;
-  background-color: rgba(255,255,255,0.13);
-  position: absolute;
-  transform: translate(-50%,-50%);
-  top: 50%;
-  left: 50%;
-  border-radius: 10px;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255,255,255,0.1);
-  box-shadow: 0 0 40px rgba(8,7,16,0.6);
-  padding: 50px 35px;
-}
-form *{
-  font-family: 'Poppins',sans-serif;
-  color: #1c630c;
-  letter-spacing: 0.5px;
-  outline: none;
-  border: none;
-}
-form h3{
-  font-size: 32px;
-  font-weight: 500;
-  line-height: 42px;
-  text-align: center;
-}
+  .background {
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+  }
 
-form h6{
-  font-size: small;
-  color: #1845ad;
-}
+  .background .shape {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+  }
 
-label{
-  display: block;
-  margin-top: 30px;
-  font-size: 16px;
-  font-weight: 500;
-}
-input{
-  display: block;
-  height: 50px;
-  width: 100%;
-  background-color: rgba(255,255,255,0.07);
-  border-radius: 3px;
-  padding: 0 10px;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: 300;
-}
-::placeholder{
-  color: #6b6868;
-}
-button{
-  margin-top: 50px;
-  width: 100%;
-  background-color: #45a05363;
-  color: #080710;
-  padding: 15px 0;
-  font-size: 18px;
-  font-weight: 600;
-  border-radius: 5px;
-  cursor: pointer;
-}
+  .shape:first-child {
+    background: linear-gradient(#1845ad,
+        #23a2f6);
+    left: -80px;
+    top: -80px;
+  }
 
-  </style>
+  .shape:last-child {
+    background: linear-gradient(to right,
+        #ff512f,
+        #f09819);
+    right: -30px;
+    bottom: -80px;
+  }
+
+  form {
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.13);
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+    padding: 50px 35px;
+  }
+
+  form * {
+    font-family: 'Poppins', sans-serif;
+    color: #1c630c;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+  }
+
+  form h3 {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+  }
+
+  form h6 {
+    font-size: small;
+    color: #1845ad;
+  }
+
+  label {
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  input {
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+  }
+
+  ::placeholder {
+    color: #6b6868;
+  }
+
+  button {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #45a05363;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+
+  .error {
+    font-family: system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+    width: 320px;
+    padding: 12px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    background: #FCE8DB;
+    border-radius: 8px;
+    border: 1px solid #EF665B;
+    box-shadow: 0px 0px 5px -3px #111;
+    margin-left: 650px;
+  }
+
+  .error__icon {
+    width: 20px;
+    height: 20px;
+    transform: translateY(-2px);
+    margin-right: 8px;
+  }
+
+  .error__icon path {
+    fill: #EF665B;
+  }
+
+  .error__title {
+    font-weight: 500;
+    font-size: 14px;
+    color: #71192F;
+  }
+
+  .error__close {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+
+  .error__close path {
+    fill: #71192F;
+  }
+</style>
+{% if msg %}
+<div class="error">
+  <div class="error__icon">
+    <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
+        fill="#393a37"></path>
+    </svg>
+  </div>
+  <div class="error__title">{{ msg }}</div>{% endif %}
+</div>
+
 
 
 <div class="background">
-    <div class="shape"></div>
-    <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
 </div>
-{% if msg %}
-<div class="alert alert-danger" role="alert">
-    {{ msg }}
-  </div>
-{% endif %}
 <form action="{% url 'accounts:register_view' %}" method="post">
-    {% csrf_token %}
-    <h3>Sign Up</h3>
+  {% csrf_token %}
+  <h3>Sign Up</h3>
 
-    <input class="form-control" type="text" name="username" required minlength="4" placeholder="username"/>
-    <input class="form-control"  type="text" name="first_name" required minlength="3" placeholder="First Name"/>
-    <input class="form-control" type="text" name="last_name" required minlength="3" placeholder="Last Name"/>
-    <input class="form-control" type="email" name="email" required minlength="4" placeholder="Email"/>
-    <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
-    
-    <button>Sign Up</button>
-    <h6>You have an account :<a href="{% url 'accounts:login_view' %}">Log in</a>.</h6>
+  <input class="form-control" type="text" name="username" required minlength="4" placeholder="username" />
+  <input class="form-control" type="text" name="first_name" required minlength="3" placeholder="First Name" />
+  <input class="form-control" type="text" name="last_name" required minlength="3" placeholder="Last Name" />
+  <input class="form-control" type="email" name="email" required minlength="4" placeholder="Email" />
+  <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password" />
+
+  <button>Sign Up</button>
+  <h6>You have an account :<a href="{% url 'accounts:login_view' %}">Log in</a>.</h6>
 </form>
- 
 
-<!-- 
-<section class="container mt-5">
-    <h1>Register New User</h1>
-    <div class="row">
-    
-        <div class="col-6">
-
-            <form class="d-flex flex-column gap-1" action="{% url 'accounts:register_view' %}" method="post">
-                {% csrf_token %}
-
-                <input class="form-control" type="text" name="username" required minlength="4" placeholder="username"/>
-                <input class="form-control"  type="text" name="first_name" required minlength="3" placeholder="First Name"/>
-                <input class="form-control" type="text" name="last_name" required minlength="3" placeholder="Last Name"/>
-                <input class="form-control" type="email" name="email" required minlength="4" placeholder="Email"/>
-                <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
-
-
-                <input class="btn btn-primary" type="submit" value="Sing Up" />
-            </form>
-
-        </div>
-
-    </div>
-
-</section> -->
 
 {% endblock %}
