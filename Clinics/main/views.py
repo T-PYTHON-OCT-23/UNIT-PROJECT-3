@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Clinic, Review, Contact
+from doctors.models import Doctor
 # Create your views here.
 
 
@@ -10,6 +11,9 @@ def home_view(request: HttpRequest):
 
 
 def add_clinic(request: HttpRequest):
+    if not request.user.has_perm("clinic.add_clinic"):
+        return render(request, 'main/not_authorized.html')
+
     if request.method == "POST":
         new_clinic = Clinic(name=request.POST["name"], about=request.POST["about"],
                             category=request.POST["category"], image=request.FILES["image"], location=request.POST["location"])
@@ -48,18 +52,22 @@ def display(request: HttpRequest):
 def detail_clinic(request: HttpRequest, clinic_id):
 
     clinic_detail = Clinic.objects.get(id=clinic_id)
+    doctors = Doctor.objects.all()
+
     if request.method == "POST":
         new_clinic = Review(
-            Clinic=clinic_detail, full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])
+            Clinic=clinic_detail, rating=request.POST["rating"], comment=request.POST["comment"])
         new_clinic.save()
-
 
     review = Review.objects.filter(Clinic=clinic_detail)
 
-    return render(request, "main/detail.html", {"clinic": clinic_detail, "review": review})
+    return render(request, "main/detail.html", {"clinic": clinic_detail, "review": review, "doctors": doctors})
 
 
 def update_clinic(request: HttpRequest, clinic_id):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html')
+
     clinic = Clinic.objects.get(id=clinic_id)
 
     if request.method == "POST":
@@ -75,6 +83,9 @@ def update_clinic(request: HttpRequest, clinic_id):
 
 
 def delete_clinic(request: HttpRequest, clinic_id):
+    if not request.user.has_perm("clinic.delete_clinic"):
+        return render(request, 'main/not_authorized.html')
+
     clinic = Clinic.objects.get(id=clinic_id)
     clinic.delete()
     return redirect("main:display")
@@ -93,7 +104,7 @@ def search(request: HttpRequest):
 
 def contact(request: HttpRequest):
     if request.method == "POST":
-        new_ask = Contact(user_name=request.POST["user_name"], email=request.POST["email"],
+        new_ask = Contact(user_name=request.POST["name"], email=request.POST["email"],
                           message=request.POST["message"])
         new_ask.save()
         return redirect("main:contact")
@@ -101,6 +112,9 @@ def contact(request: HttpRequest):
 
 
 def client_contact(request: HttpRequest):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html')
+
     Contact.objects.all()
     contact = Contact.objects.all()
     return render(request, "main/client_contact.html", {"contact": contact})
@@ -111,4 +125,6 @@ def about_clinic(request: HttpRequest):
 
 
 def manage(request: HttpRequest):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html')
     return render(request, "main/manage.html")

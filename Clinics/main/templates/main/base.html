@@ -41,26 +41,36 @@
 <style>
     body {
         font-family: 'Hedvig Letters Serif', serif;
-        background-color: rgb(187, 206, 200);
-    }
-
-    .background {
-        width: 450px;
-        height: auto;
-        overflow-x: none;
-        margin-left: 300px;
-        margin-top: -250px;
-        padding-top: 0;
-        padding-bottom: 0;
-        margin-bottom: 0;
-
-        box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.553);
+        background-color: rgba(187, 206, 200, 0.728);
     }
 
     .home {
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
+        text-align: center;
+    }
+
+    .home-video {
+        position: relative;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+
+    .home-title {
+        position: absolute;
+    }
+
+    @media (min-aspect-ratio: 16/9) {
+        .home-video {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    @media (max-aspect-ratio: 16/9) {
+        .home-video {
+            width: auto;
+            height: 100%;
+        }
     }
 
     .nav-item,
@@ -68,6 +78,7 @@
         text-decoration: none;
         list-style: none;
         margin: 10px;
+        color: #4e864f;
     }
 
     .logo {
@@ -114,6 +125,7 @@
         padding-left: 120px;
         padding-top: 20px;
         padding-bottom: 0px;
+        padding-right: 20px;
     }
 
     .bord-line1 img,
@@ -123,6 +135,7 @@
         width: 500px;
         height: auto;
         margin: 10px 40px 10px 10px;
+
     }
 
     footer {
@@ -136,23 +149,27 @@
         padding-top: 20px;
         padding-bottom: 0px;
         margin-bottom: 30px;
-        margin-top: 0;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
+        margin-top: 50px;
         width: 70%;
         bottom: 0;
         gap: 10px;
+        position: static;
     }
 
     .links,
     .links a {
         text-decoration: none;
         list-style: none;
+        justify-content: space-between;
         color: aliceblue;
         font-size: 20px;
         margin: 0;
         padding: 0;
+    }
+
+
+    .links {
+        height: 80px;
     }
 
     .links a:hover {
@@ -197,7 +214,7 @@
     .manage-links {
         margin-left: 350px;
         justify-content: center;
-        padding-bottom: 50px;
+        padding-bottom: 20px;
 
     }
 
@@ -208,6 +225,17 @@
         color: aliceblue;
         margin: 20px;
         padding-left: 50px;
+    }
+
+    #social {
+        color: black;
+        font-size: 20px;
+    }
+
+    #social:hover {
+        font-size: 22px;
+        transition: 0.3s;
+        color: #4e864f;
     }
 
     .manage-links a:hover {
@@ -240,8 +268,8 @@
     }
 
     .review {
-        width: 50%;
-        padding-left: 30px;
+        width: 60%;
+        padding-left: 130px;
         padding-top: 15px;
         padding-bottom: 15px;
         padding-right: 20px;
@@ -258,7 +286,7 @@
 
     .user {
         width: 100%;
-        padding-left: 350px;
+        padding-left: 200px;
         padding-top: 15px;
         padding-bottom: 30px;
         overflow-x: none;
@@ -315,6 +343,189 @@
     .h1 {
         font-size: 30px;
     }
+
+    #welcome {
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        color: #4e864f;
+        text-decoration: none;
+    }
+
+    .profile {
+        background-color: antiquewhite;
+        overflow-x: none;
+        margin: 30px 70px 30px 70px;
+        padding: 30px;
+        opacity: 50%;
+        box-shadow: 3px 3px 7px rgb(101, 101, 99);
+        border-radius: 15px;
+    }
+
+    .pro-item {
+        text-decoration: none;
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(65, 92, 65);
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+        border-radius: 20px;
+        padding: 5px;
+        margin: 15px;
+    }
+
+    .pro-item:hover {
+        background-color: antiquewhite;
+        transition: 0.3s;
+    }
+
+    .pro-links,
+    .appointment-btn {
+        margin-left: 350px;
+        justify-content: center;
+        padding-bottom: 50px;
+
+    }
+
+    .pro-links a,
+    .appointment-btn {
+        text-decoration: none;
+        align-items: center;
+        justify-content: center;
+        color: rgb(255, 255, 255);
+        margin: 20px;
+        padding-left: 50px;
+    }
+
+    .appointment-btn {
+        text-decoration: none;
+        background-color: rgb(94, 148, 94);
+        width: 60%;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        padding: 15px;
+        margin-left: 500px;
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+    .appointment-btn:hover {
+        background-color: rgb(134, 162, 141);
+        transition: 0.3s;
+    }
+
+    .pro-links a:hover,
+    .appointment-btn:hover {
+        color: #000000;
+        transition: 0.3s;
+    }
+
+    .profile-img {
+        width: 150px;
+        height: auto;
+        padding-left: 35px;
+        margin-left: 35px;
+    }
+
+    .p-u {
+        background-color: azure;
+        border-radius: 10px;
+        border: 1px solid rgb(47, 82, 47);
+        width: 70%;
+        padding: 10px;
+        margin-left: 10px;
+    }
+
+    .booked {
+        width: 90%;
+        padding: 15px;
+        margin: 50px;
+        margin-left: 100px;
+        border-radius: 20px;
+        border: 1px solid rgba(181, 235, 192, 0.669);
+        box-shadow: 10px 10px 10px rgb(255, 255, 255);
+        background-color: rgba(144, 187, 152, 0.669);
+        box-shadow: 3px 3px 7px rgba(101, 101, 99, 0.16);
+        overflow-x: none;
+    }
+
+    .not {
+        margin-bottom: 70px;
+        margin-top: 50px;
+        margin-left: 50px;
+        overflow: none;
+    }
+
+    .doctor-h {
+        margin-left: -80px;
+    }
+
+    .doctor-b {
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .doctor-img {
+        width: 250px;
+        height: auto;
+        padding-left: 50px;
+        margin-left: 50px;
+    }
+
+    .bio {
+        background-color: rgba(245, 245, 220, 0.689);
+        margin-left: 105px;
+        margin-top: -450px;
+        border-radius: 2px;
+        width: 50%;
+        padding: 20px;
+        box-shadow: 3px 3px 7px rgb(101, 101, 99);
+        font-size: 25px;
+        color: #466f46;
+    }
+
+    .worked {
+        margin-left: 400px;
+        margin-top: -150px;
+        margin-bottom: 50px;
+        font-size: 15px;
+    }
+
+    .img-doctors-add {
+        width: 40px;
+        height: auto;
+    }
+
+    .img-doctors-v {
+        width: 65px;
+        height: auto;
+        margin-left: 20px;
+        margin-right: -10px;
+        border: 1px solid rgb(3, 3, 3);
+    }
+
+    .Doc {
+        padding-left: 20px;
+    }
+
+    .doc-v {
+        width: 20%;
+        box-shadow: 3px 3px 7px #8b8b8b;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .clinic-name {
+        color: #000000;
+    }
+
+    .clinic-name:hover {
+        color: rgb(66, 120, 83);
+        transition: 0.3s;
+    }
 </style>
 
 <body>
@@ -333,7 +544,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                All The Clinics
+                                Clinics
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
@@ -350,6 +561,9 @@
                                         href="{% url 'main:display' %}?category=Dermatology">Dermatology</a></li>
                             </ul>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'doctors:doctor_home' %}"> Doctors </a>
+                        </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'main:about_clinic' %}"> About Us </a>
@@ -360,7 +574,9 @@
                     </ul>
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <h6 class="nav-link">welcome, {{ request.user.username }}</h6>
+                        <h6 class="nav-link" id="welcome"> <a id="welcome"
+                                href="{% url 'client:user_profile' user.id %}"> welcome {{ request.user.username }} </a>
+                        </h6>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'client:logout_user' %}"> Log out</a>
@@ -419,7 +635,7 @@
             </li>
 
             <li class="px-2">
-                <a href="{% url 'main:manage' %}"></i> Administraction </a>
+                <a href="{% url 'main:manage' %}"></i> Administration </a>
             </li>
         </ul>
 </footer>

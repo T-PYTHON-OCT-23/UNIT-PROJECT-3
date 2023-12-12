@@ -5,13 +5,16 @@
 {% block content %}
 <div class="manage-con">
     <div class="manage">
-        <h3> Allowed For Admin</h3>
+        <h3> For Admin </h3>
     </div>
+    {% if request.user.is_staff %}
     <div class="manage-links">
         <a href="{% url 'main:add_clinic' %}" class="man"> Add New Clinic </a>
+        <a href="{% url 'doctors:add_doctor' %}" class="man"> Add New Doctor </a>
         <a href="{% url 'main:display' %}" class="man"> Viwe & Edit Clinics </a>
         <a href="{% url 'main:client_contact' %}" class="man"> Client Inquiries</a>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}

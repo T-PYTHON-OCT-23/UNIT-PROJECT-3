@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% block title %} My Appointment {% endblock %}
+{% block content %}
+
+<h3 class="title"> My Appointment </h3>
+<section class="container">
+    {% if appointment.count == 0 %}
+    <div class="alert alert-info"> You don't have any appointment yet. </div>
+    {% endif %}
+    {% for appointment in appointment %}
+    <div class="row gap-1 row-cols-3 row-cols-md-4">
+        <div class="col">
+            <div class="d-flex flex-column gap-1 p-3 border border-1 rounder-6 shadow h-100">
+                <img src="{{ appointment.clinic.image.url }}" />
+                <a class="appointment" href="{% url 'main:detail_clinic' appointment.clinic.id %}">
+                    <h4>{{ appointment.clinic.name }}</h4>
+                </a>
+                <h6> {{ appointment.date_time }} </h6>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endblock %}

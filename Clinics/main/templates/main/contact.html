@@ -7,6 +7,7 @@
 <h3 class="title"><b>Contact With Us:</b></h3>
 <div class="contant-us">
     <form action="{% url 'main:contact' %}" method="post">
+         {% csrf_token %}
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
 

@@ -1,6 +1,7 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %} details {% endblock %}
+
 {% block content %}
 
 <style>
@@ -10,23 +11,61 @@
 </style>
 
 <div class="detail_clinic">
-    <div class="d-flex flex-column gap-1 p-5 border border-1 rounder-6 shadow h-100">
+    <div class="d-flex flex-column gap-1 p-5 border border-1 rounder-6 shadow h-100 align-items-start">
         <img class="detail-image" src="{{clinic.image.url}}" />
         <h2>{{ clinic.name }}</h2>
         <h4>{{ clinic.about }}</h4>
         <h4 class="category">{{clinic.category}}</h4>
-        <h6><a href="{{ clinic.location }}"></a> Location : {{ clinic.location }} </h6>
+        <h6> Location : <a href="{{clinic.location}}"> {{ clinic.location }} </a></h6>
+
+
+        {% if request.user.is_authenticated %}
+        <div class="btn-appointment mr-3 mobile-show">
+            <a class="appointment-btn" href="{% url 'client:add_appointment' clinic.id %}"> Request an Appointment</a>
+        </div>
+        {% endif %}
+
+        {% if request.user.is_staff %}
         <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"
             id="button">
             Edit </button>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'main:update_clinic' clinic.id %}"> update </a>
+            <li><a class="dropdown-item" href="{% url 'main:update_clinic' clinic.id %}"> Update </a>
             </li>
-            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"> delete</a>
+            {% if perms.clinic.delete_clinic %}
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal"> Delete</a>
+            </li>
+            {% endif %}
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ModalDoctors">Add Doctor</a>
             </li>
         </ul>
+        {% endif %}
     </div>
 </div>
+
+<hr />
+{% if clinic.doctors.count > 0 %}
+<h4 class="Doc">Doctors in this Clinic:</h4>
+<section class="row row-cols-12 row-cols-md-4 border-1">
+    {% for doctor in clinic.doctors.all %}
+    <div class="doc-v">
+        <div class="d-flex gap-2 justify-content-between align-items-center">
+            <a href="{% url 'doctors:doctor_detail' doctor.id %}" class="text-decoration-none text-black">
+                <div class="d-flex align-items-center gap-3">
+                    <img class="img-doctors-v" src="{{ doctor.avatar.url}}" class="rounded-3 avatar" />
+                    <h5>{{ doctor.name}}</h5>
+                </div>
+            </a>
+            {% if perms.doctor.delete_doctor %}
+            <a href="{% url 'doctors:remove_clinic_doctor' clinic.id doctor.id %}"
+                class="btn btn-danger text-white">Remove</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</section>
+{% endif %}
+
 <hr>
 <div class="review">
     <section class="row">
@@ -35,7 +74,7 @@
             <div class="d-flex flex-column gap-2">
                 {% for review in review %}
                 <div class="d-flex flex-column gap-2 border border-1 p-3">
-                    <h4>{{ review.full_name }}</h4>
+                    <h4>{{ review.user.full_name }} {{ review.user.last_name }} </h4>
                     <h6 class="text-muted">{{ review.created_at }}</h6>
                     <h6>{{ review.rating }}</h6>
                     <p>{{ review.comment }}</p>
@@ -43,16 +82,14 @@
                 {% endfor %}
             </div>
         </div>
-
     </section>
 
     <section class="row mt-5">
+        {% if request.user.is_authenticated %}
         <h4>Add Review Reviews:</h4>
         <div class="col-6">
-
             <form class="d-flex flex-column gap-2" action="{% url 'main:detail_clinic' clinic.id  %}" method="POST">
                 {% csrf_token %}
-                <input type="text" class="form-control" name="full_name" placeholder="Full Name" />
                 <select class="form-select" name="rating">
                     <option value="1">1 Star</option>
                     <option value="2">2 Star</option>
@@ -60,11 +97,14 @@
                     <option value="4">4 Star</option>
                     <option value="5">5 Star</option>
                 </select>
-
                 <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
-
                 <input type="submit" value="Add Review" class="btn btn-secondary" />
             </form>
+            {% else %}
+            <p class="p-3 border border-1 ">
+                To post a review please <a href="{% url 'client:login_user' %}">sign in</a>.
+            </p>
+            {% endif %}
 
 
         </div>
@@ -88,5 +128,33 @@
         </div>
     </div>
 </div>
+
+{% if request.user.is_staff %}
+<div class="modal fade" id="ModalDoctors" tabindex="-1" aria-labelledby="ModalActors" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="ModalDoctors">Doctors</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for doctor in doctors %}
+                <div class="d-flex gap-2 justify-content-between align-items-center mt-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <img class="img-doctors-add" src="{{ doctor.avatar.url}}" class="rounded-3 avatar" />
+                        <h5>{{ doctor.name}}</h5>
+                    </div>
+                    <a href="{% url 'doctors:add_clinic_doctor' clinic.id doctor.id %}"
+                        class="btn btn-secondary">Add</a>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {% endblock %}

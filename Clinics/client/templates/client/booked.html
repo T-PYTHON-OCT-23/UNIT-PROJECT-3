@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block title %} Booked {% endblock %}
+{% block content %}
+
+{% for appointment in appointment %}
+<h3 class="booked"> You have succefully booked an appointment at {{ appointment.clinic.name }} for {{appointment.date_time}} </h3>
+{% endfor %}
+<section class="manage-links">
+    <div>
+        <a href="{% url 'client:my_appointment' %}" class="man"> Viwe my appointment </a>
+        <a href="{% url 'main:display' %}" class="man"> Back to Clinics </a>
+    </div>
+</section>
+{% endblock %}

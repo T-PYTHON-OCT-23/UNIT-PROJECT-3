@@ -2,32 +2,45 @@
 {% block title %} User profile {% endblock %}
 {% block content %}
 
-<section class="container mt-5">
+<section class="profile">
 
     <div class="row g-3">
         <div class="col-3">
             <div class="d-flex flex-column gap-1">
-                <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
+                <img class="profile-img" src="{{ user.profile.avatar.url }}" />
                 <div class="d-flex align-items-center justify-content-center gap-2">
-                    <a href="{{ user.profile.instagram_link }}"><i class="bi bi-instagram social"></i></a>
-                    <a href="{{ user.profile.twitter_link }}"><i class="bi bi-twitter-x social"></i></a>
-                    <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
+                    <a href="{{ user.profile.instagram_link }}"><i class="bi bi-instagram social" id="social"></i></a>
+                    <a href="{{ user.profile.twitter_link }}"><i class="bi bi-twitter-x social" id="social"></i></a>
+                    <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social" id="social"></i></a>
                 </div>
             </div>
         </div>
         <div class="col">
             <div class=" d-flex justify-content-between align-items-center">
-                <h1>{{ user.first_name }} {{ user.last_name }} </h1>
+                <h3 class="p-u">{{ user.first_name }} {{ user.last_name }} </h3>
                 {% if request.user.is_authenticated and request.user.id == user.id %}
-                <a href="{% url 'client:update_user'%}" class="btn btn-primary">Update</a>
+                <a href="{% url 'client:update_user'%}" class="btn btn-outline-success white">Update</a>
                 {% endif %}
             </div>
 
-            <h5>@{{ user.username}}</h5>
-            <p>
-                {{ user.profile.about }}
-            </p>
-
+            <h5 class="p-u">@{{ user.username}}</h5>
+            <p class="p-u"> bio : {{ user.profile.about }} </p>
+            <h6 class="p-u">birth date: {{ user.profile.birth_date }}</h6>
+        </div>
+    </div>
+    <div class="pro-req">
+        <div class="pro-links">
+            <ul>
+                <li class="pro-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'client:my_appointment' %}"> My
+                        Appointment</a>
+                </li>
+                <li class="pro-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'main:display' %}"> Request New
+                        Appointmen
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 

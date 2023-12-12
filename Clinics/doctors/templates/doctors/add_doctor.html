@@ -1,25 +1,21 @@
 {% extends 'main/base.html' %}
-
 {% block title %} Add New Doctor {% endblock %}
-
 {% block content %}
 
+<h3 class="title">Add new Doctor</h3>
 <section class="container">
-
-    <h1>Add new Doctor</h1>
-
     <div class="row">
 
         <div class="col-6">
 
-            <form action="{% url 'actors:add_doctor' %}" method="POST" class="d-flex flex-column gap-2"
+            <form action="{% url 'doctors:add_doctor' %}" method="POST" class="d-flex flex-column gap-2"
                 enctype="multipart/form-data">
                 {% csrf_token %}
                 <label>Doctor Name:</label>
                 <input class="form-control" type="text" name="name" placeholder="Doctor Name" required />
                 <textarea name="bio" placeholder="bio" class="form-control" required></textarea>
                 <input class="form-control" type="file" name="avatar" accept="image/*" required />
-                <input class="btn btn-primary" type="submit" value="Create Actor" />
+                <input class="btn btn-secondary" type="submit" value="Create Doctor" />
             </form>
 
         </div>

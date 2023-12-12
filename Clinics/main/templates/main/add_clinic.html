@@ -1,8 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
-
 {% block title %} Add Clinic {% endblock %}
-
 {% block header %} Add a New clinic {% endblock %}
 
 {% block content %}
@@ -10,13 +8,13 @@
 <h2 class="title"><b> Add New Clinic </b></h2>
 <section class="container">
     <div class="row">
-        <div class="col-6">
+        <div class="col-6 justify-content-center">
             <form action="{% url 'main:add_clinic' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label><b> Clinic Name:</b></label><br>
+                <label><b> Clinic Name:</b></label>
                 <input class="form-control" type="text" name="name" placeholder="clinic name..." required />
 
-                <label><b>Category:</b></label><br>
+                <label><b>Category:</b></label>
                 {% for key, value in categories.choices %}
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}"
@@ -27,7 +25,7 @@
                 </div>
                 {% endfor %}
 
-                <label><b> About the clinic:</b></label><br>
+                <label><b> About the clinic:</b></label>
                 <textarea class="form-control" name="about" placeholder="write the main services the clinic provide..."
                     required></textarea>
 

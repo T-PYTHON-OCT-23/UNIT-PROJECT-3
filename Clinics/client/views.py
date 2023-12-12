@@ -90,23 +90,28 @@ def update_user(request: HttpRequest):
     return render(request, "client/update.html", {"msg": msg})
 
 
-def appoinment(request: HttpRequest, clinic_id): 
+def add_appointment(request: HttpRequest, clinic_id):
     if not request.user.is_authenticated:
         return redirect("client:login_user")
 
     try:
         clinic = Clinic.objects.get(id=clinic_id)
-        
+
         new_appointment = Appointment(user=request.user, clinic=clinic)
         new_appointment.save()
 
-        return redirect("main:clinic_detail", clinic_id=clinic.id)
+        return redirect("client:booked")
     except Exception as e:
-        return redirect("main:home_view")
-    
-def my_appoinment(request: HttpRequest):
+        print(e)
+        return redirect("main:display")
 
-    appoinment = Appointment.objects.filter(user=request.user)
-    return render(request, 'client/appoinment.html', {"appoinment" : appoinment})
-    
 
+def my_appointment(request: HttpRequest):
+
+    appointment = Appointment.objects.filter(user=request.user)
+    return render(request, 'client/appointment.html', {"appointment": appointment})
+
+
+def booked(request: HttpRequest):
+    appointment = Appointment.objects.filter(user=request.user)
+    return render(request, "client/booked.html", {"appointment": appointment})

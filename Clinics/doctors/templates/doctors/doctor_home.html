@@ -1,28 +1,27 @@
-
 {% extends 'main/base.html' %}
 {% block title %} All Doctors {% endblock %}
 {% block content %}
 
-<section class="container pt-4">
+<div class="doctor-h overflow-hidden">
+    <section class="container overflow-hidden">
+        <div class="d-flex flex-column">
+            <h1>All Doctors ({{doctors.count}})</h1>
 
-    <div class="d-flex flex-column">
-    <h1>All Doctors ({{doctors.count}})</h1>
+            <div class="row  g-4 row-cols-1 row-cols-md-3">
 
-    <div class="row  g-4 row-cols-1 row-cols-md-3">
+                {% for doctor in doctors %}
 
-        {% for doctor in doctors %}
-
-            <div class="col">
-                <div class="d-flex flex-column gap-2">
-                    <img src="{{ doctor.avatar.url }}" class="w-100 rounded-4 actor-img" />
-                    <a href="{% url 'doctors:doctor_detail' doctor.id %}" class="text-decoration-none text-black"><h2>{{ doctor.name }}</h2></a>
+                <div class="col">
+                    <div class="d-flex flex-column gap-2">
+                        <img src="{{ doctor.avatar.url }}" class="w-100 rounded-4 actor-img" />
+                        <a href="{% url 'doctors:doctor_detail' doctor.id %}" class="text-decoration-none text-black">
+                            <h2>{{ doctor.name }}</h2>
+                        </a>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            
-        {% endfor %}
-
-    </div>
-
-</section>
+    </section>
+</div>
 
 {% endblock %}

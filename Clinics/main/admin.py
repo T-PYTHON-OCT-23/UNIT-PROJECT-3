@@ -11,7 +11,7 @@ class ClinicAdmin(admin.ModelAdmin):
 
 
 class ReviewModel(admin.ModelAdmin):
-    list_display = ('full_name', 'Clinic', 'rating', 'comment')
+    list_display = ('user', 'Clinic', 'rating', 'comment')
     list_filter = ('Clinic', 'rating')
 
 
