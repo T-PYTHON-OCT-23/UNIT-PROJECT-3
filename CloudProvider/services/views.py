@@ -53,6 +53,7 @@ def service_detils_view(request:HttpRequest,service_id):
 
     return render(request,'services/service_detils.html',{'massgae':massage,'service':service})
 
+#Need for test tomorrow
 def request_service_view(request:HttpRequest,serivce_id,user_id):
     massage = ''
     # if the method POST add new_Request
@@ -68,6 +69,7 @@ def request_service_view(request:HttpRequest,serivce_id,user_id):
 
     return render(request,'services/request_service.html',{'massage':massage,'service_request':ServiceDetails})
 
+#Need for testing tomorrow
 def view_services_i_reqeust_view(request:HttpRequest):
     massage = ''
     if request.user.is_authenticated:
