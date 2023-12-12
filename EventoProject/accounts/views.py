@@ -60,3 +60,38 @@ def user_profile_view(request: HttpRequest, user_id):
     user = User.objects.get(id=user_id)
 
     return render(request, 'accounts/profile_page.html', {"user":user})
+
+
+
+def update_user_view(request: HttpRequest):
+    msg = None
+
+    if request.method == "POST":
+        try:
+            if request.user.is_authenticated:
+                user : User = request.user
+                user.first_name = request.POST["first_name"]
+                user.last_name = request.POST["last_name"]
+                user.email = request.POST["email"]
+                user.save()
+
+                try:
+                    profile : Profile = request.user.profile
+                except Exception as e:
+                    profile = Profile(user=user, birth_date=request.POST["birth_date"])
+                    profile.save()
+
+                profile.birth_date = request.POST["birth_date"]
+                if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
+                profile.save()
+
+                return redirect("accounts:user_profile_view", user_id = request.user.id)
+
+            else:
+                return redirect("accounts:login_user_view")
+        except IntegrityError as e:
+            msg = f"Please select another username"
+        except Exception as e:
+            msg = f"something went wrong {e}"
+
+    return render(request, "accounts/update_page.html", {"msg" : msg})

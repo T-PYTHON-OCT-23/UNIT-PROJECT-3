@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Email test {% endblock %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-between text-center">
+    <h1 class="display-3 mt-3 p-3">
+      The bill
+      </h1>
+    <div class="dropdown mt-5 p-3">
+      <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Edit
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'events:new_events_view' %}">Update Bill</a></li>
+        <li><a class="dropdown-item" href="{% url 'events:old_events_view' %}">Delete Bill</a></li>
+      </ul>
+    </div>
+  </div>
+<hr>
+
+<div class="container">
+    <div class="row">
+        <div>
+            <h3 class="display-3">Yay The bill was send to your email!</h3>
+            <a href="{% url 'main:home_page_view' %}" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}
+

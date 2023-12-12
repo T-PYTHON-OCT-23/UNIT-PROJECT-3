@@ -1,0 +1,45 @@
+{% extends 'main/base.html' %}
+
+{% block title %} The Tickets {% endblock %}
+
+{% block content %}
+
+{% if tickets.count == 0 %}
+<div class="m-5 text-center">
+    <div class="alert alert-warning m-5">You don't have any Tickets yet.</div>
+    <a class="btn btn-outline-success" href="{% url 'events:events_home_view' %}">Discover Events</a>
+</div>
+{% endif %}
+
+{% if tickets.count > 0 %}
+<h2 class="display-4 m-5">The Tickets:({{tickets.count}}):</h2>
+
+
+<hr>
+<div class="container1 m-5">
+    <div class="row">
+       
+
+        {% for ticket in tickets %}
+
+        <div class="col border border-5 rounded-3">
+            <h2>Ttile:{{ticket.event.title}}</h2>
+            <h3>Tickets:{{ticket.quantity}}<span class="material-symbols-outlined">local_activity</span></h3>
+            <h3>Category:{{ticket.event.category}}</h3>
+            <h6 class="text-muted">Start date: {{ ticket.start_date }}</h6>
+            <h6 class="text-muted">Last date: {{ ticket.last_date }}</h6>
+            <a href="{% url 'accounts:user_profile_view' ticket.user.id %}" class="text-decoration-none text-black"><h4 >Username: {{ ticket.user.username }}</h4></a>
+        </div>
+
+        {% endfor %}
+
+
+
+    </div>
+
+</div>
+{% endif %}
+
+
+
+{% endblock %}

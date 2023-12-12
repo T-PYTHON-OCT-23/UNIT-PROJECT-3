@@ -7,7 +7,8 @@
 
 {% block content %}
 
-<div class="container border border-warning">
+
+<div class="container border border-warning mt-5">
     <div class="row">
       <div class="col-sm-3">
         <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}"/>
@@ -21,27 +22,24 @@
             <h3>Last name: {{ user.last_name }}</h3>
           </div>
           <div class="col-4 col-sm-6 mt-4">
-            <h6>Logout</h6>
         </div>
         </div>
       </div>
+      <a class="btn btn-outline-secondary text-center" href="{% url 'accounts:logout_user_view' %}" >Log out</a>
     </div>
   </div>
 
 
   <div class="box text-center">
     <div class="row gap-2 m-4">
-      <div class="col border border-warning btn btn-dark">
-        Favorites<span class="material-symbols-outlined">favorite</span>
-        <div>
-            <a href="{% url 'favorites:my_favorites_view' %}">My Favorites:</a>
-        </div>
+      <div class="col border border-warning btn btn-warning">
+            <a href="{% url 'favorites:my_favorites_view' %}">Favorites<span class="material-symbols-outlined">favorite</span></a>
       </div>
-      <div class="col border border-primary btn btn-dark">
-        Tickets<span class="material-symbols-outlined">local_activity</span>
+      <div class="col border border-warning btn btn-warning">
+        <a href="{% url 'events:my_tickets_view' %}">Tickets<span class="material-symbols-outlined">local_activity</span></a>
       </div>
-      <div class="col border border-warning btn btn-dark">
-        Update Profile<span class="material-symbols-outlined">manage_accounts</span>
+      <div class="col border border-warning btn btn-warning">
+        <a href="{% url 'accounts:update_user_view' %}">Update Profile<span class="material-symbols-outlined">manage_accounts</span></a>
       </div>
     </div>
   </div>
@@ -60,47 +58,5 @@
         </div>
     </div>
 </div>
-
-{% if user.ticket_set.count > 0 %}
-<section class="row">
-  <h2>Tickets ({{user.ticket_set.count}}):</h2>
-    <div class="col">
-      <div class="d-flex flex-column gap-2">
-        {% for ticket in user.ticket_set.all %}
-        <div class="d-flex flex-column gap-2 border border-1 p-3">
-          <a href="{% url 'accounts:user_profile_view' ticket.user.id %}" class="text-decoration-none text-black"><h4 >{{ ticket.user.first_name }} {{ ticket.user.last_name }}</h4></a>
-          <a href="{% url 'events:event_details_view' ticket.event.id %}"><h6>{{ ticket.event.title }}</h6></a>
-          <h3>{{ ticket.event.category }}</h3>
-          <h6 class="text-muted">{{ ticket.posting_date}}</h6>
-          <h6>{{ ticket.start_date }}</h6>
-          <h6>{{ ticket.last_date }}</h6>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    
-</section>
-{% endif %}
-
-
-<div class="row">
-    <div class="col">
-        {% for ticket in user.ticket_set.all %}
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{ ticket.event.title }}</h6>
-                    <h6>{{ ticket.event.category }}</h6>
-                    <p class="card-text">This ticket is only for entry into this event.</p>
-                    <h6>Start date: {{ ticket.start_date }}</h6>
-                    <h6>Last date: {{ ticket.last_date  }}</h6>
-                </div>
-            </div>
-        {% endfor %}
-
-    </div>
-
-</div>
-
-
 
 {% endblock %}

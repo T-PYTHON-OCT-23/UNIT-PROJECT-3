@@ -76,6 +76,93 @@
     </div>
 </div>
 
+<hr>
+
+
+    <div class="container1 ">
+        <div class="row">
+            <div class="col">
+                <h1 class="display-1">Booking Online </h1>
+            <hr>
+                
+    <div class="container1 mt-5">
+        <div class="row">
+            
+            <h4 class="display-4">Calender for your event</h4>
+            <div class="col">
+                <table class="table table-success table-striped-columns">
+                    <caption>Calender of your activites</caption>
+                    <thead>
+                    <tr>
+                        <th scope="col">Day/Month</th>
+                        <th scope="col">January</th>
+                        <th scope="col">February</th>
+                        <th scope="col">March</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">Activities</th>
+                        <td>Activity one </td>
+                        <td>Activity two </td>
+                        <td>Activity three </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Categories</th>
+                        <td>Famliy </td>
+                        <td>Kids</td>
+                        <td>Young people</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Locations</th>
+                        <td>Location one</td>
+                        <td>Location two</td>
+                        <td>Location three</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    {% if email_sent %}
+    <div class="alert alert-success" role="alert">
+    Yay! successfully booked, the bill was send to your email. <a href="{% url 'main:home_page_view' %}" class="alert-link">Home page</a>
+    </div>
+    {% else %}
+
+    <section class="row mt-5 m-5">
+        <h2>Book ticket:</h2>
+        {% if request.user.is_authenticated %}
+        <form action="{% url 'events:add_ticket_view' event_detail.id %}" method="POST">
+            {% csrf_token %}
+            <label>Quantity of Tickets*</label>
+            <select class="form-select text-center" name="quantity">
+                <option value="1">1 ticket</option>
+                <option value="2">2 tickets</option>
+                <option value="3">3 tickets</option>
+                <option value="4">4 tickets</option>
+                <option value="5">5 tickets</option>
+                </select>
+            <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+                <input class="btn btn-success" type="submit" value="Book Now!"/>
+            </div>
+        </form>
+
+
+        {%  else %}
+
+        <p class="p-3 border border-1 ">
+        To book a ticket please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+        </p>
+
+        {% endif %}
+    </section>
+{% endif %}
+
+
+
 
 
 <!-- Modal -->

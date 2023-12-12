@@ -44,18 +44,18 @@
               </li>
               {% endif %}
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'emails:contact_us_view' %}" >Contact us</a>
+                <a class="nav-link" href="{% url 'main:contact_us_view' %}" >Contact us</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'emails:the_bill_view' %}" >Test bill</a>
+                <a class="nav-link" href="{% url 'events:my_tickets_view' %}" >The tickets</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Events
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Technology' %}">Tech Event</a></li>
                   <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Art' %}">Art Event</a></li>
+                  <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Technology' %}">Technology Event</a></li>
                   <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Exclusive' %}">Exclusive Event</a></li>
                   <li><a class="dropdown-item" href="{% url 'events:events_home_view_catego' 'Entertainment' %}">Entertainment Event</a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -81,7 +81,7 @@
         <h4>Events</h4>
         <ul>
           <li><a href="{% url 'events:events_home_view_catego' 'Art' %}">Art Events</a></li>
-          <li><a href="{% url 'events:events_home_view_catego' 'Technology' %}">Tech Event</a></li>
+          <li><a href="{% url 'events:events_home_view_catego' 'Technology' %}">Technology Event</a></li>
           <li><a href="{% url 'events:events_home_view_catego' 'Exclusive' %}">Exclusive Event</a></li>
           <li><a href="{% url 'events:events_home_view_catego' 'Entertainment' %}">Entertainment Event</a></li>
         </ul>

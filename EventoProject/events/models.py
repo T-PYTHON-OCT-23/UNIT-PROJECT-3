@@ -15,6 +15,8 @@ class Event(models.Model):
     category = models.CharField(max_length=100, choices=categories.choices)
     image = models.ImageField(upload_to="images/", default="images/default.jpg")
 
+    def __str__(self):
+        return f"{self.title}"
 
 
 class Ticket(models.Model):
@@ -24,6 +26,10 @@ class Ticket(models.Model):
     quantity = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add=True)
     last_date = models.DateTimeField(auto_now_add=True)
+    
+    
+    def __str__(self):
+        return f"{self.user.first_name} : {self.quantity}"
 
 
 
