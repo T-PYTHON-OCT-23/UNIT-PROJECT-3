@@ -1,0 +1,162 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Riyadh Expo 2030 {% endblock %}
+
+{% block content %}
+
+<style>
+    .bg{
+        background: url('/static/images/Riyadh.jpeg');
+      background-size:cover;
+      height: 100vh;
+      margin-top: -90px;
+    }
+  
+
+    .icons{
+        width: 100%;
+        height: 100%;
+        position: relative; 
+        transform: rotate(-90deg); 
+        transform-origin: 0 0;
+text-align: right;
+margin-top:-350px;
+    }
+    .icons :hover{
+        color: #9ceb8d;
+    }
+    #ins{
+        width: 14px; 
+        height: 16px; 
+        left: 155.43px; 
+        top: 5.97px; 
+        position: absolute; 
+        transform: rotate(90deg); 
+        transform-origin: 0 0; 
+        color: white; 
+        font-size: 15.60px; 
+        font-family: Font Awesome 5 Brands; 
+        font-weight: 400; 
+        line-height: 15.58px; 
+        word-wrap: break-word
+    }
+    #twi{
+        width: 17.83px; 
+        height: 16px; 
+        left: 191.02px; 
+        top: 4.02px; 
+        position: absolute; 
+        transform: rotate(90deg); 
+        transform-origin: 0 0; 
+        color: white; 
+        font-size: 15.60px; 
+        font-family: Font Awesome 5 Brands; 
+        font-weight: 400; 
+        line-height: 15.58px; 
+        word-wrap: break-word
+
+    }
+    #yout{
+        width: 10.06px; 
+        height: 16px; 
+        left: 224.66px; 
+        top: 7.91px; 
+        position: absolute; 
+        transform: rotate(90deg); 
+        transform-origin: 0 0; 
+        color: white; 
+        font-size: 15.60px; 
+        font-family: Font Awesome 5 Brands; 
+        font-weight: 400; line-height: 15.58px; 
+        word-wrap: break-word
+    }
+    #lin{
+        width: 14px; 
+        height: 16px; 
+        left: 256.35px; 
+        top: 5.97px; 
+        position: absolute; 
+        transform: rotate(90deg); 
+        transform-origin: 0 0; 
+        color: white; 
+        font-size: 15.60px; 
+        font-family: Font Awesome 5 Brands; 
+        font-weight: 400; 
+        line-height: 15.58px; 
+        word-wrap: break-word
+    }
+
+    .centered {
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+
+}
+
+.centered p{
+    font-size:50px;
+    color: rgb(173, 183, 191);
+}
+
+#vid video{
+margin-top: -90px;
+
+}
+
+.contt{
+    margin-top: 50px;
+}
+
+
+
+    
+
+</style>
+
+<div class="bg">
+    <div class="centered">
+        <p class="subtitle" >RIYADH EXPO 2030<br>
+            Riyadh is
+            Ready to Host
+            the World|</p>
+    </div>
+
+</div>
+<section id="vid" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <video width="900" autoplay controls muted>
+                <source src="/static/videos/The master plan for Riyadh Expo 2030.mp4" type="video/mp4">
+                Your browser does not support HTML video.
+            </video>
+        </div>
+    </div>
+</section>
+
+
+<div class="contt">
+    <div class="row mt-3">
+        <div class="col-12 col-md-6 order-1 order-md-2">
+            <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
+                <h2>What is the meaning of the logo?</h2>
+                <p>The Riyadh Expo 2030 logo represents a palm tree which is a symbol of life.
+                    Each leaf has a different texture and color, representing the vibrant and diverse facets of Riyadh, the host city.</p>
+            </div>
+        </div>
+        <div class="col order-2 order-md-1">
+            <img width="400" height="auto" src="/static/images/Riyadh_Expo-Logo.png" />
+        </div>
+    </div>
+</div>
+
+
+<div class="icons">
+    <div style="width: 74.56px; height: 22px; left: 10px; top: 1px; position: absolute; color: white; font-size: 15.60px; font-family: Open Sans; font-weight: 700; line-height: 24.93px; word-wrap: break-word">Follow Us</div>
+    <div style="width: 15.95px; height: 22px; left: 104.25px; top: 1px; position: absolute; color: white; font-size: 15.60px; font-family: Open Sans; font-weight: 700; line-height: 24.93px; word-wrap: break-word">—</div>
+    <a id="ins" href="https://www.instagram.com/riyadhexpo_2030/"><i class="bi bi-instagram social"></i></a>
+    <a id="twi" href="https://x.com/Riyadh_Expo2030?s=20"><i class="bi bi-twitter-x social"></i></a>
+    <a id="yout" href="https://www.youtube.com/@riyadhexpo2030/featured"><i class="bi bi-youtube"></i></a>
+    <a id="lin" href="https://www.linkedin.com/company/riyadhexpo2030/"><i class="bi bi-linkedin"></i></a>
+</div>
+{% endblock %}

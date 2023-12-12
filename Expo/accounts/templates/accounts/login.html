@@ -5,37 +5,136 @@
 
 {% block content %}
 
-<section class="container mt-5">
-    
-    <div class="row">
-        {% if msg %}
-        <div class="alert alert-danger" role="alert">
-            {{ msg }}
-          </div>
-        {% endif %}
-        <div class="col">
+    <style media="screen">
+      *,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
 
-            <div class="d-flex flex-column gap-3 justify-content-center align-items-center">
-                <h1>Log In</h1>
-                <form class="d-flex flex-column gap-1" style="width: 40vw;" action="{% url 'accounts:login_view' %}" method="post">
-                    {% csrf_token %}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+form{
+    height: 520px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+}
+form *{
+    font-family: 'Poppins',sans-serif;
+    color: #1c630c;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+form h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
 
-                    <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
-                    <input class="form-control" type="password" name="password" required minlength="8" placeholder="Password"/>
+form h6{
+    font-size: small;
+    color: #1845ad;
+}
+
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+::placeholder{
+    color: #6b6868;
+}
+button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #45a05363;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    </style>
 
 
-                    <input class="btn btn-primary" type="submit" value="Sing In" />
-                </form>
-
-                <h5>You don't have an account ? please <a href="{% url 'accounts:register_view' %}">Sign up</a>.</h5>
-
-            </div>
-
-        </div>
-
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
     </div>
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+      </div>
+    {% endif %}
+    <form action="{% url 'accounts:login_view' %}" method="post">
+        {% csrf_token %}
+        <h3>Login</h3>
 
+        <label for="username">Username</label>
+        <input type="text" placeholder="Username" id="username" name="username"  required minlength="3">
+        <label for="password">Password</label>
+        <input type="password" placeholder="Password" id="password" name="password" required minlength="8">
 
-</section>
+        <button>Log In</button>
+        <h6>You don't have an account ? please <a href="{% url 'accounts:register_view' %}">Sign up</a>.</h6>
+
+    
+    </form>
 
 {% endblock %}

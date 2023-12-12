@@ -17,10 +17,10 @@ def register_view(request: HttpRequest):
             user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
 
-            user_profile = Profile(user=user, avatar=request.FILES["avatar"], birth_date=request.POST["birth_date"])
+            user_profile = Profile(user=user)
             user_profile.save()
 
-            return redirect("accounts:login_user_view")
+            return redirect("accounts:login_view")
         except IntegrityError as e:
             msg = f"Please select another username"
         except Exception as e:
@@ -80,7 +80,7 @@ def update_user_view(request: HttpRequest):
                 return redirect("accounts:user_profile_view", user_id = request.user.id)
 
             else:
-                return redirect("accounts:login_user_view")
+                return redirect("accounts:login_view")
         except IntegrityError as e:
             msg = f"Please select another username"
         except Exception as e:

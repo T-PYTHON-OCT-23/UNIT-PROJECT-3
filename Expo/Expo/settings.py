@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'main',
     'accounts',
     'expos',
+    'bookmarks',
+    'contactUs',
 ]
 
 MIDDLEWARE = [

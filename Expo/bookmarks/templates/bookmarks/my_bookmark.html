@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+
+{% block title %} My Bookmarks {% endblock %}
+
+
+{% block content %}
+    <section class="container">
+        <h1>My Bookmarks</h1>
+        <div class="row row-cols-12 row-cols-md-3 g-3">
+            {% if bookmarks.count == 0 %}
+             <div class="alert alert-info">You don't have any bookmarks yet.</div>
+            {% endif %}
+            {% for Bookmark in Bookmarks %}
+                <div class="col">
+                    <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded">
+                        <img class="rounded" src="{{ Bookmark.news.poster.url }}" />
+                        <div>
+                            <a href="{% url 'expos:news_detail_view' bookmark.news.id %}"><h4>{{ bookmark.news.title }}</h4></a>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

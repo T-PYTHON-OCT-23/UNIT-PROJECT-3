@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+
+{% block title %} Update Event {{ event.title }}{% endblock %}
+
+
+{% block content %}
+    <div class="container mt-5"> 
+
+        <div class="row">
+            <h2>Update {{event.title}}:</h2>
+            <div class="col">
+
+                <form action="{% url 'expos:update_event_view' event.id %}" method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+                <label>Event Title:</label>
+                <input class="form-control" type="text" name="title" placeholder="Event Title" value="{{event.title}}" />
+
+                <label>Event Content:</label>
+                <textarea class="form-control" name="content">{{event.content}}</textarea>
+
+                <label>Event Poster:</label>
+                <input type="file" name="poster"  class="form-control" accept="image/*"/>
+
+                <label>Price :</label>
+                <input class="form-control" type="text" name="price" placeholder="price" value="{{event.price}}" />
+
+                <label>Event Date:</label>
+                <input class="form-control" name="date" type="date" value="{{event.date|date:'Y-m-d'}}" />
+
+                <input class="btn btn-primary mt-2" type="submit" value="Update Event" />
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

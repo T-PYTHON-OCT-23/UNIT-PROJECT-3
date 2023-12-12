@@ -1,76 +1,262 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riyadh Expo 2030</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %} {% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.2/css/all.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    .avatar{
-      width: 40px;
-      height: 40px;
-      object-fit: cover;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
+    /* body{
+      background-image: url('static/images/cover.png'); 
+      width: 100%;
+      height: 100%;
+      position: relative 
+    } */
+    .avatar {
+      width: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      object-fit: cover;
+      margin-left: 30px;
+    }
+
+    nav {
+      width: 100%;
+      padding: 20px 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      z-index: 100;
+
+    }
+
+    nav ul {
+      width: 100%;
+      text-align: right;
+    }
+
+    nav ul li {
+      display: inline-block;
+      list-style: none;
+      margin: 10px 20px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+    }
+
+
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      background: #fff;
+      padding: 20px 15px;
+      border-radius: 12px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-links li {
+      list-style: none;
+      margin: 0 12px;
+    }
+
+    .nav-links li a {
+      position: relative;
+      color: #333;
+      font-size: 20px;
+      font-weight: 500;
+      padding: 6px 0;
+      text-decoration: none;
+    }
+
+    .nav-links li a:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: #34efdf;
+      border-radius: 12px;
+      transition: all 0.4s ease;
+    }
+
+    .nav-links li a:hover:before {
+      width: 100%;
+    }
+
+    .nav-links li.center a:before {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .nav-links li.upward a:before {
+      width: 100%;
+      bottom: -5px;
+      opacity: 0;
+    }
+
+    .nav-links li.upward a:hover:before {
+      bottom: 0px;
+      opacity: 1;
+    }
+
+    .nav-links li.forward a:before {
+      width: 100%;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease;
+    }
+
+    .nav-links li.forward a:hover:before {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+
+    .profile-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.profile-button img {
+  width: 30px; /* Adjust image size as needed */
+  height: 30px;
+  border-radius: 50%; /* Optional: makes the image round */
+  margin-right: 8px; /* Space between image and text */
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.profile-menu:hover .dropdown-content {
+  display: block;
+}
+
   </style>
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Expo</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<body>
+  <nav>
+    <ul class="nav-links">
+      <a class="navbar-brand" href="{%url 'main:home_view'%}">
+        <img src="/static/images/logo.png" alt="Riyadh Expo" width="300" height="auto"
+          class="d-inline-block align-text-center"></a>
+      <ul>
+        <li><a href="{%url 'main:home_view'%}">Home</a></li>
+        <li><a href="{% url 'main:riyadh_expo_view'%}">Riyadh Expo 2030</a></li>
+        <li><a href="{% url 'expos:news_home_view'%}">News</a></li>
+        <li><a href="{% url 'expos:event_home_view'%}">Event</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'bookmarks:my_bookmark_view' %}">Bookmark</a></li>
+        {% endif %}
+        <li><a href="{%url 'contactUs:contact_view'%}">Contact Us</a></li>
+        {% if request.user.is_staff %}
+        <div class="btn-group">
+          <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            Admin
           </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              {% if request.user.is_staff %}
-              <li class="nav-item">
-                <a class="btn btn-primary" href="{% url 'expos:add_news_view' %}">Add news</a>
-              </li>
-              {% endif %}
-              <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown link
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              {% if request.user.is_authenticated %}
-              <li class="nav-item">
-                <div class="d-flex align-items-center">
-                  <img class="rounded-circle avatar" src="{{ request.user.profile.avatar.url }}" />
-                  <a class="nav-link m-0" href="{% url 'accounts:user_profile_view'  request.user.id %}">welcome, {{ request.user.username }}</a>
-                </div>
-
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="#" >Bookmark</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:logout_view' %}" >Log out</a>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'accounts:login_view' %}" >Sign in</a>
-              </li>
-            {% endif %}
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="{% url 'expos:add_news_view' %}">Add news</a></li>
+            <li><a class="dropdown-item" href="{% url 'expos:add_event_view' %}">Add Event</a></li>
           </ul>
-
-          </div>
         </div>
-      </nav>   
-      {% block content %}
-      {% endblock %} 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+        {% endif %}
+
+
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <div class="d-flex align-items-center">
+            <img class="rounded-circle avatar" src="{{ request.user.profile.avatar.url }}" />
+            <a class="nav-link m-0" href="{% url 'accounts:user_profile_view'  request.user.id %}">{{request.user.username }}</a>
+          </div>
+      
+        </li>
+        <li class="nav-item">
+        <li><a href="{% url 'accounts:logout_view' %}">Log out</a></li>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'accounts:login_view' %}">log in</a>
+        </li>
+        {% endif %}
+
+
+      </ul>
+  </nav>
+
+  {% block content %}
+
+  {% endblock %}
+  <script>
+    const btn = document.querySelector(".submit-rating");
+    const thanksmsg = document.querySelector(".thanks-msg");
+    const starRating = document.querySelector(".star-input");
+    // Success msg show/hide
+    btn.onclick = () => {
+      starRating.style.display = "none";
+      thanksmsg.style.display = "table";
+      return false;
+    };
+  </script>
+
+  <script>
+    import { Dropdown, Ripple, initMDB } from "mdb-ui-kit";
+
+    initMDB({ Dropdown, Ripple });
+    // dropdown
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

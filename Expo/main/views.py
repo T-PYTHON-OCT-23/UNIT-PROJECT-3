@@ -9,3 +9,8 @@ def home_view(request: HttpRequest):
     
       return render(request, "main/home.html")
 
+def riyadh_expo_view(request: HttpRequest):
+
+    
+      return render(request, "main/riyadh_expo.html")
+
