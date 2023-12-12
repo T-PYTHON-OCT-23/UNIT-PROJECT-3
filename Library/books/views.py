@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from .models import Book, Review
+from favorite.models import Favorite
 
 
 # Create your views here.
@@ -34,9 +35,9 @@ def book_detail_view(request:HttpRequest,book_id):
 
     book_detail = Book.objects.get(id=book_id)
     reviews = Review.objects.filter(book= book_detail)
-   
+    is_favored = request.user.is_authenticated and Favorite.objects.filter(book=book_detail, user=request.user).exists()
 
-    return render(request, "books/book_detail.html", {"book" : book_detail, "reviews" : reviews})
+    return render(request, "books/book_detail.html", {"book" : book_detail, "reviews" : reviews, "is_favored":is_favored})
 
 
 

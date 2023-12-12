@@ -2,7 +2,71 @@
 {% load static %}
 
 {% block content %}
+<style>
+body {
+  font-family: sans-serif;
+}
 
-<h1>hi</h1>
+header {
+  background-color: #ffffff;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+.hero {
+  background-image: url("static/images/homeh.jpg");
+  background-size: cover;
+  height: 700px;
+  width: 100%;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  padding: 20px;
+  background-color: #ffc9b9bf;
+}
+
+.hero-content h2 {
+  color: #ffffff;
+  font-size: 2em;
+}
+
+.hero-content p {
+  color: #ffffff;
+  font-size: 1.5em;
+}
+
+.search {
+  margin-top: 50px;
+}
+
+.search form {
+  width: 50%;
+  margin: 0 auto;
+}
+
+
+</style>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1 style="color: #ffffff;">Online library</h1>
+        <p>Find the book you want:</p>
+        <form class="d-flex" role="search" action="{% url 'books:search' %}" method="GET">
+            <input class="form-control me-sm-2"  type="search" name="search" placeholder="Search...">
+            <button class="btn btn-dark disabled my-2 my-sm-0" type="submit">Search</button>
+          </form>
+      </div>
+    </section>
+  
+ 
+
 
 {% endblock %}

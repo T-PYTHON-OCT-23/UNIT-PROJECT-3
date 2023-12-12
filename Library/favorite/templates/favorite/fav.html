@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block title %} My Favorites {% endblock %}
+
+
+{% block content %}
+
+<section class="container">
+
+    <h1 class="mt-4">My Favorites</h1>
+
+    {% if favorites.count == 0 %}
+    <div class="alert alert-info">You don't have any favorites yet.</div>
+    {% endif %}
+
+    
+    <div class="row d-flex g-4">
+
+        {% for fav in favorites %}
+    
+           <div class="col-3">
+                <div class=" mt-4 h-100 overflow-hidden justify-content-start">
+    
+                <div class="">
+                <img src="{{ fav.book.poster.url }}" width="200" height="300" />
+                </div>
+                    <a href="{% url 'books:book_detail_view' book_id=fav.book.id %}"><h4>{{ fav.book.name }}</h4></a>
+
+                </div>
+            </div>
+        </div>
+    
+            {% endfor %}
+        </div>
+
+    </section>
+    
+{% endblock %}

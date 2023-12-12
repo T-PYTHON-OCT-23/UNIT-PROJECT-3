@@ -23,6 +23,7 @@ def register_user_view(request: HttpRequest):
 
             return redirect("main:home_view")
         except IntegrityError as e:
+            print(e)
             msg = f"Please select another username"
         except Exception as e:
             msg = f"something went wrong {e}"

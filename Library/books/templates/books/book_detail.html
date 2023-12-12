@@ -13,6 +13,13 @@
                 <div class="d-flex gap-2 mt-2">
                     <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{book.release_date.year}}</span>
                     <span class="cat ps-3 pe-3 bg-secondary rounded-pill text-white  bg-info">{{book.category}}</span>
+                    <div class="d-flex align-items-center gap-1">
+                      {% if not is_favored %}
+                      <a href="{% url 'favorite:add_favorite' book.id %}" class="favored"><i class="bi bi-heart"></i></a>
+                      {% else %}
+                      <a href="{% url 'favorite:add_favorite' book.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+                      {% endif %}
+                  </div>
                 
                 
                 </div>
@@ -63,10 +70,16 @@
 <section class="row mt-4">
     <h2>Reviews:</h2>
       <div class="col">
-        <div class="d-flex flex-column gap-2">
+        <div class="d-flex flex-column gap-3">
           {% for review in reviews %}
-          <div class="d-flex flex-column gap-2 border border-1 p-3">
-            <a href="{% url 'account:user_profile_view' user_id=review.user.id %} "><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
+          <div class="d-flex flex-column gap-2 border border-1 p-3 g-3">
+            <div class="d-flex align-items-center g-3">
+              <a href="{% url 'account:user_profile_view' user_id=review.user.id %}  "><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
+              {% if user.profile.is_writer %}
+            <span class="badge bg-info g-3">writer</span> 
+            {% endif %}
+            </div>
+            
             <h6 class="text-muted">{{ review.created_at }}</h6>
             <p>{{ review.rating }}</p>
             <p>{{ review.comment }}</p>
