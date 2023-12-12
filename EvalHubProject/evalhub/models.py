@@ -4,9 +4,10 @@ from django.contrib.auth.models import User
 
 class CustomUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    manager_of = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='employees')
+    manager_of = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='m_employees')
     performance_rating = models.FloatField(null=True, blank=True)
-    
+    employee_of = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='e_manager')
+
     def __str__(self):
         return self.user.username
 
