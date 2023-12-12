@@ -1,0 +1,20 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Detail of Art{% endblock %}
+
+
+{% block content %}
+
+
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+
+            <div class="d-flex flex-column gap-2">
+                <h1>{{ art.title }}</h1>
+                <img class="detail-poster rounded-5 object-fit-cover" src="{{art.poster.url}}" />
+
+
+
+
+{% endblock %}

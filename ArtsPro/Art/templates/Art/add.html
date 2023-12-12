@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Add New Art{% endblock %}
+{% block content %}
+
+<section class="container">
+  <h1>Add new Art </h1>
+  <div class="row">
+
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+    {% endif %}
+
+    <div class="col-6">
+        <!-- form for submitting the data -->
+        <form action="{% url 'Art:add_art_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+            {% csrf_token %}
+            <label>Art Poster:</label>
+            <input type="file" name="poster"  class="form-control" accept="image/*"/>
+            <label>Art Title:</label>
+            <input class="form-control" name="title" type="text" required/>
+
+            <input class="btn btn-primary" type="submit" value="Create Art" />
+        </form>
+
+    </div>
+
+</div>
+
+</section>
+  
+
+
+
+
+
+
+
+
+
+{% endblock %}
