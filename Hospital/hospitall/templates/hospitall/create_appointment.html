@@ -9,12 +9,6 @@
         background-size: cover;
     }
 
-    .container {
-        background-color: #f8f9fa;
-        border-radius: 15px;
-        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    }
-
     .btn {
         background-color: #007bff;
         color: white;
@@ -27,28 +21,42 @@
     .btn:hover {
         transform: scale(1.02);
     }
+    footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #f8f9fa;
+    color: white;
+    text-align: center;
+}
+
+
 </style>
-<section class="container py-5 mt-5">
-    <h1 class="mb-4">Appointment Booking</h1>
 
-    <form method="post" action="{% url 'hospitall:create_appointment' %}" style="font-size: 1.2em;">
-        {% csrf_token %}
+<h1 class="mb-4">Appointment Booking</h1>
 
-        <div class="form-group">
-            <label for="clinic">Choose the clinic:</label>
-            <select name="clinic" id="clinicSelect" class="form-control">
-                {% for clinic in clinics %}
-                    <option value="{{ clinic.id }}">{{ clinic.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
+<form method="post" action="{% url 'hospitall:create_appointment' %}" style="font-size: 1.2em;">
+    {% csrf_token %}
 
-        <div class="form-group">
-            <label for="date">Choose the clock and time:</label>
-            <input type="datetime-local" name="date" id="date" class="form-control" required>
-        </div>
+    <div class="form-group">
+        <label for="clinic">Choose the clinic:</label>
+        <select name="clinic" id="clinicSelect" class="form-control">
+            {% for clinic in clinics %}
+                <option value="{{ clinic.id }}">{{ clinic.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
 
-        <input type="submit" value="Appointment Booking" class="btn">
-    </form>
-</section>
+    <div class="form-group">
+        <label for="date">Choose the clock and time:</label>
+        <input type="datetime-local" name="date" id="date" class="form-control" required>
+    </div>
+
+    <input type="submit" value="Appointment Booking" class="btn">
+</form>
+
 {% endblock %}
