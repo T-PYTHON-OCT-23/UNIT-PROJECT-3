@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'User',
     'subreddit',
     'social_django',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -136,6 +138,7 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Riyadh'
 
+CKEDITOR_UPLOAD_PATH = 'uploads/'  
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

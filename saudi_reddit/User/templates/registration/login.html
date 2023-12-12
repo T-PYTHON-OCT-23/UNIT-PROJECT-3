@@ -1,12 +1,18 @@
-
-{% extends 'registration/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
   <div class="login-container">
     <h2>Login</h2>
     <form method="post" action="{% url 'User:login' %}" class="login-form">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form.username.label_tag }}
+      {{ form.username }}
+      {{ form.password.label_tag }}
+      {{ form.password }}
+      <div class="remember-me">
+        <input type="checkbox" name="remember_me" id="remember_me">
+        <label for="remember_me">Remember Me</label>
+      </div>
       <button type="submit">Login</button>
     </form>
     
@@ -14,6 +20,7 @@
       <button type="button" class="btn btn-google">Login with Google</button> </a>
       
   </div>
+
   <style>
 
     /* Add this style to your existing stylesheet or create a new one */
@@ -62,6 +69,8 @@ h2 {
   width: 100%; /* Make both buttons full-width */
   box-sizing: border-box; /* Include padding and border in the element's total width */
 }
+
+
 
 .login-form button,
 .google-login-btn button {
@@ -164,7 +173,31 @@ h2 {
 
 /* Add more styles as needed */
 
-    
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.remember-me input {
+  margin-right: 10px;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff; /* Bootstrap primary color */
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+
+.remember-me input:checked {
+  background-color: #007bff;
+  border: 2px solid #007bff; /* Bootstrap primary color */
+}
+
+.remember-me label {
+  font-size: 14px;
+}
 
 
   </style>

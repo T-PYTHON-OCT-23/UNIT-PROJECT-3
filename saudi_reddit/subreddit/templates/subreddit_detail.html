@@ -4,17 +4,8 @@
 
 {% block content %}
     <div class="container mt-4">
-        <h2 class="mb-3">{{ subreddit.name }} Subreddit</h2>
+        <h2 class="mb-3">{{ subreddit.name }}</h2>
 
-        <!-- Subreddit Header and Icon -->
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <img src="{{ subreddit.header.url }}" alt="{{ subreddit.name }} Header" class="img-fluid">
-            </div>
-            <div class="col-md-6">
-                <img src="{{ subreddit.icon.url }}" alt="{{ subreddit.name }} Icon" class="img-fluid">
-            </div>
-        </div>
 
         <!-- Subreddit Details Card -->
         <div class="card mb-4">
@@ -38,13 +29,13 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title">
-                        <a href="{% url 'Fourm:post_detail' post.slug %}">{{ post.title }}</a>
+                        <a href="{% url 'Fourm:post_detail'  post.subreddit.slug  post.slug %}">{{ post.title }}</a>
                     </h5>
                     <p class="card-text">{{ post.content }}</p>
                     <img src="{{ post.image.url }}" alt="{{ post.title }} Image" class="img-fluid mb-2">
                     <p class="card-text">Created at: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
                     <p class="card-text">
-                        Created by: <a href="{% url 'User:profile_with_username' username=post.author.username %}">{{ post.author.username }}</a>
+                        Created by: <a href="{% url 'User:profile_with_username' username=post.author.username %}">{{ post.author.username }} || {{post.author.profile.full_name}}</a>
                     </p>
                 </div>
             </div>

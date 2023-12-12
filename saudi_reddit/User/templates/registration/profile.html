@@ -9,38 +9,38 @@
         <div class="row">
             <div class="col-md-4">
                 {% if user_profile.image %}
-                    <img src="{{ user_profile.image }}" alt="Profile Image" class="img-fluid rounded">
+                    <img src="{{ user_profile.image }}" alt="Profile Image" class="img-fluid rounded profile-image">
                 {% else %}
                     <div class="alert alert-info">No profile image available</div>
                 {% endif %}
             </div>
             <div class="col-md-8">
                 <h2>{{ user_profile.username }}</h2>
-                <p class="mb-2">Email: {{ user_profile.email }}</p>
-                <p class="mb-2">last login: {{ user_profile.last_login }}</p>
-                <p class="mb-2">Full Name: {{ user_profile.full_name }}</p>
-                <p class="mb-2">Bio: {{ user_profile.bio }}</p>
-                <p class="mb-2">Created At: {{ user_profile.created_at }}</p>
-                <p class="mb-2">Updated At: {{ user_profile.updated_at }}</p>
-                <p class="mb-2">Number of Posts: {{ user_profile.post.count }}</p>
-                <p class="mb-2">Number of Comments: {{ user_profile.comment.count }}</p>
-                <p class="mb-2">Number of subscribed Subreddits: {{ user_profile.subreddit.count }}</p>
+                <p class="profile-info"><strong>Email:</strong> {{ user_profile.email }}</p>
+                <p class="profile-info"><strong>Last Login:</strong> {{ user_profile.last_login }}</p>
+                <p class="profile-info"><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
+                <p class="profile-info"><strong>Bio:</strong> {{ user_profile.bio }}</p>
+                <p class="profile-info"><strong>Created At:</strong> {{ user_profile.created_at }}</p>
+                <p class="profile-info"><strong>Updated At:</strong> {{ user_profile.updated_at }}</p>
+                <p class="profile-info"><strong>Number of Posts:</strong> {{ user_profile.post.count }}</p>
+                <p class="profile-info"><strong>Number of Comments:</strong> {{ user_profile.comment.count }}</p>
+                <p class="profile-info"><strong>Number of Subscribed Subreddits:</strong> {{ user_profile.subreddit.count }}</p>
             
-                <p class="mb-2">Subreddits subscribed to:</p>
-                <ul>
+                <p class="profile-info"><strong>Subreddits Subscribed To:</strong></p>
+                <ul class="subreddit-list">
                     {% for subreddit in user_profile.subreddit %}
                         <li>{{ subreddit.name }}</li>
                     {% endfor %}
                 </ul>
 
                 <!-- Links to user's comments and posts -->
-                <p class="mb-2">Comments:</p>
+                <p class="profile-info"><strong>Comments:</strong></p>
                 {% for comment in user_profile.comment %}
-                    <p class="mb-2"><a href="{% url 'subreddit:comment_detail' comment.slug %}">View Comment</a></p>
+                    <p class="profile-info"><a href="{% url 'subreddit:comment_detail' comment.slug %}">{{ comment.content }} || {{ comment.post}}</a></p>
                 {% endfor %}
-                <p class="mb-2">Posts:</p>
+                <p class="profile-info"><strong>Posts:</strong></p>
                 {% for post in user_profile.post %}
-                <p class="mb-2"><a href="{% url 'Fourm:post_detail' post.slug %}">{{ post.title }}</a></p>
+                    <p class="profile-info"><a href="{% url 'Fourm:post_detail' post.subreddit post.slug %}">{{ post.title }} || {{post.subreddit}}</a></p>
                 {% endfor %}
                 {% if user.is_authenticated and user.username == user_profile.username %}
                     <a href="{% url 'User:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
@@ -48,9 +48,9 @@
             </div>
         </div>
     </div>
+
     <style>
         /* Add these styles to the <style> section in your base.html */
-        /* ... existing styles ... */
         main {
             padding: 20px;
             background-color: #ffffff; /* White background for main content */
@@ -58,14 +58,31 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
+
         .container {
             max-width: 800px;
+            margin: auto; /* Center the container */
         }
-        img.img-fluid.rounded {
+
+        img.img-fluid.rounded.profile-image {
             border-radius: 8px;
             max-width: 100%;
             height: auto;
         }
+
+        .profile-info {
+            margin-bottom: 10px;
+        }
+
+        .subreddit-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .subreddit-list li {
+            margin-bottom: 5px;
+        }
+
         /* ... additional styles ... */
     </style>
 {% endblock %}

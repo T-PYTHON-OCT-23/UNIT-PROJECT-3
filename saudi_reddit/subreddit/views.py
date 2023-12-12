@@ -58,6 +58,7 @@ def subreddit_detail(request, subreddit_slug):
 
 @login_required
 def subreddit_create(request):
+
     if request.method == 'POST':
         form = SubredditForm(request.POST)
         if form.is_valid():
@@ -108,3 +109,25 @@ def comment_update(request, comment_id):
     else:
         form = CommentForm(instance=comment)
     return render(request, 'comment_update.html', {'form': form, 'comment': comment})
+
+
+@login_required
+def comment_reply(request, comment_slug):
+    comment = get_object_or_404(Comment, slug=comment_slug)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = request.user
+            comment.parent = get_object_or_404(Comment, slug=comment_slug)
+            comment.post = comment.parent.post
+            comment.save()
+            return redirect('subreddit:post_detail', post_id=comment.post.id)
+    else:
+        form = CommentForm()
+    return render(request, 'comment_reply.html', {'form': form, 'comment': comment})
+
+
+def comment_detail(request, comment_slug):
+    comment = get_object_or_404(Comment, slug=comment_slug)
+    return render(request, 'comment_detail.html', {'comment': comment})

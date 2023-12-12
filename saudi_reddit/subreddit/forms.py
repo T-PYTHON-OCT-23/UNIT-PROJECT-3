@@ -1,6 +1,7 @@
 from django import forms
 from .models import Subreddit
 from Fourm.models import Post, Comment
+from ckeditor.widgets import CKEditorWidget
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -22,4 +23,6 @@ class SubredditForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
+        content = forms.CharField(widget=CKEditorWidget())
         fields = ['content', 'image', 'video', 'post', 'author']  
+        exclude = ['author', 'post']

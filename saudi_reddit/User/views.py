@@ -46,9 +46,13 @@ def user_login(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            remember_me = form.cleaned_data.get('remember_me', False)
+
             user = authenticate(request, username=username, password=password)
             if user:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                if not remember_me:
+                    request.session.set_expiry(0)  # Session expires when the browser is closed
                 messages.success(request, f'Welcome, {username}!')
                 return redirect('/')
             else:
@@ -83,7 +87,7 @@ def edit_profile(request):
             form.instance.user = user
             form.save()
             messages.success(request, 'Profile updated successfully!')
-            return redirect('User:profile')
+            return redirect('User:profile_with_username',request.user)
     else:
         form = ProfileForm(instance=profile)
 
