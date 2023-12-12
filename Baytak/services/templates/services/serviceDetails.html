@@ -103,9 +103,9 @@
                             </div>
                             <br>
                                     {% if request.user.is_auuthenticated %}
-                                    <input class="btn btn-dark mt-3 mb-5" type="submit" value="Submit " />
+                                    <button class="btn btn-dark mt-3 mb-5" type="submit" >Add review</button>
                                     {% else %}
-                                    <input class="btn btn-dark mt-3 mb-5" type="submit" value="Submit "  disabled />
+                                    <button class="btn btn-dark mt-3 mb-5" type="submit" disabled>Add review</button>
                                     {% endif %}
                         </div>
                         </form>
@@ -123,15 +123,15 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                        do you want to order this service {{ service.name }} ? click yes if yes
+                          Do you want to request this service? {{ service.name }} 
 
                         <form action="{% url 'request:addRequest' service.id %}" method="POST" >
                             {% csrf_token %}
-                            <label>order time:</label>
-                                <input class="form-control mt-3" name="orderTime" type="datetime-local" />
-                                <label>Address:</label>
-                            <textarea class="form-control mt-3" name="address"></textarea>
-                                <input type="submit" value="Order" class="btn btn-primary"/>
+                            <label class =" mt-2">order time:</label>
+                                <input class="form-control" name="orderTime" type="datetime-local" />
+                                <label class =" mt-2">Address:</label>
+                            <textarea class="form-control" name="address"></textarea>
+                                <input type="submit" value="Order" class="btn btn-dark mt-2"/>
                         </form>
                         </div>
                         <div class="modal-footer">

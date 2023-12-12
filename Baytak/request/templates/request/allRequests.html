@@ -1,30 +1,43 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
-{% block title %} My Requests  {% endblock %}
+{% block title %} All Requests  {% endblock %}
 {% block content  %}
 <div class ="wrapper pages-content">
-    <div class = "row content d-flex flex-column align-items-center ">
-      <h1>My Requests</h1>
-        <div class="row row-cols-12 row-cols-md-3 g-2 align-items-center">
+    <div class = "row content d-flex flex-column align-items-center  ">
+      <h1>All Requests</h1>
+        <div class="row ">
             {% if requests.count == 0 %}
-             <div class="alert alert-info">You don't have any request yet.</div>
+             <div class="alert alert-info">No order yet.</div>
             {% endif %}
-            {% for request in allRequest %}
-            <div class="col-4 review d-flex flex-column mb-5 me-1  ">
-                  {{request.service.category}}<br>
-                  {{request.service.name}}<br>
-                  {{request.orderTime}}
-    
-            </div>
-               
-               
-            {% endfor %}
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Category</th>
+                  <th scope="col">Service Provider</th>
+                  <th scope="col">Customer</th>
+                  <th scope="col">Order Status</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              {% for request in allRequest %}
+              <tbody class="table-group-divider">
+                <tr>
+                  <th scope="row">{{request.service.category}}</th>
+                  <td>{{request.service.name}}</td>
+                  <td>{{request.user.first_name}}{{request.user.last_name}}</td>
+                  <td>{{request.isDone}}</td>
+                  <td><a class="btn btn-dark  mb-3" href="{% url 'request:deleteRequest' request.id %}" >Delete</a></td>
+                </tr>
+                
+              </tbody>
+              {% endfor %}
+            </table>
         </div>
         </div>
      </div>
 
 
-
+    
 
 {% endblock %}

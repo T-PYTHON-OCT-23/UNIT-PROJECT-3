@@ -17,6 +17,34 @@
     {% endfor %}
     </div>
 </div>
+
+<div class ="row content d-flex flex-row mt-5 gap-2 mb-5  justify-content-center ">
+    <h2>Reviews</h2>
+{% for review in userReviews %}
+
+
+    <div class="col-3 review d-flex flex-column ms-2  me-2 mb-5 ">
+
+
+        <img class="avatar ms-3 mt-2" src="{{ review.user.profile.avatar.url }}" />
+        
+            {{ review.user.first_name }}
+            {{ review.user.last_name }} <br>
+            {{ review.comment }}<br>
+            <div class = "row">
+    
+              <span style="font-size:200%;color:rgb(235, 235, 53);"> {{ review.rating }} &starf;</span>
+            </div>
+            
+            {{ review.createdAt }}<br>
+            
+            {% if review.user == request.user %}
+            <a class="btn btn-dark  mb-3" href="{% url 'services:deleteReview' review.id %}" >Delete</a> 
+            {% endif %}
+        
+
+    </div>
+    {% endfor %}
 </div>
     
 

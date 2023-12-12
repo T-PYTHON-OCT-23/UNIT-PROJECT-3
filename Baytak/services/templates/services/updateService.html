@@ -19,21 +19,25 @@
                 <form class="d-flex flex-column gap-1"action="{% url 'services:updateService' service.id %}" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
                     <label class="align-self-start">Name:</label>
-                    <input class="form-control " type="text" name="name"  />
+                    <input class="form-control " type="text" name="name" value = {{service.name}} />
     
                     <label class="align-self-start">Address:</label>
-                    <textarea class="form-control" name="address"></textarea>
+                    <textarea class="form-control" name="address">{{service.address}}</textarea>
     
                     <label class="align-self-start">Description of the service:</label>
-                    <textarea class="form-control" name="about"></textarea>
-    
+                    <textarea class="form-control" name="about">{{service.about}}</textarea>
+     
+                   
                     <label class="align-self-start">Personal Image:</label>
-                    <input type="file" name="image"  class="form-control" accept="image/*"/>
+                    <div class="d-flex align-items-center gap-2 ">
+                        <img src="{{ service.image.url }}"  class=" imgProfile"/>
                     
+                        <input type="file" name="image"  class="form-control" accept="image/*"/>
+                    </div>
                     <label class = "align-self-start">Category:</label>
                     {% for key, value in categories.choices %}
                         <div class="align-self-start form-check">
-                            <input class=" form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}">
+                            <input class=" form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if service.category == key %} checked {% endif %}>
                             <label class="form-check-label" for="{{key}}">
                             {{value}}
                             </label>
@@ -42,7 +46,7 @@
                     <label class = "align-self-start">Duration:</label>
                     {% for key, value in durations.choices %}
                         <div class="align-self-start form-check">
-                            <input class="form-check-input" type="radio" name="duration" id="{{key}}" value="{{value}}">
+                            <input class="form-check-input" type="radio" name="duration" id="{{key}}" value="{{value}}" {% if service.durations == key %} checked {% endif %}>
                             <label class="form-check-label" for="{{key}}">
                             {{value}}
                             </label>
@@ -50,15 +54,17 @@
                     {% endfor %}
             
                     <label class="align-self-start">Nationality:</label>
-                    <input class="form-control mt-3" type="text" name="nationality"  />
+                    <input class="form-control " type="text" name="nationality" value = {{service.nationality}} />
     
                     <label class="align-self-start">Quantity:</label>
-                    <input class="form-control mt-3" type="number" name="quantity"  />
+                    <input class="form-control " type="number" name="quantity" value = {{service.quantity}} />
     
                     <label class="align-self-start">City:</label>
-                    <input class="form-control mt-3" type="text" name="city"  />
+                    <input class="form-control " type="text" name="city" value = {{service.city}} />
     
-                
+                    <label class="align-self-start">Price:</label>
+                    <input class="form-control " type="number" name="price" value = {{service.price}} />
+
                     <input class="btn btn-dark mt-3 mb-5" type="submit" value="Update Service" />
                 </form>
     

@@ -8,7 +8,7 @@ def addServices(request : HttpRequest):
         return render(request, 'main/not_authorized.html' , status=401)
 
     if request.method == "POST":
-        newService = Service(name = request.POST["name"], address = request.POST["address"], image = request.FILES["image"], about = request.POST["about"], nationality = request.POST["nationality"], duration = request.POST["duration"], quantity = request.POST["quantity"], city = request.POST["city"], category = request.POST["category"])
+        newService = Service(name = request.POST["name"], address = request.POST["address"], image = request.FILES["image"], about = request.POST["about"], nationality = request.POST["nationality"], duration = request.POST["duration"], quantity = request.POST["quantity"], city = request.POST["city"], category = request.POST["category"], price = request.POST["price"])
         newService.save()
         return redirect("main:homePage")
     
@@ -32,7 +32,9 @@ def viewServices(request : HttpRequest):
             service = Service.objects.filter(category__contains ="Moving furniture")
         else:
             service=Service.objects.all()
-        return render(request ,"services/viewServices.html" , {"service" : service})
+        userReviews = Review.objects.order_by('-createdAt')[0:3]
+        return render(request ,"services/viewServices.html" , {"service" : service , "userReviews" : userReviews})
+    
     except  Exception as e:
 
        return render(request, "main/not_found.html")
@@ -71,6 +73,7 @@ def updateService(request : HttpRequest , service_id):
                 service.duration = request.POST["duration"]
                 service.quantity = request.POST["quantity"]
                 service.category = request.POST["category"]
+                service.price = request.POST["price"]
                 
                 service.save()
 
