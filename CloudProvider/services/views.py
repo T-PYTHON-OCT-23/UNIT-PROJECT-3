@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
-from .models import Service, ServiceDetails
+from .models import Service, ServiceDetails, ServiceRequest
 # Create your views here.
 
 # this for admin to add new service 
@@ -56,6 +56,14 @@ def service_detils_view(request:HttpRequest,service_id):
 def request_service_view(request:HttpRequest,serivce_id,user_id):
     massage = ''
     # if the method POST add new_Request
-    if request.method == 'POST':
-        pass
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            try:
+                new_Request_detils = ServiceDetails(service=serivce_id,private_endpoint=request.POST['private_endpoint'],public_endpoint=request.POST['public_endpoint'],private_ip=request.POST['private_ip'],public_ip=request.POST['public_ip'],elastic_ip=request.POST['elastic_ip'],platfrom=request.POST['platfrom'],life_cycle=request.POST['life_cycle'],high_availability=request.POST['high_availability'])
+                new_Request_detils.save()
+                new_ServiceRequest= ServiceRequest(service=serivce_id,user=user_id)
+                new_ServiceRequest.save()
+            except Exception as e:
+                massage = f"something went wrong {e}"
+                
     return render(request,'services/request_service.html',{'massage':massage,'service_request':ServiceDetails})

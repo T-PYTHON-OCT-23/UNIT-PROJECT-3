@@ -43,14 +43,12 @@ class ServiceDetails(models.Model):
         return f'{self.service}'
 
 
-
-
-# serice = M-1
-# user = 
 class ServiceRequest(models.Model):
+
     service = models.ForeignKey(Service,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     created_at = models.DateField(auto_now_add=True)
+
 
     def __str__(self) -> str:
         return f'{self.user} request {self.service}'
