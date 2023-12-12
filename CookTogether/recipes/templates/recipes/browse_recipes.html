@@ -19,15 +19,37 @@
           {% endif %}
           </div>
           
-          <p class="card-text">{{recipe.description}}</p>
+          <h6 class="card-text">{{recipe.description}}</h6>
           <div class="">
           <a type="button" class="btn btn-primary btn-sm" href="{% url 'recipes:update_recipe' recipe.id %}">Update</a>
-          <a type="button" class="btn btn-secondary btn-sm" href="{% url 'recipes:delete_recipe' recipe.id %}">Delete</a>
+          <a type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#deleterecipe">Delete</a>
         </div>
         </div>
       </div>
     </div>
+
+    <!--Modal-->
+    <div class="modal fade" id="deleterecipe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleterecipe">Delete Recipe</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              Are you sure you want to delete {{recipe.name}} Recipe?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <a href="{% url 'recipes:delete_recipe' recipe.id %}" class="btn btn-danger">Yes, I want to delete it.</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
     {% endfor %}
   </div>
+
+  
 </div>
 {% endblock %}

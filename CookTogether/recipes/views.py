@@ -65,5 +65,5 @@ def recipe_categories(request : HttpRequest,cat):
     return render(request,'recipes/search.html',{'recipes':recipe,'cat':cat})
 
 def not_exist(request : HttpRequest):
-    return render(request,'recipes/not_exist,html')
+    return render(request,'recipes/not_exist.html')
 # Create your views here.
