@@ -7,7 +7,7 @@ from favorites.models import Favorite
 
 def add_recipe(request : HttpRequest):
     if request.method=='POST':
-        recipe=Recipe(name=request.POST['name'],description=request.POST['description'],time=request.POST['time'],quantities_ingredients=request.POST['quantities_ingredients'],kall=request.POST['kall'],instructions=request.POST['instructions'],image=request.FILES['image'],category=request.POST['category'])
+        recipe=Recipe(name=request.POST['name'],description=request.POST['description'],time=request.POST['time'],quantities_ingredients=request.POST['quantities_ingredients'],cal=request.POST['cal'],instructions=request.POST['instructions'],image=request.FILES['image'],category=request.POST['category'])
         recipe.save()
         return redirect('recipes:browse_recipes')
     return render(request,'recipes/add_recipe.html',{'categories':Recipe.categories})
@@ -41,7 +41,7 @@ def update_recipe(request : HttpRequest,recipe_id):
     if request.method=='POST':
         recipe.name=request.POST['name']
         recipe.description=request.POST['description']
-        recipe.kall=request.POST['kall']
+        recipe.cal=request.POST['cal']
         recipe.time=request.POST['time']
         recipe.instructions=request.POST['instructions']
         if 'image' in request.FILES:

@@ -4,18 +4,19 @@
 {% block content%}
 <div class="container">
     <div class="row">
+        <h1 class="mt-2 text-success text-center">Add new ingredient</h1>
         <div class="col">
             <form action="{% url 'ingredients:add_ingredient' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label>Name:</label>
+                <h5>Name:</h5>
                 <input class="form-control" type="text" name="name" placeholder="Name of ingredient" />
-                <label>Description:</label>
+                <h5>Description:</h5>
                 <textarea class="form-control" name="description"></textarea>
-                <label>brand:</label>
+                <h5>brand:</h5>
                 <input class="form-control" type="text" name="brand" placeholder="Brand of ingredient"/>
-                <label>image:</label>
+                <h5>image:</h5>
                 <input type="file" name="image"  class="form-control" accept="image/*"/>
-                <input class="btn btn-success" type="submit" value="Add ingredient" />
+                <input class="btn btn-success my-4 px-3" type="submit" value="Add ingredient" />
             </form>
         </div>
     </div>

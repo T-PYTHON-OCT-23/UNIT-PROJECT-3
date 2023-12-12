@@ -6,7 +6,7 @@ class Recipe(models.Model):
     categories=models.TextChoices('categories',['Breakfast&Brunch','Lunch','Appetizers','Salad','Soups','Bread','Drinks','Desserts'])
     name=models.CharField(max_length=1000)
     description=models.TextField()
-    kall=models.FloatField()
+    cal=models.FloatField()
     time=models.IntegerField()
     ingredients = models.ManyToManyField(Ingredient)
     quantities_ingredients=models.TextField()

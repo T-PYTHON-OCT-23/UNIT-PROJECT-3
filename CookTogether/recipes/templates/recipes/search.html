@@ -1,9 +1,9 @@
 {% extends 'main/base.html' %}
 {%load static %}
-{% block title %}Recipes{% endblock%}
+{% block title %}Search Recipe{% endblock%}
 {% block content%}
 <div class="container">
-    <h1 class="text-center">{{request.GET.search}}{{cat}} Recipe</h1>
+    <h1 class="text-center text-success">{{request.GET.search}}{{cat}} Recipe</h1>
 <div class="row row-cols-1 row-cols-md-3 g-4 my-2">
     {% for recipe in recipes %}
     <div class="col">
@@ -20,7 +20,7 @@
           </div>
           <h6 class="card-text">{{recipe.description}}</h6>
           <a type="button" class="btn btn-primary btn-sm" href="{% url 'recipes:update_recipe' recipe.id %}">Update</a>
-          <a type="button" class="btn btn-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#deleterecipe">Delete</a>
+          <a type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleterecipe">Delete</a>
         </div>
       </div>
     </div>

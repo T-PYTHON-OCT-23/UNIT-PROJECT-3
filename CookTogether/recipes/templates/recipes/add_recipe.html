@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 {%load static %}
-{% block title %}Add Recipe{% endblock%}
+{% block title %}Add New Recipe{% endblock%}
 {% block content%}
 <div class="container">
 <div class="row">
@@ -14,8 +14,8 @@
             <textarea class="form-control" name="description" required minlength="20"></textarea>
             <h5>Time:</h5>
             <input class="form-control" type="number" name="time" placeholder="Time of Recipe" required/>
-            <h5>Kall:</h5>
-            <input class="form-control" type="number" name="kall" placeholder="kall of Recipe" required/>
+            <h5>Cal:</h5>
+            <input class="form-control" type="number" name="cal" placeholder="Cal of Recipe" required/>
             <h5>Quantities of ingredients:</h5>
             <textarea class="form-control" name="quantities_ingredients" required minlength="50"></textarea>
             <h5>Instructions:</h5>
