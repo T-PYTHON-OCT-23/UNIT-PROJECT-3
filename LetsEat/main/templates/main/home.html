@@ -73,8 +73,7 @@
 
 
 
-
-
+   
         <section  style="background-color: rgb(230, 255, 190);">
             <div class="container my-5 py-5 ">
               <div class="row row-cols-1 row-cols-md-4 mt-3  d-flex ">
@@ -85,7 +84,7 @@
                       <div class="d-flex flex-start">
                              <img class="rounded-circle shadow-1-strong me-3" src="{{ review.user.profile.avatar.url }}" width="60" height="60" />
                         <div>
-                          <h6 class="fw-bold mb-1"> {{review.user.first_name}} {{review.user.last_name}}</h6>
+                          <h6 class="fw-bold mb-1"> <a href="{% url 'accounts:user_profile_view' review.user.id %}">{{review.user.first_name}} {{review.user.last_name}}</h6></a>
                           <div class="d-flex align-items-center mb-3">
                             <p class="mb-0">
                                 {{review.date}} | {{review.rating}} <span class="material-symbols-outlined">star</span>

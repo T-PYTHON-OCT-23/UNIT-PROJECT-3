@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from .models import Profile
-
+from recipes.models import Recipe
+from favorites.models import Favorite
 # Create your views here.
 
 def sign_up_view (request:HttpRequest):
@@ -19,7 +20,6 @@ def sign_up_view (request:HttpRequest):
     except Exception as e:
      msg= f"{e}"
      
-
     return render(request, "accounts/sign_up.html", {"msg" : msg})
 
 

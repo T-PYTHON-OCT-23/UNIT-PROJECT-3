@@ -16,6 +16,11 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+      <!-- Bootstrap Font Icon CSS -->
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  
     </header>
 
 <body>
@@ -25,7 +30,7 @@
     
     <nav class="navbar navbar-expand-lg pb-3">
         <div class="container">
-          <a class="navbar-brand" href="#">LetsEat</a>
+          <a class="navbar-brand" style="font-size: 40px;" href="#">LetsEat</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -65,22 +70,24 @@
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="{% url 'accounts:user_profile_view' request.user.id %}" >Profile</a></li>
                         <li><a class="dropdown-item" href="{%url 'recipes:add_recipe_view' %}" >Share Recipe</a></li>
-                        <li><a class="dropdown-item" href="#" >Saved</a></li>
+                        <li><a class="dropdown-item" href="{% url 'favorites:my_favorites_view' %}" >Saved</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:sign_out_view' %}">Sign out</a></li>
                         {% else %}
                         <li><a class="dropdown-item " href="{% url 'accounts:sign_in_view' %}" >Sign in</a></li>
                        </ul>
                   </div>
+                
               {%endif%}
             
             </ul>
-
-            </ul>
+          </div>
+            
             <form role="search" action="{% url 'recipes:search_results_view' %}" method="get" class="d-flex " >
                 <input class="px-2 search " type="search" name="search" placeholder="Search" aria-label="Search">
                 <button class="btn1 px-3" type="submit">Search</button>
-              </form>  
-          </div>
+              </form>
+        </div>
+          
         </div>
       </nav>
 

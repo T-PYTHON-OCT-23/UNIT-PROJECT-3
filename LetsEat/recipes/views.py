@@ -15,7 +15,8 @@ def home_recipes_view(request: HttpRequest):
 
     recipes_count = recipes.count()
 
-    return render(request, "recipes/recipe_home.html", {"recipes" : recipes , "recipes_count" : recipes_count})
+
+    return render(request, "recipes/recipe_home.html", {"recipes" : recipes , "recipes_count" : recipes_count })
 
 
 
@@ -41,14 +42,19 @@ def recipe_detail_view(request:HttpRequest, recipe_id):
         review = Review(recipe=recipe_detail ,user=request.user ,review=request.POST["review"] , rating=request.POST["rating"])
         if 'image' in request.FILES: review.image = request.FILES["image"]
         review.save()
+    # else:
+    #     review=request.user.is_authenticated and Review.objects.filter(recipe=recipe_detail, user=request.user).exists()
+    #     review.delete()
+    
 
     reviews = Review.objects.filter(recipe=recipe_detail)
 
+
     reviews_count =reviews.count()
 
-    is_favored = request.user.is_authenticated and Favorite.objects.filter(recipes=recipe_detail, user=request.user).exists()
+    is_favored = request.user.is_authenticated and Favorite.objects.filter(recipe=recipe_detail, user=request.user).exists()
 
-    return render(request, "recipes/display_recipes.html", {"recipe" : recipe_detail , "reviews" : reviews , "reviews_count": reviews_count , "is_favored":is_favored})
+    return render(request, "recipes/display_recipes.html", {"recipe" : recipe_detail , "reviews" : reviews , "reviews_count": reviews_count , "is_favored" : is_favored })
 
 
 
@@ -88,6 +94,8 @@ def search_results_view(request: HttpRequest):
     if "search" in request.GET:
         keyword = request.GET["search"]
         recipes = Recipe.objects.filter(name__icontains=keyword )
+        recipes = Recipe.objects.filter(category__icontains=keyword )
+
     else:
         recipes = Recipe.objects.all()
     

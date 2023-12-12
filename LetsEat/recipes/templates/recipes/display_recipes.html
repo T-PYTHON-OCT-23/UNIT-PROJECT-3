@@ -15,25 +15,20 @@
     </script>
     
 <div class="container p-5">
-    <div class="d-flex justify-content-between">
-      {% if is_favored %}
-      <a href="{% url 'favorites:add_favorite_view' recipe.id %}" class="favored"><span class="material-symbols-outlined">star </span></a>
-       {% else %}
-        <a href="{% url 'favorites:add_favorite_view' recipe.id %}" ><span class="material-symbols-outlined">favorite </span></a>
-         {% endif %}
-     
-        <div class="dropdown">
-            <button   class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Edit
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'recipes:update_recipe_view' recipe.id %} ">Update</a></li>
-              <li onclick="myFunction()"><a class="dropdown-item" href="{% url 'recipes:delete_recipe_view' recipe.id %} ">Delet</a></li>
-            </ul>
-          </div>
-         
-        </div> 
 
+  <div class="d-flex align-items-center gap-1">
+        <div class="dropdown">
+              <button   class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Edit
+              </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'recipes:update_recipe_view' recipe.id %} ">Update</a></li>
+                <li onclick="myFunction()"><a class="dropdown-item" href="{% url 'recipes:delete_recipe_view' recipe.id %} ">Delet</a></li>
+              </ul>
+          </div>
+       <!-- if is favored -->
+        </div> 
+      
       
 
 
@@ -44,8 +39,14 @@
                         <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
                             <h1>{{recipe.name}} </h1>
                             
-                            <p>  {{recipe.category}} | {{recipe.published_at}}<br>__________________________________________</p>
-                            <h5>{{recipe.description}}</h5>
+                            <p>  {{recipe.category}} | {{recipe.published_at}} |  
+                                {% if not is_favored %}
+                              <a href="{% url 'favorites:add_favorite_view' recipe.id %}" class="favored"><i class="bi bi-heart"></i></a>
+                               {% else %}
+                                <a href="{% url 'favorites:add_favorite_view' recipe.id %}"  class="favored" ><i class="bi bi-heart-fill"></i></a>
+                                 {% endif %}
+                             <br>__________________________________________</p>
+                            <h5>{{recipe.description}} </h5>
                         </div>
                 </div>
                     <div class="col-12 col-md-6 order-2 order-md-1 ">
@@ -61,10 +62,7 @@
                 <h2>How to prepare: </h2>
                     <p>{{ recipe.preparing }}</p>
 
-              
-               
-            
-                     
+                    <br><br>
 
 <br>
 <hr />
@@ -83,13 +81,12 @@
               <div class="d-flex flex-start">
                      <img class="rounded-circle shadow-1-strong me-3" src="{{ review.user.profile.avatar.url }}" width="60" height="60" />
                 <div>
-                  <h6 class="fw-bold mb-1"> {{review.user.first_name}} {{review.user.last_name}}</h6>
+                  <h6 class="fw-bold mb-1"> <a href="{% url 'accounts:user_profile_view' review.user.id %}">{{review.user.first_name}} {{review.user.last_name}}</a></h6>
                   <div class="d-flex align-items-center mb-3">
                     <p class="mb-0">
-                        {{review.date}} | {{review.rating}} <span class="material-symbols-outlined">star</span>
-
-                    </p>
-                    <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a>
+                        {{review.date}} | {{review.rating}}<span class="material-symbols-outlined">star</span>
+                      </p>
+                    <!-- <a href="#!" class="link-muted"><i class="fas fa-heart ms-2"></i></a> -->
                   </div>
                   <p class="mb-0">
                     {{review.review}}

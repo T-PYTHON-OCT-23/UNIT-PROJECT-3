@@ -40,26 +40,58 @@
                 </div>
               </div>
             
-              <div class="card-body p-4 text-black">
+              <!-- <div class="card-body p-4 text-black">
                 <div class="mb-5">
                   <p class="lead fw-normal mb-1">Information contact</p>
                   <div class="p-4" style="background-color: #f8f9fa; text-decoration:none;">
                    
-                    <a  href="mailto:{{user.email}}" ><span class="material-icons">email</span></a>
-                    <a href="{{user.profile.insta_link }}" style="font-size:24px"><i class="fa fa-instagram"></i></a>
+                    <a  href="" ><span class="material-icons">email</span></a>
+                    <a href="{" style="font-size:24px"><i class="fa fa-instagram"></i></a>
                    
                   </div>
+                </div> -->
+
+
+                <div class="mb-5">
+                  <p class="lead fw-normal mb-1">Contact information </p>
+                  <div class="p-4" style="background-color: #f8f9fa;">
+                    <a  href="mailto:{{user.email}}" ><span class="material-icons">email</span></a>
+                    <a href="{{user.profile.insta_link }}" style="font-size:24px"><i class="fa fa-instagram"></i></a>
+                    </div>
                 </div>
 
+                <div class="mb-5">
               <div class="d-flex justify-content-between align-items-center mb-4">
-                <p class="lead fw-normal mb-0">Recent photos</p>
-                <p class="mb-0"><a href="#!" class="text-muted">Show all</a></p>
+                <p class="lead fw-normal mb-0">{{ user.first_name }}'s Recipes</p>
+                <p class="mb-0"><a href="{% url 'favorites:my_favorites_view' %}" class="text-muted">Show all</a></p>
               </div>
+              <div class="p-4" style="background-color: #f8f9fa;">
               <div class="row g-2">
                 <div class="col mb-2">
-                  <img src="#" class="w-100 rounded-3">
+                  <img src="" class="w-100 rounded-3">
                 </div>
               </div>
+            </div>
+                </div>
+
+<!-- show latest favoraites -->
+<div class="mb-5">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Recent Saved</p>
+              <p class="mb-0"><a href="{% url 'favorites:my_favorites_view' %}" class="text-muted">Show all</a></p>
+            </div>
+            <div class="p-4" style="background-color: #f8f9fa;">
+            <div class="row g-2">
+              <div class="col mb-2">
+                <img src="{}" class="w-100 rounded-3">
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+
+
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@
  
         <div class=" pt-5 row row-cols-1 row-cols-md-6">
             <div class="col  d-flex  col-md-10 col-md-8" >
-                <a href="{%url 'recipes:recipe_category_view' %}?category=brakfast">
+                <a href="{%url 'recipes:recipe_category_view' %}?category=breakfast">
                     <figure>
                     <img class=" rounded-circle avatar1"  width="220" height="250" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmLhYAE0C3aheP7245Cjhnq5vhMvtptAGV2w&usqp=CAU" />
                     <figcaption style="text-align: center; text-decoration: none; color:black">Breakfast</figcaption>
@@ -75,7 +75,7 @@
             <h4 class="card-title"><a>{{recipe.name}}</a></h4>
             <p class="card-text">{{recipe.description}}</p>
             <a href="{% url 'recipes:recipe_detail_view' recipe.id %}" class="btn btn-success">Read</a>
-
+          
         </div>
 
         </div>
