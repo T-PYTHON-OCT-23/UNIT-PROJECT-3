@@ -8,7 +8,7 @@ from books.models import Book, Review
 def home_view(request: HttpRequest):
 
     books = Book.objects.all().order_by("-release_date")[0:8]
-    reviews = Review.objects.all().order_by("-created_at")[0:8]
+    reviews = Review.objects.all().order_by("-created_at")[0:5]
     
     if request.user.is_authenticated:
         print(request.user.first_name)
