@@ -4,6 +4,11 @@ from .models import Profile
 # Register your models here.
 
 
-admin.site.register(Profile)
 
+class ProfileModel(admin.ModelAdmin):
+
+    list_display = ('user', 'is_writer')
+    list_filter = ('is_writer',)
+
+admin.site.register(Profile,ProfileModel)
 

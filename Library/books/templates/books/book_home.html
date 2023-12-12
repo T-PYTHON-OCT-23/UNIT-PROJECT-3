@@ -1,15 +1,16 @@
 {% extends 'main/base.html' %}
 {% load static %}
-
+{% block title %} Book Home {% endblock %}
 {% block content %}
 <style>
 .sidebar {
   background-color:#8ad0df;
+  z-index: 2;
 }
 
 .sidebar ul {
   list-style-type: none;
-  margin-bottom:2000px;
+  margin-bottom:480%;
   padding: 0;
 }
 
@@ -31,7 +32,7 @@
 
 
 }
-a{
+section a{
     color: #ffffff;
     
 }
@@ -49,7 +50,7 @@ h4{
         <li><a class="nav-link" href="{% url 'books:bookCat' %}?category=philosophy">philosophy</a></li>
         <li><a class="nav-link" href="{% url 'books:bookCat' %}?category=novel">novel</a></li>
         <li><a class="nav-link" href="{% url 'books:bookCat' %}?category=psychic">psychic</a></li>
-        <li><a class="nav-link" href="{% url 'books:bookCat' %}?category=sciences">sciences</a>
+        <li><a class="nav-link" href="{% url 'books:bookCat' %}?category=sciences">sciences &<br>Academic</a>
     </ul>
   </div>
   
@@ -59,23 +60,23 @@ h4{
   
   <h1 class="mt-4">All Books</h1>
 
-  <div class="row d-flex g-4">
+  <div class="row d-flex g-4 w-100">
     {% for book in books %}
 
-    <div class="col-3">
-            <div class=" mt-4 h-100 overflow-hidden justify-content-start">
+    <div class="col-3" >
+            <div class=" mt-4 h-100 overflow-hidden justify-content-start mx-3">
 
-                <div class="">
+                <div class="mx-3">
                     <img src="{{book.poster.url}}" width="200" height="300" /> 
                     <div class=" d-flex justify-content-between align-items-center">
-                        <div class="d-flex gap-2 mt-2">
+                        <div class="d-flex gap-2 mt-2 ">
                             <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{book.release_date.year}}</span>
                             <span class="cat ps-3 pe-3 bg-secondary rounded-pill text-white bg-info {{book.category}}" >{{book.category}}</span>
                             
                         </div>
         
                     </div>
-                    <a class="g-3" href="{% url 'books:book_detail_view' book_id=book.id %}"><h3>{{book.name}}</h3></a>
+                    <a class="g-3" style="width: 100px;" href="{% url 'books:book_detail_view' book_id=book.id %}"><h5>{{book.name}}</h5></a>
 
                 </div>
 

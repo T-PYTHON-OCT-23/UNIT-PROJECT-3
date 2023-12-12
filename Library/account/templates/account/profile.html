@@ -10,11 +10,7 @@
         <div class="col-3">
             <div class="d-flex flex-column gap-1">
                 <img class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
-                <div class="d-flex align-items-center justify-content-center gap-2">
-                    <a href=""><i class="bi bi-instagram social"></i></a>
-                    <a href=""><i class="bi bi-twitter-x social"></i></a>
-                    <a href=""><i class="bi bi-envelope-at-fill social"></i></a>
-                </div>
+             
             </div>
         </div>
         <div class="col">
@@ -24,24 +20,28 @@
                 {% if request.user.is_authenticated and request.user.id == user.id %}
                 <a href="{% url 'account:update_user_view'%}"class="btn btn-primary">Update</a>
                 {% endif %}
-                <a href="{% url 'favorite:fav' %}"><button type="button" class="btn btn-secondary" >My Favorite</button></a>
+                
             </div>
 
             <h5>@{{ user.username}}</h5>
-            <p style="color: black;">
-                {{ user.profile.about }}<br>
-                {{user.profile.birth_date}}<br>
-            </p>
-           
             {% if user.profile.is_writer %}
             <span class="badge bg-info">writer</span> 
             {% endif %}
+            <br>
+            <div class="d-flex align-items-center justify-content- gap-2 mx-2">
+                <a href="{{ user.profile.instagram_link }}"><i class="bi bi-instagram social"></i></a>
+                <a href="{{ user.profile.twitter_link }}"><i class="bi bi-twitter-x social"></i></a>
+            </div>
+            <p style="color: black;"> Date birth: {{user.profile.birth_date}}</p>
+            <p style="color: black;"> {{ user.profile.about }}</p>
+           
+           
 
       </div>
       <section class="container mt-5">
   
         {% if user.book_set.count > 0 %} 
-        <h2 class="mt-4">My books ({{user.book_set.count}}):</h2> 
+        <h2 class="mt-4">Books By {{ user.first_name }} ({{user.book_set.count}}):</h2> 
         <div class="row d-flex g-4">
           {% for book in user.book_set.all %}
       
@@ -74,9 +74,20 @@
                   <div class="d-flex flex-column gap-2 ">
                     {% for review in user.review_set.all %}
                     <div class="d-flex flex-column gap-2 border border-1 p-3">
+                        <div class=" d-flex align-items-center g-4">
                       <a href="{% url 'account:user_profile_view' user_id=review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
+                      {% if user.profile.is_writer %}
+                      <span class="badge bg-info mx-3">writer</span> 
+                      {% endif %}
+                    </div>
                       <a href="{% url 'books:book_detail_view' book_id=review.book.id %}"><h6>{{ review.book.name }}</h6></a>
                       <h6 class="text-muted">{{ review.created_at }}</h6>
+                      <div class=" d-flex justify-content-between align-items-center">
+                        <div class="d-flex ">
+                           <p>{{review.rating}} <p>
+                           <span class="material-symbols-outlined" style="color: goldenrod;">
+                        star_rate
+                        </span></p></div></div>
                       <p>{{ review.comment }}</p>
                     </div>
                     {% endfor %}

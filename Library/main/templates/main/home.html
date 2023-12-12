@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 {% load static %}
-
+{% block title %} HOME {% endblock %}
 {% block content %}
 <style>
 body {
@@ -19,7 +19,7 @@ h1 {
 .hero {
   background-image: url("static/images/homeh.jpg");
   background-size: cover;
-  height: 700px;
+  height: 600px;
   width: 100%;
 }
 
@@ -27,10 +27,10 @@ h1 {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -70%);
   width: 50%;
   padding: 20px;
-  background-color: #ffc9b9bf;
+  background-color: #d8b0b0db;
 }
 
 .hero-content h2 {
@@ -57,7 +57,7 @@ h1 {
 
     <section class="hero">
       <div class="hero-content">
-        <h1 style="color: #ffffff;">Online library</h1>
+        <h1 style="color: #ffffff;">Ocean of knowledge</h1>
         <p>Find the book you want:</p>
         <form class="d-flex" role="search" action="{% url 'books:search' %}" method="GET">
             <input class="form-control me-sm-2"  type="search" name="search" placeholder="Search...">
@@ -66,7 +66,74 @@ h1 {
       </div>
     </section>
   
- 
+<section class="container">
+  <div class="d-flex flex-column gap-3 mt-5 justify-content-center align-items-center">
+
+    <h1 style="color: #c89c9cf4;"> welcome to Ocean of knowledge </h1>
+    <h3 style="color: #6cc3d5;;">"Books are the quietest and most constant of friends; they are the most<br> accessible and wisest of counsellors, and the most patient of teachers."</h3>
+    <h5>Ocean of knowledge is an online library and a platform for reading free books that are easily available.<br>
+     Through our platform, you can join us as a writer or book publisher to publish any amount of books you want </h5>
+    <h5> or you can join us to enjoy reading and prefer what you want. <a  href="{% url 'account:login_user_view' %}">Join us now!!</a></h5>
+
+  </div>
+
+
+<div class="row d-flex g-4 mt-5">
+  <h2 class="mt-5" style="color: #6cc3d5;">Top Book:</h2>
+  {% for book in books %}
+  
+  <div class="col-3">
+    
+          <div class=" mt-1 h-100 overflow-hidden justify-content-start">
+            
+              <div class="">
+                  <img src="{{book.poster.url}}" width="200" height="300" /> 
+                  <div class=" d-flex justify-content-between align-items-center">
+                      <div class="d-flex gap-2 mt-2">
+                          <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{book.release_date.year}}</span>
+                          <span class="cat ps-3 pe-3 bg-secondary rounded-pill text-white  bg-info">{{book.category}}</span>
+                          
+                      </div>
+      
+                  </div>
+                  <a href="{% url 'books:book_detail_view' book_id=book.id %}"><h4>{{book.name}}</h4></a>
+
+              </div>
+
+          </div>
+  </div>
+
+      {% endfor %}
+  </div>
+
+
+
+
+  <div>
+    <h3 class="mt-5" style="color: #6cc3d5;"> Top Comments:</h3>
+      <div class="">
+        <div class="d-flex flex-row gap-4 ">
+          {% for review in reviews %}
+            <div class="d-flex flex-column alert alert-dismissible alert-secondary gap-2 p-3">
+              <h4><a style="color: #6cc3d5;" href="{% url 'account:user_profile_view' user_id=review.user.id %}  ">{{ review.user.first_name }} {{ review.user.last_name }}</h4></a> 
+            
+              <p><a href="{% url 'books:book_detail_view'  review.book.id %}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{review.book.name}}</a></p>
+              <div class=" d-flex justify-content-between align-items-center">
+                <div class="d-flex ">
+                   <p>{{review.rating}} <p>
+                   <span class="material-symbols-outlined" style="color: goldenrod;">
+                star_rate
+                </span></p></div></div>
+             
+              <p >{{ review.date_add }}</p>
+              <p>{{ review.comment }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+
+</section>
 
 
 {% endblock %}

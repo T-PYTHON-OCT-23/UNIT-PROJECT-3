@@ -21,7 +21,7 @@ def register_user_view(request: HttpRequest):
             user_profile = Profile(user=user, avatar=request.FILES["avatar"], birth_date=request.POST["birth_date"])
             user_profile.save()
 
-            return redirect("main:home_view")
+            return redirect("account:login_user_view")
         except IntegrityError as e:
             print(e)
             msg = f"Please select another username"
@@ -47,7 +47,6 @@ def login_user_view(request: HttpRequest):
 
 def logout_user(request: HttpRequest):
 
-    #log out the user
     if request.user.is_authenticated:
         logout(request)    
 

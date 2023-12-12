@@ -1,74 +1,75 @@
 {% extends 'main/base.html' %}
 {% load static %}
-
+{% block title %} boook detail {% endblock %}
 {% block content %}
 <section class="container mt-5">
 <div class="row">
     <div class="col">
 
-        <div class=" col-4 md-flex flex-column gap-2">
-            <h1>{{ book.name }}</h1>
+        <div class="d-flex flex-column gap-2">
+          <div class="d-flex">
             <img class="detail-poster align-items-cover object-fit-cover" src="{{book.poster.url}}" width="350"  height="550"/>
-            <div class=" d-flex justify-content-between align-items-center">
-                <div class="d-flex gap-2 mt-2">
-                    <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{book.release_date.year}}</span>
-                    <span class="cat ps-3 pe-3 bg-secondary rounded-pill text-white  bg-info">{{book.category}}</span>
-                    <div class="d-flex align-items-center gap-1">
-                      {% if not is_favored %}
-                      <a href="{% url 'favorite:add_favorite' book.id %}" class="favored"><i class="bi bi-heart"></i></a>
-                      {% else %}
-                      <a href="{% url 'favorite:add_favorite' book.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
-                      {% endif %}
-                  </div>
-                
-                
-                </div>
-                </div>
+            <div class="mt-5 mx-5">
+            <h2 class="">{{ book.name }}</h2>
+            <h6 class=""> writer: {{book.writer}}</h6>
+            <a href="{% url 'account:user_profile_view' user_id=book.user.id %} " class=""><p> by:{{book.user.first_name}} {{book.user.last_name}}</p></a>
+            <p>{{book.brief}}</p>
+            <p> {{book.release_date}}</p>
+            <p>{{book.publishing_house}}</p>
+            <a class="btn btn-outline-secondary w-90" style="width: 180px;" href="{{book.content.url}}">reed</a>
+          </div>
+          </div>
+        </div>
 
-            </div>
-            <div class=" d-flex justify-content-between mt-2" >
-              <div class="d-flex gap-2 mt-2 align-items-center" >
-     
-              <a  class="btn btn-outline-secondary w-100" href="{{book.content.url}}">reed</a>
+            <div class=" d-flex justify-content-between align-items-center">
+              <div class="d-flex gap-2 mt-2">
+                  <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{book.release_date.year}}</span>
+                  <span class="cat ps-3 pe-3 bg-secondary rounded-pill text-white  bg-info">{{book.category}}</span>
+                  <div class="d-flex align-items-center gap-1">
+                    {% if not is_favored %}
+                    <a href="{% url 'favorite:add_favorite' book.id %}" class="favored"><i class="bi bi-heart"></i></a>
+                    {% else %}
+                    <a href="{% url 'favorite:add_favorite' book.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+                    {% endif %}
+                    {% if reviews_avg %}
+                    <h6 class="p-0 m-0 ">|</h6>
+                    <h5 class="p-0 m-0">{{reviews_avg}}</h5>
+                    <span class="material-symbols-outlined" style="color: goldenrod;">
+                      star_rate
+                      </span>
+                    {% endif %}
+                </div>
               
+              
+              </div>
+              </div>
+      
+              <div class="d-flex gap-2 mt-2 align-items-center" >
+
+              {% if  perms.book.update and perms.book.delete %}
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <button type="button" class="btn btn-outline-success">Edit</button>
+                <button type="button" class="btn btn-outline-success" style="width: 180px;">Edit</button>
                 <div class="btn-group" role="group">
                   <button id="btnGroupDrop1" type="button" class="btn btn-outline-success dropdown-toggle show" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
                   <div class="dropdown-menu show" aria-labelledby="btnGroupDrop1" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 40px, 0px);">
                     <a class="dropdown-item" href="{% url 'books:update' book_id=book.id %}">Update</a>
+                    {% if request.user.is_staff %}
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleteModal"href="#">Delete</a>
+                    {% endif %}
                   </div>
                 </div>
               </div>
+              {% endif %}
             </div>
           </div>
-              <div class="modal">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Modal title</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true"></span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <p>Modal body text goes here.</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" href="{% url 'books:delete' book_id=book.id %}">Save changes</button>
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>  
+           
 
         </div>
     </div>
 </div>
 
-<section class="row mt-4">
-    <h2>Reviews:</h2>
+<section class="row mt-5">
+    <h2 class="mt-5">Reviews:</h2>
       <div class="col">
         <div class="d-flex flex-column gap-3">
           {% for review in reviews %}
@@ -76,12 +77,17 @@
             <div class="d-flex align-items-center g-3">
               <a href="{% url 'account:user_profile_view' user_id=review.user.id %}  "><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
               {% if user.profile.is_writer %}
-            <span class="badge bg-info g-3">writer</span> 
-            {% endif %}
+            <span class="badge bg-info g-3 mx-3">writer</span> 
+             {% endif %}
             </div>
             
             <h6 class="text-muted">{{ review.created_at }}</h6>
-            <p>{{ review.rating }}</p>
+            <div class=" d-flex justify-content-between align-items-center">
+              <div class="d-flex ">
+                 <p>{{review.rating}} <p>
+                 <span class="material-symbols-outlined" style="color: goldenrod;">
+              star_rate
+              </span></p></div></div>
             <p>{{ review.comment }}</p>
           </div>
           {% endfor %}
