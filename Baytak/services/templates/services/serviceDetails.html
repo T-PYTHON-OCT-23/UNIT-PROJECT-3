@@ -3,58 +3,80 @@
 {% block title %} {{service.name}}  {% endblock %}
 
 {% block content %}
-
-<div class="container">
-
-     <div class = "row d-flexflex-column">
+<div class = "wrapper pages-content">
+<div class="container content mt-0">
+    <h1>{{service.name}} Details</h1>
+     <div class = "row  d-flexflex-row mt-5 align-items-center">
+        <div class = "col-4">
+            <img class = "avatar" src="{{service.image.url}}" />
         
-        <h1>{{service.category}} </h1>
-        <div class = "row d-flex flex-column">
-            {{service.name}}
-            {{service.address}}
-
-            <a class="btn btn-dark "   data-bs-toggle="modal" data-bs-target="#orderModal">Order</a>
-            
         </div>
         
-    </div>
-    {% if request.user.is_staff %}
-      <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        Edit
-      </button>
-      <ul class="dropdown-menu ">
+        <div class = "col-4 ">
+            <h6>{{service.category}} </h6>
+            <h6>{{service.name}}</h6>
+            <h6>{{service.address}}</h6>
+            <h6>{{service.about}}</h6>
+            <h6>{{service.nationality}}</h6>
+            <h6>{{service.duration}}</h6>
+            <h6>{{service.quantity}}</h6>
+            <h6>{{service.city}}</h6>
+            <h6>{{service.category}}</h6>
+        </div>
+  
+          <div class = "col-4">
+
+            <a class="btn btn-dark mb-3 "   data-bs-toggle="modal" data-bs-target="#orderModal">Order</a><br>
+            {% if request.user.is_staff %}
+               <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Edit
+               </button>
+                 <ul class="dropdown-menu ">
         
-        <li><a class="dropdown-item" href="{% url 'services:updateService' service.id %}">Update</a></li>
-        <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
-        {% endif%}
-      </ul>
-    <div class ="row d-flex flex-row mt-5 gap-2">
+                   <li><a class="dropdown-item" href="{% url 'services:updateService' service.id %}">Update</a></li>
+                   <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
+       
+                </ul>
+                {% endif%}
+            
+        </div>
+    
+        
+    </div>
+    <hr>
+    <h2>Reviews</h2>
+    <div class ="row d-flex flex-row mt-5 gap-2  justify-content-center ">
     {% for review in userReviews %}
-        <div class="col-3 review d-flex flex-column  ">
+    
+    
+        <div class="col-3 review d-flex flex-column ms-2  me-2 ">
 
 
-            <img class="" src="{{ user.profile.avatar.url }}" />
+            <img class="avatar ms-3 mt-2" src="{{ review.user.profile.avatar.url }}" />
             
                 {{ review.user.first_name }}
-                {{ review.user.last_name }}
+                {{ review.user.last_name }} <br>
                 {{ review.comment }}<br>
                 <div class = "row">
         
-                  <span style="font-size:200%;color:yellow;"> {{ review.rating }} &starf;</span>
+                  <span style="font-size:200%;color:rgb(235, 235, 53);"> {{ review.rating }} &starf;</span>
                 </div>
                 
                 {{ review.createdAt }}<br>
                 
                 {% if review.user == request.user %}
-                <a class="btn btn-dark " href="" >Delete</a> {% endif %}
+                <a class="btn btn-dark  mb-3" href="{% url 'services:deleteReview' review.id %}" >Delete</a> 
+                {% endif %}
             
 
         </div>
-        {% endfor %} 
+        {% endfor %}
     </div>
-                <div class = "row">
-                    <div class = "col d-flexflex-column">
-                        <form action="{% url 'services:serviceDetails' service.id %}" method="POST" >
+   
+                <div class = " content mt-5 mb-5 align-items-center justify-content-center ">
+                    <h1>Add Review</h1>
+                    <div class = "col-12 d-flexflex-column align-items-center">
+                        <form class = "align-items-center" action="{% url 'services:serviceDetails' service.id %}" method="POST" >
                             {% csrf_token %}
                             
             
@@ -64,7 +86,7 @@
                             <label>Rating:</label>
                             <br>
                             
-                            <div class="rate">
+                            <div class="rate ">
                                 <input type="radio" id="star5" name="rating" value="5" />
                                 <label for="star5" title="text">5 stars</label>
                                 <input type="radio" id="star4" name="rating" value="4" />
@@ -77,11 +99,18 @@
                                 <label for="star1" title="text">1 star</label>
                             </div>
                             <br>
-                            <input class="btn btn-dark mt-3" type="submit" value="Submit " />
+                                    {% if request.user.is_auuthenticated %}
+                                    <input class="btn btn-dark mt-3 mb-5" type="submit" value="Submit " />
+                                    {% else %}
+                                    <input class="btn btn-dark mt-3 mb-5" type="submit" value="Submit "  disabled />
+                                    {% endif %}
+                        </div>
                         </form>
                     </div>
                     
                 </div>
+                <br>
+                <br>
 
                 <div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -128,6 +157,7 @@
                   </div>
                 
                 
+</div>
 </div>
 
 {% endblock %}

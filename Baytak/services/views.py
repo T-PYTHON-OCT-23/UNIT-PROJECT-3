@@ -42,7 +42,7 @@ def serviceDetails(request : HttpRequest ,service_id):
             userReview = Review( service = service , user = request.user , comment  = request.POST["comment"], rating  = request.POST["rating"] )
             userReview.save()
 
-       userReviews = Review.objects.filter(service = service)
+       userReviews = Review.objects.filter(service = service )
     except  Exception as e:
 
        return render(request, "main/not_found.html"  )
@@ -100,3 +100,19 @@ def searchService(request : HttpRequest):
       service = Service.objects.all() 
 
    return render(request, "services/search.html" ,  {"service" : service}) 
+
+def deleteReview(request : HttpRequest , review_id):
+     
+        try:
+            review = Review.objects.get(id = review_id)
+            if request.user == review.user:
+                service_id = review.service.id
+                review.delete()
+            else:
+                return render(request, 'main/not_authorized.html' , status=401)
+
+            return redirect("services:serviceDetails", service_id = service_id)
+        
+        except  Exception as e:
+
+         return render(request, "main/not_found.html")

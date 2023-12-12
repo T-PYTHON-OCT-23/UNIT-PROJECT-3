@@ -5,8 +5,9 @@
 {% block content  %}
 <div class ="wrapper pages-content">
     <div class = "row content d-flex flex-column align-items-center ">
- 
+           {% for contact in contact %}  
             {{contact.comment}}
+            {% endfor %}
      </div>
 </div>
 
