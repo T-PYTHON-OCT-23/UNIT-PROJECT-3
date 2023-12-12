@@ -25,8 +25,11 @@
         </div>
   
           <div class = "col-4">
-
+            {% if request.user.is_authenticated %}
             <a class="btn btn-dark mb-3 "   data-bs-toggle="modal" data-bs-target="#orderModal">Order</a><br>
+            {% else %}
+            <h5>Please Login to order this service</h5>
+            {% endif %}
             {% if request.user.is_staff %}
                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Edit
@@ -75,8 +78,8 @@
    
                 <div class = " content mt-5 mb-5 align-items-center justify-content-center ">
                     <h1>Add Review</h1>
-                    <div class = "col-12 d-flexflex-column align-items-center">
-                        <form class = "align-items-center" action="{% url 'services:serviceDetails' service.id %}" method="POST" >
+                    <div class = "col-12 ">
+                        <form class = "d-flex flex-column align-items-center" action="{% url 'services:serviceDetails' service.id %}" method="POST" >
                             {% csrf_token %}
                             
             

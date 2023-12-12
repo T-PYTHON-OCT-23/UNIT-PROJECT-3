@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} About US  {% endblock %}
+{% block content  %}
+<div class ="wrapper pages-content">
+    <div class = "row content d-flex flex-column align-items-center ">
+ <h1>Click Done if the request is complete</h1>
+
+ <form action="{% url 'request:confirmRequset' service.id %}" method="POST" >
+    {% csrf_token %}
+    <label>order time:</label>
+        <input class="form-control mt-3" name="orderTime" type="datetime-local" />
+        <label>Address:</label>
+    <textarea class="form-control mt-3" name="address"></textarea>
+        <input type="submit" value="Order" class="btn btn-primary"/>
+</form>
+ <a href="{% url 'main:thank' %}" class="btn btn-dark text-center mb-5 ">Done</a>
+      
+     </div>
+</div>
+
+
+
+{% endblock %}

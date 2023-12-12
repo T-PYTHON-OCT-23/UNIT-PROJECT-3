@@ -38,8 +38,12 @@
                     <option value="unsatisfactory">Unsatisfactory</option>
                 </select>
                 
+                {% if request.user.is_authenticated %}
+                <input class = "btn btn-dark text-center mt-3 mb-3"type = "submit" value = "Submit" >
+                {% else %}
+                <input class = "btn btn-dark text-center mt-3 mb-3"type = "submit" disabled = "Submit" >
+                {% endif %}
 
-                <input class = "btn btn-dark text-center mt-3 mb-3"type = "submit" value = "Submit" onclick = "alert('Thank you..your information has been submited !!')">
             </form>
 
 

@@ -4,7 +4,9 @@ app_name = "request"
 
 urlpatterns = [
     path('<service_id>/add/', views.addRequest, name="addRequest"),
-    path('', views.veiwRequest, name="veiwRequest")
+    path('', views.veiwRequest, name="veiwRequest"),
+    path('all/request/', views.allRequest , name ="allRequest"),
+    path('confirm/Request/<service_id>', views.confirmRequest , name="confirmRequest")
     
     
 ]

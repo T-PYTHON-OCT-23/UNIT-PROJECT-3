@@ -1,0 +1,30 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %} My Requests  {% endblock %}
+{% block content  %}
+<div class ="wrapper pages-content">
+    <div class = "row content d-flex flex-column align-items-center ">
+      <h1>My Requests</h1>
+        <div class="row row-cols-12 row-cols-md-3 g-2 align-items-center">
+            {% if requests.count == 0 %}
+             <div class="alert alert-info">You don't have any request yet.</div>
+            {% endif %}
+            {% for request in allRequest %}
+            <div class="col-4 review d-flex flex-column mb-5 me-1  ">
+                  {{request.service.category}}<br>
+                  {{request.service.name}}<br>
+                  {{request.orderTime}}
+    
+            </div>
+               
+               
+            {% endfor %}
+        </div>
+        </div>
+     </div>
+
+
+
+
+{% endblock %}

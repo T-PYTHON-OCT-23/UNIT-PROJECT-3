@@ -7,7 +7,8 @@ class Request(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     orderTime = models.DateTimeField()
     address = models.TextField()
-
+    createdAt = models.DateTimeField(auto_now_add=True)
+    isDone = models.BooleanField(default = False)
 
 
     def __str__(self) -> str:

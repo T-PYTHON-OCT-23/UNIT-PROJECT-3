@@ -4,6 +4,8 @@ from .models import Service , Review
 
 
 def addServices(request : HttpRequest):
+    if not request.user.is_staff:
+        return render(request, 'main/not_authorized.html' , status=401)
 
     if request.method == "POST":
         newService = Service(name = request.POST["name"], address = request.POST["address"], image = request.FILES["image"], about = request.POST["about"], nationality = request.POST["nationality"], duration = request.POST["duration"], quantity = request.POST["quantity"], city = request.POST["city"], category = request.POST["category"])
@@ -15,21 +17,25 @@ def addServices(request : HttpRequest):
     return render(request, "services/addServices.html" , {"categories" : Service.categories , "durations" : Service.durations})
 
 def viewServices(request : HttpRequest):
+    try:
 
-    if "category" in request.GET and request.GET["category"] =="Electrician and Plumber":
-        service = Service.objects.filter(category__contains ="Electrician and Plumber")
+        if "category" in request.GET and request.GET["category"] =="Electrician and Plumber":
+            service = Service.objects.filter(category__contains ="Electrician and Plumber")
 
-    elif "category" in request.GET and request.GET["category"] =="Clining":
-        service = Service.objects.filter(category__contains ="Clining")
+        elif "category" in request.GET and request.GET["category"] =="Clining":
+            service = Service.objects.filter(category__contains ="Clining")
 
-    elif "category" in request.GET and request.GET["category"] =="Water filling":
-        service = Service.objects.filter(category__contains ="Water filling")
-        
-    elif "category" in request.GET and request.GET["category"] =="Moving furniture":
-        service = Service.objects.filter(category__contains ="Moving furniture")
-    else:
-        service=Service.objects.all()
-    return render(request ,"services/viewServices.html" , {"service" : service})
+        elif "category" in request.GET and request.GET["category"] =="Water filling":
+            service = Service.objects.filter(category__contains ="Water filling")
+            
+        elif "category" in request.GET and request.GET["category"] =="Moving furniture":
+            service = Service.objects.filter(category__contains ="Moving furniture")
+        else:
+            service=Service.objects.all()
+        return render(request ,"services/viewServices.html" , {"service" : service})
+    except  Exception as e:
+
+       return render(request, "main/not_found.html")
 
 def serviceDetails(request : HttpRequest ,service_id):
 

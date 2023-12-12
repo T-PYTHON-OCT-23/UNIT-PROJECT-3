@@ -26,6 +26,7 @@ def registerPage(request: HttpRequest):
 def loginUser(request: HttpRequest):
    
    message = None
+   
 
    if request.method == "POST":
        
