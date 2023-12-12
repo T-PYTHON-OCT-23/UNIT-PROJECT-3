@@ -18,6 +18,7 @@ class Objective(models.Model):
     
 class Order(models.Model):
     objective = models.ForeignKey(Objective, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     day = models.IntegerField(default=0)
     hour= models.IntegerField(default=0)

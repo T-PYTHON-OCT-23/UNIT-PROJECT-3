@@ -7,7 +7,7 @@ from .models import Objective
 #to customize the display table in the admin panel (optional)
 class ObjectiveAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'description', 'category', 'poster','reserved','created_at')
+    list_display = ('id','name', 'description', 'category', 'poster','reserved','created_at')
     list_filter = ('category', 'name','reserved')
 
 

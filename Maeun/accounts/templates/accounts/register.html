@@ -8,8 +8,8 @@
 <div class="container">
   {% if msg %}
   <div class="alert alert-danger" role="alert">
-  {{ msg }}
-
+    {{ msg }}
+{% endif %}
 <form class="row g-3 needs-validation" action="{% url 'accounts:register_user_view' %}" method="post" novalidate>
     {% csrf_token %}
     <div class="col-md-4 position-relative">

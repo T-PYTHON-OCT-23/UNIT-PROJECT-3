@@ -1,6 +1,6 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpRequest , HttpResponse
-from .models import Objective
+from .models import Objective , Order
 
 # Create your views here.
 
@@ -21,7 +21,7 @@ def add_view(request:HttpRequest):
                 new_obj.poster = request.FILES["poster"]
 
             new_obj.save()
-            return redirect("main:home_view")
+            return redirect("objectives:my_objectives_view")
         except Exception as e:
             msg = f"An error occured, please fill in all fields and try again . {e}"
 
@@ -38,6 +38,7 @@ def delete_objective_view(request:HttpRequest, obj_id):
     
     obj = Objective.objects.get(id=obj_id)
     obj.delete()
+    
     return redirect("objectives:my_objectives_view")
 
 def update_objective_view(request: HttpRequest, obj_id):
@@ -49,9 +50,10 @@ def update_objective_view(request: HttpRequest, obj_id):
         obj.name = request.POST["name"]
         obj.description = request.POST["description"]
         obj.category = request.POST["category"]
+        
         obj.save()
 
-        return redirect('objectives:my_objectives_view', obj_id=obj_id)
+        return redirect('objectives:my_objectives_view')
 
     return render(request, "objectives/update.html", {"obj" : obj, "categories"  : Objective.categories})
 
@@ -69,9 +71,37 @@ def objective_retrieved_view(request:HttpRequest,obj_id):
     return redirect("objectives:my_objectives_borrowed_view")
     
 def objective_order_view(request:HttpRequest,obj_id):
-    if request.method == "POST" :
-        obj = Objective.objects.get(id=obj_id)
-        
     
-        return render(request,"objectives/order.html",{"obj":obj})
+    obj = Objective.objects.get(id=obj_id)
+
+    if request.method == "POST" :
+        
+        new_order = Order(user=request.user, objective=obj,day=request.POST["day"],hour=request.POST["hour"])
+        new_order.objective.reserved=True
+        new_order.save()
+        
+        return redirect("objectives:my_objectives_borrowed_view")
+        
+    return render(request,"objectives/order.html",{"obj":obj})
+
+def loan_requests_view(request:HttpRequest):
+    order = Order.objects.all()
+    
+    return render(request,"objectives/loan_requests.html",{"order":order})
+
+def order_acceptance_view(request:HttpRequest,obj_id):
+    obj = Objective.objects.get(id=obj_id)
+    order = Order(objective=obj, user=request.user  )
+    order.objective.reserved = True
+    order.save()
+
+    return redirect("objectives:order_acceptance_view")
+
+def order_rejection_view(request:HttpRequest,obj_id):
+    obj = Objective.objects.get(id=obj_id)
+    obj.reserved = False
+    obj.save()
+
+    return redirect("objectives:order_rejection_view")
+    
     

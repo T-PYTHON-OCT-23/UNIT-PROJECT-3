@@ -22,18 +22,18 @@
                     <label>description:</label>
                     <p>{{ obj.description }}</p>
                 </div>
-                <form action="{% url 'objectives:objective_order_view' obj.id %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+                <form action="{% url 'objectives:objective_order_view' obj.id %}" method="POST"  class="d-flex flex-column gap-2">
                     {% csrf_token %}
                 <div class="row g-3">
                     <label>Pricing duration</label>
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Day" aria-label="Day" name="day">
+                    <div class="col-3">
+                      <input type="number" class="form-control" placeholder="Day" aria-label="Day" name="day">
                     </div>
-                    <div class="col">
-                      <input type="text" class="form-control" placeholder="Hour" aria-label="Hour" name="hour">
+                    <div class="col-3">
+                      <input type="number" class="form-control" placeholder="Hour" aria-label="Hour" name="hour">
                     </div>
                   </div>
-                  <input class="btn btn-primary mt-3" type="submit" value="Order objective" />
+                  <input class="btn btn-primary my-3 col-3" type="submit" value="Order objective" />
 
                 </form>
             </div>

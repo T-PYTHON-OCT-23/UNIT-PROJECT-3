@@ -1,0 +1,45 @@
+{% extends "main/base.html" %}
+{% block title%} loan requests  {% endblock %}
+
+{% block section %} loan requests {% endblock %}
+
+
+{% block content %}
+
+<section class="container pt-4">
+
+
+
+
+    <div class="row  g-4 row-cols-1 row-cols-md-3">
+
+        {% for order in ordes %}
+            {% if order.objective.reserved == False %}
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{order.poster.url}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">{{order.name}}</h5>
+                      <h4>Duration </h4>
+                      <h4 class="card-text">{{order.day}}</h4>
+                      <h4 class="card-text">{{order.hour}}</h4>
+                      <div class="d-flex justify-content-between">
+                        <a href="{% url 'objectives:order_acceptance_view' obj.id %}" class="btn btn-success">Acceptance</a>
+                        <a href="{% url 'objectives:objective_retrieved_view' obj.id %}" class="btn btn-danger">Rejection</a>
+                      </div>
+
+
+
+                    </div>
+                  </div>
+            </div>
+            
+
+            {% endif %}
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endblock %}

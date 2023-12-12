@@ -12,6 +12,10 @@ urlpatterns = [
     path("borrowed/",views.my_objectives_borrowed_view,name="my_objectives_borrowed_view"),
     path("retrieved/<obj_id>/",views.objective_retrieved_view,name="objective_retrieved_view"),
     path("order/<obj_id>/",views.objective_order_view,name="objective_order_view"),
+    path("loan/requests/",views.loan_requests_view,name="loan_requests_view"),
+    path("order/rejection/",views.order_rejection_view,name="order_rejection_view"),
+    path("order/acceptance/",views.order_acceptance_view,name="order_acceptance_view")
+
 
 
     
