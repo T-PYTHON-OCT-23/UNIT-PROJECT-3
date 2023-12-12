@@ -12,6 +12,7 @@ class Product(models.Model):
   name=models.CharField(max_length=2048) 
   content=models.TextField()
   size=models.IntegerField()
+  product_price= models.IntegerField(max_length=20) 
   choose_product= models.CharField(max_length=70, choices=choose_color.choices, default="Cultural" )
   product= models.ImageField(upload_to="images/", default="images/default.jpg")
 

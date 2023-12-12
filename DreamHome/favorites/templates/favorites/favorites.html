@@ -4,7 +4,23 @@
 
 
 {% block content %}
+    <section class="container">
+        <h1>My Favorites</h1>
+        <div class="row row-cols-12 row-cols-md-3 g-3">
+            {% if favorites.count == 0 %}
+             <div class="alert alert-info">You don't have any favorites yet.</div>
+            {% endif %}
+            {% for fav in favorites %}
+                <div class="col">
+                    <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded">
+                        <img class="rounded" src="{{fav.product.product.url}}" />
+                        <div>
+                            <a href="{% url 'products:product_detail_view' fav.product.id %}"><h4>{{fav.product.name }}</h4></a>
+                        </div>
 
-
-
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 {% endblock %}

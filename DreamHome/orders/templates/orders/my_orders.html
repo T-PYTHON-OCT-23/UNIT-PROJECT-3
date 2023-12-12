@@ -7,4 +7,33 @@
 
 <h1>ddddddddddd</h1>
 
+        <div class="header_e">
+            <p class="logo">LOGO</p>
+            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
+        </div>
+        <div class="container_r">
+            
+            <div class="sidebar">
+                <div class="head"><p>My Cart</p></div>
+                {% for order in orders %}
+                <div class='cart-item'>
+                    <div class='row-img'>
+                        <img class='rowimg' src={{order.product.product.url}}>
+                    </div>
+                    <p style='font-size:12px;'>{{ order.product.name}}</p>
+                    <h2 style='font-size: 15px;'>{{ order.product.price}}</h2>
+                    <i class='fa-solid fa-trash' ><a href="{% url 'orders:delete_order_view' order.id  %}">delete</a></i>
+                </div>
+                {% endfor %}
+                <div class="foot">
+                    <h3>Total</h3>
+
+                    
+
+                    <h2 id="total">$ {{total}}</h2>
+                </div>
+            </div>
+        </div>
+        
+
 {% endblock %}

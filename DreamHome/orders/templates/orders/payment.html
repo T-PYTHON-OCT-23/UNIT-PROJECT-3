@@ -5,9 +5,6 @@
 
 {% block content %}
 
-<h1>d</h1>
-
-
 
 <div class="container_a">
 
@@ -86,7 +83,7 @@
     
         </div>
 
-        <input type="submit" value="proceed to checkout" class="submit-btn">
+        <a href="{% url 'main:home_view' %}" ><input type="submit" value="proceed to checkout" class="submit-btn"></a>
 
     </form>
 

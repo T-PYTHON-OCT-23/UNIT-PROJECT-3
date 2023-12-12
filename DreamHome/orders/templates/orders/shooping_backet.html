@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+
+{% block title %} My order {% endblock %}
+
+
+{% block content %}
+
+<h1>Finish Order >> </h1>
+
+<div class="container">
+
+    <img class="true" src="/static/images/true.png" />
+    <br><br>
+    <h4>Thank tou for ordering from Dream Home</h4>
+    <h5> Your order number "2010621084" hes been completed successfully </h5>
+    <br><br>
+    <a href="{% url 'main:home_view' %}" ><button type="button" class="btn btn-outline-secondary">Continue shopping</button></a>
+
+
+</div>
+
+{% endblock %}

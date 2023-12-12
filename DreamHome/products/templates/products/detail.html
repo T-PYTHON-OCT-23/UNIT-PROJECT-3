@@ -5,29 +5,107 @@
 {% block content %}
 
 <section class="container pt-4">
-    <div class="row">
-        <div class="col">
+  <div class="row">
+    <div class="col">
+      
+            <!-- detail -->    
+    
+      <div class="container_r flex">
+        <div class="left">
+          <div class="main_image">
+            <img src="{{product_detail.product.url}}" class="rounded mx-auto d-block h-100 w-50" alt="Responsive image"/>
+          </div>
+        </div>
+        <div class="right">
+          <h3>{{ product_detail.choose_product }}</h3>
+          <h4> <small>$</small>{{ product_detail.product_price}}</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+          <h5>Color-Rose Gold</h5>
+          <div class="color flex1">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
 
-            <div class="d-flex flex-column gap-2">
-            <h1>{{ product_detail.name }}</h1>
-            <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Edit
-                </button>
-                
-              </div>
-            <img src="{{product_detail.product.url}}" class="rounded mx-auto d-block h-50 w-50" alt="Responsive image"/>
-            <div class="d-flex align-items-center gap-1 ">
-            <h4>{{ product_detail.choose_product }}</h4>
-            <div class="d-flex justify-content-between ">
-            <h5>{{ product_detail.content}}</h5>
+         <!-- favorites --> 
+          <div class="d-flex align-items-center gap-1">
+            {% if not is_favored %}
+            <a href="{% url 'favorites:add_favorite_view' product_detail.id %}" class="favored"><i class="bi bi-heart"></i></a>
+            {% else %}
+            <a href="{% url 'favorites:add_favorite_view' product_detail.id  %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+            {% endif %}
             </div>
+            <!-- end favorites --> 
+            
+          <h5>Number</h5>
+          <div class="add flex1">
+            <span>-</span>
+            <label class="label">1</label>
+            <span>+</span>
+          </div>
+          <a href="{% url 'orders:add_order_view'  product_detail.id %}" class="button">Add to Bag</a>
+
+        </div>
+        </div>
+
+        
+        <div class="d-flex justify-content-end ">
+          <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Edit
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'products:update_product_view' product_detail.id %}">Update</a></li>
+                  <li><a class="dropdown-item" href="{% url 'products:delete_product_view' product_detail.id %}">Delete</a></li>
+                </ul>
+              </button>
             </div>
+            
+      </div>
+
+  <!-- Reviews Secgtion-->
+
+  
+    <hr/>
+
+    <section class="row">
+      <h2>Reviews:</h2>
+        <div class="col-5 ">
+          <div class="d-flex flex-column gap-2">
+            {% for review in reviews %}
+            <div class="d-flex flex-column gap-1 border border-1 p-3 comment">
+              <h3 >{{ review.full_name }}</h3>
+              <h6 class="text-muted">{{ review.created_at }}</h6>
+              <p>{{ review.comment }}</p>
             </div>
-   
-    </div>
-    </div>
+            {% endfor %}
+          </div>
+        </div>
+
+    </section>
+
+    <section class="row mt-5">
+      <h2>Add Review Reviews:</h2>
+      <div class="col-6">
+
+        <form class="d-flex flex-column gap-2" action="{% url 'products:product_detail_view' product_detail.id %}" method="POST">
+          {% csrf_token %}
+          <input type="text" class="form-control"  name="full_name" placeholder="Full Name"/>
+          <select class="form-select" name="rating">
+            <option value="Very satisfied">Very satisfied</option>
+            <option value="Satisfied">Satisfied</option>
+            <option value="Dissatisfied">Dissatisfied</option>
+            <option value="Very bad">Very bad</option>
+          </select>
+
+          <textarea class="form-control" name="comment" placeholder="Your Review"></textarea>
+
+          <input type="submit" value="Add Review" class="btn btn-primary" />
+        </form>
+
+
+      </div>
+
+
 </section>
- 
-
+</section>
 {% endblock %}

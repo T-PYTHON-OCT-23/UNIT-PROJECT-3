@@ -6,21 +6,26 @@ from products.models import Product
   
 class Order(models.Model):
     
-    order = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
 
         return self.user.username   
 
-#class Order(models.Model):
 
-    #order_name = models.CharField(null=True, max_length=500)
+
+class Repair(models.Model):
+    user=models.ForeignKey(Product, on_delete=models.CASCADE)
+   
+    your_city = models.TextChoices("your_city", ["Riyadh", "Jeddah", "Dammam", "Al-kharj"])
     
-    #def __str__(self):
+    full_name = models.CharField(max_length=2048)
+    number= models.IntegerField()
+    city = models.CharField(max_length=64, choices=your_city.choices, default="Cultural")
+    address_details = models.TextField()
+    total = models.IntegerField()
 
-       # return self.order_name
 
-#class Client(models.Model):
-      #name = models.CharField(null=True, max_length=20)
-      #order =models.ForeignKey(Order, on_delete=models.CASCADE)          
+    def __str__(self):
+        return f"{self.full_name} : {self.number}"
