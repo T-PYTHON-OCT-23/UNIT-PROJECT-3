@@ -15,7 +15,7 @@ def add_bookmark_view(request:HttpRequest, news_id):
 
         news = News.objects.get(id=news_id)
 
-        user_bookmarked = Bookmark.objects.filter(user=request.user, news=News).first() #.first() bring the first Favorite object if exists else None
+        user_bookmarked = Bookmark.objects.filter(user=request.user, news=News).first() 
         
         if not user_bookmarked:
             new_bookmark = Bookmark(user=request.user, news=news)

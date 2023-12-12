@@ -1,6 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.http import HttpRequest , HttpResponse
 from .models import *
+from bookmarks.models import *
 from django.utils import timezone
 from django.db.models import Sum
 
@@ -25,8 +26,10 @@ def add_news_view(request: HttpRequest):
 
 
 def news_home_view(request: HttpRequest):
+    
 
     news = News.objects.all()
+    # is_bookmarked = request.user.is_authenticated and Bookmark.objects.filter(news=news, user=request.user).exists()
     if "search" in request.GET:
         keyword = request.GET["search"]
         news = News.objects.filter(title__icontains=keyword)
@@ -132,18 +135,27 @@ def update_event_view(request: HttpRequest, event_id):
 def reservation_event_view(request:HttpRequest ,event_id):
     event = Event.objects.get(id=event_id)
 
-
     user = request.user
     new_reservation = None
 
     if request.method == "POST":
         new_reservation = Reservation(event=event, user=user, quantity=request.POST["quantity"])
         new_reservation.save()
+        return redirect('expos:ticket_view')
+
+    return render(request, "expos/reservation.html",{"event":event })
+
+def ticket_view(request:HttpRequest):
+
+ return render(request, 'expos/ticket.html')
 
 
+def my_tickets_view(request:HttpRequest):
+    
+    reservation = Reservation.objects.filter(user=request.user)
 
-    return render(request, "expos/reservation.html",{"event":event, "new_reservation" : new_reservation })
 
+    return render(request,'expos/my_tickets.html', {"reservation" : reservation})
 
 
 

@@ -1,0 +1,114 @@
+{% extends 'main/base.html' %}
+
+{% block title %} All Events {% endblock %}
+
+{% block content %}
+<style>
+    .card {
+        width: 250px;
+        height: 290px;
+        backdrop-filter: blur(7px);
+        background-color: rgba(255, 255, 255, 0.5);
+        border-radius: 26px;
+        box-shadow: 35px 35px 68px 0px rgba(157, 177, 255, 0.2), inset -8px -8px 16px 0px rgba(157, 177, 255, 0.6), inset 0px 11px 28px 0px rgb(255, 255, 255);
+        transition: all 0.3s;
+        cursor: pointer;
+        margin: 30px;
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    .card:hover {
+        box-shadow: 35px 35px 68px 0px rgba(157, 177, 255, 0.5);
+    }
+
+    .card:active {
+        transform: scale(0.95);
+        border: 1px solid blue;
+    }
+    .cont hr{
+        margin: 30px;
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+    .cont h1{
+        margin: 30px;
+        margin-left: 100px;
+        margin-right: 100px;
+        text-align: center;
+
+    }
+
+    .poster {
+    height: 350px;
+    object-fit: cover;
+}
+</style>
+<section class="cont pt-4">
+    
+    <!-- {% if reservation.count == 0 %}
+    <div class="alert alert-info">You don't have any tickets yet.</div>
+   {% endif %}
+    <h1> My tickets </h1>
+    <hr>
+    <div class="row row-cols-12 row-cols-md-3 g-3">
+        
+    <div class="card">
+        <div class="col">
+            {% for ticket in reservation %}
+                <img class="rounded" src="{{ ticket.event.poster.url }}" />
+                <div>
+                    <a href="{% url 'expos:event_detail_view' ticket.event.id %}"><h4>{{ticket.event.title }}</h4></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %} -->
+        <div class="row  g-4 row-cols-1 row-cols-md-3">
+        {% if reservation.count == 0 %}
+         <div class="alert alert-info">You don't have any tickets yet.</div>
+        {% endif %}
+        {% for ticket in reservation %}
+            <div class="col">
+                <div class="d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                    <img class="poster" src="{{ ticket.event.poster.url }}" />
+                    <div>
+                        <a href="{% url 'expos:event_detail_view' ticket.event.id %}"><h4>{{ticket.event.title }}</h4></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+<!-- 
+<div class="row  g-4 row-cols-1 row-cols-md-3">
+
+    {% for movie in movies %}
+
+        <div class="col">
+            <div class="movie-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                <img class="poster" src="{{movie.poster.url}}" />
+                <div class="p-3 d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-1">
+                        <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{movie.release_date.year}}</span>
+                        <span class="cat ps-3 pe-3 rounded-pill text-white {{movie.category}}"><a class="text-decoration-none text-white" href="{% url 'movies:movies_home_view_cat' movie.category %}">{{movie.category}}</a></span>
+                    </div>
+
+                    <div class="d-flex align-items-center gap-1">
+                        <h5 class="p-0 m-0">{{movie.rating}}</h5>
+                        <span class="material-symbols-outlined">star</span>
+                    </div>
+                </div>
+                <div class="p-3 d-flex flex-column">
+                    <a class=" text-decoration-none" href="{% url 'movies:movie_detail_view'  movie.id %}"><h2>{{ movie.name }}</h2></a>
+
+                </div>
+            </div>
+        </div>
+        
+
+
+    {% endfor %}
+
+</div> -->
+
+{% endblock %}
