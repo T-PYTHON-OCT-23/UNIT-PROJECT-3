@@ -2,10 +2,10 @@ from django.shortcuts import render,redirect
 from django.http import HttpRequest,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
-from .models import Service
+from .models import Service, ServiceDetails
 # Create your views here.
 
-
+# this for admin to add new service 
 def add_service_view(request:HttpRequest):
     massage = ''
     #check here if he a staff 
@@ -20,7 +20,7 @@ def add_service_view(request:HttpRequest):
 
     return render(request,'services/add_services.html',{"massage":massage,"service_name":Service.types,"pricese":Service.pricese})
 
-
+# fro user in home 
 def show_services_view(request:HttpRequest):
     massage = ''
     # check if the user login
@@ -31,18 +31,19 @@ def show_services_view(request:HttpRequest):
 
     return render(request,'services/show_services.html',{"massage":massage,"services":service})
 
-
+# this for admin to edit new service 
 def edit_service_view(request:HttpRequest):
     massage = ''
     
     return render(request,'services/edit_services.html',{"massage":massage})
 
-
+# this is for both admin and user, admin can review the service and user can review his own service
 def review_service_view(request:HttpRequest):
     massage = ''
 
     return render(request,'services/review_service.html',{"massage":massage})
 
+# for user to see more spacefication about the service 
 def service_detils_view(request:HttpRequest,service_id):
     massage = ''
     try:
@@ -51,3 +52,10 @@ def service_detils_view(request:HttpRequest,service_id):
         massage = f'{e}'
 
     return render(request,'services/service_detils.html',{'massgae':massage,'service':service})
+
+def request_service_view(request:HttpRequest,serivce_id,user_id):
+    massage = ''
+    # if the method POST add new_Request
+    if request.method == 'POST':
+        pass
+    return render(request,'services/request_service.html',{'massage':massage,'service_request':ServiceDetails})

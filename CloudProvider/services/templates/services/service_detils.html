@@ -7,16 +7,29 @@
 
 {% block body %}
 <div class="container">
-    <div class="row">
-        <div class="col-4 justify-content-center align-items-center border">
+    <div class="row justify-content-center">
+        <div class="w-100">
+            <img class="object-fit-cover" src="{{service.image.url}}" alt="images service ">
+        </div>
+        <div class="col-8 border mt-3 d-flex flex-column rounded">
             {% if massage %}
             <div class="alert alert-danger" role="alert">
                 massage
             </div>
             {% endif %}
-            <div class="d-flex flex-column">
-                {{service.price}}
+            <div class="d-flex gap-2 align-items-center justify-content-between">
+                <div class="d-flex flex-column gap-2">
+                    <h5>Service Name: {{service.service_name}}</h5>
+                    <h5>Service Type: {{service.type}}</h5>
+                </div>
+                <div class="d-flex flex-column gap-2">
+                    <h5>Service Description: {{service.description}}</h5>
+                    <h5>Service Price: {{service.price}}$ P/H</h5>
+                </div>
             </div>
+        </div>
+        <div class="col mt-3 justify-content-end d-flex">
+            <a class="text-decoration-none block" href="{% url 'services:request_service_view' service.id request.id %}"><button type="button" class="btn btn-lg btn-warning" data-bs-toggle="popover" data-bs-title="Popover title" data-bs-content="And here's some amazing content. It's very engaging. Right?">Request Service</button></a>
         </div>
     </div>
 </div>
