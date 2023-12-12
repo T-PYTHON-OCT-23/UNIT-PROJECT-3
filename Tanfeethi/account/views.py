@@ -86,8 +86,12 @@ def update_profile_view(request: HttpRequest):
                 try:
                     profile : Profile = request.user.profile
                 except Exception as e:
+                    profile = Profile(user=user, birth_date=request.POST["birth_date"])
                     profile = Profile(user=user, gender=request.POST["gender"])
                     profile.save()
+
+                profile.birth_date = request.POST["birth_date"]
+                profile.gender = request.POST["gender"]
 
                 return redirect("account:profile_view", user_id = request.user.id)
 

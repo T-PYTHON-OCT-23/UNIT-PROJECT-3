@@ -8,6 +8,7 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User , on_delete=models.CASCADE)
     gender = models.CharField(max_length=7 , choices = genders.choices , default="female")
+    birth_date = models.DateField(default='2023-01-01')
 
 
     def __str__(self) -> str:

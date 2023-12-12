@@ -13,7 +13,25 @@
           
         </div>
       </div>
-      
+
+
+      <div class="col-2" >
+        <select class="form-select" aria-label="Select Arrival City" name="arrival_city">
+          <option selected disabled>Select Arrival City:</option>
+          {% for city in cities %}
+              <option value="{{ city.id }}">{{ city.name }}</option>
+          {% endfor %}
+      </select>
+      </div>
+      <div class="col-2" >
+        <select class="form-select" aria-label="Select Arrival City" name="departure_city">
+          <option selected disabled>Select Departure City:</option>
+          {% for city in cities %}
+              <option value="{{ city.id }}">{{ city.name }}</option>
+          {% endfor %}
+      </select>
+      </div>
+
       <div class="col-2">
         <div data-mdb-input-init class="form-outline">
           <label class="form-label" for="form6Example2"><b> Arrival Time:</b> </label>
@@ -21,14 +39,39 @@
 
         </div>
     </div>
- 
 
 
-      <div class="col-2 mt-4">
-      <button type="submit" class="btn btn-success col-sm-12 col-md-10 col-lg-9 col-xl-8" name="submit">Submit</button>
+    <div class="row mb-4 justify-content-center " style="margin-top: 20px; margin-left: 300px; margin-right: 300px;">
+      <div class="col-2" >
+        <div data-mdb-input-init class="form-outline" >
+          <label class="form-label" for="form6Example1"><b>  Price:</b> </label>
+          <input type="number" id="form6Example1" class="form-control" name="price" required  />
+          
+        </div>
+      </div>
+      
+      <div class="col-2">
+        <div data-mdb-input-init class="form-outline">
+          <label class="form-label" for="form6Example2"><b> Availabe Seats:</b> </label>
+          <input type="number" id="form6Example2" class="form-control" name="seat_number"  required/>
+
+        </div>
+    </div>
+
+
+    <div class="row mb-4 justify-content-center " style="margin-top: 20px; margin-left: 300px; margin-right: 300px;">
+      <div class="col-2" >
+        <div data-mdb-input-init class="form-outline" >
+          <button type="submit" class="btn btn-success col-sm-12 col-md-10 col-lg-9 col-xl-8" name="submit">Submit</button>
+          
+        </div>
+      </div>
+  
+
+
 
     </div>
   </form>
 
-</div>
+
   {% endblock %}

@@ -9,12 +9,13 @@
         <div class="col">
             <div class="border shadow">
                 <h1>Book a Trip</h1>
+                <h2>{{ flight.departure_time }} -> {{ flight.arrival_time}}</h2>
 
-                <form method="post" action="{% url 'main:booking_trip_view' %}">
+
+                <form method="POST" action="{% url 'main:booking_trip_view' flight.id %}">
                     {% csrf_token %}
 
-                    <label for="username">username:</label>
-                    <input type="text" id="username" name="username" required><br>
+                    
                     
                     <label for="first_name">First Name:</label>
                     <input type="text" id="first_name" name="first_name" required><br>
@@ -22,17 +23,9 @@
                     <label for="last_name">Last Name:</label>
                     <input type="text" id="last_name" name="last_name" required><br>
             
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br>
+                   
             
-                    <label for="trip">Select a Trip:</label>
-                    <select id="trip" name="trip" required>
-                        {% for trip in trips %}
-                            <option value="{{ trip.id }}">{{ trip.departure_time }} - {{ trip.arrival_time }}</option>
-                        {% endfor %}
-                    </select><br>
-            
-                    <input type="submit" value="Book Trip">
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             
                 {% if msg %}
