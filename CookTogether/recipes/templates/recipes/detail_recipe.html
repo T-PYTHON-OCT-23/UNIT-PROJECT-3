@@ -12,11 +12,20 @@
 {% else %}
 <a href="{% url 'favorites:add_favorite_recipe' recipe.id %}"><i class="bi bi-heart-fill"></i></a>
 {% endif %}
-
+<div class="btn-group">
+  <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    Edit</button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalIngredient">Add ingredient</a></li>
+    <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleterecipe">Delete</a></li>
+    <li><a class="dropdown-item" href="{% url 'recipes:update_recipe' recipe.id %}">Update</a></li>
+  </ul>
 </div>
-<div class="d-flex gap-2 mt-4">
-<h4>{{recipe.cal}}Cal</h4>
-<h4><span class="material-symbols-outlined">schedule</span>{{recipe.time}} min</h4>
+</div>
+<div class="d-flex align-items-center gap-2">
+<h4>{{recipe.cal}} Cal</h4>
+<span class="material-symbols-outlined">schedule</span> 
+<h4>{{recipe.time}} min</h4>
 </div>
 <h4 class="mt-4">{{recipe.description}}</h4>
 </div>
@@ -29,7 +38,6 @@
     {% if recipe.ingredients.count > 0 %}
     <div class="d-flex gap-2 justify-content-between align-items-center">
     <h3 class="text-success">Ingredients in this recipe</h3>
-    <a type="button" class="btn btn-success btn-sm px-2" data-bs-toggle="modal" data-bs-target="#ModalIngredient">Add ingredient</a>
     </div>
     <section class="row row-cols-12 row-cols-md-4">
       {% for ingredients in recipe.ingredients.all %}
@@ -74,6 +82,25 @@
         </div>
       </div>
 </div>
+
+<div class="modal fade" id="deleterecipe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleterecipe">Delete Recipe</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          Are you sure you want to delete {{recipe.name}} Recipe?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <a href="{% url 'recipes:delete_recipe' recipe.id %}" class="btn btn-danger">Yes, I want to delete it.</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <hr>
 <div class="row mt-3 m-1 gap-2">
 <div class="col detail p-2">
