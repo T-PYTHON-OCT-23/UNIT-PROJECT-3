@@ -89,8 +89,8 @@ def updateService(request : HttpRequest , service_id):
    
 
 def deleteService(request : HttpRequest , service_id):
-     if not request.user.is_staff:
-        return render(request, 'main/not_authorized.html' , status=401)
+     if not request.user.has_perm("services.delete_service"):
+               return render(request, "main/not_authorized.html", status=401)
      
      try:
         service = Service.objects.get(id = service_id)
@@ -113,6 +113,9 @@ def searchService(request : HttpRequest):
 def deleteReview(request : HttpRequest , review_id):
      
         try:
+            if not request.user.is_authenticated and  not request.user.has_perm("services.delete_review"):
+               return render(request, "main/not_authorized.html", status=401)
+            
             review = Review.objects.get(id = review_id)
             if request.user == review.user:
                 service_id = review.service.id

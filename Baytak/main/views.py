@@ -8,6 +8,8 @@ from .models import Contact
 def homePage(request : HttpRequest):
 
     return render(request ,"main/homePage.html")
+def not_found_view(request:HttpRequest):
+    return render(request,"main/not_found.html")
 
 def contact(request : HttpRequest ):
     try:

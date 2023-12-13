@@ -1,10 +1,11 @@
 {% extends 'main/base.html' %}
-{% load static %}
 
-{% block title %} About US  {% endblock %}
+
+{% block title %} Contacts  {% endblock %}
 {% block content  %}
 <div class ="wrapper pages-content">
     <div class = "row content d-flex flex-column align-items-center ">
+       <h1>Contacts</h1>
            {% for contact in contact %}  
             {{contact.comment}}
             {% endfor %}

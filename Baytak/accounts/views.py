@@ -73,7 +73,8 @@ def updateProfile(request: HttpRequest):
 
                 profile : Profile = request.user.profile
             
-                if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
+                if 'avatar' in request.FILES:
+                    profile.avatar = request.FILES["avatar"]
                 profile.city =request.POST["city"]
                 profile.mobileNumber = request.POST["mobileNumber"]
                 profile.save()

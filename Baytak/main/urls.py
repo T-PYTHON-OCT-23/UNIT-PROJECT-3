@@ -9,4 +9,5 @@ urlpatterns = [
     path("about", views.about, name="about"),
     path("thank", views.thank, name="thank"),
     path("disaplay/contact/", views.displayContact, name="allContact"),
+    path("notfound/",views.not_found_view, name="not_found_view"),
 ]

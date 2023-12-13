@@ -6,12 +6,14 @@
 <div class ="wrapper pages-content">
     <div class = "row content d-flex flex-column align-items-center ">
       <h1>My Requests</h1>
-        <div class="row row-cols-12 row-cols-md-3 g-2 align-items-center">
+        <div class=" align-items-center mt-3">
             {% if requests.count == 0 %}
-             <div class="alert alert-info">You don't have any request yet.</div>
+            <h2>You don't have any order yet.</h2>
             {% endif %}
+        </div>
+        <div class = "row d-flex flex-row mt-3 gap-2  justify-content-center">
             {% for request in requests %}
-            <div class="col-4 review d-flex flex-column mb-5 me-1  ">
+            <div class="col-4 review d-flex flex-column mb-5 me-1 align-items-center   ">
                   {{request.service.category}}<br>
                   {{request.service.name}}<br>
                   {{request.orderTime}}
@@ -20,9 +22,35 @@
                
                
             {% endfor %}
+          </div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Service Provider</th>
+                <th scope="col">Customer</th>
+                <th scope="col">Order Status</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            {% for request in requests %}
+            <tbody class="table-group-divider">
+              <tr>
+                <th scope="row">{{request.service.category}}</th>
+                <td>{{request.service.name}}</td>
+                <td>{{request.user.first_name}} {{request.user.last_name}}</td>
+                <td>{% if request.isDone == True %} Completed {% else %} Incomplete {% endif %}</td>
+                <td><a class="btn btn-dark  mb-3" href="{% url 'request:deleteRequest' request.id %}" >Delete</a></td>
+              </tr>
+              
+            </tbody>
+            {% endfor %}
+          </table>
+     
+
         </div>
         </div>
-     </div>
+     
 
 
 

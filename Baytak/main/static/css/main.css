@@ -25,7 +25,7 @@ body{
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    padding: 35vh 10vw;
+    
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@ body{
     border-radius: 15px;
     text-align: center;
     box-shadow: 100px;
-    margin-top: -20px;
+   
     
    
 }
@@ -77,15 +77,18 @@ body{
     color: white;
 }
 
-p h1 {
+p, h1,h2,h3,h4,h5,h6 {
+    font-family: 'Afacad', sans-serif;
     font-family: 'Barlow Condensed', sans-serif;
-font-family: 'Libre Baskerville', serif;
-font-family: 'Open Sans', sans-serif;
-font-family: 'Phudu', sans-serif;
-font-family: 'Playfair Display', serif;
-font-family: 'Roboto Slab', serif;
-font-family: 'Ubuntu', sans-serif;
-font-size: 20px;
+    font-family: 'Libre Baskerville', serif;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Phudu', sans-serif;
+    font-family: 'Playfair Display', serif;
+    font-family: 'Roboto Slab', serif;
+    font-family: 'Ubuntu', sans-serif;
+}
+.psize{
+    font-size: 20px;
 }
 .nav-item a{
     color: black;
@@ -96,8 +99,8 @@ height: 200px;
 border-radius: 100px;
 }
 .imgProfile{
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 
 }
 

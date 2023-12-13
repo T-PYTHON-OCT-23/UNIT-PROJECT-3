@@ -7,9 +7,9 @@
     <div class = "row content d-flex flex-column align-items-center ">
  <h1 class = "mt-5">Confirm order completion</h1>
 <div class ="col-6">
- <form action="{% url 'request:confirmRequest' service.id %}" method="POST" >
+ <form action="{% url 'request:confirmRequest' request.id %}" method="POST" >
               {% csrf_token %}
-                <h4>Has the request been completed?</h4>
+                <h4>Has the order been completed?</h4>
                 <select name="isDone" class="form-select mt-3">
                     <option value="True">yes</option>
                     <option value="False">no</option>     

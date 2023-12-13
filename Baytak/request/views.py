@@ -13,8 +13,7 @@ def addRequest(request:HttpRequest, service_id):
         if request.method == "POST":
             newRequest = Request(user = request.user, service = service, orderTime = request.POST["orderTime"])
             newRequest.save()
-        
-        return redirect("request:confirmRequest",service_id)
+            return redirect("request:confirmRequest", newRequest.id)
     
         
     
@@ -30,24 +29,40 @@ def veiwRequest(request: HttpRequest):
     
 
 def allRequest(request: HttpRequest):
-     
-     allRequest = Request.objects.order_by('-createdAt')
-     return render(request ,"request/allRequests.html" , {"allRequest" : allRequest})
+      if "category" in request.GET and request.GET["category"] =="Electrician and Plumber":
+            allRequest = Service.objects.filter(category__contains ="Electrician and Plumber")
 
-def confirmRequest(request: HttpRequest, service_id):
+      elif "category" in request.GET and request.GET["category"] =="Clining":
+            allRequest = Service.objects.filter(category__contains ="Clining")
+
+      elif "category" in request.GET and request.GET["category"] =="Water filling":
+            allRequest = Service.objects.filter(category__contains ="Water filling")
+            
+      elif "category" in request.GET and request.GET["category"] =="Moving furniture":
+            allRequest = Service.objects.filter(category__contains ="Moving furniture")
+      else:
+            allRequest = Request.objects.order_by('-createdAt')
+     
+     
+      return render(request ,"request/allRequests.html" , {"allRequest" : allRequest})
+
+def confirmRequest(request: HttpRequest, request_id):
   try: 
-    service = Service.objects.get(id = service_id) 
+   
+    newrequest=Request.objects.get(id = request_id)
+    
+   
     if request.method == 'POST':
-        confirm = Request( isDone = request.POST["isDone"])
-        confirm.save()
+        newrequest.isDone = request.POST["isDone"]
+        newrequest.save()
+        
         return redirect("main:thank")
      
-    return render(request ,"request/confirmRequest.html",{"service":service})
 
   except Exception as e:
-
-        return render(request, "main/not_found.html")
-
+      return redirect("main:not_found_view",{"msg":e})
+  
+  return render(request ,"request/confirmRequest.html",{"request":newrequest})
 def deleteRequest(request : HttpRequest , requset_id):
      
         try:

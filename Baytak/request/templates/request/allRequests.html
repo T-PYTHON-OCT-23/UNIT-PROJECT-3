@@ -10,6 +10,16 @@
             {% if requests.count == 0 %}
              <div class="alert alert-info">No order yet.</div>
             {% endif %}
+
+            <li class="nav-item dropdown mb-3">
+              <a class="  nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Electrician and Plumber">Electrician and Plumber</a></li>
+                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Clining">Clining</a></li>
+                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Water filling">Water filling</a></li>
+                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Moving furniture">Moving furniture</a></li>
+              </ul>
+            </li>
             <table class="table">
               <thead>
                 <tr>
@@ -25,8 +35,8 @@
                 <tr>
                   <th scope="row">{{request.service.category}}</th>
                   <td>{{request.service.name}}</td>
-                  <td>{{request.user.first_name}}{{request.user.last_name}}</td>
-                  <td>{{request.isDone}}</td>
+                  <td>{{request.user.first_name}} {{request.user.last_name}}</td>
+                  <td>{% if request.isDone == True %} Completed {% else %} Incomplete {% endif %}</td>
                   <td><a class="btn btn-dark  mb-3" href="{% url 'request:deleteRequest' request.id %}" >Delete</a></td>
                 </tr>
                 

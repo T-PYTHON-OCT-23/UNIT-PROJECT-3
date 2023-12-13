@@ -14,24 +14,24 @@
     <div class="col-6">
        
 
-        <form action="{% url 'accounts:registerPage' %}" method="POST" enctype="multipart/form-data" >
+        <form class="d-flex flex-column gap-1"  action="{% url 'accounts:registerPage' %}" method="POST" enctype="multipart/form-data" >
             {% csrf_token %}
-            <label>UserName:</label>
+            <label class="align-self-start">UserName:</label>
             <input class="form-control " type="text" name="username"  />
 
-            <label>Fisrt Name:</label>
+            <label class="align-self-start">Fisrt Name:</label>
             <input class="form-control " type="text" name="first_name"  />
 
-            <label>Last Name:</label>
+            <label class="align-self-start">Last Name:</label>
             <input class="form-control " type="text" name="last_name"  />
     
-            <label>Email:</label>
+            <label class="align-self-start">Email:</label>
             <input class="form-control" type="email" name="email" required minlength="3" />
 
-            <label>Avatar:</label>
+            <label class="align-self-start">Avatar:</label>
             <input class="form-control" type="file" name="avatar" required  placeholder="choose avatar"/>
 
-            <label>Password:</label>
+            <label class="align-self-start">Password:</label>
             <input class="form-control" type="password" name="password" required minlength="8" />
 
 
