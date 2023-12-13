@@ -19,13 +19,18 @@
                 <h1>{{ art.title }}</h1>
                 <img class="detail-poster rounded-5 object-fit-cover" src="{{art.poster.url}}" />
 
+                
+
+            </div>
+        </div>
 
 <!-- Reviews Secgtion-->
-<hr />
 
+<hr />
+<br>
 {% if reviews.count > 0 %}
 <section class="row">
-  <h2>Reviews ({{reviews.count}}):</h2>
+  <h3>Reviews ({{reviews.count}}):</h3>
     <div class="col">
       <div class="d-flex flex-column gap-2">
         {% for review in reviews %}
@@ -34,7 +39,7 @@
             <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
             <div class="d-flex gap-2 align-items-center">
               <h5 class="p-0 m-0"></h5>
-              <span class="material-symbols-outlined">star</span>
+              <span class="material-symbols-outlined"></span>
             </div>
           </div>
           
@@ -52,12 +57,12 @@
 <section class="row mt-5">
 
   {% if request.user.is_authenticated %}
-  <h2>Add Review Reviews:</h2>
+  <h3>Add Review Reviews:</h3>
   <div class="col-6">
 
     <form class="d-flex flex-column gap-2" action="{% url 'Art:add_review_view' art.id  %}" method="POST" >
       {% csrf_token %}
-      >
+      
 
       <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
 
@@ -79,5 +84,5 @@
 
 
 </section>
-
+<br>
 {% endblock %}

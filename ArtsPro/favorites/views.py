@@ -7,12 +7,13 @@ from .models import Favorite
 from Art.models import Art
 
 
+
 def add_favorite_view(request:HttpRequest, art_id):
 
     if not request.user.is_authenticated:
         return redirect("accounts:login_user_view")
     try:
-        art = art.objects.get(id=art_id)
+        art = Art.objects.get(id=art_id)
         user_favored = Favorite.objects.filter(user=request.user, art=art).first() 
         
 
@@ -21,7 +22,6 @@ def add_favorite_view(request:HttpRequest, art_id):
             new_favorite = Favorite(user=request.user, art=art)
             new_favorite.save()
         else:
-            
             user_favored.delete()
         return redirect("Art:art_detail_view", art_id=art.id)
     except Exception as e:

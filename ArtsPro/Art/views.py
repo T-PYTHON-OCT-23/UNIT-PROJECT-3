@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from .models import Art, Review
+from favorites.models import Favorite
 
 # Create your views here.
 def add_art_view(request: HttpRequest):
     if not request.user.is_staff:
-        return render(request, 'main/not_authorized.html' , status=401)
+        return render(request, "main/not_autherized.html" , status=401)
     
     msg = None
     if request.method == "POST":
@@ -71,7 +72,7 @@ def search_results_view(request: HttpRequest):
 
     if "search" in request.GET:
         keyword = request.GET["search"]
-        art = Art.objects.filter(name__contains=keyword)
+        art = Art.objects.filter(title__contains=keyword)
     else: 
        art =Art.objects.all()
 

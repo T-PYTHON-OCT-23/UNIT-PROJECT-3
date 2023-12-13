@@ -12,7 +12,7 @@
         {% endif %}
         {% for fav in favorites %}
             <div class="col">
-                <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded">
+                <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded ">
                     <img class="rounded" src="{{ fav.art.poster.url }}" />
                     <div>
                         <a href="{% url 'Art:art_detail_view' fav.art.id %}"><h4>{{ fav.art.title }}</h4></a>

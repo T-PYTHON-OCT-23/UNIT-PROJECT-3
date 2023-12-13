@@ -13,13 +13,21 @@ p {
 }
 
 .art-card a {
-    color: black ;
+    color: rgba(0, 0, 0, 0.395) ;
     transition: all .2s ease-out;
 }
 
 .art-card a:hover {
     color: rgb(183, 100, 255);
 }
+
+
+.fav-card a {
+
+    color:rgba(13, 8, 8, 0.395)
+}
+
+
 
 
 

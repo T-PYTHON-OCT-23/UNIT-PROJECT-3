@@ -12,7 +12,6 @@ class Favorite(models.Model):
 
     art = models.ForeignKey(Art, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

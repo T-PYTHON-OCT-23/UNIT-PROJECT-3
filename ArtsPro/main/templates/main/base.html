@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="container">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg  bg-body-tertiary">
         <div class="container-fluid">
           <a class="navbar-brand" href="{% url 'Art:art_home_view' %}">Art</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -32,7 +32,7 @@
                 
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" aria-disabled="true">Link</a>
+                <a class="nav-link disabled" aria-disabled="true"></a>
               </li>
 
               {% if request.user.is_authenticated %}
@@ -45,7 +45,7 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{% url 'favorites:my_favorites_view' %}" >Favorites</a>
+                  <a class="nav-link" href="{% url 'favorites:my_favorites_view' %}" >Favorites <i class="bi bi-balloon-heart"></i></i></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'accounts:logout_user_view' %}" >Log out</a>
@@ -56,8 +56,8 @@
                 </li>
               {% endif %}
             </ul>
-            <form  role="search" action="{% url 'Art:search_results_view' %}" method="get">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form  role="search" action="{% url 'Art:search_results_view' %}" method="GET">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>
@@ -79,6 +79,7 @@
 
 
 <!--footer-->
+<br>
 <footer class="bg-dark p-2 text-center">
     <div class="container">
     <p class="text-white">   All Right Reserved At Art Website </p>

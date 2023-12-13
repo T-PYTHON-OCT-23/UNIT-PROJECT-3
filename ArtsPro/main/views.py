@@ -14,5 +14,3 @@ def home_view(request: HttpRequest):
 
 
 
-def not_authorized_view(request: HttpRequest):
-   return render(request, "main/not_authorized.html")
