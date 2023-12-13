@@ -25,12 +25,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'Art:add_art_view'%}">Add art</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                 
-                </a>
-                
-              </li>
+              
               <li class="nav-item">
                 <a class="nav-link disabled" aria-disabled="true"></a>
               </li>
@@ -58,7 +53,7 @@
             </ul>
             <form  role="search" action="{% url 'Art:search_results_view' %}" method="GET">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              
             </form>
           </div>
         </div>
@@ -66,7 +61,7 @@
    
 
 <!-- Content -->
-<div class="wrapper">
+<div class="wrapper p-3">
       
     {% block content %}
 
@@ -80,7 +75,7 @@
 
 <!--footer-->
 <br>
-<footer class="bg-dark p-2 text-center">
+<footer class="bg-dark p-2 text-center mt-4">
     <div class="container">
     <p class="text-white">   All Right Reserved At Art Website </p>
     </div>

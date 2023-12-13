@@ -9,14 +9,21 @@
 <section class="container pt-4">
     <div class="row">
         <div class="col">
-            {% if not is_favored %}
-                      <a href="{% url 'favorites:add_favorite_view' art.id %}" class="favored"><h5 class="p-0 m-0"><i class="bi bi-heart"></h5></i></a>
-                      {% else %}
-                      <a href="{% url 'favorites:add_favorite_view' art.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
-                      {% endif %}
+            
 
-            <div class="d-flex flex-column gap-2">
-                <h1>{{ art.title }}</h1>
+            <div class="d-flex flex-column gap-2 ">
+                <div class="d-flex align-items-center align-items-center gap-3  ">
+
+                    
+                <h4>{{ art.title }} </h4>{% if not is_favored %}
+                    <a href="{% url 'favorites:add_favorite_view' art.id %}" class="favored"><h5 class="p-0 m-0 "><i class="bi bi-heart"></h5></i></a>
+                    {% else %}
+                    <a href="{% url 'favorites:add_favorite_view' art.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+                    {% endif %}
+
+
+                
+            </div>
                 <img class="detail-poster rounded-5 object-fit-cover" src="{{art.poster.url}}" />
 
                 
@@ -30,7 +37,7 @@
 <br>
 {% if reviews.count > 0 %}
 <section class="row">
-  <h3>Reviews ({{reviews.count}}):</h3>
+  <h4>Reviews ({{reviews.count}}):</h4>
     <div class="col">
       <div class="d-flex flex-column gap-2">
         {% for review in reviews %}
@@ -57,7 +64,7 @@
 <section class="row mt-5">
 
   {% if request.user.is_authenticated %}
-  <h3>Add Review Reviews:</h3>
+  <h4>Add Review Reviews:</h4>
   <div class="col-6">
 
     <form class="d-flex flex-column gap-2" action="{% url 'Art:add_review_view' art.id  %}" method="POST" >
@@ -66,7 +73,7 @@
 
       <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
 
-      <input type="submit" value="Add Review" class="btn btn-primary" />
+      <input type="submit" value="Add Review" class="btn btn-dark" />
     </form>
 
 

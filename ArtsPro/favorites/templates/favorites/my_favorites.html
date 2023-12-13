@@ -5,17 +5,23 @@
 
 {% block content %}
 <section class="container">
-    <h1>My Favorites</h1>
+    <div class="f mt-4">
+    <h3 >My Favorites</h3>
+    </div>
     <div class="row row-cols-12 row-cols-md-3 g-3">
         {% if favorites.count == 0 %}
-         <div class="alert alert-info">You don't have any favorites yet.</div>
+         <div class="alert alert-info ">You don't have any favorites yet.</div>
         {% endif %}
         {% for fav in favorites %}
             <div class="col">
-                <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded ">
+                <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded  mt-4">
                     <img class="rounded" src="{{ fav.art.poster.url }}" />
                     <div>
-                        <a href="{% url 'Art:art_detail_view' fav.art.id %}"><h4>{{ fav.art.title }}</h4></a>
+                        <a href="{% url 'Art:art_detail_view' fav.art.id %}">
+                            
+                            <h5>{{ fav.art.title }}</h5>
+                           
+                        </a>
                     </div>
 
                 </div>
