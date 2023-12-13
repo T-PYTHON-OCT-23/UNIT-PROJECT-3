@@ -9,12 +9,75 @@
 <section class="container pt-4">
     <div class="row">
         <div class="col">
+            {% if not is_favored %}
+                      <a href="{% url 'favorites:add_favorite_view' art.id %}" class="favored"><h5 class="p-0 m-0"><i class="bi bi-heart"></h5></i></a>
+                      {% else %}
+                      <a href="{% url 'favorites:add_favorite_view' art.id %}" class="favored"><i class="bi bi-heart-fill"></i></a>
+                      {% endif %}
 
             <div class="d-flex flex-column gap-2">
                 <h1>{{ art.title }}</h1>
                 <img class="detail-poster rounded-5 object-fit-cover" src="{{art.poster.url}}" />
 
 
+<!-- Reviews Secgtion-->
+<hr />
 
+{% if reviews.count > 0 %}
+<section class="row">
+  <h2>Reviews ({{reviews.count}}):</h2>
+    <div class="col">
+      <div class="d-flex flex-column gap-2">
+        {% for review in reviews %}
+        <div class="d-flex flex-column gap-2 border border-1 p-3">
+          <div class="d-flex justify-content-between align-items-center gap-1">
+            <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
+            <div class="d-flex gap-2 align-items-center">
+              <h5 class="p-0 m-0"></h5>
+              <span class="material-symbols-outlined">star</span>
+            </div>
+          </div>
+          
+          <h6 class="text-muted">{{ review.created_at }}</h6>
+
+          <p>{{ review.comment }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+</section>
+{% endif %}
+
+<section class="row mt-5">
+
+  {% if request.user.is_authenticated %}
+  <h2>Add Review Reviews:</h2>
+  <div class="col-6">
+
+    <form class="d-flex flex-column gap-2" action="{% url 'Art:add_review_view' art.id  %}" method="POST" >
+      {% csrf_token %}
+      >
+
+      <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
+
+      <input type="submit" value="Add Review" class="btn btn-primary" />
+    </form>
+
+
+  </div>
+
+  {%  else %}
+
+  <p class="p-3 border border-1 ">
+    To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+  </p>
+
+  {% endif %}
+</section>
+
+
+
+</section>
 
 {% endblock %}

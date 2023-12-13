@@ -11,3 +11,8 @@ def home_view(request: HttpRequest):
    reviews = Review.objects.all().order_by("created_at")[0:5]
    
    return render ( request , "main/index.html" ,{"arts" : arts ,"reviews" : reviews}) 
+
+
+
+def not_authorized_view(request: HttpRequest):
+   return render(request, "main/not_authorized.html")

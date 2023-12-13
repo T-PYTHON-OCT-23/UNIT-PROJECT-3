@@ -39,7 +39,7 @@
                 <li class="nav-item">
                   <div class="d-flex align-items-center">
                     <img class="rounded-circle avatar" src="{{ request.user.profile.avatar.url }}" />
-                    <a class="nav-link m-0" href="{% url 'accounts:user_profile_view'  request.user.id %}">welcome, {{ request.user.username }}</a>
+                    <a class="nav-link m-0" href="{% url 'accounts:user_profile_view'  request.user.id %}"> {{ request.user.username }}</a>
                   </div>
 
                 </li>
@@ -56,7 +56,7 @@
                 </li>
               {% endif %}
             </ul>
-            <form class="d-flex" role="search">
+            <form  role="search" action="{% url 'Art:search_results_view' %}" method="get">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -76,13 +76,15 @@
 
     <!-- End Content -->
 
-<!-- Footer -->
 
-<div class="container pt-5">
-    <footer class="py-5">
-      <div class="row">
-        <div class="col-6 col-md-2 mb-3">
-          <h5>All Rights reseved 2023</h5>
+
+<!--footer-->
+<footer class="bg-dark p-2 text-center">
+    <div class="container">
+    <p class="text-white">   All Right Reserved At Art Website </p>
+    </div>
+    
+  </footer>
           
         </div>
 
