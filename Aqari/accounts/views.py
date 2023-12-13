@@ -32,7 +32,7 @@ def register_user_view(request: HttpRequest):
             send_mail( subject, message, email_from, recipient_list )
 
 
-            return render(request,"accounts/welcome_email.html")
+            return render(request,"accounts/welcome_email.html",{"user":user})
         except IntegrityError as e:
             msg = f"Please select another username"
         except Exception as e:
