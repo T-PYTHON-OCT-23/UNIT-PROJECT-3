@@ -129,9 +129,8 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 
 
 ## Edit the README.md file to include (include the info at the top):
-- Project Name
-- Project Description
-- Features list.
+- Hospital project
+- The visitor can browse the site, register on it, review the available clinics, know the names of the available doctors, and book in one of the clinics. There is an account for the manager who is able to add clinics and delete clinics.
 
  
 
