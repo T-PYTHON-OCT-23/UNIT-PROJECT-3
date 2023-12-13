@@ -25,7 +25,7 @@ def add_favorite_view(request:HttpRequest, art_id):
             user_favored.delete()
         return redirect("Art:art_detail_view", art_id=art.id)
     except Exception as e:
-        return redirect("main:home_view")
+        return redirect("Art:art_home_view")
 
 
 def my_favorites_view(request: HttpRequest):

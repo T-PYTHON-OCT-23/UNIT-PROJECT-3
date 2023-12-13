@@ -15,10 +15,10 @@ def register_user_view(request: HttpRequest):
             #create a new user
             user = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
             user.save()
-
-            user_profile = Profile(user=user, avatar=request.FILES["avatar"], birth_date=request.POST["birth_date"])
+            user_profile = Profile(user=user,birth_date=request.POST["birth_date"])
+            if "avatar" in request.FILES:
+                user_profile.avatar = request.FILES["avatar"]
             user_profile.save()
-
             return redirect("accounts:login_user_view")
         except IntegrityError as e:
             msg = f"Please select another username"
@@ -36,7 +36,7 @@ def login_user_view(request: HttpRequest):
         if user:
             #second: login the user
             login(request, user)
-            return redirect("main:home_view")
+            return redirect("Art:art_home_view")
         else:
             msg = "Please provide correct username and password"
 
