@@ -26,9 +26,9 @@
                     <th scope="col">PublicIP </th>
                     <th scope="col">ElasticIP </th>
                     <th scope="col">Platform </th>
-                    <th scope="col">Life_cycle </th>
+                    <th scope="col">Life cycle </th>
                     <th scope="col">High Availability </th>
-                    <th scope="col">Created_at </th>
+                    <th scope="col">Created At </th>
                     <th scope="col">Status </th>
                     <th scope="col">other</th>
                   </tr>
@@ -47,7 +47,17 @@
                     <td>{{show.high_availability}}</td>
                     <td>{{show.created_at}}</td>
                     <td>{{show.status}}</td>
-                    <td></td>
+                    <td>
+                        <lu class="dropdown me-4 text-decoration-none black">
+                            <a class="dropdown-toggle text-decoration-none block" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            more
+                            </a>
+                            <ul class="dropdown-menu">
+                            <li><a class="dropdown-item w-50" href="{% url 'services:edit_service_view' show.id %}">Show Request Detils</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="{% url 'services:delete_reqeust_view' show.id %}">Delete</a></li>
+                            </ul>
+                      </lu></td>
                   </tr>
                 </tbody>
                 {% endfor %}

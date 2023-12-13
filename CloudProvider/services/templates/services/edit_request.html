@@ -1,0 +1,139 @@
+{% extends 'home/base.html' %}
+{% block title %}
+<title>Request Service </title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <form class="row g-3" method="POST" action="{% url 'services:edit_request_view' service_request.id %}">
+        <h1>Edit Request</h1>
+        {% csrf_token %}
+        {% if massage %}
+        <div class="alert alert-danger" role="alert">
+            {{massage}}
+        </div>
+        {% endif %}
+        <div class="col-md-6">
+            <label for="private" class="form-label">Private Endpoint</label>
+            <select id="private" class="form-select" required name="private_endpoint">
+                <option value="{{service_request.private_endpoint}}" selected>{{service_request.private_endpoint}}</option>
+                {% for key,value in service_request.privates_endpoint.choices %}
+                <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Public Endpoint</label>
+            <select id="inputState" class="form-select" required name="public_endpoint">
+                <option value="{{service_request.public_endpoint}}" selected>{{service_request.public_endpoint}}</option>
+                {% for key,value in service_request.publics_endpoint.choices %}
+                <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12">
+            <div class="d-flex gap-3 justify-content-between ">
+                <div class="col-md-6">
+                    <label for="inputAddress" class="form-label">Public IP</label>
+                    <select id="inputState" class="form-select" required name="public_ip">
+                        <option value="{{service_request.public_ip}}" selected>{{service_request.public_ip}}</option>
+                        {% for key,value in service_request.publics.choices %}
+                        <option value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputAddress" class="form-label">Private IP</label>
+                    <select id="inputState" class="form-select" required name="private_ip">
+                        <option value="{{service_request.private_ip}}" selected>{{service_request.private_ip}}</option>
+                        {% for key,value in service_request.privates.choices %}
+                        <option value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-3">
+            <label for="inputAddress2" class="form-label">Elastic IP</label>
+            <select id="inputState" class="form-select" required name="elastic_ip">
+                <option value="{{service_request.elastic_ip}}" selected>{{service_request.elastic_ip}}</option>
+                {% for key,value in service_request.elastic_ips.choices %}
+                <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="inputCity" class="form-label">Life Cycles</label>
+            <select id="inputState" class="form-select" required name="life_cycle">
+                <option value="{{service_request.life_cycle}}" selected>{{service_request.life_cycle}}</option>
+                {% for key,value in service_request.life_cycles.choices %}
+                <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="inputState" class="form-label">High Availability</label>
+            <select id="inputState" class="form-select" required name="high_availability">
+                <option value="{{service_request.high_availability}}" selected>{{service_request.high_availability}}</option>
+                {% for key,value in service_request.high_availabilitys.choices %}
+                <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="col-md-3">
+            <label for="inputZip" class="form-label">Platform</label>
+            <select id="inputState" class="form-select" required name="platfrom">
+                <option value="{{service_request.platfrom}}" selected>{{service_request.platfrom}}</option>
+                {% for key,value in service_request.platforms.choices %}
+                <option value="{{key}}">{{value}}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="gridCheck" required>
+                <label class="form-check-label" for="gridCheck">
+                I agree to edit request
+                </label>
+            </div>
+        </div>
+
+        <div class="col-12">
+        <!--<button type="submit" class="btn btn-primary">Edit Request</button>-->
+        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="save">
+            Edit Request
+          </button>
+        </div>
+    </form>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Request</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure to edit the request?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" for="save">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

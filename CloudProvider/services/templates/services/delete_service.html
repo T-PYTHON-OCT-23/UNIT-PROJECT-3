@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+{% load static }
+{% block title %}
+<title>Services</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        {% if massage %}
+            <div class="alert alert-danger" role="alert">
+                {{massage}}
+            </div>
+        {% endif %}
+        {% for service in services %}
+
+        <div class="col-4 border mt-3 d-flex flex-column p-0 border rounded">
+            <a href="{% url 'services:service_detils_view' service.id %}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <img class="w-100 object-fit-cover" style="height: 400px;" src="{{ service.image.url }}" alt="service image">
+            </div>
+            </a>
+            <div class="d-flex justify-content-center align-items-center">
+                {{service.service_name}}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Service</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Are you sure to delete the service?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" href="{% url 'services:delete_service_now_view' service.id %}" class="btn btn-danger" for="save">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

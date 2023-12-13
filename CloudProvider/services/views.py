@@ -32,10 +32,13 @@ def show_services_view(request:HttpRequest):
     return render(request,'services/show_services.html',{"massage":massage,"services":service})
 
 # this for admin to edit new service 
-def edit_service_view(request:HttpRequest):
+def edit_service_view(request:HttpRequest,service_id):
     massage = ''
-    
-    return render(request,'services/edit_services.html',{"massage":massage})
+    try:
+        request_edit = ServiceDetails.objects.get(id=service_id)
+    except Exception as e:
+        massage = f'{e}'
+    return render(request,'services/review_service_request.html',{"massage":massage,'show':request_edit})
 
 # this is for both admin and user, admin can review the service and user can review his own service
 def review_service_view(request:HttpRequest):
@@ -89,3 +92,58 @@ def view_services_i_reqeust_view(request:HttpRequest):
         return redirect('user:login_view')
     
     return render(request,'services/view_services_i_request.html',{'massage':massage,'show_serivces':show_services})
+
+
+def delete_reqeust_view(request:HttpRequest,request_id):
+    try:
+        request_edit = ServiceDetails.objects.get(id=request_id)
+        request_edit.delete()
+        return redirect('services:view_services_i_reqeust_view')
+    except Exception as e:
+        massage = f'{e}'
+
+
+def edit_request_view(reqeust:HttpRequest,request_id):
+    massage = ''
+    try:
+        request_edit = ServiceDetails.objects.get(id=request_id)
+    except Exception as e:
+        massage = f'{e}'
+    
+    if reqeust.method == 'POST':
+        try:
+            new_edit_reqeust = ServiceDetails.objects.get(id=request_id)
+            new_edit_reqeust.private_endpoint = reqeust.POST['private_endpoint']
+            new_edit_reqeust.public_endpoint = reqeust.POST['public_endpoint']
+            new_edit_reqeust.private_ip = reqeust.POST['private_ip']
+            new_edit_reqeust.public_ip = reqeust.POST['public_ip']
+            new_edit_reqeust.elastic_ip = reqeust.POST['elastic_ip']
+            new_edit_reqeust.platfrom = reqeust.POST['platfrom']
+            new_edit_reqeust.life_cycle = reqeust.POST['life_cycle']
+            new_edit_reqeust.high_availability = reqeust.POST['high_availability']
+            new_edit_reqeust.save()
+            return redirect('services:edit_request_view',request_id=new_edit_reqeust.id)
+        except Exception as e:
+            massage = f'{e}'
+
+    return render(reqeust,'services/edit_request.html',{'service_request':request_edit,'massage':massage})
+
+
+def delete_service_view(request:HttpRequest):
+    massage = ''
+    try:
+        services = Service.objects.all()
+    except Exception as e:
+        massage = f'{e}'
+
+    return render(request,'services/delete_service.html',{'services':services,'massage':massage})
+
+def delete_service_now_view(request:HttpRequest,service_id):
+    massage = ''
+    try:
+        services = Service.objects.get(id=service_id)
+        services.delete()
+        return redirect('services:show_services_view')
+    except Exception as e:
+        massage = f'{e}'
+    return

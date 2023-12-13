@@ -5,5 +5,53 @@
 {% endblock %}
 
 {% block body %}
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Horizontal Cloud</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- Custom styles -->
+  </head>
+
+  <!-- Hero Section -->
+  <header class="jumbotron jumbotron-fluid text-center">
+    <div class="container">
+      <h1 class="display-4">Horizontal Cloud, Is your Way</h1>
+      <p class="lead">Empowering businesses with scalable and reliable cloud solutions.</p>
+      <a class="btn btn-warning btn-lg" href="{% url 'services:show_services_view' %}">Get Started</a>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="container mt-5">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>Scalability</h2>
+        <p>Scale your infrastructure on-demand to meet the growing needs of your business.</p>
+      </div>
+      <div class="col-md-4">
+        <h2>Reliability</h2>
+        <p>Experience high availability and reliability with our robust cloud infrastructure.</p>
+      </div>
+      <div class="col-md-4">
+        <h2>Security</h2>
+        <p>Protect your data with industry-leading security measures and compliance standards.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section -->
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h2 class="mb-4">Ready to Transform Your Business?</h2>
+      <p class="lead">Explore our cloud services and take your business to new heights.</p>
+      <a class="btn btn-warning btn-lg" href="{% url 'services:show_services_view' %}">Get Started</a>
+    </div>
+  </section>
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 {% endblock %}
