@@ -18,4 +18,4 @@ from .models import StableRequest
 # def my_request_view(request:HttpRequest):
 #     requests=StableRequest.objects.filter(user=request.user)
 
-#     return render(request, "request")
+#     return render(request, "request/....")

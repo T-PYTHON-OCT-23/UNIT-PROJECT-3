@@ -19,7 +19,7 @@ class Menu(models.Model):
     price=models.IntegerField(default=0)
 
 class MenuRequest(models.Model):
-    product=models.ForeignKey(Menu,on_delete=models.CASCADE)
+    menu=models.ForeignKey(Menu,on_delete=models.CASCADE)
     user=models.ForeignKey(User, on_delete=models.CASCADE)
     created_at=models.DateTimeField(auto_now_add=True)
     note=models.TextField(default="")

@@ -26,7 +26,7 @@
       </button>
       <ul class="dropdown-menu">
         {% if  perms.delivery.delete_store %}
-        <li><a class="dropdown-item" href="{ % url 'delete_store_views' store.id % }">delete Store </a></li>
+        <li><a class="dropdown-item" href="{ % url 'delete_store_views' stores.id % }">delete Store </a></li>
         {%endif%}
         <li><a class="dropdown-item" href="{% url 'delivery:update_store_views' store.id %}">Update Store</a></li>
        
@@ -54,14 +54,43 @@
             <p class="card-text"><small class="text-body-secondary"> <span style="color: red;" class="material-symbols-outlined">
               payments</span> {{stores.price}} Riyal </small></p>
               
-            <a href="{% url 'main:order_view' %}" class="btn btn-primary">To order </a>
-
+              {% if request.user.is_authenticated %}
+              <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModalStore-{{stores.id}}">To order </a>
+              {% else %}
+              <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModalStore-{{stores.id}}">To order </a>
+              {%endif%}
           </div>
         </div>
       </div>
     </div>
   {%endfor%}
 </div>
+
+{% for store in stores %}
+<div class="modal" tabindex="-1" id="orderModalStore-{{store.id}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'delivery:add_menu_request_view' store.id %}" method="POST">
+          {% csrf_token %}
+
+          <input class="form-control" type="text" name="note" value="Enter your note" />
+          <input class="form-control" type="date" name="created_at"/>
+          
+        </form>
+          </div>
+      <div class="modal-footer">
+        <a href="{% url 'main:order_view' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes order</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
 
 <hr>
 

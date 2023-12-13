@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Store, Menu,StoreReview
+from .models import Store, Menu,StoreReview ,MenuRequest
 
 # Create your views here.
 
@@ -90,3 +90,25 @@ def update_store_views(request:HttpRequest,store_id):
 
         
     return render(request,"delivery/update_store.html",{"stores":store , "msg":msg})
+
+
+def add_menu_request_view(request:HttpRequest, menu_id):
+
+    menu=Menu.objects.get(id=menu_id)
+   
+
+    if request.method=="POST":
+        new_request=MenuRequest(user=request.user,menu=menu,note=request.POST["note"])
+        new_request.save()  
+        return redirect("main:order_view" ,new_request.id)
+    
+    
+
+def menu_request_view(request:HttpRequest):
+    try:
+        
+        my_request_stable=MenuRequest.objects.filter(user=request.user)
+
+        return render(request, "users/profile.html" ,{"requests":my_request_stable})
+    except Exception as e:
+        return render(request, "main/not_found.html")

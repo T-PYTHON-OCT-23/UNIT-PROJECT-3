@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import StableHorses, ServicesStable, Reviews
+from .models import StableHorses, ServicesStable, Reviews,StableRequest
 # Create your views here.
 
 def add_stable_views(request:HttpRequest):
+    msg=None
     if request.method =="POST":
         try:
             new_stable=StableHorses(name=request.POST["name"],city=request.POST["city"],description=request.POST["description"],rating=request.POST["rating"])
@@ -31,7 +32,7 @@ def stable_details_view(request:HttpRequest, stable_id):
         services=ServicesStable.objects.filter(stbleHorse=details)
         if request.method=="POST":
             if not request.user.is_authenticated:
-                pass
+                return render(request, "main/not_authenticated.html", status=401)
 
             reviews=Reviews(horses=details,user=request.user,rating=request.POST["rating"],comment=request.POST["comment"])
             reviews.save()
@@ -62,9 +63,6 @@ def delete_stable_views(request:HttpRequest, stable_id):
     return redirect( "horses:home_stable_view")
 
 
-
-
-
 def update_stable_views(request:HttpRequest,stable_id):
     msg=None
     stable= StableHorses.objects.get(id=stable_id)
@@ -85,24 +83,47 @@ def update_stable_views(request:HttpRequest,stable_id):
         
     return render(request,"horses/update_stable.html",{"stable":stable , "msg":msg})
 
+def search_horses_view(request:HttpRequest):
+    if "search" in request.GET:
+        return_search=request.GET["search"]
+        horse=StableHorses.objects.filter(name__contains=return_search)
+    else:
+        horse = StableHorses.objects.all()
+
+    return render(request, "horses/search.html",{"horses":horse})
 
 
 # def kkd():
 
 #     my_request_stable = StableREquest.objects.filter(user=request.user)
-
-
-# def stable_request_view(request:HttpRequest, service_id):
-
-#     service=ServicesStable.objects.get(id=service_id)
 #     my_request_stable=StableRequest.objects.filter(user=request.user)
 
-#     if request.method=="POST":
-#         new_request=StableRequest(user=my_request_stable,services=service,note=request.POST["note"])
-#         new_request.save()  
-#         return redirect("main:order_view")
+def add_stable_request_view(request:HttpRequest, service_id):
+
+    service=ServicesStable.objects.get(id=service_id)
+   
+
+    if request.method=="POST":
+        new_request=StableRequest(user=request.user,services=service,note=request.POST["note"])
+        new_request.save()  
+        return redirect("main:order_view" ,new_request.id)
     
-#         return render 
+
+
+def stable_request_view(request:HttpRequest):
+    try:
+        
+        my_request_stable=StableRequest.objects.filter(user=request.user)
+
+        return render(request, "users/profile.html" ,{"requests":my_request_stable})
+    except Exception as e:
+        return render(request, "main/not_found.html")
+
+    
+
+   
+
+  
 
 
 

@@ -61,9 +61,9 @@
             </span>{{service.duration_service}}</h6>
 
           {% if request.user.is_authenticated %}
-          <a href="{% url 'main:order_view' %}" class="btn btn-primary">To order </a>
+          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">To order </a>
           {% else %}
-          <a href="{% url 'main:order_view' %}" class="btn btn-primary">To order </a>
+          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">To order </a>
           {%endif%}
         </div>
      
@@ -71,6 +71,33 @@
   </div>
   {%endfor%}
 </div>
+
+
+{% for service in services %}
+<div class="modal" tabindex="-1" id="orderModal-{{service.id}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Order Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'horses:add_stable_request_view' service.id %}" method="POST">
+          {% csrf_token %}
+
+          <input class="form-control" type="text" name="note" value="Enter your note" />
+          <input class="form-control" type="date" name="created_at"/>
+          
+        </form>
+          </div>
+      <div class="modal-footer">
+        <a href="{% url 'main:order_view' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes order</button></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
 
 <div class="dropdown p-4">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

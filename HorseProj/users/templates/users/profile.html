@@ -11,7 +11,6 @@
                 <div class="d-flex flex-column gap-2">
                     <img  class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
                     <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
-
                 </div>
             </div>
             <div class="col-4">
@@ -20,32 +19,23 @@
                 <h3>You have horse {{user.profile.have_horse}}</h3>
                 <h3>  level your horse {{user.profile.level}}</h3>
                 <h3>{{user.profile.birth_date}}</h3>
-                
 
-
-
-               
             </div>
         </div>
     </section>
-    {% if servicesstable.stablerequest.count > 0 %}
-    <h2>Your order</h2>
-    <section class="row row-cols-12 row-cols-md-4">
-      {% for service in servicesstable.StableRequest.all %}
+    <!-- request in stable -->
+<section class="row">
+    <h3>My Order in Stable Horses ({{stablerequest.services.user_set.count}}):</h3>
+        <div class="col-3">
+            {% for request in stablerequest.services.user_set.all %}
+                <h4>{{request.user.first_name}} {{request.user.last_name}}</h4>
+                <h4>{{request.services.name}}</h4>
+                <h4>{{request.created_at}}</h4>
+                <h4>{{request.note}}</h4>
 
-      <div class="col">
-        <div class="d-flex gap-2 justify-content-between align-items-center">
-          <div class="d-flex align-items-center gap-3">
-            
-            <h5>{{ service.request.user.}}</h5>
-          </div>
+            {%endfor%}
         </div>
-      </div>
-      {% endfor %}
-
-    </section>
-
-    {% endif %}
+</section>
 
 
 {% endblock %}
