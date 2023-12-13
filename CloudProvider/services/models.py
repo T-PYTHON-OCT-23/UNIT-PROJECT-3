@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from datetime import date
 # Create your models here.
 
 
@@ -28,8 +28,10 @@ class ServiceDetails(models.Model):
     elastic_ips = models.TextChoices('elastic_ips',['True','False'])
     life_cycles = models.TextChoices('life_cycles',['True','False'])
     high_availabilitys = models.TextChoices('high_availabilitys',['True','False'])
+    statuss = models.TextChoices('statuss',['pending','running','terminate'])
 
-    service = models.OneToOneField(Service,on_delete=models.CASCADE)
+    service = models.ForeignKey(Service,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
     private_endpoint = models.CharField(max_length=1024,choices=privates_endpoint.choices)
     public_endpoint = models.CharField(max_length=1024,choices=publics_endpoint.choices)
     private_ip = models.CharField(max_length=1024,choices=privates.choices)
@@ -38,17 +40,10 @@ class ServiceDetails(models.Model):
     platfrom = models.CharField(max_length=2024,choices=platforms.choices)
     life_cycle = models.BooleanField(default=False,choices=life_cycles.choices)
     high_availability = models.BooleanField(default=False,choices=high_availabilitys.choices)
+    created_at = models.DateField(auto_now_add=True)
+    status = status = models.CharField(max_length=10, choices=statuss.choices, default='pending')
 
     def __str__(self) -> str:
         return f'{self.service}'
 
 
-class ServiceRequest(models.Model):
-
-    service = models.ForeignKey(Service,on_delete=models.CASCADE)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
-
-
-    def __str__(self) -> str:
-        return f'{self.user} request {self.service}'

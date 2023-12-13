@@ -6,7 +6,54 @@
 
 
 {% block body %}
-
-
-
+{% if massage %}
+<div class="alert alert-danger" role="alert">
+    {{massage}}
+</div>
+{% endif %}
+<div class="container">
+    
+    <div class="row d-flex gap-2">
+        <h1>Service History</h1>
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Service</th>
+                    <th scope="col">Private Endpoint</th>
+                    <th scope="col">Public Endpoint</th>
+                    <th scope="col">PrivateIP</th>
+                    <th scope="col">PublicIP </th>
+                    <th scope="col">ElasticIP </th>
+                    <th scope="col">Platform </th>
+                    <th scope="col">Life_cycle </th>
+                    <th scope="col">High Availability </th>
+                    <th scope="col">Created_at </th>
+                    <th scope="col">Status </th>
+                    <th scope="col">other</th>
+                  </tr>
+                </thead>
+                {% for show in show_serivces %}
+                <tbody>
+                  <tr>
+                    <th scope="row">{{show.service.service_name}}</th>
+                    <td>{{show.private_endpoint}}</td>
+                    <td>{{show.public_endpoint}}</td>
+                    <td>{{show.private_ip}}</td>
+                    <td>{{show.public_ip}}</td>
+                    <td>{{show.elastic_ip}}</td>
+                    <td>{{show.platfrom}}</td>
+                    <td>{{show.life_cycle}}</td>
+                    <td>{{show.high_availability}}</td>
+                    <td>{{show.created_at}}</td>
+                    <td>{{show.status}}</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
+        </div>
+    </div>
+    
+</div>
 {% endblock %}
