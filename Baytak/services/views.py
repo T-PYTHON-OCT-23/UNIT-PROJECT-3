@@ -8,7 +8,14 @@ def addServices(request : HttpRequest):
         return render(request, 'main/not_authorized.html' , status=401)
 
     if request.method == "POST":
-        newService = Service(name = request.POST["name"], address = request.POST["address"], image = request.FILES["image"], about = request.POST["about"], nationality = request.POST["nationality"], duration = request.POST["duration"], quantity = request.POST["quantity"], city = request.POST["city"], category = request.POST["category"], price = request.POST["price"])
+        newService = Service(name = request.POST["name"], address = request.POST["address"], image = request.FILES["image"], about = request.POST["about"], category = request.POST["category"], price = request.POST["price"])
+        if "nationality" in request.POST:
+         newService.nationality = request.POST["nationality"]
+        if "duration" in request.POST:
+         newService.duration = request.POST["duration"]
+        if "quantity" in request.POST:
+         newService.quantity = request.POST["quantity"]
+
         newService.save()
         return redirect("main:homePage")
     
@@ -33,6 +40,7 @@ def viewServices(request : HttpRequest):
         else:
             service=Service.objects.all()
         userReviews = Review.objects.order_by('-createdAt')[0:3]
+        
         return render(request ,"services/viewServices.html" , {"service" : service , "userReviews" : userReviews})
     
     except  Exception as e:
@@ -67,9 +75,11 @@ def updateService(request : HttpRequest , service_id):
                 service.name = request.POST["name"]
                 service.address = request.POST["address"]
                 service.about=  request.POST["about"]
-                service.image = request.FILES["image"]
+                if 'image' in request.FILES:
+                
+                 service.image = request.FILES["image"]
+                
                 service.nationality = request.POST["nationality"]
-                service.city = request.POST["city"]
                 service.duration = request.POST["duration"]
                 service.quantity = request.POST["quantity"]
                 service.category = request.POST["category"]

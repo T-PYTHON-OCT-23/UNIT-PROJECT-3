@@ -12,10 +12,10 @@ class Service(models.Model):
     nationality = models.CharField(max_length=2048)
     duration = models.CharField(max_length=2048, choices=categories.choices)
     quantity = models.IntegerField(null=True)
-    city = models.CharField(max_length=2048)
+    
     category = models.CharField(max_length=2048,choices=categories.choices )
     price = models.FloatField(default=100.0)
-    
+
 class Review(models.Model):
     service =  models.ForeignKey(Service, on_delete=models.CASCADE)
     user =  models.ForeignKey(User, on_delete=models.CASCADE)

@@ -5,10 +5,31 @@
 {% block content  %}
 <div class ="wrapper pages-content">
     <div class = "row content d-flex flex-column align-items-center ">
-       <h1>Contacts</h1>
-           {% for contact in contact %}  
-            {{contact.comment}}
-            {% endfor %}
+       <h1>All Contacts</h1>
+              
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Comment</th>
+                  <th scope="col">Request Type</th>
+                  <th scope="col">Evaluation</th>
+                  
+                </tr>
+              </thead>
+              {% for contact in contact %}  
+              <tbody class="table-group-divider">
+                <tr>
+                  <th scope="row">{{contact.user.first_name}} {{contact.user.lasr_name}}</th>
+                  <td>{{contact.comment}}</td>
+                  <td>{{contact.requestType}}</td>
+                  <td>{{contact.evaluation}}</td>
+                  
+                </tr>
+                
+              </tbody>
+              {% endfor %}
+            </table>
      </div>
 </div>
 

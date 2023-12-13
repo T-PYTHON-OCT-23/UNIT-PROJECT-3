@@ -10,16 +10,9 @@
             {% if requests.count == 0 %}
              <div class="alert alert-info">No order yet.</div>
             {% endif %}
-
-            <li class="nav-item dropdown mb-3">
-              <a class="  nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Electrician and Plumber">Electrician and Plumber</a></li>
-                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Clining">Clining</a></li>
-                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Water filling">Water filling</a></li>
-                <li><a class="dropdown-item" href="{% url 'request:allRequest' %}?category=Moving furniture">Moving furniture</a></li>
-              </ul>
-            </li>
+             
+            </div>
+            
             <table class="table">
               <thead>
                 <tr>
@@ -30,6 +23,7 @@
                   <th scope="col">Delete</th>
                 </tr>
               </thead>
+              
               {% for request in allRequest %}
               <tbody class="table-group-divider">
                 <tr>

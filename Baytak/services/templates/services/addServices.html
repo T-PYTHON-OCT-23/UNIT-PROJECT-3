@@ -52,11 +52,12 @@
                         </label>
                     </div>
                 {% endfor %}
-               
+                {% endif %}
+                {% if request.GET.service == "Clining" %}
                 <label class="align-self-start">Nationality:</label>
                 <input class="form-control " type="text" name="nationality"  />
-
                 {% endif %}
+                
             
                 
                 <label class="align-self-start">Price:</label>

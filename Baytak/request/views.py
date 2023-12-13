@@ -20,31 +20,23 @@ def addRequest(request:HttpRequest, service_id):
 def veiwRequest(request: HttpRequest):
     try:
         
-        requests = Request.objects.filter(user = request.user)
+       requests = Request.objects.filter(user = request.user)
 
-        return render(request, 'request/userRequest.html', {"requests" : requests})
+       return render(request, 'request/userRequest.html', {"requests" : requests})
     except Exception as e:
 
         return render(request, "main/not_found.html")
     
 
 def allRequest(request: HttpRequest):
-      if "category" in request.GET and request.GET["category"] =="Electrician and Plumber":
-            allRequest = Service.objects.filter(category__contains ="Electrician and Plumber")
-
-      elif "category" in request.GET and request.GET["category"] =="Clining":
-            allRequest = Service.objects.filter(category__contains ="Clining")
-
-      elif "category" in request.GET and request.GET["category"] =="Water filling":
-            allRequest = Service.objects.filter(category__contains ="Water filling")
-            
-      elif "category" in request.GET and request.GET["category"] =="Moving furniture":
-            allRequest = Service.objects.filter(category__contains ="Moving furniture")
-      else:
-            allRequest = Request.objects.order_by('-createdAt')
+   try: 
+      allRequest = Request.objects.order_by('-createdAt')
      
      
       return render(request ,"request/allRequests.html" , {"allRequest" : allRequest})
+   except Exception as e:
+
+        return render(request, "main/not_found.html")
 
 def confirmRequest(request: HttpRequest, request_id):
   try: 

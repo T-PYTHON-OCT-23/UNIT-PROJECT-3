@@ -21,6 +21,8 @@
             {% if service.category == "Clining" %}
             <label>Nationality:</label>
             <h6>{{service.nationality}}</h6>
+            {% endif %}
+            {% if service.category == "Clining" %}
             <label>Duration:</label>
             <h6>{{service.duration}}</h6>
             {% endif %}
@@ -77,7 +79,7 @@
                 
                 {{ review.createdAt }}<br>
                 
-                {% if perms.services.delete_review %}
+                {% if perms.services.delete_review or review.user == request.user %}
                  
                 <a class="btn btn-dark  mb-3" href="{% url 'services:deleteReview' review.id %}" >Delete</a> 
                 {% endif %}
@@ -95,10 +97,10 @@
                             
             
                             <label>Comment:</label>
-                            <textarea class="form-control mt-3" name="comment"></textarea>
+                            <textarea class="form-control " name="comment"></textarea>
             
-                            <label>Rating:</label>
-                            <br>
+                            <label class = "mt-3">Rating:</label>
+                            
                             
                             <div class="rate ">
                                 <input type="radio" id="star5" name="rating" value="5" />
@@ -114,9 +116,9 @@
                             </div>
                             <br>
                             {% if request.user.is_authenticated %}
-                            <input class = "btn btn-dark text-center mt-3 mb-3"type = "submit" value = "Add Review" >
+                            <input class = "btn btn-dark text-center mb-3"type = "submit" value = "Add Review" >
                             {% else %}
-                            <input class = "btn btn-dark text-center mt-3 mb-3"type = "submit" disabled = "Add Review" >
+                            <input class = "btn btn-dark text-center  mb-3"type = "submit" disabled = "Add Review" >
                             {% endif %}
             
                         </div>
