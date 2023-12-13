@@ -7,7 +7,7 @@
     <div class="col">
         <div class="d-flex align-items-center gap-2 mt-4">
         <h2 class="text-success">{{ingredient.name}}</h2>
-        {% if request.user.is_staff %}
+        {% if request.user.is_superuser %}
         <div class="btn-group">
             <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
               Edit</button>
@@ -16,7 +16,7 @@
               <li><a class="dropdown-item" href="{% url 'ingredients:update_ingredient' ingredient.id %}">Update</a></li>
             </ul>
           </div>
-          {% endif %}
+          {% endif%}
         </div>
         <h4 class="mt-4">{{ingredient.description}}</h4>
     </div>

@@ -83,8 +83,6 @@ def delete_ingredients_from_recipe(request:HttpRequest, recipe_id,ingredient_id)
 
 
 def detail_ingredient(request : HttpRequest,ingredient_id):
-    if not request.user.is_superuser:
-        return render(request,'recipes/not_authorized.html')
     try:
         ingredient=Ingredient.objects.get(id=ingredient_id)
     except Exception:
