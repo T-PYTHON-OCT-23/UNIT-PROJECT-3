@@ -28,8 +28,24 @@
             </div>
         </div>
     </section>
+    {% if servicesstable.stablerequest.count > 0 %}
+    <h2>Your order</h2>
+    <section class="row row-cols-12 row-cols-md-4">
+      {% for service in servicesstable.StableRequest.all %}
 
+      <div class="col">
+        <div class="d-flex gap-2 justify-content-between align-items-center">
+          <div class="d-flex align-items-center gap-3">
+            
+            <h5>{{ service.request.user.}}</h5>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
 
+    </section>
+
+    {% endif %}
 
 
 {% endblock %}

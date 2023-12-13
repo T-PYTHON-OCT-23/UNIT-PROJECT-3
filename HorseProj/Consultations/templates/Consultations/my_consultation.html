@@ -4,8 +4,8 @@
 {%block title%} My Consultations {%endblock%}
 
 {% block contant %}
-<div class="container">
-    <h1> Welcome to Horse Sense</h1>
+<div class="container_services p-3">
+    <h1 class="contents"> Welcome to Horse Sense</h1>
     <p>We provide you with consultations for everything related to equestrianism
         Just enter your consultations and we will respond to you as soon as possible</p>
     <div class="row">
@@ -36,7 +36,7 @@
                 <label>Horse type</label>
                 <input class="form-control" type="text" name="horse_type" required >
 
-                <input class="btn btn-primary" data-bs-target="#sendModal" type="submit" value="Send" />
+                <input class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sendModal" type="submit" value="Send" />
 
             </form>
                 <hr>

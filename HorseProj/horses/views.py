@@ -5,13 +5,16 @@ from .models import StableHorses, ServicesStable, Reviews
 
 def add_stable_views(request:HttpRequest):
     if request.method =="POST":
-        new_stable=StableHorses(name=request.POST["name"],city=request.POST["city"],description=request.POST["description"],rating=request.POST["rating"])
-        if "img" in request.FILES:
-            new_stable.img=request.FILES["img"]
-        new_stable.save()
-        return redirect ("horses:home_stable_view")
+        try:
+            new_stable=StableHorses(name=request.POST["name"],city=request.POST["city"],description=request.POST["description"],rating=request.POST["rating"])
+            if "img" in request.FILES:
+                new_stable.img=request.FILES["img"]
+            new_stable.save()
+            return redirect ("horses:home_stable_view")
+        except Exception as e:
+            msg = f"An error occured, please fill in all fields and try again . {e}"
 
-    return render(request, "horses/add_stable.html")
+    return render(request, "horses/add_stable.html" ,{"msg":msg})
 
 
 
@@ -26,13 +29,13 @@ def stable_details_view(request:HttpRequest, stable_id):
     try:
         details=StableHorses.objects.get(id=stable_id)
         services=ServicesStable.objects.filter(stbleHorse=details)
-
         if request.method=="POST":
             if not request.user.is_authenticated:
                 pass
 
             reviews=Reviews(horses=details,user=request.user,rating=request.POST["rating"],comment=request.POST["comment"])
             reviews.save()
+
         reviews=Reviews.objects.filter(horses=details)
     except Exception as e :
         print(e)
@@ -58,23 +61,48 @@ def delete_stable_views(request:HttpRequest, stable_id):
 
     return redirect( "horses:home_stable_view")
 
+
+
+
+
 def update_stable_views(request:HttpRequest,stable_id):
+    msg=None
     stable= StableHorses.objects.get(id=stable_id)
 
     if request.method=="POST":
-        stable.name=request.POST["name"]
-        stable.city=request.POST["city"]
-        stable.description=request.POST["description"]
-        stable.rating=request.POST["rating"]
-        stable.img=request.FILES["img"]
-        stable.save()
+        try:
+            stable.name=request.POST["name"]
+            stable.city=request.POST["city"]
+            stable.description=request.POST["description"]
+            stable.rating=request.POST["rating"]
+            stable.img=request.FILES["img"]
+            stable.save()
 
-        return redirect("horses:stable_details_view",stable_id=stable.id)
-    
-    return render(request,"horses/update_stable.html",{"stable":stable})
+            return redirect("horses:stable_details_view",stable_id=stable.id)
+        except Exception as e:
+             msg = f"An error occured, please fill in all fields and try again . {e}"
+
+        
+    return render(request,"horses/update_stable.html",{"stable":stable , "msg":msg})
 
 
 
 # def kkd():
 
 #     my_request_stable = StableREquest.objects.filter(user=request.user)
+
+
+# def stable_request_view(request:HttpRequest, service_id):
+
+#     service=ServicesStable.objects.get(id=service_id)
+#     my_request_stable=StableRequest.objects.filter(user=request.user)
+
+#     if request.method=="POST":
+#         new_request=StableRequest(user=my_request_stable,services=service,note=request.POST["note"])
+#         new_request.save()  
+#         return redirect("main:order_view")
+    
+#         return render 
+
+
+

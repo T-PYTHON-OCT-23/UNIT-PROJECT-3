@@ -7,6 +7,11 @@
 <div class="container_services p-4">
     <h1 class="contents"> Welcome to Horse Sense , to add new stable </h1>
     <div class="row">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
         <div class="col-6">
 
             <form action="{% url 'horses:add_stable_views' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">

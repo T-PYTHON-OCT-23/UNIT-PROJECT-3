@@ -61,3 +61,7 @@ text-align: center;
     margin-top: -1rem;
 }
 
+.review{
+    background-color: rgba(165, 99, 42, 0.022);
+    border-radius: 20px;
+}

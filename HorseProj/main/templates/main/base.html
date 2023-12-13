@@ -33,7 +33,9 @@
                 </a> 
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'horses:home_stable_view' %}">All stables</a></li>
+                  {% if request.user.is_staff %}
                   <li><a class="dropdown-item" href="{% url 'horses:add_stable_views' %}">Add Stable</a></li>
+                  {%endif%}
                   <li><a class="dropdown-item" href="#">Visit stable</a></li>
                   <li><a class="dropdown-item" href="#">Horse riding training</a></li>
                 </ul>
@@ -45,7 +47,9 @@
                 </a> 
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'delivery:home_store_view' %}">All Store</a></li>
+                  {% if request.user.is_staff %}
                   <li><a class="dropdown-item" href="{% url 'delivery:add_store_view' %}">Add Store</a></li>
+                  {%endif%}
                 </ul>
               </li>
           

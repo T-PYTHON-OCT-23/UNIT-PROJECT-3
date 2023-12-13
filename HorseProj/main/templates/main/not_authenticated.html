@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{%block title%} Thank you {%endblock%}
+
+
+{% block contant %}
+<div class="container-base">
+    <div class="row">
+        <div class="col-8 ">
+            <h2 style="width: 900px; margin-top: 300px; margin-left: 250px; background-color: rgba(255, 255, 255, 0.458); border-radius: 30px;">
+                Sorry, you do not have permission to access this page</h2>
+
+            <a class="btn btn-light" style="margin-left: 450px;" href="{% url 'main:home_view'%}">TO backe Home</a>
+        </div>
+    </div>
+
+
+</div>
+
+
+{%endblock%}

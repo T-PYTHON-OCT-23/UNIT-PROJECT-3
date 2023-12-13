@@ -1,0 +1,40 @@
+{% extends 'main/base.html' %}
+
+{% block contant %}
+
+<div class="container-add container_services p-4">
+    <h1 class="contents">Update {{services.name}}:</h1>
+    <br>
+    <div class="row">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+        <div class="col-6">
+            <form action="{% url 'horses:update_service_views' service.id %}"method="POST">
+                {% csrf_token %}
+              
+                <label> Name service</label>
+                <input class="form-control" name="name_Servic" type="text" required minlength="4"/>
+                
+                <label>Description</label>
+                <input class="form-control" name="description_Servic" type="text" required minlength="10"/>
+
+                <label>Duration Service</label>
+                <input class="form-control" name="duration_service" type="text" required placeholder="1 week or day "/>
+
+                <label>Price</label>
+                <input class="form-control" name="price" type="text" required />
+            
+
+                <input class="btn btn-primary" type="submit" value="Update Service" />
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+{%endblock%}

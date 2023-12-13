@@ -5,6 +5,11 @@
 
 {% block contant %}
 <div class="container3 p-2">
+  {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+  {% endif %}
   <div class="d-flex flex-row justify-content-between ">
     <img src="{{store.img.url}}"width="600px" height="400px"/>
     <div class="d-flex flex-column g-4 justify-content-center">
@@ -13,16 +18,21 @@
       <h4> work time : {{store.work_time}}</h4>
       <h3>{{store.rating}} ★ </h3>
     </div>
+
+    {% if request.user.is_staff %}
     <div class="dropdown p-4">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Edit Store
       </button>
       <ul class="dropdown-menu">
+        {% if  perms.delivery.delete_store %}
         <li><a class="dropdown-item" href="{ % url 'delete_store_views' store.id % }">delete Store </a></li>
-        <li><a class="dropdown-item" href="#">Update Store</a></li>
+        {%endif%}
+        <li><a class="dropdown-item" href="{% url 'delivery:update_store_views' store.id %}">Update Store</a></li>
        
       </ul>
     </div>
+    {%endif%}
   </div>
   
 </div>
@@ -44,7 +54,7 @@
             <p class="card-text"><small class="text-body-secondary"> <span style="color: red;" class="material-symbols-outlined">
               payments</span> {{stores.price}} Riyal </small></p>
               
-            <a href="#" class="btn btn-primary">To order </a>
+            <a href="{% url 'main:order_view' %}" class="btn btn-primary">To order </a>
 
           </div>
         </div>
@@ -55,17 +65,17 @@
 
 <hr>
 
-
+  {% if request.user.is_staff %}
   <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Edit Menu 
       </button>
       <ul class="dropdown-menu">
         <li><a class="dropdown-item" href="{% url 'delivery:add_menu_view' store.id %}">Add Menu</a></li>
-        <li><a class="dropdown-item" href="#">Update Menu</a></li>
         <li><a class="dropdown-item" href="#">delete Menu</a></li>
       </ul>
     </div>
+    {%endif%}
 
     <section class="p-3">
       <div clss="row ">

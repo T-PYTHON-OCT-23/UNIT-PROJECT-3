@@ -16,17 +16,20 @@
       <h3>{{stable.rating}} ★ </h3>
     </div>
     
-
+    {% if request.user.is_staff %}
     <div class="dropdown p-2">
       <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
         Edit  
       </button>
       <ul class="dropdown-menu">
+        {% if  perms.horses.delete_stablehorses %}
         <li><a class="dropdown-item" href="{% url 'horses:delete_stable_views' stable.id %}"> delete Stable </a></li>
+        {%endif%}
         <li><a class="dropdown-item" href="{% url 'horses:update_stable_views' stable.id %}">Update Stable</a></li>
        
       </ul>
     </div>
+    {%endif%}
   </div>
   
 </div>
@@ -56,34 +59,39 @@
           <h6 class="card-subtitle mb-2 text-body-secondary"><span style="color: red;" class="material-symbols-outlined">
             calendar_month
             </span>{{service.duration_service}}</h6>
-          <a href="#" class="btn btn-primary">To order </a>
-       
+
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'main:order_view' %}" class="btn btn-primary">To order </a>
+          {% else %}
+          <a href="{% url 'main:order_view' %}" class="btn btn-primary">To order </a>
+          {%endif%}
         </div>
      
     </div>
   </div>
   {%endfor%}
 </div>
-<hr>
+
 <div class="dropdown p-4">
   <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
     Edit Service 
   </button>
+  {% if request.user.is_staff %}
   <ul class="dropdown-menu">
     <li><a class="dropdown-item" href="{% url 'horses:add_services_view' stable.id %}"> Add Service </a></li>
-    <li><a class="dropdown-item" href="#">Update Service</a></li>
-    <li><a class="dropdown-item" href="#">delete Service</a></li>
+    <li><a class="dropdown-item" href="#">Delete Service</a></li>
   </ul>
+  {%endif%}
 </div>
     
 
-<hr />
-<section class="p-3">
+<hr>
+<section class="p-3 ">
     <div clss="row ">
         <h2>Reviews</h2>
-        <div class="col-5">
+        <div class="col-5 d-flex flex-column gap-2 ">
             {% for review in reviews %}
-            <div>
+            <div class="review d-flex flex-column gap-2 border border-1 p-2 ">
                 <h3 id="name">{{review.user.username}}</h3>
                 <h3>{{review.rating}} <span class="material-symbols-outlined">grade</span></h>
                 <p>{{review.comment}}</p>
@@ -96,7 +104,7 @@
    
 </section>
  
-<div class="row add_rev">
+<div class="row add_rev p-3">
     <div class="col-6 ">
         <h5> Add Review</h5>
         <form action="{% url 'horses:stable_details_view' stable.id %}"method="post">
