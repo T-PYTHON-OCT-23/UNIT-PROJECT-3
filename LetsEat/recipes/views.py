@@ -3,6 +3,8 @@ from django.http import HttpRequest , HttpResponse
 from .models import Recipe, Review
 from favorites.models import Favorite
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
+
 
 # Create your views here.
 
@@ -22,12 +24,19 @@ def home_recipes_view(request: HttpRequest):
 
 
 def add_recipe_view(request:HttpRequest):
+          
+      if request.user.groups.filter(name='bloggers').exists():
+        return render(request, 'main/not_authorized.html')
+
       msg = None
+
       if request.method == "POST":
+
         try:
             new_recipe = Recipe(user=request.user, name=request.POST["name"], description=request.POST["description"], category=request.POST["category"] , preparing=request.POST["preparing"],ingredients=request.POST["ingredients"],picture = request.FILES["picture"] )
             new_recipe.save()
             return redirect("recipes:home_recipes_view")
+        
         except Exception as e:
             msg = f"Please fill in all fields and try again. {e}"
 
@@ -61,6 +70,9 @@ def recipe_detail_view(request:HttpRequest, recipe_id):
 
 
 def update_recipe_view(request: HttpRequest, recipe_id):
+    
+    if request.user.groups.filter(name='bloggers').exists():
+        return render(request, 'main/not_authorized.html')
 
     recipe = Recipe.objects.get(id= recipe_id)
 
@@ -81,57 +93,89 @@ def update_recipe_view(request: HttpRequest, recipe_id):
 
 
 def delete_recipe_view(request: HttpRequest, recipe_id):
+ 
+    if not request.user.groups.filter(name='manager').exists():
+        return render(request, 'main/not_authrized.html')
+
     msg=None
 
     recipe = Recipe.objects.get(id=recipe_id)
     recipe.delete()
    
-
     return redirect("recipes:home_recipes_view")
 
 
 def search_results_view(request: HttpRequest):
-
-    if "search" in request.GET:
-        keyword = request.GET["search"]
-        recipes = Recipe.objects.filter(name__icontains=keyword )
-        recipes = Recipe.objects.filter(category__icontains=keyword )
-        # recipes = User.objects.filter(username__icontains=keyword )
-
-    else:
-        recipes = Recipe.objects.all()
-    
-    recipe_count= recipes.count()
+    try:
+            if "search" in request.GET:
+                keyword = request.GET["search"]
+                recipes = Recipe.objects.filter(name__icontains=keyword )
+                recipes = Recipe.objects.filter(category__icontains=keyword )
+                # recipes = User.objects.filter(username__icontains=keyword )
+            else:
+                recipes = Recipe.objects.all()
+            
+            recipe_count= recipes.count()
+    except Exception as e:
+        return render(request, 'main/not_found.html')
 
     return render(request, "recipes/search_recipe.html", {"recipes" : recipes , "recipe_count":recipe_count})
-
+    
 
 
 def recipe_category_view (request: HttpRequest):
-    if "category" in request.GET and request.GET["category"] == "breakfast":
-        recipe = Recipe.objects.filter(category__icontains="breakfast")
+    try:
+        if "category" in request.GET and request.GET["category"] == "breakfast":
+            recipe = Recipe.objects.filter(category__icontains="breakfast")
 
-    elif "category" in request.GET and request.GET["category"] == "lunch":
-        recipe = Recipe.objects.filter(category__icontains="lunch")
+        elif "category" in request.GET and request.GET["category"] == "lunch":
+            recipe = Recipe.objects.filter(category__icontains="lunch")
 
-    elif "category" in request.GET and request.GET["category"] == "dinner":
-        recipe = Recipe.objects.filter(category__icontains="dinner")
+        elif "category" in request.GET and request.GET["category"] == "dinner":
+            recipe = Recipe.objects.filter(category__icontains="dinner")
 
-    elif "category" in request.GET and request.GET["category"] == "salad":
-        recipe = Recipe.objects.filter(category__icontains="salad")
+        elif "category" in request.GET and request.GET["category"] == "salad":
+            recipe = Recipe.objects.filter(category__icontains="salad")
 
-    elif "category" in request.GET and request.GET["category"] == "smoothie":
-        recipe = Recipe.objects.filter(category__icontains="smoothie")
+        elif "category" in request.GET and request.GET["category"] == "smoothie":
+            recipe = Recipe.objects.filter(category__icontains="smoothie")
 
-    elif "category" in request.GET and request.GET["category"] == "sweet":
-        recipe = Recipe.objects.filter(category__icontains="sweet")
-    else:
-        recipe = Recipe.objects.all()
+        elif "category" in request.GET and request.GET["category"] == "sweet":
+            recipe = Recipe.objects.filter(category__icontains="sweet")
+        else:
+            recipe = Recipe.objects.all()
 
+    except Exception as e:
+        return render(request, 'main/not_found.html')
+    
     recipe_count = recipe.count()
-
     return render(request, "recipes/recipe_home.html", {"recipes" : recipe , " recipe_count" :  recipe_count })
 
 
 
 
+#Groups permission
+
+def is_manager(user):
+    return user.groups.filter(name='manager').exists()
+
+@user_passes_test(is_manager)
+def admin_dashboard(request):
+    return render(request, 'main/not_authrized.html')
+
+
+def is_bloggers(user):
+    return user.groups.filter(name='bloggers').exists()
+
+@user_passes_test(is_bloggers)
+def admin_dashboard(request):
+    return render(request, 'main/not_authrized.html')
+
+
+
+def is_visiter(user):
+    return user.groups.filter(name='visiter').exists()
+
+@user_passes_test(is_visiter)
+def admin_dashboard(request):
+    return render(request, 'main/home.html')

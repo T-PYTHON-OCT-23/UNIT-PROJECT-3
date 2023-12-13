@@ -20,7 +20,7 @@
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
       <!-- Bootstrap Font Icon CSS -->
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-  
+ 
     </header>
 
 <body>
@@ -69,6 +69,7 @@
                           <li>Welcome, {{ request.user.username }} | <img class="rounded-circle avatar" style="width:30px; height: 30px; object-fit: cover;" src="{{ request.user.profile.avatar.url }}" /></li></a>
                       <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                         <li><a class="dropdown-item" href="{% url 'accounts:user_profile_view' request.user.id %}" >Profile</a></li>
+    
                         <li><a class="dropdown-item" href="{%url 'recipes:add_recipe_view' %}" >Share Recipe</a></li>
                         <li><a class="dropdown-item" href="{% url 'favorites:my_favorites_view' %}" >Saved</a></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:sign_out_view' %}">Sign out</a></li>

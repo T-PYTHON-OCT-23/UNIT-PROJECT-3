@@ -26,7 +26,7 @@ class Review(models.Model):
     date= models.DateField(auto_now_add=True)
     review= models.TextField()
     rating = models.IntegerField()
-    image = models.ImageField(upload_to="img/" , default="img/default.png")
+    image = models.ImageField(upload_to="review_img/" )
 
     def __str__(self):
         return f"{self.user} : {self.review}"

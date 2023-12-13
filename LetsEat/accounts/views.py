@@ -7,6 +7,8 @@ from django.db import IntegrityError
 from .models import Profile
 from recipes.models import Recipe
 from favorites.models import Favorite
+from django.db.models import Count
+
 # Create your views here.
 
 def sign_up_view (request:HttpRequest):
@@ -58,7 +60,7 @@ def user_profile_view(request: HttpRequest, user_id  ):
         # recipe= Recipe.objects.filter(user=request.user)
 
     except:
-        return render(request, 'main/home.html')
+        return render(request, 'main/not_found.html')
     
     return render(request, 'accounts/profile.html', { "user":user })
 
@@ -111,7 +113,9 @@ def user_recipes_view(request:HttpRequest ):
 
 def community_view (request:HttpRequest):
 
-    user_recipes = Recipe.objects.all()
-
-    return render(request ,  'accounts/community.html' ,{"user_recipes" :user_recipes  } )
-
+    distinct_users = Recipe.objects.values('user').annotate(recipe_count=Count('user')).filter(recipe_count__gt=0)
+    
+    # Get the User objects based on the distinct user IDs
+    users = User.objects.filter(id__in=[user['user'] for user in distinct_users])
+    
+    return render(request, 'accounts/community.html', {'users': users})

@@ -33,7 +33,7 @@
 
                 {% for key, value in categories.choices %}
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" required>
+                        <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{key}}" required>
                         <label class="form-check-label" for="{{key}}">
                         {{value}}
                         </label>
