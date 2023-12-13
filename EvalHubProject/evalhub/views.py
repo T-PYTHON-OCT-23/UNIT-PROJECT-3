@@ -71,27 +71,27 @@ def home_page_view(request: HttpRequest):
 
 def add_task_view(request: HttpRequest):
     msg = None
-    user=CustomUser(user=request.user)
+    employees=CustomUser.objects.filter(manager=request.user)
 
     if request.method == "POST":
         try:
-            new_task = Task(title=request.POST["title"], manager=request.user, employee=request.POST["employee"], description=request.POST["description"], due_date=request.POST["due_date"]) 
+            new_task = Task(title=request.POST["title"], manager=request.user, employee= User.objects.get(username=request.POST["employee"]), description=request.POST["description"], due_date=request.POST["due_date"]) 
             new_task.save()
             return redirect("evalhub:task_list")
         except Exception as e:
             msg = f"An error occured, please fill in all fields and try again . {e}"
 
-    return render(request, "evalhub/add_task.html", {"status_choices" : Task.status_choices ,  "msg" : msg, "user":user})
+    return render(request, "evalhub/add_task.html", {"status_choices" : Task.status_choices ,  "msg" : msg, "employees":employees})
 
 def task_list(request: HttpRequest):
 
-    as_m_tasks: Task = Task.objects.filter(manager=CustomUser(user=request.user))
-    as_e_tasks: Task = Task.objects.filter(employee=CustomUser(user=request.user))
+    as_m_tasks: Task = Task.objects.filter(employee=request.user)
+    as_e_tasks: Task = Task.objects.filter(manager=request.user)
 
     return render(request, 'evalhub/task_list.html', {'as_e_tasks': as_e_tasks , 'as_m_tasks': as_m_tasks})  
 
 def task_detail(request: HttpRequest, task_id):
-    task: Task = get_object_or_404(Task, pk=task_id, manager=request.user.customuser)
+    task: Task = get_object_or_404(Task, id=task_id)
     return render(request, 'evalhub/task_detail.html', {'task': task})  
 
 def feedback_detail(request: HttpRequest, task_id):

@@ -4,25 +4,32 @@
 {% block title %}Task List{% endblock %}
 
 {% block content %}
-  <h2>Task List</h2>
+<section class="container pt-4">
+    <div class="row">
+        <div class="col">
+            <div class="d-flex flex-column gap-2">
+                <h1>{{ task.title }}</h1>
+                <div class=" d-flex justify-content-between align-items-center">
+                    <div class="d-flex gap-1">
+                        <span class="releae ps-3 pe-3 bg-secondary rounded-pill text-white">{{task.due_date}}</span>
+                        <span class="cat ps-3 pe-3 rounded-pill text-white {{movie.category}}">{{task.status}}</span>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end ">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Edit</button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Update</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</a></li>
+                          <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#ModalActors">Add Actor</a></li>
+                        </ul>
+                      </div>
+                </div>
+                <p>{{ task.description }}</p>
+            </div>
+        </div>
+    </div>
 
-  {% if tasks %}
-    <ul>
-      {% for task in tasks %}
-        <li><a href="{% url 'task_detail' task.id %}">{{ task.title }}</a></li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No tasks available.</p>
-  {% endif %}
-
-
-  {% for key, value in status.choices %}
-  <div class="form-check">
-      <input class="form-check-input" type="radio" name="status" id="{{key}}" value="{{value}}" required>
-      <label class="form-check-label" for="{{key}}">
-      {{value}}
-      </label>
-  </div>
-{% endfor %}
+    <hr />
+</section>
 {% endblock %}

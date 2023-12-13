@@ -15,10 +15,6 @@ body {
   min-height: 70vh;
 }
 
-.navbar-dark.text-center span {
-  color: #111111;
-}
-
 #mainNavigation a {
   font-family: 'Cabin', sans-serif;
   font-size:14px;
@@ -51,12 +47,11 @@ a.dropdown-item:hover {
   top:0;
   left:0;
   width:100%;
-  z-index:123;
   padding-bottom:5px;
 }
 
 #navbarNavDropdown.collapsing .navbar-nav,
 #navbarNavDropdown.show .navbar-nav{
-  background:#b0dee5;
+  background:#111111;
   padding:12px;
 }

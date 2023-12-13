@@ -20,7 +20,6 @@
           <img src="/static/img/evalhub_logo.png" alt="logo" class="invert" style="max-width: 35%";/>
         </div>
       </nav>
-      <hr/>
       <div class="navbar-expand-md">
         <div class="navbar d-flex align-middle justify-content-center text-center my-2">
           <button class="navbar-toggler w-75" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,10 +38,13 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'evalhub:add_task_view'%}">Assign new task</a>
             </li>
-            {% endif %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Policy</a>
+              <a class="nav-link" href="#">My Reports</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">My Feedback</a>
+            </li>
+            {% endif %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 account

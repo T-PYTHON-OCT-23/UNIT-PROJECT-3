@@ -3,14 +3,12 @@ from django.contrib.auth.models import User
 
 
 class CustomUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    manager_of = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='m_employees')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="user") 
+    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="manager")
     performance_rating = models.FloatField(null=True, blank=True)
-    employee_of = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='e_manager')
-    about = models.TextField(default="")
+    about = models.TextField(default="",null=True, blank=True,)
     birth_date = models.DateField(null=True , blank=True)
     avatar = models.ImageField(upload_to="images/", default="images/avatar-default.png")
-    
 
     def __str__(self):
         return self.user.username
@@ -19,8 +17,8 @@ class Task(models.Model):
 
     status_choices = models.TextChoices("task_status", ["Done", "Late", "Progress", "Pending", "Canceled"])
 
-    manager = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned')
-    employee = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_required')
+    manager = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks_assigned')
+    employee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks_required')
     title = models.CharField(max_length=255)
     description = models.TextField()
     due_date = models.DateField()

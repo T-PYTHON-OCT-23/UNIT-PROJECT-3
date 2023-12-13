@@ -4,43 +4,42 @@
 
 {% block content %}
 
-<section class="container">
+<section class="container d-flex justify-content-center py-3">
 
-    <h1>Add new Task</h1>
 
-    <div class="row">
 
+    <div class="row w-50">
         {% if msg %}
         <div class="alert alert-danger" role="alert">
             {{ msg }}
         </div>
         {% endif %}
 
-        <div class="col-6">
+        <div class="col ">
             <!-- form for submitting the data -->
             <form action="{% url 'evalhub:add_task_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
                 {% csrf_token %}
-                <label>Task Title:</label>
+                <label class="d-flex justify-content-center">Task Title:</label>
                 <input class="form-control" type="text" name="title" placeholder="Task Title" required minlength="4" />
 
-                <label> Task Description:</label>
+                <label class="d-flex justify-content-center" > Task Description:</label>
                 <textarea class="form-control" name="description" required></textarea>
 
-                <label>Employee list:</label>
+                <label class="d-flex justify-content-center">Assign To :</label>
 
-                {% for key, value in user.manager_of %}
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="status" id="{{key}}" value="{{value}}" required>
-                        <label class="form-check-label" for="{{key}}">
-                        {{value}}
-                        </label>
-                    </div>
-                {% endfor %}
+               
+                <select name="employee" id="{{employee}}" value="{{employee}}" required>
+                    {% for employee in employees %}
+                    <option class="form-check-label d-flex justify-content-center" for="{{employee}}">
+                    {{employee}}
+                    </option>
+                    {% endfor %}
+                </select>
                 
-                <label>Task Due Date:</label>
+                <label class="d-flex justify-content-center">Task Due Date:</label>
                 <input class="form-control" name="due_date" type="date" required/>
 
-                <input class="btn btn-primary" type="submit" value=" Assign Task" />
+                <input class="btn btn-primary d-flex justify-content-center" type="submit" value=" Assign Task" />
             </form>
 
         </div>
