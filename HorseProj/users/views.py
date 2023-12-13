@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from .models import Profile
+from delivery.models import MenuRequest
 # Create your views here.
 
 
@@ -59,13 +60,13 @@ def logout_views(request:HttpRequest):
 def user_profile_view(request: HttpRequest, user_id):
 
     try:
-        
+        my_request_stable=MenuRequest.objects.filter(user=request.user)
         user = User.objects.get(id=user_id)
 
     except Exception as e :
         print(e)
 
-    return render(request, 'users/profile.html', {"user":user})
+    return render(request, 'users/profile.html', {"user":user ,"requests":my_request_stable})
 
 
 def update_user_view(request: HttpRequest):

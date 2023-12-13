@@ -7,6 +7,11 @@
     <div class="container_services p-4">
         <h1 class="contents"> Add New Service {{stable.name}}</h1>
         <div class="row">
+            {% if msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}
+            </div>
+            {% endif %}
             <div class="col-4">
 
                 <form action="{% url 'horses:add_services_view' stable.id %}" method="POST" class="d-flex flex-column gap-2">

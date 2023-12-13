@@ -44,16 +44,20 @@ def stable_details_view(request:HttpRequest, stable_id):
     return render(request , "horses/details_stable.html", {"stable":details , "services":services, "reviews":reviews})
 
 def add_services_view(request:HttpRequest,stable_id):
+    msg=None
     stable=StableHorses.objects.get(id=stable_id)
+    try:
 
-    if request.method=="POST":
-        
-        new_services=ServicesStable(stbleHorse=stable,name_Servic=request.POST["name_Servic"],description_Servic=request.POST["description_Servic"],duration_service=request.POST["duration_service"], price=request.POST["price"])
-        new_services.save()
-        return redirect("horses:stable_details_view", stable_id=stable.id)
+        if request.method=="POST":
+            
+            new_services=ServicesStable(stbleHorse=stable,name_Servic=request.POST["name_Servic"],description_Servic=request.POST["description_Servic"],duration_service=request.POST["duration_service"], price=request.POST["price"])
+            new_services.save()
+            return redirect("horses:stable_details_view", stable_id=stable.id)
+    except Exception as e :
+        msg = f"An error occured, please fill in all fields and try again . {e}"
     
 
-    return render (request, "horses/add_services.html", {"stable" : stable})
+    return render (request, "horses/add_services.html", {"stable" : stable ,"msg":msg})
      
     
 def delete_stable_views(request:HttpRequest, stable_id):

@@ -14,12 +14,12 @@
 
                 {% for horse in horses %}
 
-                    <div class="col-5">
+                    <div class="col-8 " style="color: white;">
                         
                         <div class="d-flex flex-column gap-2  border border-3 rounded-4 h-100 justify-content-start">
                         
-                                <img class="imgStable" src="{{stable.img.url}}" />
-                                <a class="text-decoration-none p-1 link1" href="{% url 'horses:stable_details_view' stable.id %}" ><h3> {{horse.name}}</h3></a>
+                                <img class="imgStable" src="{{horse.img.url}}" />
+                                <a class="text-decoration-none p-1 link1" style="color: white;" href="{% url 'horses:stable_details_view' horse.id %}" ><h3> {{horse.name}}</h3></a>
                                 <h3 class="p-1">{{horse.city}}</h3>
                                 <h5 class="p-1">{{horse.description}}</h5>
                                 <h3 class="p-1">{{horse.rating}} ★ </h3>
@@ -38,3 +38,7 @@
 
 
 {%endblock%}
+
+
+
+

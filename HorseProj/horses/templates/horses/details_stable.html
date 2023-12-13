@@ -61,9 +61,9 @@
             </span>{{service.duration_service}}</h6>
 
           {% if request.user.is_authenticated %}
-          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">To order </a>
+          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">Book now</a>
           {% else %}
-          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">To order </a>
+          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">Book now </a>
           {%endif%}
         </div>
      
@@ -78,7 +78,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Order Details</h5>
+        <h5 class="modal-title">Reservation  Details</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -89,9 +89,10 @@
           <input class="form-control" type="date" name="created_at"/>
           
         </form>
+        <p>Your reservation details will be sent to your email</p>
           </div>
       <div class="modal-footer">
-        <a href="{% url 'main:order_view' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes order</button></a>
+        <a href="{% url 'main:order_view' %}"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yes, book</button></a>
       </div>
     </div>
   </div>
@@ -99,17 +100,20 @@
 
 {% endfor %}
 
-<div class="dropdown p-4">
-  <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Edit Service 
-  </button>
-  {% if request.user.is_staff %}
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="{% url 'horses:add_services_view' stable.id %}"> Add Service </a></li>
-    <li><a class="dropdown-item" href="#">Delete Service</a></li>
-  </ul>
-  {%endif%}
-</div>
+
+{% if request.user.is_staff %}
+  <div class="dropdown p-4">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Edit Service 
+    </button>
+    
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="{% url 'horses:add_services_view' stable.id %}"> Add Service </a></li>
+      <li><a class="dropdown-item" href="#">Delete Service</a></li>
+    </ul>
+    
+  </div>
+{%endif%}
     
 
 <hr>

@@ -27,10 +27,6 @@ class StableRequest(models.Model):
     note=models.TextField(default="")
    
 
-    
-
-
-
 
 class Reviews(models.Model):
     horses=models.ForeignKey(StableHorses, on_delete=models.CASCADE)

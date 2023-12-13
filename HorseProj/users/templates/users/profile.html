@@ -5,15 +5,15 @@
 
 {% block contant %}
 
-    <section class="container">
-        <div class="row">
+    <section class="container-base">
+        <div class="row profile p-4">
             <div class="col-4">
-                <div class="d-flex flex-column gap-2">
-                    <img  class="w-100 rounded-circle" src="{{ user.profile.avatar.url }}" />
+                <div class=" d-flex flex-column gap-2">
+                    <img  class="w-80 " width="300px" src="{{ user.profile.avatar.url }}" />
                     <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-7">
                 <h1> {{user.first_name}} {{user.last_name}}</h1>
                 <p> {{user.profile.about}}</p>
                 <h3>You have horse {{user.profile.have_horse}}</h3>
@@ -23,19 +23,7 @@
             </div>
         </div>
     </section>
-    <!-- request in stable -->
-<section class="row">
-    <h3>My Order in Stable Horses ({{stablerequest.services.user_set.count}}):</h3>
-        <div class="col-3">
-            {% for request in stablerequest.services.user_set.all %}
-                <h4>{{request.user.first_name}} {{request.user.last_name}}</h4>
-                <h4>{{request.services.name}}</h4>
-                <h4>{{request.created_at}}</h4>
-                <h4>{{request.note}}</h4>
+    
 
-            {%endfor%}
-        </div>
-</section>
-
-
+ 
 {% endblock %}
