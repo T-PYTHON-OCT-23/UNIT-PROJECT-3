@@ -9,6 +9,9 @@ from django.core.mail import EmailMessage
 #To add e new event 
 def add_event_view(request: HttpRequest):
 
+    if not request.user.is_staff:
+        return render(request, "main/not_uth.html", status=401)
+
     if request.method == "POST":
         event = Event(title=request.POST["title"],content=request.POST["content"], posting_date=request.POST["posting_date"],category=request.POST["category"],image=request.FILES["image"],location=request.POST["location"])
         event.save()
@@ -41,13 +44,18 @@ def delete_event_view(request:HttpRequest,event_id):
 #To update the event
 def update_event_view(request: HttpRequest, event_id):
 
+    if not request.user.has_perm('events.add_event'):
+        return render(request, "main/not_uth.html", status=401)
+    
     event = Event.objects.get(id=event_id)
+
     if request.method == "POST":
         event.title = request.POST["title"]
         event.content = request.POST["content"]
         event.posting_date = request.POST["posting_date"]
         event.category = request.POST["category"]
         event.image = request.FILES["image"]
+        event.location = request.POST["location"]
         event.save()
 
         return redirect('events:event_details_view', event_id=event.id)
@@ -98,16 +106,19 @@ def add_ticket_view(request: HttpRequest, event_id):
         if not request.user.is_authenticated:
             return render(request, "main/not_uth.html", status=401)
 
-        event_id = Event.objects.get(id=event_id)
-        new_ticket = Ticket(event=event_id, user=request.user, quantity=request.POST["quantity"])  
+        event = Event.objects.get(id=event_id)
+        new_ticket = Ticket(event=event, user=request.user, quantity=request.POST["quantity"])  
         new_ticket.save()
+
+        tickets = Ticket.objects.filter(event=event)
+
 
         email_sent = False
         if request.method =='POST':
             name = request.user.username
             email = request.user.email
             quantity = request.POST['quantity']
-            bill_content = f"Yay! {name} Thank you for your purchase. Please find the bill attached. {quantity} Tickets was booked successfully! Your ticket number is: Q{new_ticket.id}{new_ticket.event.title} {new_ticket.event.location}"
+            bill_content = f"Yay! {name} Thank you for your booking. ({quantity}) Tickets was booked successfully! Your ticket number is:(RX{new_ticket.id}) in {new_ticket.event.title} | Location :{new_ticket.event.location}. See you there!"
             send_mail(
                 'The bill',#title
                 bill_content, #message
@@ -116,7 +127,7 @@ def add_ticket_view(request: HttpRequest, event_id):
                 fail_silently=False)
             email_sent = True
 
-        return redirect("events:event_details_view", event_id=event_id.id )
+        return render(request, "events/the_bill.html",{"event_detail": event, "tickets":tickets})
 
 
 
@@ -132,6 +143,12 @@ def events_home_view_catego(request: HttpRequest, cat):
 
     return render(request, "events/events_home.html", {"events" : events, "events_count" : events_count})
 
+
+def old_tickets_view(request: HttpRequest):
+
+    tickets = Ticket.Event.objects.filter().order_by("posting_date")
+
+    return render(request, "events/ticket_details.html", {"tickets":tickets})
 
 
 #Filtering the events from the old events
@@ -153,6 +170,7 @@ def new_events_view(request: HttpRequest):
 
 
 def add_review_view(request: HttpRequest, event_id):
+
 
     if request.method == "POST":
 

@@ -4,15 +4,16 @@
 
 {% block content %}
 
-<div class="container p-5">
+
+<div class="container1 m-5 p-5 border border-5 p-3 mb-2 bg-success-subtle text-emphasis-success">
     <div class="row">
-        <div class="col">
-            <h1>
-                You are registerd successfully yay!
-            </h1>
+        <div class="col m-5 text-center">
+            <h1>You are registered successfully!<span class="material-symbols-outlined">check_circle</span></h1>
             <h3>Now you can login to our website :</h3>
-            <a href="{% url 'accounts:login_user_view' %}">Login</a>
+            <a href="{% url 'accounts:login_user_view' %}" class="btn btn-primary">Login</a>
         </div>
+
     </div>
+
 </div>
 {% endblock %}

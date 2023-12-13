@@ -13,7 +13,7 @@ class Event(models.Model):
     content = models.TextField()
     posting_date = models.DateField()
     category = models.CharField(max_length=100, choices=categories.choices)
-    image = models.ImageField(upload_to="images/", default="images/default.jpg")
+    image = models.ImageField(upload_to="images/", default="images/defult.jpg")
     location = models.CharField(max_length=100)
 
     def __str__(self):

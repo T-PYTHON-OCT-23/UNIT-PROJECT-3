@@ -7,8 +7,7 @@
   <div class="row">
     <div class="col">
       <h1 class="d-flex justify-content-center align-items-center logo animate__animated animate__bounce">Evento</h1>
-      <h1 class="text-center m-5 animate__animated animate__bounce">Make it memorable. Find unique experiences.</h1>
-      <p class="text-center">Online platform that assists users to explore events and book online in various fields.</p>
+      <h1 class="text-center m-5 animate__animated animate__bounce">Don't just watch events, be in them.</h1>
       <form role="search" action="{% url 'events:search_page_view' %}" method="GET">
         <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
       </form>
@@ -40,6 +39,7 @@
       <div class="card p-3 border border-warning" style="width: 18rem;">
         <img src="{% static 'images/black-hat.jpg' %}" class="card-img-top" alt="the black hat">
         <div class="card-body">
+          <h6 class="fst-italic">The Black Hat</h6>
           <p class="card-text">The Black Hat event is a series of highly technical information security conferences that bring together from all world.</p>
         </div>
       </div>
@@ -48,6 +48,7 @@
       <div class="card p-3 border border-warning" style="width: 18rem;">
         <img src="{% static 'images/art-eve-background.jpg' %}" class="card-img-top" alt="art">
         <div class="card-body">
+          <h6 class="fst-italic">The Misk Art Week</h6>
           <p class="card-text">The Misk Art Week is a major annual event held in Riyadh, Saudi Arabia, to celebrating the arts and fostering creativity.</p>
         </div>
       </div>
@@ -56,7 +57,8 @@
       <div class="card p-3 border border-warning" style="width: 18rem;">
         <img src="{% static 'images/art1.jpg' %}" class="card-img-top" alt="art event">
         <div class="card-body">
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h6 class="fst-italic">The Diriyah Biennale </h6>
+          <p class="card-text">The Diriyah Biennale is a non-profit organization with the goal of fostering artistic expression and appreciation</p>
         </div>
       </div>
     </div>
@@ -64,6 +66,7 @@
       <div class="card p-3 border border-warning" style="width: 18rem;">
         <img src="{% static 'images/noor-ryd1.jpg' %}" class="card-img-top" alt="noor Riyadh">
         <div class="card-body">
+          <h6 class="fst-italic">Noor Riyadh Festival</h6>
           <p class="card-text">Noor Riyadh is an annual citywide festival of light and art that illuminates the capital of Saudi Arabia, Riyadh. .</p>
         </div>
       </div>
@@ -72,12 +75,35 @@
       <div class="card p-3 border border-warning" style="width: 18rem;">
         <img src="{% static 'images/enter-eve.jpg' %}" class="card-img-top" alt="entertainment event">
         <div class="card-body">
+          <h6 class="fst-italic">Boulevard World</h6>
           <p class="card-text">Boulevard World, also known as BLVD World, is a seasonal entertainment zone and located in Riyadh, Saudi Arabia.</p>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<hr>
+<h1 class="display-3 text-center">Top reviews</h1>
+
+<div class="container1 shadow p-3 mb-5 bg-body-tertiary rounded">
+  <div class="row">
+    {% for review in reviews %}
+      <div class="col shadow p-3 mb-5 bg-body-tertiary rounded m-3 p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3">
+        <a href="{% url 'events:event_details_view' review.event.id %}" class="link-dark link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h6>{{ review.event.title }}</h6></a>
+        <h6>Comment by : {{ review.user.first_name }}</h6></a>
+        <p>{{ review.comment }}</p>
+        <div class="d-flex gap-1 align-items-center">
+          <h6 class="p-0 m-0">{{ review.rating }}</h6>
+          <span class="material-symbols-outlined">grade</span>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+
 
 <hr/>
 
@@ -116,30 +142,6 @@
       </div>
     </div>
 
-  </div>
-</div>
-
-<div class="w3-container w3-black">
-  <h1 class="display-3">Features</h1>
-  <p>Features and Exclusive!</p>
-</div>
-
-<div class="w3-row-padding">
-  <div class="w3-third">
-    <h2>1.Booking Online <span class="material-symbols-outlined">local_activity</span>
-    </h2>
-    <p>You can booking your tickets online in our website.</p>
-    
-  </div>
-
-  <div class="w3-third">
-    <h2>2.Veraity of Events <span class="material-symbols-outlined">celebration</span></h2>
-    <p>You can discover all the events in our website.</p>
-  </div>
-
-  <div class="w3-third">
-    <h2>3.Only in one place <span class="material-symbols-outlined">festival</span></h2>
-    <p>Many events Categories in one place.</p>
   </div>
 </div>
 

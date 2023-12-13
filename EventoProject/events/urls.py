@@ -17,7 +17,7 @@ urlpatterns = [
     path("new/", views.new_events_view, name="new_events_view"),
     path("tickets/", views.my_tickets_view , name="my_tickets_view"),
     path("review/<event_id>/", views.add_review_view , name="add_review_view"),
-    path("re/<event_id>/", views.review_page_view, name="review_page_view")
-
+    path("review/<event_id>/", views.review_page_view, name="review_page_view"),
+    path("tickets/", views.old_tickets_view, name="old_tickets_view"),
 
 ]

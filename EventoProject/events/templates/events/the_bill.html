@@ -1,24 +1,12 @@
 {% extends 'main/base.html' %}
 
-{% block title %} The Tickets {% endblock %}
+{% block title %} Booking page {% endblock %}
 
 {% block content %}
 
-{% if tickets.count == 0 %}
-<div class="m-5 p-5 text-center">
-    <h1 class="display-3 m-5">
-        Ticket Details 
-        </h1>
-    <div class="alert alert-warning m-5">You don't have any Tickets yet.</div>
-    <a class="btn btn-outline-success" href="{% url 'events:events_home_view' %}">Discover Events</a>
-</div>
-{% endif %}
-
-{% if tickets.count > 0 %}
-
 <div class="d-flex justify-content-between">
     <h1 class="display-3 m-5">
-        Ticket Details ({{tickets.count}}) :
+        Ticket Details 
         </h1>
 </div>
 
@@ -27,7 +15,7 @@
     <div class="row d-flex justify-content-center align-items-center rounded-4 m-5 gap-2  ">
         {% for ticket in tickets %}
         <div class="border border-5 p-3 mb-2 bg-success-subtle text-emphasis-success">
-            <div class="col-9 display-4">Succeffully Booked <span class="material-symbols-outlined">
+            <div class="col-9 display-4">Successfully booked <span class="material-symbols-outlined">
                 check_circle
                 </span></div>
                 <hr>
@@ -38,7 +26,8 @@
                 <h6>Date : {{ ticket.event.posting_date }}</h6>
                 <br>Welcome, {{ ticket.user.first_name }} to {{ ticket.event.title }} you will had so much fun and will discover new things and many things.</div>
                 <div class="mt-4">
-                    <a href="{% url 'events:event_details_view' ticket.event.id %}" class="btn btn-outline-secondary">Event Details</a>
+                    <a href="{% url 'events:event_details_view' event_detail.id %}" class="btn btn-outline-secondary">Event Details</a>
+                    <a href="{% url 'events:my_tickets_view' %}" class="btn btn-outline-secondary">My Tickets</a>
                     <a href="{% url 'main:home_page_view' %}" class="btn btn-outline-secondary">Home</a>
                 </div>
         </div>
@@ -47,9 +36,5 @@
   </div>
 
 
-  
-  
-  
-{% endif %}
-
 {% endblock %}
+

@@ -9,12 +9,17 @@
     <h1 class="display-3 m-5">
         Event Details 
         </h1>
+
+        {% if request.user.is_staff %}
         <div class="dropdown mt-5 p-3">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Edit
             </button>
             <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="{% url 'events:new_events_view' %}">Update Event</a></li>
+
+            <li><a class="dropdown-item" href="{% url 'events:update_event_view' event_detail.id %}">Update Event</a></li>
+
+            {% endif %}
             {% if  perms.events.delete_event %}
 
             <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete Event</a></li>
@@ -33,20 +38,18 @@
             <img src="{{event_detail.image.url}}" class="img-fluid rounded-5 object-fit-cover" alt="Event image">
         </div>
         <div class="col-6">
-            <div class="d-flex justify-content-between">
-                <h1> Title: {{ event_detail.title }}</h1>
-                {% if not is_favored %}
-                <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                    </svg></h5></a>
-                {% else %}
-                    <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                    </svg></a>
-                {% endif %}
-
+            <div class="d-flex justify-content-start align-items-center">
+                <h1> Title: {{ event_detail.title }} </h1>
+              {% if not is_favored %}
+              <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored badge rounded-pill text-bg-danger"><h5 class="p-0 m-0"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                  <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                  </svg></h5></a>
+              {% else %}
+                  <a href="{% url 'favorites:add_favorite_view' event_detail.id %}" class="favored badge rounded-pill text-bg-danger"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" fill="currentColor"  class="bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                  </svg></a>
+              {% endif %}
             </div>
-            
             <h6 class="display-6"> Category: {{ event_detail.category }}</h6>
             <p class="display-6">Posting date: {{ event_detail.posting_date }}</p>
             <h6 class="display-6">Location : {{ event_detail.location }}</h6>
@@ -56,6 +59,7 @@
     </div>
 
 </div>
+
 <div class="box m-5">
     <div class="row">
         <div class="col-12">
@@ -67,158 +71,109 @@
 
 <hr>
 
+<div class="container">
+  <div class="row">
+    <h1 class="display-1">Booking Ticket </h1>
+    <hr>
+    <div class="col">
+      {% if request.user.is_authenticated %}
 
-    <div class="container1 ">
-        <div class="row">
-            <div class="col">
-                <h1 class="display-1">Booking Online </h1>
-            <hr>
-                
-    <div class="container1 mt-5">
-        <div class="row">
-            
-            <h4 class="display-4">Calender for your event</h4>
-            <div class="col">
-                <table class="table table-success table-striped-columns">
-                    <caption>Calender of your activites</caption>
-                    <thead>
-                    <tr>
-                        <th scope="col">Day/Month</th>
-                        <th scope="col">January</th>
-                        <th scope="col">February</th>
-                        <th scope="col">March</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">Activities</th>
-                        <td>Activity one </td>
-                        <td>Activity two </td>
-                        <td>Activity three </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Categories</th>
-                        <td>Famliy </td>
-                        <td>Kids</td>
-                        <td>Young people</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Locations</th>
-                        <td><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124441887!2d46.492868518795085!3d24.725455368508182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh!5e0!3m2!1sen!2ssa!4v1702423265197!5m2!1sen!2ssa" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></td>
-                        <td><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124441887!2d46.492868518795085!3d24.725455368508182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh!5e0!3m2!1sen!2ssa!4v1702423265197!5m2!1sen!2ssa" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></td>
-                        <td><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124441887!2d46.492868518795085!3d24.725455368508182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh!5e0!3m2!1sen!2ssa!4v1702423265197!5m2!1sen!2ssa" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+      <form action="{% url 'events:add_ticket_view' event_detail.id %}" method="POST">
+        {% csrf_token %}
+        <label>Quantity of Tickets*</label>
+        <select class="form-select text-center" name="quantity">
+            <option value="1">1 ticket</option>
+            <option value="2">2 tickets</option>
+            <option value="3">3 tickets</option>
+            <option value="4">4 tickets</option>
+            <option value="5">5 tickets</option>
+            </select>
+        <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+            <input class="btn btn-success" type="submit" value="Book Now!"/>
         </div>
+    </form>
+    {%  else %}
+
+    <p class="shadow p-3 mb-5 bg-body-tertiary rounded m-4">
+    To book a ticket please <a href="{% url 'accounts:login_user_view' %}" class="btn-outline-primary">sign in</a>.
+    </p>
+
+    {% endif %}
+
     </div>
 
+  </div>
 
-    {% if email_sent %}
-    <div class="alert alert-success" role="alert">
-    Yay! successfully booked, the bill was send to your email. <a href="{% url 'main:home_page_view' %}" class="alert-link">Home page</a>
+</div>
+
+
+{% if reviews.count > 0 %}
+<hr>
+<div>
+  <h1 class="display-3 m-5">Reviews ({{reviews.count}}):</h1>
+  <hr>
+</div>
+  <div class="container1 m-5 text-center">
+    <div class="row d-flex justify-content-center align-items-center">
+      {% for review in reviews %}
+      <div class="col-3 m-4 p-3 mb-2 bg-warning-subtle text-emphasis-warning shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+        <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
+        <p class="fst-italic">Comment: {{ review.comment }}</p>
+        <div class="d-flex gap-2 align-items-center justify-content-center">
+          <h5 class="p-0 m-0 ">{{review.rating}}</h5>
+          <span class="material-symbols-outlined">star</span>
+        </div>
+        <h6 class="fst-italic mt-4"> Created at: {{ review.created_at }}</h6>
+      </div>
+      {% endfor %}
     </div>
-    {% else %}
-
-    <section class="row mt-5 m-5">
-        <h2>Book ticket:</h2>
-        {% if request.user.is_authenticated %}
-        <form action="{% url 'events:add_ticket_view' event_detail.id %}" method="POST">
-            {% csrf_token %}
-            <label>Quantity of Tickets*</label>
-            <select class="form-select text-center" name="quantity">
-                <option value="1">1 ticket</option>
-                <option value="2">2 tickets</option>
-                <option value="3">3 tickets</option>
-                <option value="4">4 tickets</option>
-                <option value="5">5 tickets</option>
-                </select>
-            <div class="d-flex flex-column justify-content-center align-items-center mt-4">
-                <input class="btn btn-success" type="submit" value="Book Now!"/>
-            </div>
-        </form>
-
-
-        {%  else %}
-
-        <p class="p-3 border border-1 ">
-        To book a ticket please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
-        </p>
-
-        {% endif %}
-    </section>
+  </div>
 {% endif %}
 
-
-
-  {% if reviews.count > 0 %}
-  <section class="row">
-    <h2>Reviews ({{reviews.count}}):</h2>
-      <div class="col">
-        <div class="d-flex flex-column gap-2">
-          {% for review in reviews %}
-          <div class="d-flex flex-column gap-2 border border-1 p-3">
-            <div class="d-flex justify-content-between align-items-center gap-1">
-              <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
-              <div class="d-flex gap-2 align-items-center">
-                <h5 class="p-0 m-0">{{review.rating}}</h5>
-                <span class="material-symbols-outlined">star</span>
-              </div>
-            </div>
-            
-            <h6 class="text-muted">{{ review.created_at }}</h6>
-
-            <p>{{ review.comment }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-      
-  </section>
-  {% endif %}
-
   <hr>
-
-  <section class="row mt-5">
-
-    {% if request.user.is_authenticated %}
-    <h2 class="display-4">Add Review:</h2>
+  <div>
+    <h1 class="display-3 m-5">Add Review:</h1>
     <hr>
-    <div class="col m-4 p-5">
-
-      <form class="d-flex flex-column gap-2" action="{% url 'events:add_review_view' event_detail.id  %}" method="POST" >
-        {% csrf_token %}
-        <label>Rating:</label>
-        <select class="form-select" name="rating">
-          <option value="1">1 Star</option>
-          <option value="2">2 Star</option>
-          <option value="3">3 Star</option>
-          <option value="4">4 Star</option>
-          <option value="5">5 Star</option>
-        </select>
-
-        <label>Comment</label>
-        <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
-
-        <input type="submit" value="Add Review" class="btn btn-success" />
-      </form>
-
-
+  </div>
+    {% if request.user.is_authenticated %}
+   
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <form class="d-flex flex-column gap-2" action="{% url 'events:add_review_view' event_detail.id  %}" method="POST">
+            {% csrf_token %}
+            <label>Rating:</label>
+            <select class="form-select" name="rating">
+              <option value="1">1 Star</option>
+              <option value="2">2 Star</option>
+              <option value="3">3 Star</option>
+              <option value="4">4 Star</option>
+              <option value="5">5 Star</option>
+            </select>
+    
+            <label>Comment</label>
+            <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
+    
+            <input type="submit" value="Add Review" class="btn btn-outline-success" />
+          </form>
+    
+        </div>
+    
+      </div>
+    
     </div>
+    
 
     {%  else %}
 
-    <p class="p-3 border border-1 ">
+    <p class="shadow p-3 mb-5 bg-body-tertiary rounded m-4">
       To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
     </p>
 
     {% endif %}
-  </section>
 
 
 
-</section>
 
 
 

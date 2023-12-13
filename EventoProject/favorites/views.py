@@ -35,4 +35,16 @@ def my_favorites_view(request: HttpRequest):
 
 
 
+def old_favorites_view(request: HttpRequest):
+
+    favorites = Favorite.objects.filter().order_by("created_at")
+
+    return render(request, 'favorites/my_favorites.html', {"favorites" : favorites})
+
+
+def new_favorites_view(request: HttpRequest):
+
+    favorites = Favorite.objects.filter().order_by("-created_at")
+
+    return render(request, 'favorites/my_favorites.html', {"favorites" : favorites})
 

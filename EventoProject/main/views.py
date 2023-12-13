@@ -1,13 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+from events.models import Event, Review
+
 
 
 # Create your views here.
 
 def home_page_view(request: HttpRequest):
-    return render(request,"main/index.html")
+
+    reviews = Review.objects.all().order_by("-rating")[0:4]
+    
+    return render(request,"main/index.html" ,{"reviews" : reviews})
 
 
+def about_us_view(request: HttpRequest):
+    return render(request,"main/about_us.html")
 
 def contact_us_view(request):
 
