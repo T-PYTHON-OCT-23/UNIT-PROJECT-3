@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+  {%if not request.user.is_authenticated%}
+    <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{%url 'main:home_view' %}">AQARI</a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+    
+          <div class="navbar-collapse collapse" id="navbarsExample01" >
+            <ul class="navbar-nav me-auto mb-2">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{%url 'property:property_home_view' %}">All Properties</a>
+              </li>
+              {% if not request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'accounts:login_user_view' %}">Login</a>
+              </li>
+              {%endif%}
+              {% if request.user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'accounts:user_profile_view' request.user.id %}"><span class="material-symbols-outlined">
+                    account_circle
+                    </span><h6 class=" ">Your Profile</h6></a>
+              </li>
+              {%endif%}
+              <li class="nav-item">
+                
+                <li><a class="nav-link" href="{%url 'property:sale_property_list_view' %}">Buy</a></li>
+              
+            </li>
+              <li class="nav-item">
+                
+                  <li><a class="nav-link" href="{%url 'property:rental_property_list_view' %}">Rent</a></li>
+                
+              </li>
+              
+            </ul>
+            <form  role="search" action="{%url 'property:search_results_view' %}" method="GET">
+              <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+            </form>
+          </div>
+        </div>
+      </nav>
+      
+
+      
+      {%else%}
+      <nav class="navbar bg-body-tertiary fixed-top mb-5">
+        <div class="container-fluid">
+          
+          <a class="navbar-brand" href="{%url 'main:home_view' %}">AQARI</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <div class="dropdown">
+                <a href="{%url 'accounts:user_profile_view' request.user.id %}">
+                <img src="{{request.user.userprofile.profile_picture.url}}" alt="" width="32" height="32" class="rounded-circle me-2" style="object-fit: cover;">
+                </a>
+                <a href="{%url 'accounts:user_profile_view' request.user.id %}" class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                 
+                <strong >{{user.username}}</strong>
+                </a>
+
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+                  
+                  <li><a class="dropdown-item" href="{%url 'accounts:update_user_view' %}">Settings</a></li>
+                  
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{%url 'accounts:logout_user_view' %}">Sign out</a></li>
+                </ul>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <form class="d-flex mt-3" role="search" action="{%url 'property:search_results_view' %}" method="GET">
+                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'property:property_home_view' %}">All Properties</a>
+                </li>
+                <li class="nav-item">
+                
+                  <li><a class="nav-link" href="{%url 'property:sale_property_list_view' %}">Buy</a></li>
+                
+              </li>
+                <li class="nav-item">
+                  
+                    <li><a class="nav-link" href="{%url 'property:rental_property_list_view' %}">Rent</a></li>
+                  
+                </li>
+                <li class="nav-item">
+                  <a href="{%url 'property:add_property_view' %}" class="nav-link ">
+                    
+                    Add Property
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{% url 'property:sold_properties_view'  %}" class="nav-link">
+                    
+                    Properties sold
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{%url 'property:rented_properties_view' %}" class="nav-link ">
+                    
+                    Rented properties
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{%url 'property:purchases_properties_view' %}" class="nav-link ">
+                    
+                    Purchases Properties
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{%url 'property:rented_by_you_view' %}" class="nav-link ">
+                    
+                    The Property I Am Renting
+                  </a>
+                </li>
+                
+                <li class="nav-item">
+                  <a href="{%url 'property:property_customers_view' %}" class="nav-link">
+                    
+                    Customers
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{%url 'favorite:my_favorites_view' %}" class="nav-link">
+              
+                    My Favorites
+                  </a>
+                </li>
+                {%if perms.property.view_comment%}
+                <li class="nav-item">
+                  <a href="{%url 'property:comment_view' %}" class="nav-link">
+              
+                    All comments
+                  </a>
+                </li>
+                {%endif%}
+                {%if perms.property.view_rental%}
+                <li class="nav-item">
+                  <a href="{%url 'property:rent_view' %}" class="nav-link">
+              
+                    All Rental
+                  </a>
+                </li>
+                {%endif%}
+                {%if perms.property.view_sale%}
+                <li class="nav-item">
+                  <a href="{%url 'property:sale_view' %}" class="nav-link">
+              
+                    All Sale
+                  </a>
+                </li>
+                {%endif%}
+              </ul>
+             
+            </div>
+          </div>
+        </div>
+      </nav>
+      
+     
+    
+        {%endif%}
+
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

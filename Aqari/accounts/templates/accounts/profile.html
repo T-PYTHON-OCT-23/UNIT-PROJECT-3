@@ -1,0 +1,56 @@
+{% extends 'main/base.html' %}
+{% block title %} My Profile {% endblock %}
+{% block content %}
+
+<section class="row-cols-lg-3 row d-flex justify-content-center mt-5" > 
+
+  <div class="col-lg-9">
+    <div class="container1">
+        <h2 class="h2_profile">@{{user.username}}</h2>
+        <div class="user-profile">
+            <div class="profile-picture ">
+                <img class="rounded-circle" src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+            </div>
+            <div class="user-details">
+                <p><strong>First Name:</strong> {{ user.first_name}}</p>
+                <p><strong>Last name:</strong> {{ user.last_name}}</p>
+                <p><strong>Email:</strong> {{ user.email}}</p>
+                <p><strong>Phone:</strong> {{ user.userprofile.phone }}</p>
+                <p><strong>Address:</strong> {{ user.userprofile.address }}</p>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+{% if user.property_set.count != 0 %}
+
+  <h2 class="pb-2 border-bottom d-flex justify-content-center mt-5 border rounded">Your Properties</h2>
+  {%endif%}
+  <div class="container-fluid mt-5">
+    <div class="row h-100">
+      {% for property in user.property_set.all %}
+        <div class="col-lg-4 h-100">
+          <div class="d-flex">
+            {% if property.rental_price > 0 %}
+              <div class="me-1 mt-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small class="border text-bg-warning">For Rent</small>
+              </div>
+            {% endif %}
+            {% if property.sale_price > 0 %}
+              <div class="me-1 mt-3">
+                <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+                <small class="border text-bg-success">For Sale</small>
+              </div>
+            {% endif %}
+          </div>
+          <img src="{{ property.image.url }}" class="rounded w-100" style=" height: 20rem; object-fit: cover;">
+          <h2 class="fw-normal">{{ property.title }}</h2>
+          <p>Timestamp: {{ property.created_at }}</p>
+          <p><a class="btn btn-secondary" href="{% url 'property:detail_property_view' property.id %}">Edit»</a></p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+    
+{%endblock%}

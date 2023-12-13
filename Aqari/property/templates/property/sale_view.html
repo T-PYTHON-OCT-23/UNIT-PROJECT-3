@@ -1,0 +1,17 @@
+{% extends 'main/base.html' %}
+{% block title %} Comments {% endblock %}
+{% block content %}
+{%for sale in sale%}
+<div class="container" style="margin-top: 5rem;">
+<div class="card mb-3" style="width: 100%;">
+  <div class="card-body">
+    <h4 class="card-title">Property: {{sale.property.title}}</h4>
+    <h5 class="card-subtitle mb-3 text-body-secondary">Seller Name: {{sale.seller.first_name}}</h5>
+    <h5 class="card-subtitle mb-3 text-body-secondary">Buyer Name: {{sale.buyer.first_name}}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">sale Date: {{sale.purchase_date}}</h6>
+    <button class="btn btn-secondary"><a class="text-decoration-none text-white" href="{%url 'property:sale_detail_view' sale.id %}">Edit</a></button>
+  </div>
+</div>
+</div>
+{%endfor%}
+{%endblock%}

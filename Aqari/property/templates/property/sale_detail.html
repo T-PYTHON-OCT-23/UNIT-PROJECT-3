@@ -1,0 +1,35 @@
+{% extends 'main/base.html' %}
+{% block title %} Comments {% endblock %}
+{% block content %}
+{%for sale in sale%}
+<div class="container" style="margin-top: 5rem;">
+<div class="card mb-3" style="width: 100%;">
+  <div class="card-body">
+    <h4 class="card-title">Property: {{sale.property.title}}</h4>
+    <h5 class="card-subtitle mb-3 text-body-secondary">Seller Name: {{sale.seller.first_name}}</h5>
+    <h5 class="card-subtitle mb-3 text-body-secondary">Buyer Name: {{sale.buyer.first_name}}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">sale Date: {{sale.purchase_date}}</h6>
+    <button class=" btn btn-secondary" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" >Delete Sale</button>
+  </div>
+</div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Sale</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         do you want to delete the Sale? click yes if yes
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <a href="{%url 'property:delete_sale_view' sale.id %}" class="btn btn-danger">Yes, delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{%endfor%}
+{%endblock%}

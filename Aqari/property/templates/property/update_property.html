@@ -1,0 +1,101 @@
+{% extends 'main/base.html' %}
+{% block title %} Edit Properties {% endblock %}
+{% block content %}
+<section class="d-flex justify-content-center">
+<div class="col-md-7 col-lg-8 m-3 mt-5">
+  <div class="d-flex justify-content-center border rounded" style="margin-top: 5rem;margin-bottom: 3rem;">
+    <h4 class="">Update Property</h4>
+  </div>
+    <form class="needs-validation" action="{%url 'property:update_property_view' update_property.id %}" method="POST" enctype="multipart/form-data">
+      {% if msg %}
+      <div class="alert alert-danger" role="alert">
+          {{ msg }}
+        </div>
+        {%endif%}
+      {% csrf_token %}
+        <div class="row g-3">
+        <div class="col-sm-6">
+          <label for="firstName" class="form-label">Property Title</label>
+          <input type="text" class="form-control" name="title" id="firstName"  value="{{update_property.title}}" >
+          
+        </div>
+
+        <div class="col-sm-6">
+          <label for="PropertyArea" class="form-label">Property Area</label>
+          <input type="number" class="form-control" id="PropertyArea" name="area"  value="{{update_property.area}}" min="1">
+
+        </div>
+        <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="description" class="form-label">description</label>
+              <textarea  class="form-control" name="description" id="description" >{{update_property.description}}</textarea>
+              
+            </div>
+            <div class="col-sm-2">
+                <label for="RentalPrice" class="form-label">Rental Price</label>
+                <input type="number" class="form-control" name="rental_price" id="RentalPrice" value="{{update_property.rental_price}}">
+                
+              </div>
+              <div class="col-sm-2">
+                <label for="SalePrice" class="form-label">Sale Price</label>
+                <input type="number" class="form-control" name="sale_price" id="SalePrice"  value="{{update_property.sale_price}}">
+              </div>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="location" class="form-label">Property Location</label>
+                  <input type="text" class="form-control" name="location" id="location"  value="{{update_property.location}}" >
+                  
+                </div>
+                <div class="col-sm-2">
+                    <label for="bedrooms" class="form-label">Bedrooms</label>
+                    <input type="number" class="form-control" name="bedrooms" id="bedrooms" placeholder="bedrooms" value="{{update_property.bedrooms}}"min="1">
+                    
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="bathrooms" class="form-label">Bathrooms</label>
+                    <input type="number" class="form-control" name="bathrooms" id="bathrooms" value="{{update_property.bathrooms}}"min="1">
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="floor" class="form-label">Floor</label>
+                    <input type="number" class="form-control" name="floor" id="floor" placeholder="floor" value="{{update_property.floor}}"min="1">
+                    
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label for="image" class="form-label">Property Image</label>
+                      <div>
+                      <img src="{{update_property.image.url}}" style="width: 5rem;object-fit: cover;margin-bottom: 1rem;">
+                    </div>
+                      <input type="file" class="form-control" name="image" id="image" value="" accept="image/*">
+                
+                    </div>
+
+      <hr class="my-4">
+
+      <button class="w-100 btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#staticBackdrop" type="button">Continue to Update</button>
+    </form>
+  </div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Update Property</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do You want save the changes?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" >Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+{%endblock%}

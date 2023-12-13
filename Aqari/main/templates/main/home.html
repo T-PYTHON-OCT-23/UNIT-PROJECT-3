@@ -1,0 +1,79 @@
+{% extends 'main/base.html' %}
+{% block title %} AQARI {% endblock %}
+{% block content %}
+<div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class=""></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3" class="active" aria-current="true"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item">
+        
+        <img src="https://firebasestorage.googleapis.com/v0/b/aqari-ab54c.appspot.com/o/pexels-the-lazy-artist-gallery-1642125%20(2).jpg?alt=media&token=fa9ced22-e54c-4dba-bf6d-c9fedb046994" style="width: 100%;height: 35rem; object-fit: cover;" fill="var(--bs-secondary-color)">
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1>Join Us.</h1>
+            <p class="opacity-95 text-bg-dark rounded bg-opacity-25">Unlock the full potential of your property search! Join our community of savvy homeowners and prospective buyers today for exclusive access to the latest listings, personalized recommendations, and expert insights. Sign up now to find your dream property effortlessly</p>
+            <p><a class="btn btn-lg btn-secondary" href="{%url 'accounts:register_user_view'%}">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="https://firebasestorage.googleapis.com/v0/b/aqari-ab54c.appspot.com/o/pexels-pixabay-280221.jpg?alt=media&token=5c47ba8b-038f-42a6-b9fb-2d63e119c8f0" style="width: 100%;height: 35rem; object-fit: cover;" fill="var(--bs-secondary-color)">
+        <div class="container">
+          <div class="carousel-caption">
+            <h1>Discover real estate</h1>
+            <p class="opacity-95 text-bg-dark rounded bg-opacity-25">Embark on a journey to discover exceptional real estate opportunities. Uncover the perfect home that suits your lifestyle and aspirations. Join us in exploring the world of real estate, where your dream property awaits. Start your discovery today!</p>
+            <p><a class="btn btn-lg btn-secondary" href="{%url 'property:property_home_view' %}">Dream Home</a></p>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item active">
+        <img src="https://firebasestorage.googleapis.com/v0/b/aqari-ab54c.appspot.com/o/pexels-eziz-charyyev-1475938.jpg?alt=media&token=216912b3-fd6b-4e9c-8a6a-71c71effbfd7" style="width: 100%;height: 35rem; object-fit: cover;" fill="var(--bs-secondary-color)">
+        <div class="container">
+          <div class="carousel-caption text-end">
+            <h1>Effortlessly Add, Sell, or Rent Properties</h1>
+            <p class="opacity-95 text-bg-dark rounded bg-opacity-25">Discover the power of our website services, where you can effortlessly add, sell, or rent properties. Join our vibrant community to share your thoughts by adding comments to any property. Seamlessly engage in real estate transactions with other users, gaining insights into who is buying or renting from you. Your journey in the world of property ownership and investment starts here!</p>
+            <p><a class="btn btn-lg btn-secondary" href="{%url 'accounts:user_profile_view' request.user.id%}">Starts Here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  <div class="container marketing mt-5">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row h-100 d-flex justify-content-between">
+      <div class="col-lg-4 h-100">
+        <img src="https://firebasestorage.googleapis.com/v0/b/aqari-ab54c.appspot.com/o/pexels-binyamin-mellish-106399.jpg?alt=media&token=377ced5f-fa32-44c6-a5fd-e8675687f0d3" class="rounded" style="width: 100%;height: 100%;object-fit: cover;">
+        <h2 class="fw-normal">Rent</h2>
+        <p>Experience the comfort of a new home! Explore our available rental options and discover the perfect space to call your own. Your dream home awaits make the move today!</p>
+        <p><a class="btn btn-secondary" href="{%url 'property:rental_property_list_view' %}">Discover »</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4 h-100 ">
+        <img src="https://firebasestorage.googleapis.com/v0/b/aqari-ab54c.appspot.com/o/pexels-pixabay-53610.jpg?alt=media&token=e8899db9-8b33-46c6-9a14-cde7ecf69927" class="rounded" style="width: 100%;height: 100%;object-fit: cover;">
+        <h2 class="fw-normal">Buy</h2>
+        <p>Unlock the door to your future! Explore our exceptional properties for sale and find the perfect place to call home. Your dream home is just a step away seize the opportunity to own it today!</p>
+        <p><a class="btn btn-secondary" href="{%url 'property:sale_property_list_view' %}">Discover »</a></p>
+      </div><!-- /.col-lg-4 -->
+      
+    </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+   
+
+  </div>
+{%endblock%}

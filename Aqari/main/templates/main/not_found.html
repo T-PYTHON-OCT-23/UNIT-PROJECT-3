@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% block title %} AQARI {% endblock %}
+{% block content %}
+<section class="body_unthorized">
+    
+    <div class="container_unthorized">
+        {% if msg %}
+      <div class="alert alert-danger" role="alert">
+          {{ msg }}
+        </div>
+        {%endif%}
+        <div class="content_unthorized">
+            <h1>404 - Page Not Found</h1>
+            <p>The page you are looking for might be in another universe.</p>
+            <p>Return to <a class="a_unthorized" href="{% url 'main:home_view' %}">home</a> to continue.</p>
+        </div>
+    </div>
+</section>
+{%endblock%}

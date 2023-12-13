@@ -1,0 +1,46 @@
+{% extends 'main/base.html' %}
+{% block title %} Rented properties {% endblock %}
+{% block content %}
+
+
+
+    <div class="container">
+     
+        <div class="row">
+        <div class="col">
+        <table class="table caption-top">
+            <h1 class=" text-center mt-5 mb-2">List of Rented Properties </h1>
+            <hr/>
+            <thead>
+              <tr>
+                <th scope="col">Name Of Tenant</th>
+                <th scope="col">Property Title</th>
+                <th scope="col">Rent Price</th>
+                <th scope="col">Rent From</th>
+                <th scope="col">Rent To</th>
+              </tr>
+            </thead>
+            {% if msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}
+              </div>
+              {%endif%}
+              {% if rented.count == 0 %}
+          <div class="alert alert-info w-100">You don't have any Tenants yet.</div>
+                      {% endif %}
+            {% for rent in rented %}
+            <tbody>
+              <tr>
+                <th scope="row">{{rent.tenant.first_name}}</th>
+                <td>{{rent.property.title}}</td>
+                <td>{{rent.property.rental_price}}</td>
+                <td>{{rent.rent_from}}</td>
+                <td>{{rent.rent_to}}</td>
+              </tr>
+            </tbody>
+            {%endfor%}
+          </table>
+        </div>
+        </div>
+        </div>
+{%endblock%}

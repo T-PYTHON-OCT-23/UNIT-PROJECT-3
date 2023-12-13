@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+{% block title %} AQARI {% endblock %}
+{% block content %}
+<section class="body_unthorized">
+    <div class="container_unthorized">
+        <div class="content_unthorized">
+            <h1>Unauthorized Access</h1>
+            <p>You do not have permission to access this page.</p>
+            <p>Please <a class="a_unthorized" href="{% url 'accounts:login_user_view' %}">log in</a> to continue.</p>
+        </div>
+    </div>
+</section>
+{%endblock%}

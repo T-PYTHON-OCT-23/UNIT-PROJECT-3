@@ -1,0 +1,104 @@
+{% extends 'main/base.html' %}
+{% block title %} Settings {% endblock %}
+{% block content %}
+<section class="d-flex justify-content-center">
+
+  
+  <div class="col-md-7 col-lg-8 m-3 mt-5">
+    
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+          </div>
+          {%endif%}
+          <div class="d-flex justify-content-center border rounded" style="margin-top: 5rem;margin-bottom: 3rem;">
+      <h4 class="mb-3">Update Your Information</h4>
+    </div>
+      <form class="needs-validation"  action="{%url 'accounts:update_user_view' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row g-3">
+          <div class="col-sm-6">
+            <label for="firstName" class="form-label">First name</label>
+            <input type="text" class="form-control" id="firstName" name="first_name" placeholder="First Name" value="{{request.user.first_name}}">
+          </div>
+
+          <div class="col-sm-6">
+            <label for="lastName" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Last Name" value="{{request.user.last_name}}">
+          </div>
+
+         
+          </div>
+
+          <div class="col-12">
+            <label for="email" class="form-label">Email <span class="text-body-secondary"></span></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{request.user.email}}">
+            <div class="invalid-feedback">
+              Please enter a valid email address for shipping updates.
+            </div>
+          </div>
+
+          <div class="col-12">
+            <label for="password" class="form-label">Password</label>
+            <input  class="form-control" id="password"  type="password" name="password"  minlength="8" placeholder="Password"/> 
+            <div class="invalid-feedback">
+              Please enter vaild password.
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="phone" class="form-label">Phone</label>
+            <input  class="form-control" id="phone"  type="tel" name="phone" max="10" required/> 
+            <div class="invalid-feedback">
+              Please enter vaild phone.
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="address" class="form-label">Address</label>
+            <input  class="form-control" id="address"  type="text" name="address" placeholder="address" required/> 
+            <div class="invalid-feedback">
+              Please enter vaild address.
+            </div>
+          </div>
+          <div class="col-12">
+            <label for="profile_picture" class="form-label">Your Picture</label>
+                      <input type="file" class="form-control" name="profile_picture" id="profile_picture" value=""  accept="image/*">
+                      <div class="invalid-feedback">
+                        Valid profile picture is required.
+                      </div>
+          </div>
+         
+
+        <hr class="my-4">
+
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Register</button>
+        <button type="button" class="mt-3 w-100 btn btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Delete Account
+        </button>
+      </form>
+    </div>
+  </div>
+
+
+  <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Do you sure to delete the account?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <a href="{% url 'accounts:delete_account_view' user.id %}" class="btn btn-danger">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+  {%endblock%}

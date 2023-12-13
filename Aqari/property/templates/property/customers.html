@@ -1,0 +1,47 @@
+
+{% extends 'main/base.html' %}
+{% block title %} My Customers {% endblock %}
+{% block content %}
+
+<div class="container">
+    
+    
+    <div class="row">
+    <div class="col">
+    <table class="table caption-top">
+        <h1 class=" text-center mt-5 mb-2">List of Purchases Properties </h1>
+        <hr/>
+        <thead>
+          <tr>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Customer Phone</th>
+            <th scope="col">Customer Address</th>
+            <th scope="col">Customer Email</th>
+            
+          </tr>
+        </thead>
+        {% if customers.count == 0 %}
+<div class="alert alert-info">You don't have any customers yet.</div>
+        {% endif %}
+        {% if msg %}
+          <div class="alert alert-danger" role="alert">
+              {{ msg }}
+            </div>
+            {%endif%}
+        {% for customer in customers %}
+        <tbody>
+          <tr>
+            <th scope="row">{{customer.first_name}}</th>
+            <td>{{customer.userprofile.phone}}</td>
+            <td>{{customer.userprofile.address}}</td>
+            <td>{{customer.email}}</td>
+            
+          </tr>
+        </tbody>
+        {%endfor%}
+      </table>
+    </div>
+    </div>
+    </div>
+
+{%endblock%}

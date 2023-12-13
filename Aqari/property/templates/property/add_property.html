@@ -1,0 +1,99 @@
+{% extends 'main/base.html '%}
+
+{% block title %} New Property {% endblock %}
+{% block content %}
+<section class="d-flex justify-content-center">
+
+  
+<div class="col-md-7 col-lg-8 m-3 mt-5">
+  <div class="d-flex justify-content-center border rounded" style="margin-top: 5rem;margin-bottom: 3rem;">
+    <h4 class="mb-3">Add New Property</h4>
+  </div>
+    <form class="needs-validation" action="{%url 'property:add_property_view' %}" method="POST" enctype="multipart/form-data">
+      {% if msg %}
+      <div class="alert alert-danger" role="alert">
+          {{ msg }}
+        </div>
+        {%endif%}
+      {% csrf_token %}
+        <div class="row g-3">
+        <div class="col-sm-6">
+          <label for="firstName" class="form-label">Property Title</label>
+          <input type="text" class="form-control" name="title" id="firstName" placeholder="Property Title" value="" required="">
+          <div class="invalid-feedback">
+            Valid first name is required.
+          </div>
+        </div>
+
+        <div class="col-sm-6">
+          <label for="PropertyArea" class="form-label">Property Area</label>
+          <input type="number" class="form-control" id="PropertyArea" name="area" placeholder="Area in square meters" value="" required=""min="1">
+          <div class="invalid-feedback">
+            Valid PropertyArea is required
+          </div>
+        </div>
+        <div class="row g-3">
+            <div class="col-sm-6">
+              <label for="description" class="form-label">description</label>
+              <textarea  class="form-control" name="description" id="description" placeholder="description" value="" required=""></textarea>
+              <div class="invalid-feedback">
+                Valid description is required.
+              </div>
+            </div>
+            <div class="col-sm-2">
+                <label for="RentalPrice" class="form-label">Rental Price</label>
+                <input type="number" class="form-control" name="rental_price" id="RentalPrice" placeholder="SR" value="">
+                
+              </div>
+              <div class="col-sm-2">
+                <label for="SalePrice" class="form-label">Sale Price</label>
+                <input type="number" class="form-control" name="sale_price" id="SalePrice" placeholder="SR" value="">
+              </div>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="location" class="form-label">Property Location</label>
+                  <input type="text" class="form-control" name="location" id="location" placeholder="Property Location" value="" required="">
+                  <div class="invalid-feedback">
+                    Valid Property Location is required.
+                  </div>
+                </div>
+                <div class="col-sm-2">
+                    <label for="bedrooms" class="form-label">Bedrooms</label>
+                    <input type="number" class="form-control" name="bedrooms" id="bedrooms" placeholder="bedrooms"  value="">
+                    <div class="invalid-feedback">
+                        Valid Bedrooms is required.
+                      </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="bathrooms" class="form-label">Bathrooms</label>
+                    <input type="number" class="form-control" name="bathrooms" id="bathrooms" placeholder="bathrooms"  value="">
+                    <div class="invalid-feedback">
+                        Valid bathrooms is required.
+                      </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <label for="floor" class="form-label">Floor</label>
+                    <input type="number" class="form-control" name="floor" id="floor" placeholder="floor"  value="">
+                    <div class="invalid-feedback">
+                        Valid floor is required.
+                      </div>
+                  </div>
+                  <div class="row g-3">
+                    <div class="col-sm-6">
+                      <label for="image" class="form-label">Property Image</label>
+                      <input type="file" class="form-control" name="image" id="image" value="" required="" accept="image/*">
+                      <div class="invalid-feedback">
+                        Valid Property image is required.
+                      </div>
+                    </div>
+
+      <hr class="my-4">
+
+      <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to Add</button>
+    </form>
+  </div>
+</div>
+</section>
+
+  
+{%endblock%}

@@ -1,0 +1,36 @@
+{% extends 'main/base.html' %}
+{% block title %} All Properties {% endblock %}
+{% block content %} 
+
+<h2 class="pb-2 border-bottom d-flex justify-content-center " style="margin-top: 5rem;">All Properties</h2>
+
+<div class="container-fluid mt-5">
+  <div class="row  h-100">
+    {% for property in view_property %}
+      <div class="col-lg-4 h-100">
+        <div class="d-flex">
+          {% if property.rental_price > 0 %}
+            <div class="me-1 mt-3">
+              <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+              <small class="border text-bg-warning">For Rent</small>
+            </div>
+          {% endif %}
+          {% if property.sale_price > 0 %}
+            <div class="me-1 mt-3">
+              <svg class="bi me-2" width="1em" height="1em"><use xlink:href="#geo-fill"></use></svg>
+              <small class="border text-bg-success">For Sale</small>
+            </div>
+          {% endif %}
+        </div>
+        <img src="{{ property.image.url }}" class="rounded w-100" style="height: 20rem;  object-fit: cover;">
+        <h2 class="fw-normal">{{ property.title }}</h2>
+        <p>Timestamp: {{ property.created_at }}</p>
+        <p><a class="btn btn-secondary" href="{% url 'property:detail_property_view' property.id %}">Discover »</a></p>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+  
+    
+{%endblock%}

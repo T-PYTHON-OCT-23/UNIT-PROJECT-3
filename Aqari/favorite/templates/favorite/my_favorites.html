@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block title %} My Favorites {% endblock %}
+{% block content %}
+
+
+       
+           
+<div class="container"> 
+
+<div class="row row-cols-1 row-cols-lg-3 align-items-center   g-4 py-5 m-5 ">
+    {% if favorites.count == 0 %}
+    <div class="alert alert-info w-100">You don't have any favorites yet.</div>
+                {% endif %}
+    {% for fav in favorites %}
+    <div class="col h-100" > 
+           
+<div class="card" style="width: 18rem;">
+    <img src="{{fav.property.image.url}}" class="card-img-top" style="height: 18rem;" alt="...">
+    <div class="card-body h-100">
+        <a href="{%url 'property:detail_property_view' fav.property.id%}"><h3>{{fav.property.title}}</h3></a>
+      <p class="card-text h-100">{{fav.property.description}}</p>
+    </div>
+
+</div>
+
+</div>
+{%endfor%}
+</div>
+
+</div>
+
+{%endblock%}

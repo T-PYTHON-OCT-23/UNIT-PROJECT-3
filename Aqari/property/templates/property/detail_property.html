@@ -1,0 +1,164 @@
+{% extends 'main/base.html' %}
+{% block title %} Property detail {% endblock %}
+{% block content %}
+<div class="container-fluid" style="margin-top: 5rem;">
+  {% if msg %}
+      <div class="alert alert-danger" role="alert">
+          {{ msg }}
+        </div>
+        {%endif%}
+    <div class="clearfix">
+      
+      <img src="{{ property_detail.image.url }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="height: 25rem; object-fit: cover;" alt="...">
+      {% if not is_favored %}
+        <a  href="{% url 'favorite:add_favorite_view' property_detail.id %}" ><h5 class="p-0 m-0 col-md-6 float-md-end  mb-3 ms-md-3"><span class="material-symbols-outlined">
+         favorite
+         </span></h5></a>
+        {% else %}
+        <a  href="{% url 'favorite:add_favorite_view' property_detail.id %}" class="favored1 col-md-6 float-md-end mb-3 ms-md-3" ><span class="material-symbols-outlined">
+         favorite
+         </span></a> 
+      {% endif %}
+    <h1 class="property-title">{{ property_detail.title }}</h1>
+    <p class="property-description">{{ property_detail.description }}</p>
+    {%if property_detail.sale_price > 0%}
+    <div class="property-price">
+        
+        Sale Price: {{ property_detail.sale_price }} SR.
+    </div>
+    {%endif%}
+    {%if property_detail.rental_price > 0%}
+
+    <div class="property-price">
+        
+        
+    
+        Rental Price: {{ property_detail.rental_price }} SR. per month
+   
+</div>
+{%endif%}
+    <ul class="property-details-list">
+      {%if property_detail.bedrooms > 0%}
+      <li>Bedrooms: {{ property_detail.bedrooms }}</li>
+      {%endif%}
+      {%if property_detail.bathrooms > 0%}
+      <li>Bathrooms: {{ property_detail.bathrooms }}</li>
+      {%endif%}
+      {%if property_detail.floor > 0%}
+      <li>Floor: {{ property_detail.floor }}</li>
+      {%endif%}
+      <li>Area: {{ property_detail.area }} sq. m.</li>
+      <li>Location: {{ property_detail.location }}</li>
+      <li>Owner: {{ property_detail.owner.username }}</li>
+      <li>Created At: {{ property_detail.created_at }}</li>
+      
+      
+  </ul>
+    </div>
+    {% if request.user.is_authenticated and user == property_detail.owner %}
+    <div class="d-flex justify-content-end m-2">
+        <div class="dropdown m-2">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Edit
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="{%url 'property:update_property_view'  property_detail.id %}" class="dropdown-item" >Update Property</a></li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#deleteModal" >Delete Property</a></li>
+
+            </ul>
+            
+          </div>
+    
+    {%endif%}
+
+    {%if not request.user.is_authenticated %}
+    <div class="dropdown m-2">
+        <a href="{%url 'accounts:login_user_view' %}" class="btn btn-light" >To rent or buy press to login</a>      
+</div>
+  {%else%}
+    <div class="dropdown m-2">
+        {%if property_detail.rental_price > 0 and user != property_detail.owner%}
+          <a href="{%url 'property:rental_property_view'  property_detail.id %}" class="btn btn-light " >Rent</a>
+          {%endif%}
+         {%if property_detail.sale_price > 0 and user != property_detail.owner%} 
+          <a href="{%url 'property:sale_property_view'  property_detail.id %}" class="btn btn-light" >Buy</a> 
+         {%endif%}    
+          
+</div>
+{%endif%}
+</div>
+
+
+</div>
+<hr class="mt-5 mb-5">
+<h2 class="border rounded-4 text-center">The Comments </h2>
+{%for comment in comments%}
+<div class="card mb-3" style="width: 100%;">
+  <div class="card-body">
+    <h5 class="card-title">{{comment.user.first_name}}{%if user == comment.property.owner%} :(owner) {%endif%}</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{comment.created_at}}</h6>
+    <p class="card-text">{{comment.text}}</p>
+  </div>
+</div>
+{%endfor%}
+{% if request.user.is_authenticated %}
+<div class="container mt-5 mb-5">
+  <h1 class="text-center border rounded mb-3">Add Comment</h1>
+<form class="row gx-3 gy-2 align-items-center d-flex justify-content-center" action="{%url 'property:add_comment_view' property_detail.id %}" method="POST">
+  {% csrf_token %}
+  <div class="col-sm-3">
+    
+    <textarea name="text" class="form-control" id="specificSizeInputName" placeholder="Comment"></textarea>
+  </div>
+  
+  <div class="col-sm-3">
+    
+    <select name="rating" class="form-select" id="specificSizeSelect">
+      <option selected>Your Rating...</option>
+      <option value="1">*</option>
+      <option value="2">**</option>
+      <option value="3">***</option>
+      <option value="4">****</option>
+      <option value="5">*****</option>
+    </select>
+  </div>
+  
+  
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+</form>
+
+{%  else %}
+
+      <p class="p-3 border border-1 align-items-center d-flex justify-content-center">
+        To Post A Comment Please:  <a href="{% url 'accounts:login_user_view' %}"> sign in</a>.
+      </p>
+
+     
+</div>
+{%endif%}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Property</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       do you want to delete the property {{ property_detail.titl }} ? click yes if yes
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <a href="{% url 'property:delete_property_view' property_detail.id  %}" class="btn btn-danger">Yes, delete</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+
+{%endblock%}
