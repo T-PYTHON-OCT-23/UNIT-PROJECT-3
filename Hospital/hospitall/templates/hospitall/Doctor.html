@@ -2,48 +2,90 @@
 {% load static %}
 
 {% block title %}
-doctor
+Doctor
 {% endblock %}
 
 {% block content %}
 <style>
-    .title-bar {
-    display: flex;
-    align-items: center;
-    margin-top: -70px;
-}
-
-.title-bar hr {
-    flex-grow: 1;
-    border-width: 9px;
-}
-
-.title-bar span {
-    margin: 0 10px;
-    font-family: 'Times New Roman', serif;
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.card {
-    width: 100%;
-}
-
-.card img {
-    object-fit: contain;
-    height: 200px;
-}
-body {
+    body {
         background-image: url('/static/img/434.jpg');
         background-repeat: no-repeat;
         background-size: cover;
+        font-family: Arial, sans-serif;
     }
 
+    .title-bar {
+        display: flex;
+        align-items: center;
+        margin-top: -70px;
+        color: #007bff;
+    }
+
+    .title-bar hr {
+        flex-grow: 1;
+        border-width: 9px;
+        border-color: #007bff;
+    }
+
+    .title-bar span {
+        margin: 0 10px;
+        font-size: 2em;
+        font-weight: bold;
+    }
+
+    .card {
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.15);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: scale(1.02);
+    }
+
+    .card img {
+        object-fit: cover;
+        height: 200px;
+    }
+
+    .card-body {
+        background-color: #f8f9fa;
+        padding: 20px;
+    }
+
+    .card-title {
+        margin-bottom: 15px;
+        color: #333;
+        font-size: 1.5em;
+    }
+
+    .card-text {
+        color: #666;
+        line-height: 1.6;
+    }
+       
+
+        .card img {
+        object-fit: cover;  
+        height: 200px;
+        width: 100%;  
+    }
+
+        .card img {
+        object-fit: contain;  
+        height: 200px;
+        width: 100%; 
+    }
+
+
 </style>
+
 <section class="container">
     <div class="title-bar">
         <hr>
-        <span>All Doctor</span>
+        <span>All Doctors</span>
         <hr>
     </div>
     <div class="row justify-content-center">
@@ -58,7 +100,7 @@ body {
                     <div class="card-body">
                         <h5 class="card-title">{{ doctor.user.username }}</h5>
                         <p class="card-text">{{ doctor.specialty }}</p>
-                        <p class="card-text"> Years of Experience : {{ doctor.experience }}</p>
+                        <p class="card-text">Years of Experience: {{ doctor.experience }}</p>
                         <p class="card-text">{{ doctor.cv }}</p>
                     </div>
                 </div>

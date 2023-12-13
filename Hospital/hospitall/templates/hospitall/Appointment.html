@@ -36,6 +36,7 @@
                 <th scope="col">Doctor's name</th>
                 <th scope="col">Clinic name</th>
                 <th scope="col">Appointment date</th>
+                <th scope="col">Email</th>  <!-- New column for email -->
                 <th scope="col">Delete</th>
             </tr>
         </thead>
@@ -45,6 +46,7 @@
             <td>{{ appointment.doctor.user.username }}</td>
             <td>{{ appointment.clinic.name }}</td>  <!-- Display the clinic of the appointment -->
             <td>{{ appointment.date }}</td>
+            <td>{{ appointment.user.email }}</td>  <!-- Display the email of the user -->
             <td>
                 <form method="post" action="{% url 'hospitall:delete_appointment' appointment.id %}">
                     {% csrf_token %}

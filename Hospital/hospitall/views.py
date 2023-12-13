@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 def clinic_detail_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
@@ -21,8 +22,6 @@ def clinic_detail_view(request, clinic_id):
         info = "An orthopedic clinic is where people go who have problems with their bones, joints and muscles. Orthopedists can diagnose and treat a wide range of these conditions, including fractures, arthritis, and bone deformities."
     return render(request, 'hospitall/clinic_detail.html', {'clinic': clinic, 'info': info})
 
-
-
 def show_clinics(request):
     clinics = Clinic.objects.all()
     return render(request, 'hospitall/clinic.html', {'clinics': clinics})
@@ -31,14 +30,10 @@ def show_doctors(request):
     doctors = Doctor.objects.all()
     return render(request, 'hospitall/doctor.html', {'doctors': doctors})
 
-from django.contrib.auth.decorators import login_required
-
 @login_required
 def show_appointments(request):
     appointments = Appointment.objects.prefetch_related('doctor__clinics').filter(user=request.user)
     return render(request, 'hospitall/Appointment.html', {'appointments': appointments})
-
-# ...
 
 @login_required
 def create_appointment(request):
@@ -52,9 +47,18 @@ def create_appointment(request):
         if doctor is not None:
             appointment = Appointment(user=request.user, doctor=doctor, clinic=clinic, date=date)
             appointment.save()
+
+            if "sendEmail" in request.POST:
+                send_mail(
+                    'Appointment Confirmation',
+                    f'You have an appointment with {doctor.user.username} at {clinic.name} on {date}.',
+                    'your-email@example.com',  # replace with your email
+                    [request.user.email],
+                    fail_silently=False,
+                )
+
             return redirect('hospitall:show_appointments')
         else:
-            
             return render(request, 'hospitall/create_appointment.html', {'error': 'No doctor found for the selected clinic.'})
     else:
         clinics = Clinic.objects.all()
@@ -68,6 +72,7 @@ def delete_clinic(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
     clinic.delete()
     return redirect('hospitall:show_clinics')
+
 def clinic_view(request, clinic_id):
     clinic = get_object_or_404(Clinic, id=clinic_id)
     return render(request, 'hospitall/clinic.html', {'clinic': clinic})
@@ -89,10 +94,9 @@ def create_clinic(request):
         doctors = Doctor.objects.all()
         return render(request, 'hospitall/create_clinic.html', {'doctors': doctors})
 
-    login_required
+@login_required
 def delete_appointment(request, appointment_id):
     appointment = get_object_or_404(Appointment, id=appointment_id)
     if request.user == appointment.user:
         appointment.delete()
     return redirect('hospitall:show_appointments')
-    
