@@ -74,7 +74,7 @@
             <div class="d-flex flex-column gap-2">
                 {% for review in review %}
                 <div class="d-flex flex-column gap-2 border border-1 p-3">
-                    <h4>{{ review.user.full_name }} {{ review.user.last_name }} </h4>
+                    <h4>{{ review.user.first_name }} {{ review.user.last_name }} </h4>
                     <h6 class="text-muted">{{ review.created_at }}</h6>
                     <h6>{{ review.rating }}</h6>
                     <p>{{ review.comment }}</p>

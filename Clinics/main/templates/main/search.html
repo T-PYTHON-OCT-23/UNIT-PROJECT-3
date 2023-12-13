@@ -4,12 +4,12 @@
 
 <section class="container pt-3">
     <div class="d-flex justify-content-between">
-        <h2> Search results for `{{ request.GET.search }}`</h2>
+        <h2> Search results for `{{ request.GET.search }}` ({{clinics.count}})</h2>
     </div>
 
 
     <div class="row  gap-2 row-cols-1 row-cols-md-3">
-        {% for clinic in clinic %}
+        {% for clinic in clinics %}
         <div class="container-search">
             <div
                 class="clinic-card d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">

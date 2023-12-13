@@ -55,9 +55,9 @@ def detail_clinic(request: HttpRequest, clinic_id):
     doctors = Doctor.objects.all()
 
     if request.method == "POST":
-        new_clinic = Review(
-            Clinic=clinic_detail, rating=request.POST["rating"], comment=request.POST["comment"])
-        new_clinic.save()
+        new_review = Review(
+            Clinic=clinic_detail, user=request.user, rating=request.POST["rating"], comment=request.POST["comment"])
+        new_review.save()
 
     review = Review.objects.filter(Clinic=clinic_detail)
 
@@ -93,13 +93,14 @@ def delete_clinic(request: HttpRequest, clinic_id):
 
 def search(request: HttpRequest):
 
+    clinics = Clinic.objects.all()
     if "search" in request.GET:
         keyword = request.GET["search"]
-        clinic = Clinic.objects.filter(name__icontains=keyword)
+        clinics = Clinic.objects.filter(name__icontains=keyword)
     else:
-        clinic = Clinic.objects.all()
+        clinics = Clinic.objects.all()
 
-    return render(request, "main/search.html", {"clinic": clinic})
+    return render(request, "main/search.html", {"clinics": clinics})
 
 
 def contact(request: HttpRequest):

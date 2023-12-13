@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="/static/main.css" rel="stylesheet" />
+    <link href="/static/css/main.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -34,6 +34,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <title> {% block title %} Clinics {% endblock %} </title>
 </head>
@@ -48,6 +49,7 @@
         text-align: center;
     }
 
+
     .home-video {
         position: relative;
         right: 0;
@@ -57,6 +59,14 @@
 
     .home-title {
         position: absolute;
+        width: 40%;
+        margin-top: -500px;
+        margin-left: 757px;
+        background-color: rgba(85, 107, 85, 0.632);
+        padding-top: 247px;
+
+        padding-bottom: 350px;
+        margin-top: -700px;
     }
 
     @media (min-aspect-ratio: 16/9) {
@@ -394,7 +404,7 @@
         justify-content: center;
         color: rgb(255, 255, 255);
         margin: 20px;
-        padding-left: 50px;
+        padding-left: 30px;
     }
 
     .appointment-btn {
@@ -526,6 +536,49 @@
         color: rgb(66, 120, 83);
         transition: 0.3s;
     }
+
+    .home-page {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .Explore {
+        width: 40%;
+        padding: 50px;
+        margin-left: 100px;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .Explore a {
+        text-decoration: none;
+        font-size: 25px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 160px;
+        color: #000000;
+        border: 1px solid rgb(0, 0, 0);
+        border-radius: 50px;
+    }
+
+    .Explore a:hover {
+        color: #ffffff;
+        transition: 0.3s;
+        border: 1px solid #618162;
+        background-color: #618162;
+    }
+
+    hr {
+        color: rgba(187, 206, 200, 0.728);
+    }
+
+    .home-W {
+        width: 40%;
+        margin-left: 100px;
+        margin-top: 60px;
+    }
 </style>
 
 <body>
@@ -533,7 +586,7 @@
         <nav class="navbar sticky-top nav-underline navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <b class="logo">OneClick</b>
+                    <b class="logo" href="{% url 'main:home_view' %}">OneClick</b>
                 </a>
 
                 <div class="collapse navbar-collapse" id="navbar">
@@ -592,7 +645,8 @@
                     </ul>
 
                     <form class="d-flex" role="search" action="{% url 'main:search' %}" method="get">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <input name="search" class="form-control me-2" type="Search" placeholder="Search"
+                            aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>

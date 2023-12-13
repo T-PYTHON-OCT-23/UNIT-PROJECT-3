@@ -9,7 +9,20 @@
     <source src="/static/video/background.mp4" type="video/mp4">
 </video>
 <div class="home">
-    <h1 class="home-title"> Welcome to <b class="logo">OneClick</b></h1>
+    <h1 class="home-title"><b> Welcome To </b><br><b class="logo"> OneClick
+        </b><br></h1>
+</div>
+<hr>
+<div>
+    <div class="home-page ">
+        <h1 class="home-W animate__animated animate__heartBeat"><b> There is Just </b><br><b class="logo"> OneClick
+            </b><br> <b>For Your Appointment</b></h1>
+        <div class="Explore">
+            <a href="{% url 'main:display' %}"> Explore </a>
+            <a href="{% url 'client:register' %}"> Join Us </a>
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}

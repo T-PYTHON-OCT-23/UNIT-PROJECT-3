@@ -3,7 +3,7 @@
 {% block content %}
 
 {% for appointment in appointment %}
-<h3 class="booked"> You have succefully booked an appointment at {{ appointment.clinic.name }} for {{appointment.date_time}} </h3>
+<h3 class="booked animate__animated animate__heartBeat"> You have succefully booked an appointment at {{appointment.clinic.name }} for {{appointment.date_time}} </h3>
 {% endfor %}
 <section class="manage-links">
     <div>
