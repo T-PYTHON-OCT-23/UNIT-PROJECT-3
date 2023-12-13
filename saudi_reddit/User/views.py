@@ -224,6 +224,7 @@ def profile_Data(request,username):
         
         
     }
+    print (user_profile)
     
     return render(request, 'registration/profile.html', {'user_profile': user_profile})
 

@@ -16,9 +16,9 @@
             </div>
             <div class="col-md-8">
                 <h2>{{ user_profile.username }}</h2>
-                <p class="profile-info"><strong>Email:</strong> {{ user_profile.email }}</p>
+                <p class="profile-info">{{ user_profile.email }}</p>
                 <!-- ... other profile info ... -->
-
+                <p class="profile-info">{{ uder_profile.bio }}</p>
                 <ul class="subreddit-list list-group">
                     {% for subreddit in user_profile.subreddit %}
                         <li class="list-group-item" style="background-image: url('{{ subreddit.header.url }}');">

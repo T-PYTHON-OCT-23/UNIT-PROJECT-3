@@ -2,31 +2,33 @@
 <html lang="en">
 
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous">
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@600&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/core@latest/dist/clappr-core.min.js"></script>
-    <script src='https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@latest/dist/hlsjs-playback.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/@clappr/stats-plugin@latest/dist/clappr-stats.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/hls.js@latest'></script>
-
-
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap" rel="stylesheet">
 
     <title>{% block title %}Saudi-Reddit{% endblock %}</title>
     <!-- Add your custom styles here -->
     <style>
+        /* Add this style to your existing CSS or modify the existing one */
+        form.role-search input {
+            width: 800px; /* Adjust the width as needed */
+        }
+
         body {
             font-family: 'Nunito', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa; /* Bootstrap background color */
         }
-    
+
         header {
             {% if subreddit %}
                 background-image: url('{{ subreddit.header.url }}');
@@ -41,10 +43,10 @@
             align-items: center; /* Center items horizontally */
             font-family: 'Kalnia', sans-serif; /* Replace 'Your Desired Font' with the desired font name */
         }
-    
+
         nav {
             {% if subreddit %}
-                opacity:.8; /* Updated Bootstrap primary color */
+                opacity: .5; /* Updated Bootstrap primary color */
             {% else %}
                 background-color: #ffffff; /* White background for nav */
             {% endif %}
@@ -52,7 +54,7 @@
             padding: 10px;
             width: 100%; /* Make the nav take the full width of the container */
         }
-    
+
         nav ul {
             list-style-type: none;
             margin: 0;
@@ -60,12 +62,12 @@
             display: flex;
             justify-content: space-around; /* Updated to evenly space items */
         }
-    
+
         nav ul li {
             display: inline;
             margin: 0 10px; /* Add some spacing between navigation items */
         }
-    
+
         nav ul li a {
             color: #000000; /* Updated font color to black */
             text-decoration: none;
@@ -74,20 +76,13 @@
             font-weight: bold; /* Added bold text */
             transition: background-color 0.3s ease-in-out;
         }
-    
+
         nav ul li a:hover {
             background-color: #0056b3; /* Darker shade on hover */
             color: #ffffff;
         }
-    
-        main {
-            padding: 20px;
-            background-color: #ffffff; /* White background for main content */
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
-    
+
+
         form {
             max-width: 400px;
             margin: 0 auto;
@@ -97,7 +92,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
-    
+
         form button {
             background-color: #007bff;
             color: #ffffff;
@@ -106,7 +101,7 @@
             border-radius: 3px;
             cursor: pointer;
         }
-    
+
         footer {
             background-color: #343a40; /* Bootstrap dark color */
             color: #ffffff;
@@ -115,85 +110,91 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-        }``
-
-
+        }
     </style>
-    
+
     {% block style %}
     {% endblock %}
 </head>
 
 <body>
 
-    <!-- Example Code -->
-    
+    <!-- Navbar Code -->
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'Fourm:index' %}">Saudi Reddit</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            {% if user.is_authenticated %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'Fourm:Feed' %}">My Feed</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'User:profile_with_username' request.user.username %}">
-              {{request.user.profile.full_name}}</a>
-            </li>
-            {% else %}
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{% url 'User:login' %}">Sign in</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'User:signup' %}">Sign up</a>
-            </li>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'Fourm:index' %}">Saudi Reddit</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'Fourm:Feed' %}">My Feed</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"
+                            href="{% url 'User:profile_with_username' request.user.username %}">{{request.user.profile.full_name}}</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'User:login' %}">Sign in</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'User:signup' %}">Sign up</a>
+                    </li>
 
-            {% endif %}
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'User:logout' %}">Sign Out</a>
-          </li>
-            </ul>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'User:logout' %}">Sign Out</a>
+                    </li>
+                </ul>
+                
+                <form class="d-flex role-search" action="{% url 'Fourm:Search_bar' %}" role="search" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                
+            </div>
         </div>
-      </div>
     </nav>
-   
-                {% if subreddit %}
-   <!-- Subreddit Header and Icon -->
-            <div class="row ml-auto mb-3">
-                <div class="col-md-6">
-                        <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}"> 
-                        <img src="{{ subreddit.icon.url }}" alt="{{ subreddit.name }} Icon" class="img-fluid rounded-circle " style="max-width: 30%; height: auto;">
-                    </a>
-                    </div>
-                </div>      
-          {% endif %}
-            </ul>
-        </nav>
-    </header>
 
+    {% if subreddit %}
+    <!-- Subreddit Header and Icon -->
+    <div class="container subreddit-card">
+        <div class="row ml-auto mb-3">
+            <div class="col-md-6">
+                <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}">
+                    <img src="{{ subreddit.icon.url }}" alt="{{ subreddit.name }} Icon"
+                        class="img-fluid rounded-circle " style="max-width: 30%; height: auto;">
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Main Content -->
     <main>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        {% block content %}{% endblock %}
+        <!-- Your main content goes here -->
     </main>
-
-    <footer>
-        <p>&copy; 2023 Saudi-Reddit. All rights reserved.</p>
-    </footer>
 
     <!-- Include Bootstrap JS and Popper.js -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.8/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Saudi-Reddit. All rights reserved.</p>
+    </footer>
+
 </body>
 
 </html>
-\

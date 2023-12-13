@@ -163,3 +163,11 @@ def update_comment(request, comment_slug):
         raise PermissionDenied 
     return redirect('Fourm:post_detail', subreddit_slug=comment.post.subreddit , post_slug=comment.post.slug)
 
+
+def Search_bar(request):
+    query = request.GET.get('search')
+    if query:
+        posts = Post.objects.filter(title__icontains=query)
+        return render(request, 'search.html', {'posts': posts})
+    else:
+        return redirect('Fourm:index')
