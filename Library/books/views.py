@@ -68,26 +68,28 @@ def delete(request: HttpRequest, book_id):
     return redirect("books:book_home")
 
 def update(request : HttpRequest,book_id):
-
-    if not request.user.has_perm("books.change_book"):
+    
+    book=Book.objects.get(id=book_id )
+    if not request.user.has_perm("books.change_book") or (book.user!= request.user):
         return render(request, "main/not_authorized.html", status=401)
     
     msg = None
     
+    print(book.name)
     try:
-        book=Book.objects.get(id=book_id)
-        if request.method=="POST":
+        update_book=Book.objects.get(id=book_id,user=request.user )
+        if request.method=="POST" :
             book.name=request.POST['name']
             book.brief=request.POST["brief"]
             book.writer=request.POST["writer"]
             book.release_date=request.POST["release_date"]
             book.publishing_house=request.POST["publishing_house"]
-
             book.save()
         
             return redirect('books:book_detail_view',book_id=book.id)
     except Exception as e:
         msg =F"There is an error and try again{e}"
+       
     return render(request,'books/update.html',{"book" : book,'categories':Book.categories, "msg":msg})
 
 

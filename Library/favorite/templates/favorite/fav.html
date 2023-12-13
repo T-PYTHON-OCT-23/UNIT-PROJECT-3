@@ -18,12 +18,12 @@
         {% for fav in favorites %}
     
            <div class="col-3">
-                <div class=" mt-4 h-100 overflow-hidden justify-content-start">
+                <div class=" mt-4 h-100 overflow-hidden justify-content-start"  style="width: 250px;">
                     <img src="{{ fav.book.poster.url }}" width="200" height="300" />
                 <div class="">
                 
                 </div>
-                    <a href="{% url 'books:book_detail_view' book_id=fav.book.id %}"><h4>{{ fav.book.name }}</h4></a>
+                    <a href="{% url 'books:book_detail_view' book_id=fav.book.id %}"><h5 class="mt-1">{{ fav.book.name }}</h5></a>
 
                 </div>
             </div>
