@@ -13,6 +13,8 @@ urlpatterns = [
     path('create/', views.subreddit_create, name='subreddit_create'),
     path('<subreddit_slug>/delete/', views.subreddit_delete, name='subreddit_delete'),
     path('<subreddit_slug>/update/', views.subreddit_update, name='subreddit_update'),
+    path('<subreddit_slug>/subscribe/', views.subscribe, name='subreddit_subscribe'),
+    path('<subreddit_slug>/unsubscribe/', views.unsubscribe, name='subreddit_unsubscribe'),
 
     path('comment/<comment_slug>/delete/', views.comment_delete, name='comment_delete'),
     path('comment/<comment_slug>/update/', views.comment_update, name='comment_update'),

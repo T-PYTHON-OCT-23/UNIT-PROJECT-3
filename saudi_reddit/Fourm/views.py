@@ -8,7 +8,7 @@ from subreddit.models import Subreddit
 from django.db.models import Count
 from django.core.exceptions import PermissionDenied
 from subreddit.forms import CommentForm, PostForm
-
+from datetime import timezone
 
 def redirectToSub(request, subreddit_slug):
     return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit_slug)
@@ -151,6 +151,8 @@ def update_comment(request, comment_slug):
         if request.method == 'POST':
             content = request.POST.get('content')
             comment.content = content
+            comment.isContentEdited = True
+            comment.whenContentEdited = timezone.now()
             comment.save()
         else:
             form = CommentForm(instance=comment)
@@ -158,3 +160,4 @@ def update_comment(request, comment_slug):
     else:
         raise PermissionDenied 
     return redirect('Fourm:post_detail', subreddit_slug=comment.post.subreddit , post_slug=comment.post.slug)
+

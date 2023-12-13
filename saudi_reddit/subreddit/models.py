@@ -9,7 +9,7 @@ from django.utils.text import slugify
 class Subreddit(models.Model):
     name = models.CharField(max_length=255,default='New Subreddit')
     author = models.ForeignKey(User, on_delete=models.DO_NOTHING,default=1)
-    subscribers = models.ManyToManyField(User, related_name='subscribers', blank=True)
+    subscribers = models.ManyToManyField(User, related_name='subscribers', blank=True, default=None)
     views = models.IntegerField(default=0)
     header = models.ImageField(upload_to='images/headers/', blank=True)
     icon = models.ImageField(upload_to='images/icons/', blank=True)

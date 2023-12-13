@@ -1,98 +1,152 @@
-
 <!-- registration/signup.html -->
 
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="signup-container">
-    <h2>Sign up</h2>
+<style>
+    .signup-form {
+        max-width: 400px;
+        margin: auto;
+        padding: 20px;
+    }
 
-    <form method="post" action="{% url 'User:signup' %}" class="signup-form">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Sign up</button>
-    </form>
+    .input-group {
+        margin-bottom: 15px;
+    }
+</style>
 
-    <a class="google-signup-btn" href="{% url 'social:begin' 'google-oauth2' %}">
-      <button type="button" class="btn btn-google">Sign up with Google</button>
-    </a>
+<form method="post" action="{% url 'User:signup' %}" class="signup-form">
+    {% csrf_token %}
+    {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Full Name</span>
+        <input type="text" class="form-control" id="full_name" name="full_name" placeholder="Enter your full name" aria-label="Full name">
+    </div>
+
+    
+    <div class="input-group mb-3">
+      <span class="input-group-text">@YourEmail</span>
+      <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email " aria-label="email">
   </div>
 
-<style> 
+    <div class="input-group mb-3">
+        <span class="input-group-text">@</span>
+        <input type="text" class="form-control" id="username" name="username" placeholder="Username" aria-label="Username">
+        <button class="btn btn-outline-secondary" type="button" id="suggestButton">Surprise me</button>
+    </div>
 
-  /* Add this style to your existing stylesheet or create a new one */
-/* You can customize these styles based on your preferences */
-
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f9fa; /* Bootstrap background color */
-}
-
-.signup-container {
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 50px;
-}
-
-h2 {
-  text-align: center;
-}
+    <div class="input-group mb-3">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password" aria-label="Password">
+    </div>
 
 
-.signup-form,
-.google-signup-btn {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px; /* Adjust margin to separate form and Google signup button */
-}
+    <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
 
-.signup-form label {
-  margin-bottom: 5px;
-}
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-.signup-form input,
-.google-signup-btn button {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ced4da; /* Bootstrap form border color */
-  border-radius: 3px;
-  width: 100%; /* Make both buttons full-width */
-  box-sizing: border-box; /* Include padding and border in the element's total width */
-}
+<script>
+    var $j = jQuery.noConflict();
 
-.signup-form button,
-.google-signup-btn button {
-  background-color: #28a745; /* Bootstrap success color */
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
+    function getUsernameSuggestion() {
+        $j.get('{% url 'User:generate_username' %}', function (data) {
+            $j('#username').val(data.suggested_username);
+        });
+    }
 
-.signup-form button:hover,
-.google-signup-btn button:hover {
-  background-color: #218838; /* Darker shade of the success color on hover */
-}
+    $j(document).ready(function () {
+        getUsernameSuggestion();
 
-.btn-google {
-  background-color: #4285f4; /* Google's brand color */
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
+        $j(document).on('click', '#suggestButton', function () {
+            getUsernameSuggestion();
+        });
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
-.btn-google:hover {
-  background-color: #2a4bff; /* Darker shade on hover */
-}
+<script>
+jQuery(document).ready(function() {
+    // Function to validate email format on the client side
+    function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 
-/* Add more styles as needed */
+    // Function to check if the email is already used on the server side
+    function isEmailUsed(email) {
+        jQuery.ajax({
+            type: 'GET',
+            url: '{% url 'User:check_email' %}',  // Replace with your actual URL for email checking
+            data: {'email': email},
+            success: function(response) {
+                if (response.is_used) {
+                    jQuery('#email').css('border-color', 'red'); // Change border color to red for invalid email
+                } else {
+                    jQuery('#email').css('border-color', 'green'); // Reset border color for valid email
+                }
+            },
+            error: function(error) {
+                console.error('Error checking email:', error);
+            }
+        });
+    }
 
-</style>
+    // Attach an event listener to the email input field
+    jQuery('#email').on('blur', function() {
+        var email = jQuery(this).val();
+
+        // Check if the email is in a valid format
+        if (!isValidEmail(email)) {
+            jQuery('#inputEmail').css('border-color', 'red'); // Change border color to red for invalid email
+            return;
+        }
+
+        // If the email format is valid, check if it's already used
+        isEmailUsed(email);
+    });
+});
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+    
+    // Function to check if the username is already used on the server side
+    function isUserUsed(username) {
+        jQuery.ajax({
+            type: 'GET',
+            url: '{% url 'User:check_username' %}',  // Replace with your actual URL for checking
+            data: {'username': username},
+            success: function(response) {
+                if (response.is_used) {
+                    jQuery('#username').css('border-color', 'red'); // Change border color to red for invalid
+                    return false;
+                } else {
+                    jQuery('#username').css('border-color', 'green'); // Reset border color for valid 
+                    return true;
+                }
+            },
+            error: function(error) {
+                console.error('Error checking username:', error);
+            }
+        });
+    }
+
+    // Attach an event listener to the  input field
+    jQuery('#username').on('blur', function() {
+        var username = jQuery(this).val();
+        // If the  format is valid, check if it's already used
+        isUserUsed(email);
+    });
+});
+</script>
 {% endblock %}

@@ -1,203 +1,74 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="login-container">
-    <h2>Login</h2>
-    <form method="post" action="{% url 'User:login' %}" class="login-form">
-      {% csrf_token %}
-      {{ form.username.label_tag }}
-      {{ form.username }}
-      {{ form.password.label_tag }}
-      {{ form.password }}
-      <div class="remember-me">
-        <input type="checkbox" name="remember_me" id="remember_me">
-        <label for="remember_me">Remember Me</label>
-      </div>
-      <button type="submit">Login</button>
-    </form>
-    
-    <a class="google-login-btn" href="{% url 'social:begin' 'google-oauth2' %}">
-      <button type="button" class="btn btn-google">Login with Google</button> </a>
-      
+
+  {% if msg %}
+                  
+  <div class="alert alert-danger" role="alert">
+    {{ msg }}
   </div>
+
+  {% endif %}
+
+  <form method="post" action="{% url 'User:login' %}" class="login-form">
+    {% csrf_token %}
+    <div class="row gy-2 gx-3 align-items-center">
+        <div class="col-auto">
+            <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
+            <div class="input-group">
+                <div class="input-group-text">@</div>
+                <input type="text" id="username" name="username" class="form-control form-control-lg" id="autoSizingInputGroup" placeholder="Username" required>
+            </div>
+        </div>
+        <div class="col-auto">
+            <label class="visually-hidden" for="autoSizingInput">Password</label>
+            <input type="password" id="password" name="passwrod" class="form-control form-control-lg" id="autoSizingInput" placeholder="Password" required>
+        </div>
+        <div class="col-auto">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="checked" id="autoSizingCheck">
+                <label class="form-check-label" for="autoSizingCheck">
+                    Remember me
+                </label>
+            </div>
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>
 
   <style>
 
     /* Add this style to your existing stylesheet or create a new one */
 /* You can customize these styles based on your preferences */
-/* Add this style to your existing stylesheet or create a new one */
-/* You can customize these styles based on your preferences */
 
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f9fa; /* Bootstrap background color */
-}
-
-.login-container {
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 50px;
-}
-
-h2 {
-  text-align: center;
-}
-
-.login-form,
-.google-login-btn {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px; /* Adjust margin to separate form and Google login button */
-}
-
-.login-form label {
-  margin-bottom: 5px;
-}
-
-.login-form input,
-.google-login-btn button {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ced4da; /* Bootstrap form border color */
-  border-radius: 3px;
-  width: 100%; /* Make both buttons full-width */
-  box-sizing: border-box; /* Include padding and border in the element's total width */
-}
-
-
-
-.login-form button,
-.google-login-btn button {
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.login-form button:hover,
-.google-login-btn button:hover {
-  background-color: #0056b3; /* Darker shade of the primary color on hover */
-}
-
-.btn-google {
-  background-color: #4285f4; /* Google's brand color */
-  color: #ffffff;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.btn-google:hover {
-  background-color: #2a4bff; /* Darker shade on hover */
-}
-
-/* Add more styles as needed */
-
-.btn-google {
-  background-color: #4285f4; /* Google's brand color */
-  color: #ffffff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.btn-google:hover {
-  background-color: #2a4bff; /* Darker shade on hover */
-}
-
-body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f8f9fa; /* Bootstrap background color */
-}
-
-.login-container {
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: #ffffff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 50px;
-}
-
-h2 {
-  text-align: center;
-}
-
-.google-login {
-  display: block;
-  text-align: center;
-  margin-bottom: 20px;
-  text-decoration: none;
-  color: #007bff; /* Bootstrap primary color */
-}
-
+/* Style for the form container */
 .login-form {
-  display: flex;
-  flex-direction: column;
+    max-width: 400px;
+    margin: auto;
+    margin-top: 50px;
 }
 
-.login-form label {
-  margin-bottom: 5px;
+/* Style for the input group and form controls */
+.input-group {
+    margin-bottom: 10px;
 }
 
-.login-form input {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ced4da; /* Bootstrap form border color */
-  border-radius: 3px;
+.form-control {
+    width: 100%;
 }
 
-.login-form button {
-  background-color: #007bff;
-  color: #ffffff;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
+/* Style for the Remember me checkbox */
+.form-check {
+    margin-top: 10px;
 }
 
-.login-form button:hover {
-  background-color: #0056b3; /* Darker shade of the primary color on hover */
+/* Style for the Submit button */
+.btn-primary {
+    width: 100%;
 }
 
-/* Add more styles as needed */
-
-.remember-me {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-
-.remember-me input {
-  margin-right: 10px;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #007bff; /* Bootstrap primary color */
-  border-radius: 3px;
-  cursor: pointer;
-  outline: none;
-}
-
-.remember-me input:checked {
-  background-color: #007bff;
-  border: 2px solid #007bff; /* Bootstrap primary color */
-}
-
-.remember-me label {
-  font-size: 14px;
-}
 
 
   </style>

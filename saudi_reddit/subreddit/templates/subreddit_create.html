@@ -2,10 +2,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Create a Subreddit</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Subreddit</button>
-  </form>
+
+<form method="post" action="{% url 'subreddit:subreddit_create' %}" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+      <label for="formGroupExampleInput" class="form-label">Name</label>
+      <input type="text" class="form-control" id="formGroupExampleInput" name="name" placeholder="Example input placeholder">
+  </div>
+  <div class="mb-3">
+      <label for="formGroupExampleInput2" class="form-label">Description</label>
+      <input type="text" class="form-control" id="formGroupExampleInput2" name="description" placeholder="Another input placeholder">
+  </div>
+
+  <div class="mb-3">
+      <label for="formFileHeader" class="form-label">Header</label>
+      <input class="form-control form-control-sm" id="formFileHeader" name="header" type="file">
+  </div>
+
+  <div class="mb-3">
+      <label for="formFileIcon" class="form-label">Icon</label>
+      <input class="form-control form-control-sm" id="formFileIcon" name="icon" type="file">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
 {% endblock %}

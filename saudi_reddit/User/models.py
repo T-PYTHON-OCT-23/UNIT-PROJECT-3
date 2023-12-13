@@ -13,7 +13,7 @@ class Profile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE, blank=True, null=True)
-    subreddit = models.ManyToManyField(Subreddit, blank=True)
+    subreddit = models.ManyToManyField(Subreddit, blank=True , default=0)
     
     def __str__(self):
         return self.user.username

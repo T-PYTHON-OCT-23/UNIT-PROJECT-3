@@ -5,7 +5,7 @@
 {% block header %}User Profile{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
+    <main class="container mt-4">
         <div class="row">
             <div class="col-md-4">
                 {% if user_profile.image %}
@@ -17,51 +17,40 @@
             <div class="col-md-8">
                 <h2>{{ user_profile.username }}</h2>
                 <p class="profile-info"><strong>Email:</strong> {{ user_profile.email }}</p>
-                <p class="profile-info"><strong>Last Login:</strong> {{ user_profile.last_login }}</p>
-                <p class="profile-info"><strong>Full Name:</strong> {{ user_profile.full_name }}</p>
-                <p class="profile-info"><strong>Bio:</strong> {{ user_profile.bio }}</p>
-                <p class="profile-info"><strong>Created At:</strong> {{ user_profile.created_at }}</p>
-                <p class="profile-info"><strong>Updated At:</strong> {{ user_profile.updated_at }}</p>
-                <p class="profile-info"><strong>Number of Posts:</strong> {{ user_profile.post.count }}</p>
-                <p class="profile-info"><strong>Number of Comments:</strong> {{ user_profile.comment.count }}</p>
-                <p class="profile-info"><strong>Number of Subscribed Subreddits:</strong> {{ user_profile.subreddit.count }}</p>
-            
-                <p class="profile-info"><strong>Subreddits Subscribed To:</strong></p>
-                <ul class="subreddit-list">
+                <!-- ... other profile info ... -->
+
+                <ul class="subreddit-list list-group">
                     {% for subreddit in user_profile.subreddit %}
-                        <li>{{ subreddit.name }}</li>
+                        <li class="list-group-item" style="background-image: url('{{ subreddit.header.url }}');">
+                            <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}" class="text-dark">{{ subreddit.name }}</a>
+                        </li>
                     {% endfor %}
                 </ul>
 
                 <!-- Links to user's comments and posts -->
                 <p class="profile-info"><strong>Comments:</strong></p>
                 {% for comment in user_profile.comment %}
-                    <p class="profile-info"><a href="{% url 'subreddit:comment_detail' comment.slug %}">{{ comment.content }} || {{ comment.post}}</a></p>
+                    <p class="profile-info"><a href="{% url 'subreddit:comment_detail' comment.slug %}" class="text-dark">{{ comment.content }} || {{ comment.post}}</a></p>
                 {% endfor %}
                 <p class="profile-info"><strong>Posts:</strong></p>
                 {% for post in user_profile.post %}
-                    <p class="profile-info"><a href="{% url 'Fourm:post_detail' post.subreddit post.slug %}">{{ post.title }} || {{post.subreddit}}</a></p>
+                    <p class="profile-info"><a href="{% url 'Fourm:post_detail' post.subreddit post.slug %}" class="text-dark">{{ post.title }} || {{ post.subreddit }}</a></p>
                 {% endfor %}
+
                 {% if user.is_authenticated and user.username == user_profile.username %}
                     <a href="{% url 'User:edit_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
                 {% endif %}
             </div>
         </div>
-    </div>
+    </main>
 
     <style>
-        /* Add these styles to the <style> section in your base.html */
         main {
             padding: 20px;
-            background-color: #ffffff; /* White background for main content */
-            border-radius: 5px;
+            background-color: #f8f9fa; /* Light gray background for main content */
+            border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: auto; /* Center the container */
         }
 
         img.img-fluid.rounded.profile-image {
@@ -79,10 +68,17 @@
             padding: 0;
         }
 
-        .subreddit-list li {
-            margin-bottom: 5px;
+        .list-group-item {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            padding: 10px;
+            background-size: cover;
+            background-position: center;
         }
 
-        /* ... additional styles ... */
+        .list-group-item a {
+            text-decoration: none;
+            color: #ffffff;
+        }
     </style>
 {% endblock %}

@@ -5,103 +5,179 @@
 {% block header %}Edit Profile{% endblock %}
 
 {% block content %}
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <h2 class="text-center mb-4">Edit Profile</h2>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="{{ form.username.id_for_label }}">Username</label>
-                        {{ form.username }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.full_name.id_for_label }}">Full Name</label>
-                        {{ form.full_name }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.email.id_for_label }}">Email</label>
-                        {{ form.email }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.bio.id_for_label }}">Bio</label>
-                        {{ form.bio }}
-                    </div>
-                    <div class="form-group">
-                        <label for="{{ form.image.id_for_label }}">Profile Image</label>
-                        {{ form.image }}
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
-                </form>
-            </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+jQuery(document).ready(function() {
+    // Function to validate email format on the client side
+    function isValidEmail(email) {
+        var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Function to check if the email is already used on the server side
+    function isEmailUsed(email) {
+        jQuery.ajax({
+            type: 'GET',
+            url: '{% url 'User:check_email' %}',  // Replace with your actual URL for email checking
+            data: {'email': email},
+            success: function(response) {
+                if (response.is_used) {
+                    jQuery('#email').css('border-color', 'red'); // Change border color to red for invalid email
+                } else {
+                    jQuery('#email').css('border-color', 'green'); // Reset border color for valid email
+                }
+            },
+            error: function(error) {
+                console.error('Error checking email:', error);
+            }
+        });
+    }
+
+    // Function to check if the username is already used on the server side
+    function isUserUsed(username) {
+        jQuery.ajax({
+            type: 'GET',
+            url: '{% url 'User:check_username' %}',  // Replace with your actual URL for checking
+            data: {'username': username},
+            success: function(response) {
+                if (response.is_used) {
+                    jQuery('#username').css('border-color', 'red'); // Change border color to red for invalid username
+                } else {
+                    jQuery('#username').css('border-color', 'green'); // Reset border color for valid username
+                }
+            },
+            error: function(error) {
+                console.error('Error checking username:', error);
+            }
+        });
+    }
+
+    // Attach an event listener to the email input field
+    jQuery('#mail').on('blur', function() {
+        var email = jQuery(this).val();
+
+        // Check if the email is in a valid format
+        if (!isValidEmail(email)) {
+            jQuery('#mail').css('border-color', 'red'); // Change border color to red for invalid email
+            return;
+        }
+
+        // If the email format is valid, check if it's already used
+        isEmailUsed(email);
+    });
+
+    // Attach an event listener to the username input field
+    jQuery('#username').on('blur', function() {
+        var username = jQuery(this).val();
+
+        // If the username format is valid, check if it's already used
+        isUserUsed(username);
+    });
+});
+</script>
+
+    
+<form class="row g-3" method="post" action="{% url 'User:edit_profile' %}" enctype="multipart/form-data" >
+    {% csrf_token %}
+    {% if profile.image %}
+        <img src="{{ profile.image.url }}" alt="Profile Picture" width="200" height="200">
+    {% endif %}
+    <div class="col-md-6">
+        <label for="inputEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="mail" name="email" placeholder="Your Email" value={{ profile.email }}>
+    </div>
+
+    <div class="col-md-6">
+        <label for="inputUsername" class="form-label">Username</label>
+        <div class="input-group">
+            <div class="input-group-text">@</div>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Your Username" value={{ request.user.username }}>
         </div>
     </div>
 
-    <style>
-        /* Add these styles to the <style> section in your base.html */
+    <div class="col-md-6">
+        <label for="inputPassword" class="form-label">Password</label>
+        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Your Password">
+    </div>
 
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa; /* Bootstrap background color */
-        }
+    <div class="col-12">
+        <label for="inputBio" class="form-label">Bio</label>
+        <input type="textarea" class="form-control" id="inputBio" name="bio" placeholder="Your Bio" value={{ profile.bio }}>
+    </div>
 
-        main {
-            padding: 20px;
-            background-color: #ffffff; /* White background for main content */
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
+    <div class="col-md-6">
+        <label for="inputFullName" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="inputFullName" name="full_name" placeholder="Your Full Name" value= {{ profile.full_name }} >
+    </div>
 
-        .container {
-            max-width: 800px;
-        }
+    <div class="mb-3">
+        <label for="inputAvatar" class="form-label">Avatar</label>
+        <input class="form-control form-control-sm" id="inputAvatar" name="image" type="file" accept="image/*">
+    </div>
 
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-        }
+    <div class="col-12">
+        <button type="submit" class="btn btn-dark">Edit Profile</button>
+    </div>
+</form>
 
-        form button {
-            background-color: #007bff;
-            color: #ffffff;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-        }
 
-        form button:hover {
-            background-color: #0056b3;
-        }
-
-        form label {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        form input,
-        form textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        /* ... additional styles ... */
-    </style>
 {% endblock %}
+
+
+{%block style%}
+
+<style>
+
+    /* Add this CSS to your existing stylesheet or create a new one */
+
+/* Style for the form container */
+form {
+    max-width: 600px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+/* Style for the input fields and labels */
+.form-label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-control {
+    margin-bottom: 15px;
+}
+
+/* Style for the username input group */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group-text {
+    background-color: #343a40; /* Bootstrap dark background color */
+    color: #ffffff; /* White text color */
+}
+
+/* Style for the avatar input */
+#inputAvatar {
+    margin-top: 10px;
+}
+
+/* Style for the submit button */
+.btn-dark {
+    background-color: #343a40; /* Bootstrap dark background color */
+    color: #ffffff; /* White text color */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-dark:hover {
+    background-color: #1d2124; /* Darker background color on hover */
+}
+
+
+    
+</style>
+
+{%endblock%}

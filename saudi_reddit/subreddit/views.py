@@ -3,40 +3,40 @@ from .models import Subreddit
 from Fourm.models import Post, Comment
 from .forms import PostForm, SubredditForm, CommentForm
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 
-
-def post_detail(request, post_slug):
-    post = get_object_or_404(Post, slug=post_slug)
-    comments = Comment.objects.filter(post=post)
-    return render(request, 'post_detail.html', {'post': post, 'comments': comments})
 
 @login_required
 def post_create(request,subreddit_slug):
     
+    if request.user not in get_object_or_404(Subreddit, slug=subreddit_slug).subscribers.all():
+        return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit_slug)
+
     if request.method == 'POST':
         
-        form = PostForm(request.POST, request.FILES)
-        subreddit = get_object_or_404(Subreddit, slug=subreddit_slug)
-
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.subreddit = subreddit
-            post.save()
-            return redirect('subreddit:post_detail', post_slug=post.slug)
+        if request.POST.get('Title') and request.POST.get('Content'):
+            post = Post.objects.create(title=request.POST.get('Title'),
+                                       content=request.POST.get('Content'), author=request.user,
+                                       subreddit = get_object_or_404(Subreddit, slug=subreddit_slug))
+            
+        if request.FILES.get('image'):
+            post.image = request.FILES.get('image')
+        if request.FILES.get('video'):
+            post.video = request.FILES.get('video')
+        post.save()
+        return redirect('Fourm:post_detail', subreddit_slug=subreddit_slug , post_slug=post.slug)
 
     else:
-        form = PostForm()
-    return render(request, 'post_create.html', {'form': form})
+        return render(request, 'post_create.html')
 
 @login_required
-def post_delete(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def post_delete(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
     subreddit = post.subreddit
-    if request.method == 'POST' and request.user == post.author:
+    if request.user == post.author:
         post.delete()
         return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit.slug) 
-    return render(request, 'post_delete.html', {'post': post})
+    return PermissionDenied
 
 @login_required
 def post_update(request, post_id):
@@ -60,15 +60,19 @@ def subreddit_detail(request, subreddit_slug):
 def subreddit_create(request):
 
     if request.method == 'POST':
-        form = SubredditForm(request.POST)
-        if form.is_valid():
-            subreddit = form.save(commit=False)
-            subreddit.user = request.user
-            subreddit.save()
-            return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit.slug)
+        if request.POST.get('name') and request.POST.get('description'):
+            subreddit = Subreddit()
+            subreddit.name = request.POST.get('name')
+            subreddit.description = request.POST.get('description')
+            subreddit.author = request.user
+            subreddit.subscribers.add(request.user)
+        if request.FILES.get('icon') and request.FILES.get('header'):
+            subreddit.icon = request.FILES.get('icon')
+            subreddit.header = request.FILES.get('header')
+        subreddit.save()
+        return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit.slug)
     else:
-        form = SubredditForm()
-    return render(request, 'subreddit_create.html', {'form': form})
+        return render(request, 'subreddit_create.html')
 
 @login_required
 def subreddit_delete(request, subreddit_id):
@@ -76,19 +80,29 @@ def subreddit_delete(request, subreddit_id):
     if request.method == 'POST' and request.user == subreddit.creator:
         subreddit.delete()
         return redirect('Fourm:index')  # Redirect to the subreddit list page
-    return render(request, 'subreddit_delete.html', {'subreddit': subreddit})
+    return PermissionDenied
 
 @login_required
-def subreddit_update(request, subreddit_id):
-    subreddit = get_object_or_404(Subreddit, pk=subreddit_id)
-    if request.method == 'POST'  and request.user == subreddit.creator:
-        form = SubredditForm(request.POST, instance=subreddit)
-        if form.is_valid():
-            form.save()
-            return redirect('subreddit:subreddit_detail', subreddit_id=subreddit.id)
+def subreddit_update(request, subreddit_slug):
+    subreddit = get_object_or_404(Subreddit, subreddit_slug=subreddit_slug)
+    if request.user == subreddit.creator:
+        if request.method == 'POST':
+            subreddit = get_object_or_404(Subreddit, subreddit_slug=subreddit_slug)
+            if request.POST.get('name'):
+                subreddit.name = request.POST.get('name')
+            if request.POST.get('description'):
+                subreddit.description = request.POST.get('description')
+            if request.FILES.get('icon'):
+                subreddit.icon = request.FILES.get('icon')
+            if request.FILES.get('header'):
+                subreddit.header = request.FILES.get('header')
+            subreddit.save()
+            return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit_slug)
+        else:
+            return render(request, 'subreddit_update.html', {'subreddit': subreddit})
     else:
-        form = SubredditForm(instance=subreddit)
-    return render(request, 'subreddit_update.html', {'form': form, 'subreddit': subreddit})
+        PermissionDenied
+    
 
 @login_required
 def comment_delete(request, comment_id):
@@ -131,3 +145,17 @@ def comment_reply(request, comment_slug):
 def comment_detail(request, comment_slug):
     comment = get_object_or_404(Comment, slug=comment_slug)
     return render(request, 'comment_detail.html', {'comment': comment})
+
+
+@login_required
+def subscribe(request, subreddit_slug):
+    subreddit = get_object_or_404(Subreddit, slug=subreddit_slug)
+    subreddit.subscribers.add(request.user)
+    return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit.slug)
+
+@login_required
+
+def unsubscribe(request, subreddit_slug):
+    subreddit = get_object_or_404(Subreddit, slug=subreddit_slug)
+    subreddit.subscribers.remove(request.user)
+    return redirect('subreddit:subreddit_detail', subreddit_slug=subreddit.slug)

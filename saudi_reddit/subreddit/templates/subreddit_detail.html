@@ -6,6 +6,19 @@
     <div class="container mt-4">
         <h2 class="mb-3">{{ subreddit.name }}</h2>
 
+        {% if subreddit.author.username == request.user %}
+            <!-- Edit Subreddit Button -->
+            <a href="{% url 'subreddit:subreddit_update' subreddit.slug %}" class="btn btn-primary mb-3">Edit Subreddit</a>
+        {% endif %}
+        {% if request.user.is_authenticated %}
+            <!-- Subscribe/Unsubscribe Button -->
+            {% if request.user in subreddit.subscribers.all %}
+                <a href="{% url 'subreddit:subreddit_unsubscribe' subreddit.slug %}" class="btn btn-danger mb-3">Unsubscribe</a>
+            {% else %}
+                <a href="{% url 'subreddit:subreddit_subscribe' subreddit.slug %}" class="btn btn-primary mb-3">Subscribe</a>
+            {% endif %}
+        {% endif %}
+
 
         <!-- Subreddit Details Card -->
         <div class="card mb-4">
@@ -19,10 +32,10 @@
                 <!-- Add more details as needed -->
             </div>
         </div>
-
+        {% if request.user in subreddit.subscribers.all %}
         <!-- Create New Post Button -->
-        <a href="{% url 'subreddit:post_create' subreddit.slug %}" class="btn btn-primary mb-3">Create New Post</a>
-
+        <a href="{% url 'subreddit:post_create' subreddit.slug %}?subreddit_slug={{ subreddit.slug }} " class="btn btn-primary mb-3">Create New Post</a>
+        {% endif %} 
         <!-- Posts -->
         <h2 class="mb-3">Posts</h2>
         {% for post in posts %}
@@ -32,7 +45,33 @@
                         <a href="{% url 'Fourm:post_detail'  post.subreddit.slug  post.slug %}">{{ post.title }}</a>
                     </h5>
                     <p class="card-text">{{ post.content }}</p>
+                    {% if post.author == request.user %}
+                        <!-- Edit Post Button -->
+                        <a href="{% url 'subreddit:post_update'  post.slug %}" class="btn btn-primary mb-3">Edit Post</a>
+                    {% endif %}
+                    {% if post.image %}
                     <img src="{{ post.image.url }}" alt="{{ post.title }} Image" class="img-fluid mb-2">
+                    {% endif %}
+                    {% if request.user.is_authenticated %}
+                        <!-- Upvote/Downvote Buttons -->
+                        {% if request.user in post.upvotes.all %}
+                            <a href="{% url 'Fourm:upvote_post' post.slug %}" class="btn btn-danger mb-3">Downvote</a>
+                        {% else %}
+                            <a href="{% url 'Fourm:downvote_post'  post.slug %}" class="btn btn-primary mb-3">Upvote</a>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if request.user == post.author %}
+                        <!-- Delete Post Button -->
+                        <a href="{% url 'subreddit:post_delete' post.slug %}" class="btn btn-danger mb-3">Delete Post</a>
+                    {% endif %}
+
+                    {% if post.video %}
+                    <video width="320" height="240" controls>
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    {% endif %}
                     <p class="card-text">Created at: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
                     <p class="card-text">
                         Created by: <a href="{% url 'User:profile_with_username' username=post.author.username %}">{{ post.author.username }} || {{post.author.profile.full_name}}</a>

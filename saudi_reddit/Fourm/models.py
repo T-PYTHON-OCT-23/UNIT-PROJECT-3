@@ -7,6 +7,8 @@ from subreddit.models import Subreddit
 
 class Post(models.Model):
     subreddit = models.ForeignKey(Subreddit, on_delete=models.CASCADE)
+    isContentEdited = models.BooleanField(default=False)
+    whenContentEdited = models.DateTimeField(default=None, blank=True, null=True)
     upvoters = models.ManyToManyField(User, related_name='upvoted_posts', blank=True)
     downvoters = models.ManyToManyField(User, related_name='downvoted_posts', blank=True)
     title = models.CharField(max_length=255,default='New Post')
@@ -34,6 +36,8 @@ class Post(models.Model):
 
 class Comment(models.Model):
     content = models.TextField()
+    isContentEdited = models.BooleanField(default=False)
+    whenContentEdited = models.DateTimeField(default=None, blank=True, null=True)
     slug = models.SlugField(max_length=255,unique=True)
     image = models.ImageField(upload_to='images/comments/', blank=True)
     video = models.FileField(upload_to='videos/comments/', blank=True)

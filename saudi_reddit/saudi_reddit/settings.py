@@ -11,10 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-
-from dotenv import load_dotenv
-
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,9 +41,6 @@ INSTALLED_APPS = [
     'Fourm',
     'User',
     'subreddit',
-    'social_django',
-    'ckeditor',
-    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -99,14 +92,6 @@ AUTHENTICATION_BACKENDS = (
 )
 
 
-# Load environment variables from .env
-load_dotenv()
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
-
-
-
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = '/'  
@@ -138,16 +123,6 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Riyadh'
 
-CKEDITOR_UPLOAD_PATH = 'uploads/'  
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
 
 # settings.py
 
@@ -155,10 +130,10 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 # ...
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Media')
 
 # URL that handles the media served from MEDIA_ROOT, used for managing stored files.
-MEDIA_URL = '/Media/'
+MEDIA_URL = 'Media/'
 
 
 USE_I18N = True

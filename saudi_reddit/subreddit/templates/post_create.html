@@ -1,11 +1,59 @@
-<!-- templates/post_create.html -->
 {% extends 'base.html' %}
 
+{% block title %}Create a Post - Saudi-Reddit{% endblock %}
+
+{% block header %}Create a Post{% endblock %}
+
 {% block content %}
-  <h2>Create a Post</h2>
-  <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Create Post</button>
-  </form>
+    <div class="container mt-4">
+        <form method="post" action="{% url 'subreddit:post_create' request.GET.subreddit_slug  %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="postTitle" class="form-label">Title</label>
+                <input type="text" class="form-control" id="postTitle" name="Title" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="postContent" class="form-label">Content</label>
+                <textarea class="form-control" id="postContent" name="Content" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="postImage" class="form-label">Image</label>
+                <input class="form-control" type="file" id="postImage" name="image" accept="image/*">
+            </div>
+
+            <div class="mb-3">
+                <label for="postVideo" class="form-label">Video</label>
+                <input class="form-control" type="file" id="postVideo" name="video" accept="video/*">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create Post</button>
+        </form>
+    </div>
+
+    <style>
+        /* Add these styles to the <style> section in your base.html or a custom stylesheet */
+
+        /* Additional styles for form layout */
+        form {
+            max-width: 600px;
+            margin: auto;
+            margin-top: 20px;
+        }
+
+        /* Adjust styles based on your preferences */
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: #fff; /* White text color */
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3; /* Darker background color on hover */
+        }
+    </style>
 {% endblock %}
