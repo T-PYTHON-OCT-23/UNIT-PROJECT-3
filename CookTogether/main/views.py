@@ -8,5 +8,5 @@ def home_page(request : HttpRequest):
     try:
         recipes=Recipe.objects.all()[0:6]
     except Exception as e:
-        msg = f"Unfortunately, we encountered an issue. Please ensure all required fields are complete and try again. {e}"
+        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
     return render(request,'main/home_page.html',{'recipes':recipes,'msg':msg})

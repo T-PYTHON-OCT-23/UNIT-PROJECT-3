@@ -24,7 +24,7 @@
   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     Edit</button>
   <ul class="dropdown-menu">
-    {% if perms.ingredients.add_ingredient%}
+    {% if request.user.is_superuser %}
     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalIngredient">Add ingredient</a></li>
     {% endif %}
     {% if perms.recipes.delete_recipe%}

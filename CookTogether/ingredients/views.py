@@ -26,16 +26,19 @@ def browse_ingredients(request : HttpRequest):
     try:
         ingredients=Ingredient.objects.all()
     except Exception as e:
-        msg = f"We're experiencing technical difficulties right now. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
     return render(request,'ingredients/browse_ingredients.html',{'ingredients':ingredients,'msg':msg})
     
 
 def delete_ingredient(request : HttpRequest,ingredient_id):
-    if not request.user.is_superuser:
-        return render(request,'recipes/not_authorized.html')
-    ingredient=Ingredient.objects.get(id=ingredient_id)
-    ingredient.delete()
-    return redirect('ingredients:browse_ingredients')
+    try:
+        if not request.user.is_superuser:
+            return render(request,'recipes/not_authorized.html')
+        ingredient=Ingredient.objects.get(id=ingredient_id)
+        ingredient.delete()
+        return redirect('ingredients:browse_ingredients')
+    except Exception:
+        return redirect('ingredients:browse_ingredients')
 
 def update_ingredient(request : HttpRequest,ingredient_id):
     if not request.user.is_superuser:
@@ -53,24 +56,31 @@ def update_ingredient(request : HttpRequest,ingredient_id):
             ingredient.save()
             return redirect('ingredients:browse_ingredients')
     except Exception as e:
-        msg = f"We're experiencing technical difficulties right now. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue. Please ensure all required fields are complete and try again. {e}"
     return render(request,'ingredients/update_ingredient.html',{'ingredient':ingredient,'msg':msg})
 
 def add_ingredients_to_recipe(request:HttpRequest, recipe_id,ingredient_id):
-    if not request.user.is_superuser:
-        return render(request,'recipes/not_authorized.html')
-    recipe=Recipe.objects.get(id=recipe_id)
-    ingredient=Ingredient.objects.get(id=ingredient_id)
-    recipe.ingredients.add(ingredient)
-    return redirect('recipes:detail_recipe',recipe_id=recipe_id)
+    try:
+        if not request.user.is_superuser:
+            return render(request,'recipes/not_authorized.html')
+        recipe=Recipe.objects.get(id=recipe_id)
+        ingredient=Ingredient.objects.get(id=ingredient_id)
+        recipe.ingredients.add(ingredient)
+        return redirect('recipes:detail_recipe',recipe_id=recipe_id)
+    except Exception:
+        return redirect('recipes:detail_recipe',recipe_id=recipe_id)
 
 def delete_ingredients_from_recipe(request:HttpRequest, recipe_id,ingredient_id):
-    if not request.user.is_superuser:
-        return render(request,'recipes/not_authorized.html')
-    recipe=Recipe.objects.get(id=recipe_id)
-    ingredient=Ingredient.objects.get(id=ingredient_id)
-    recipe.ingredients.remove(ingredient)
-    return redirect('recipes:detail_recipe',recipe_id=recipe_id)
+    try:
+        if not request.user.is_superuser:
+            return render(request,'recipes/not_authorized.html')
+        recipe=Recipe.objects.get(id=recipe_id)
+        ingredient=Ingredient.objects.get(id=ingredient_id)
+        recipe.ingredients.remove(ingredient)
+        return redirect('recipes:detail_recipe',recipe_id=recipe_id)
+    except Exception:
+        return redirect('recipes:detail_recipe',recipe_id=recipe_id)
+
 
 def detail_ingredient(request : HttpRequest,ingredient_id):
     if not request.user.is_superuser:
@@ -78,10 +88,11 @@ def detail_ingredient(request : HttpRequest,ingredient_id):
     try:
         ingredient=Ingredient.objects.get(id=ingredient_id)
     except Exception:
-        return redirect('recipes:not_exist')
+        return redirect('ingredients:not_exist_ingredient')
     return render(request,'ingredients/detail_ingredient.html',{'ingredient':ingredient})
 
-        
+def not_exist_ingredient(request : HttpRequest):
+  return render(request,'ingredients/not_exist_ingredient.html')
 
 
 # Create your views here.

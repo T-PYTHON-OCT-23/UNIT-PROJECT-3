@@ -3,6 +3,13 @@
 {% block title %}Register{% endblock%}
 {% block content%}
 <div class="container">
+<div class="row mt-2">
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+{% endif %}
+</div>
   <div class="row mt-4">
     <h1 class="text-center mb-4">Welcome to Cook Together</h1>
         <div class="col">

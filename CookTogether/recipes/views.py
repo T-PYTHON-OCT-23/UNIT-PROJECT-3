@@ -26,15 +26,18 @@ def browse_recipes(request : HttpRequest):
             recipe.is_favored = request.user.is_authenticated and Favorite.objects.filter(recipe=recipe,user=request.user)
             recipes_with_favs.append(recipe)
     except Exception as e:
-        msg = f"We're experiencing technical difficulties right now. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
     return render(request,'recipes/browse_recipes.html',{'recipes':recipes_with_favs,'msg':msg})
 
 def delete_recipe(request : HttpRequest,recipe_id):
-    if not request.user.has_perm('recipes.delete_recipe'):
-        return render(request,'recipes/not_authorized.html')
-    recipe=Recipe.objects.get(id=recipe_id)
-    recipe.delete()
-    return redirect('recipes:browse_recipes')
+    try:
+        if not request.user.has_perm('recipes.delete_recipe'):
+            return render(request,'recipes/not_authorized.html')
+        recipe=Recipe.objects.get(id=recipe_id)
+        recipe.delete()
+        return redirect('recipes:browse_recipes')
+    except Exception:
+        return redirect('recipes:browse_recipes')
 
 def detail_recipe(request : HttpRequest,recipe_id):
     try:
@@ -80,7 +83,7 @@ def search_page(request : HttpRequest):
         else:
             recipe=Recipe.objects.all()
     except Exception as e:      
-        msg = f"We're experiencing technical difficulties right now. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
     return render(request,'recipes/search.html',{'recipes':recipe,'msg':msg})
 
 def recipe_categories(request : HttpRequest,cat):
@@ -88,7 +91,7 @@ def recipe_categories(request : HttpRequest,cat):
     try:
         recipe=Recipe.objects.filter(category=cat)
     except Exception as e:      
-        msg = f"We're experiencing technical difficulties right now. Please try again later. {e}"
+        msg = f"Unfortunately, we encountered an issue. Please try again later. {e}"
     return render(request,'recipes/search.html',{'recipes':recipe,'cat':cat,'msg':msg})
 
 def not_exist(request : HttpRequest):
