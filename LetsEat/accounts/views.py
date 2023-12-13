@@ -51,10 +51,12 @@ def sign_out_view(request: HttpRequest):
     return redirect("accounts:sign_in_view")
      
 
-def user_profile_view(request: HttpRequest, user_id ):
-
+def user_profile_view(request: HttpRequest, user_id  ):
+    
     try: 
         user = User.objects.get(id=user_id)
+        # recipe= Recipe.objects.filter(user=request.user)
+
     except:
         return render(request, 'main/home.html')
     
@@ -97,3 +99,19 @@ def update_user_view(request: HttpRequest):
             msg = f"something went wrong {e}"
 
     return render(request, "accounts/update_profile.html", {"msg" : msg})
+
+
+def user_recipes_view(request:HttpRequest ):
+        
+    user_recipes = Recipe.objects.filter(user=request.user)
+
+    return render(request ,  'accounts/user_recipes.html' ,{"user_recipes" :user_recipes  } )
+
+
+
+def community_view (request:HttpRequest):
+
+    user_recipes = Recipe.objects.all()
+
+    return render(request ,  'accounts/community.html' ,{"user_recipes" :user_recipes  } )
+

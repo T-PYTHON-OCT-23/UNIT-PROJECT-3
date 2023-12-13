@@ -89,5 +89,8 @@ box-sizing: border-box;
 .favored{
     color: red;
 }
-
+ 
+a {
+    text-decoration: none;
+}
 

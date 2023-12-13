@@ -3,6 +3,8 @@ from django.http import HttpRequest , HttpResponse
 from recipes.models import Recipe , Review
 from accounts.models import Profile
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
+
 
 
 
@@ -18,3 +20,5 @@ def home_view (request :HttpRequest):
 
 def about_view (request :HttpRequest):
          return render(request, "main/about.html" )
+
+

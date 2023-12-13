@@ -25,14 +25,18 @@
                 {% endif %}
 
               </div>
+
+<!-- user info -->
               <div class="ms-3" style="color:black; margin-top: 130px;">
                 <h4>{{ user.first_name }} {{ user.last_name }} </h4>
-                <p>@{{ user.username }} | Joined since {{ user.profile.join_date }}
+                <p>@{{ user.username }} | Member since {{ user.profile.join_date }}
                 </p>
               </div>
+              
             </div>
-        
             <div class="card-body p-4 text-black">
+
+ <!-- user description -->
               <div class="mb-5">
                 <p class="lead fw-normal mb-1">About</p>
                 <div class="p-4" style="background-color: #f8f9fa;">
@@ -40,18 +44,7 @@
                 </div>
               </div>
             
-              <!-- <div class="card-body p-4 text-black">
-                <div class="mb-5">
-                  <p class="lead fw-normal mb-1">Information contact</p>
-                  <div class="p-4" style="background-color: #f8f9fa; text-decoration:none;">
-                   
-                    <a  href="" ><span class="material-icons">email</span></a>
-                    <a href="{" style="font-size:24px"><i class="fa fa-instagram"></i></a>
-                   
-                  </div>
-                </div> -->
-
-
+<!-- show contact info-->
                 <div class="mb-5">
                   <p class="lead fw-normal mb-1">Contact information </p>
                   <div class="p-4" style="background-color: #f8f9fa;">
@@ -60,21 +53,22 @@
                     </div>
                 </div>
 
+<!-- show user recipes -->
                 <div class="mb-5">
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <p class="lead fw-normal mb-0">{{ user.first_name }}'s Recipes</p>
-                <p class="mb-0"><a href="{% url 'favorites:my_favorites_view' %}" class="text-muted">Show all</a></p>
+                <p class="mb-0"><a href=" {% url 'accounts:user_recipes_view' %} " class="text-muted">Show all</a></p>
               </div>
               <div class="p-4" style="background-color: #f8f9fa;">
               <div class="row g-2">
                 <div class="col mb-2">
-                  <img src="" class="w-100 rounded-3">
+                  <img src="{{ user.recipe.picture.url }}" class="w-100 rounded-3">
                 </div>
               </div>
             </div>
                 </div>
 
-<!-- show latest favoraites -->
+<!-- show user favoraites -->
 <div class="mb-5">
             <div class="d-flex justify-content-between align-items-center mb-4">
               <p class="lead fw-normal mb-0">Recent Saved</p>

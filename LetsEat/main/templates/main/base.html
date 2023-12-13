@@ -59,7 +59,7 @@
 
 
               <li class="nav-item">
-                <a class="nav-link" href="#">Community</a>
+                <a class="nav-link" href="{% url 'accounts:community_view'  %}">Community</a>
               </li>
 
                 {% if request.user.is_authenticated %}
@@ -112,64 +112,10 @@
     <!-- Grid container -->
     <div class="container p-4">
       <!-- Section: Social media -->
-      <section class="mb-4">
-        <!-- Twitter -->
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-twitter"></i
-        ></a>
-  
-        <!-- Google -->
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-google"></i
-        ></a>
-  
-        <!-- Instagram -->
-        <a data-mdb-ripple-init class="btn btn-outline btn-floating m-1" href="#!" role="button"
-          ><i class="fab fa-instagram"></i
-        ></a>
-  
-      </section>
-      <!-- Section: Social media -->
-  
-      <!-- Section: Form -->
-      <section class="">
-        <form action="">
-          <!--Grid row-->
-          <div class="row d-flex justify-content-center">
-            <!--Grid column-->
-            <div class="col-auto">
-              <p class="pt-2">
-                <strong>Join us</strong>
-              </p>
-            </div>
-            <!--Grid column-->
-  
-            <!--Grid column-->
-            <div class="col-md-5 col-12">
-              <!-- Email input -->
-              <div data-mdb-input-init class="form-outline mb-4">
-                <input type="email" id="form5Example24" class="form-control" />
-                <label class="form-label" for="form5Example24">Email address</label>
-              </div>
-            </div>
-            <!--Grid column-->
-  
-            <!--Grid column-->
-            <div class="col-auto">
-              <!-- Submit button -->
-              <button data-mdb-ripple-init type="submit" class="btn btn-outline mb-4">
-                Subscribe
-              </button>
-            </div>
-            <!--Grid column-->
-          </div>
-          <!--Grid row-->
-        </form>
-      </section>
-      
+
       <section class="mb-4">
         <p>
-        LetEat paragraaaaaaaph
+        <b class="navbar-brand">LetEat</b> <br> Eat healthy, stay healthey
         </p>
 
       </section>
@@ -178,40 +124,20 @@
         <!--Grid row-->
         <div class="row">
                 <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
-  
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-body" href="#!">Link 1</a>
-              </li>
-            
-              <li>
-                <a class="text-body" href="#!">Link 3</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Link 4</a>
-              </li>
-            </ul>
+            <h5 class="text-uppercase"><a href ="{% url 'accounts:sign_up_view' %}">JOIN US</a></h5>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase"><a href ="{% url 'main:home_view' %}">HOME</a></h5>
           </div>
          
           <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-            <h5 class="text-uppercase">Links</h5>
-  
-            <ul class="list-unstyled mb-0">
-              <li>
-                <a class="text-body" href="#!">Link 1</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Link 2</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Link 3</a>
-              </li>
-              <li>
-                <a class="text-body" href="#!">Link 4</a>
-              </li>
-            </ul>
+            <h5 class="text-uppercase"><a href ="{% url 'recipes:home_recipes_view' %}">BROWS</a></h5>
           </div>
+
+          <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+            <h5 class="text-uppercase"><a href ="{% url 'recipes:search_results_view' %}">SEARCH</a></h5>
+          </div>
+       
         </div>
       </section>
     </div>

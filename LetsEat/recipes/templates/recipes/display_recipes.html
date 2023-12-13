@@ -15,7 +15,6 @@
     </script>
     
 <div class="container p-5">
-
   <div class="d-flex align-items-center gap-1">
         <div class="dropdown">
               <button   class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -64,6 +63,23 @@
 
                     <br><br>
 
+                    <hr>
+
+                    <!-- add user account -->
+                <div class="row">
+                
+                      <div class="d-flex flex-start">
+                             <img class="rounded-circle shadow-1-strong me-3" src="{{ recipe.user.profile.avatar.url }}" width="80" height="80" />
+                        <div>
+                          <h6 class="fw-bold mb-1"> <a href="{% url 'accounts:user_profile_view' recipe.user.id %}">{{recipe.user.first_name}} {{recipe.user.last_name}}</a></h6>
+                            <p>@{{recipe.user.username }}</p>
+                            <hr>
+                            <p>{{recipe.user.profile.about }}</p>
+
+                        </div>
+                  </div>
+                </div>
+              
 <br>
 <hr />
 
@@ -71,7 +87,7 @@
 <section  style="background-color: rgb(230, 255, 190);">
     <div class="container my-5 py-5 ">
         {% if reviews_count > 0 %}
-        <h4 class="mb-0">Recent comments {{reviews_count}} </h4>  
+        <h4 class="mb-0">Recent reviews {{reviews_count}} </h4>  
 
       <div class="row row-cols-1 row-cols-md-4 mt-3  d-flex ">
         {% for review in reviews %} 
@@ -121,7 +137,7 @@
       <h2>Add Review</h2>
       <div class="col-6">
 
-        <form class="d-flex flex-column gap-2" action="{% url 'recipes:recipe_detail_view' recipe.id  %}" method="POST">
+        <form class="d-flex flex-column gap-2" action="{% url 'recipes:recipe_detail_view' recipe.id  %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
 
           <lable>Rating:</lable>

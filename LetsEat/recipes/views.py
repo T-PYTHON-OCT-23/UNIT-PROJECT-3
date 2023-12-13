@@ -2,6 +2,7 @@ from django.shortcuts import render , redirect
 from django.http import HttpRequest , HttpResponse
 from .models import Recipe, Review
 from favorites.models import Favorite
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -24,7 +25,7 @@ def add_recipe_view(request:HttpRequest):
       msg = None
       if request.method == "POST":
         try:
-            new_recipe = Recipe(name=request.POST["name"], description=request.POST["description"],  category=request.POST["category"] , preparing=request.POST["preparing"],ingredients=request.POST["ingredients"],picture = request.FILES["picture"] )
+            new_recipe = Recipe(user=request.user, name=request.POST["name"], description=request.POST["description"], category=request.POST["category"] , preparing=request.POST["preparing"],ingredients=request.POST["ingredients"],picture = request.FILES["picture"] )
             new_recipe.save()
             return redirect("recipes:home_recipes_view")
         except Exception as e:
@@ -95,6 +96,7 @@ def search_results_view(request: HttpRequest):
         keyword = request.GET["search"]
         recipes = Recipe.objects.filter(name__icontains=keyword )
         recipes = Recipe.objects.filter(category__icontains=keyword )
+        # recipes = User.objects.filter(username__icontains=keyword )
 
     else:
         recipes = Recipe.objects.all()

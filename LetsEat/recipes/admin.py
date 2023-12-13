@@ -5,9 +5,9 @@ from .models import Recipe , Review
 
 
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'category' ,'published_at' , 'description')
+    list_display = ('name' , 'category' ,'published_at' , 'description')
 
-    list_filter = ('name', 'published_at' , 'category')
+    list_filter = ('name', 'category' , 'published_at'  )
 
 
 
@@ -15,6 +15,7 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ( 'user', 'recipe', 'date', 'rating' )
 
     list_filter = ('recipe',  'rating' , 'date')
+
 
 
 admin.site.register(Recipe ,RecipeAdmin)

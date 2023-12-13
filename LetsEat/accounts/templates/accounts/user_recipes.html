@@ -1,0 +1,43 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<title>
+    {% block title %}Profile {% endblock %}
+</title>
+
+{% block content %}
+
+<section class="h-100 gradient-custom-2">
+    <div class="container py-5 h-100">
+    
+        <h1> {{ user.first_name }}'s recipes</h1>
+        <div class="row  g-4 row-cols-1 row-cols-md-3 p-5">
+           
+
+            {% for recipe in user_recipes %}
+            <div class="col">
+                <div class="card">
+        
+                <img class="card-img-top" src="{{recipe.picture.url}}" alt="Card image cap">
+        
+                <div class="card-body">
+        
+                    <h4 class="card-title"><a>{{recipe.name}}</a></h4>
+                    <p>Created at {{recipe.published_at}}</p>
+                    <hr>
+                    <p class="card-text">{{recipe.description}}</p>
+                    <a href="{% url 'recipes:recipe_detail_view' recipe.id %}" class="btn btn-success">Read</a>
+                  
+                </div>
+        
+                </div>
+            </div>
+                    
+        
+        
+            {% endfor %}
+            </div>
+    </div>
+  </section>
+    {%endblock%}
+
