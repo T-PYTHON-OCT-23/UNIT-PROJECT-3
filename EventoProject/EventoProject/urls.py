@@ -26,7 +26,6 @@ urlpatterns = [
     path('accounts/', include("accounts.urls")),
     path('events/', include("events.urls")),
     path('favorites/', include("favorites.urls")),
-    path('emails/', include("emails.urls")),
 
 
     

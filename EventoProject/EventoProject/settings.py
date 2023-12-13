@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'accounts',
     'events',
     'favorites',
-    'emails',
 ]
 
 MIDDLEWARE = [

@@ -26,6 +26,7 @@
             <h2>Ttile:{{ticket.event.title}}</h2>
             <h3>Tickets:{{ticket.quantity}}<span class="material-symbols-outlined">local_activity</span></h3>
             <h3>Category:{{ticket.event.category}}</h3>
+            <h6>Location : {{ ticket.event.location }}</h6>
             <h6 class="text-muted">Start date: {{ ticket.start_date }}</h6>
             <h6 class="text-muted">Last date: {{ ticket.last_date }}</h6>
             <a href="{% url 'accounts:user_profile_view' ticket.user.id %}" class="text-decoration-none text-black"><h4 >Username: {{ ticket.user.username }}</h4></a>

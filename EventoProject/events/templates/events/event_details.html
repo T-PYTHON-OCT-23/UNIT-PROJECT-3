@@ -49,18 +49,7 @@
             
             <h6 class="display-6"> Category: {{ event_detail.category }}</h6>
             <p class="display-6">Posting date: {{ event_detail.posting_date }}</p>
-            
-            {% if request.user.is_authenticated %}
-            <a class="btn btn-success" href="{% url 'emails:the_bill_view' %}" >Book Now</a>
-            
-            {%  else %}
-
-            <p class="p-3 border border-1 ">
-            To Book please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
-            </p>
-
-            {% endif %}
-
+            <h6 class="display-6">Location : {{ event_detail.location }}</h6>
             
         </div>
 
@@ -115,9 +104,9 @@
                     </tr>
                     <tr>
                         <th scope="row">Locations</th>
-                        <td>Location one</td>
-                        <td>Location two</td>
-                        <td>Location three</td>
+                        <td><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124441887!2d46.492868518795085!3d24.725455368508182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh!5e0!3m2!1sen!2ssa!4v1702423265197!5m2!1sen!2ssa" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></td>
+                        <td><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124441887!2d46.492868518795085!3d24.725455368508182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh!5e0!3m2!1sen!2ssa!4v1702423265197!5m2!1sen!2ssa" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></td>
+                        <td><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d463877.3124441887!2d46.492868518795085!3d24.725455368508182!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2sRiyadh!5e0!3m2!1sen!2ssa!4v1702423265197!5m2!1sen!2ssa" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></td>
                     </tr>
                     </tbody>
                 </table>
@@ -163,6 +152,74 @@
 
 
 
+  {% if reviews.count > 0 %}
+  <section class="row">
+    <h2>Reviews ({{reviews.count}}):</h2>
+      <div class="col">
+        <div class="d-flex flex-column gap-2">
+          {% for review in reviews %}
+          <div class="d-flex flex-column gap-2 border border-1 p-3">
+            <div class="d-flex justify-content-between align-items-center gap-1">
+              <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
+              <div class="d-flex gap-2 align-items-center">
+                <h5 class="p-0 m-0">{{review.rating}}</h5>
+                <span class="material-symbols-outlined">star</span>
+              </div>
+            </div>
+            
+            <h6 class="text-muted">{{ review.created_at }}</h6>
+
+            <p>{{ review.comment }}</p>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      
+  </section>
+  {% endif %}
+
+  <hr>
+
+  <section class="row mt-5">
+
+    {% if request.user.is_authenticated %}
+    <h2 class="display-4">Add Review:</h2>
+    <hr>
+    <div class="col m-4 p-5">
+
+      <form class="d-flex flex-column gap-2" action="{% url 'events:add_review_view' event_detail.id  %}" method="POST" >
+        {% csrf_token %}
+        <label>Rating:</label>
+        <select class="form-select" name="rating">
+          <option value="1">1 Star</option>
+          <option value="2">2 Star</option>
+          <option value="3">3 Star</option>
+          <option value="4">4 Star</option>
+          <option value="5">5 Star</option>
+        </select>
+
+        <label>Comment</label>
+        <textarea class="form-control" name="comment" placeholder="Your Review" required minlength="5"></textarea>
+
+        <input type="submit" value="Add Review" class="btn btn-success" />
+      </form>
+
+
+    </div>
+
+    {%  else %}
+
+    <p class="p-3 border border-1 ">
+      To post a review please <a href="{% url 'accounts:login_user_view' %}">sign in</a>.
+    </p>
+
+    {% endif %}
+  </section>
+
+
+
+</section>
+
 
 
 <!-- Modal -->
@@ -183,5 +240,7 @@
       </div>
     </div>
   </div>
+
+
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Event, Ticket
+from .models import Event, Ticket, Review
 from favorites.models import Favorite
 from django.core.mail import send_mail
 from django.conf import settings
@@ -10,7 +10,7 @@ from django.core.mail import EmailMessage
 def add_event_view(request: HttpRequest):
 
     if request.method == "POST":
-        event = Event(title=request.POST["title"],content=request.POST["content"], posting_date=request.POST["posting_date"],category=request.POST["category"],image=request.FILES["image"])
+        event = Event(title=request.POST["title"],content=request.POST["content"], posting_date=request.POST["posting_date"],category=request.POST["category"],image=request.FILES["image"],location=request.POST["location"])
         event.save()
 
         return redirect("events:events_home_view")
@@ -59,12 +59,13 @@ def update_event_view(request: HttpRequest, event_id):
 def event_details_view(request:HttpRequest, event_id):
 
     event_detail = Event.objects.get(id=event_id)
+    reviews = Review.objects.filter(event=event_detail)
     tickets = Ticket.objects.filter(event=event_detail)
 
 
     is_favored = request.user.is_authenticated and Favorite.objects.filter(event=event_detail, user=request.user).exists()
    
-    return render(request , "events/event_details.html", {"event_detail":event_detail, "is_favored": is_favored})
+    return render(request , "events/event_details.html", {"event_detail":event_detail, "is_favored": is_favored, "reviews":reviews})
 
 
 #To search for events
@@ -79,9 +80,6 @@ def search_page_view(request:HttpRequest):
     return render(request,"events/search_page.html",{"events": events})
 
 
-#JUST BOOKING PAGE
-def booking_page_view(request:HttpRequest):
-    return render(request,"events/booking.html")
 
 
 #To display the tickets page of the user
@@ -109,7 +107,7 @@ def add_ticket_view(request: HttpRequest, event_id):
             name = request.user.username
             email = request.user.email
             quantity = request.POST['quantity']
-            bill_content = f"Yay! {name} Thank you for your purchase. Please find the bill attached. {quantity} Tickets was booked successfully! Your ticket number is: Q{new_ticket.id}{new_ticket.event.title} "
+            bill_content = f"Yay! {name} Thank you for your purchase. Please find the bill attached. {quantity} Tickets was booked successfully! Your ticket number is: Q{new_ticket.id}{new_ticket.event.title} {new_ticket.event.location}"
             send_mail(
                 'The bill',#title
                 bill_content, #message
@@ -154,3 +152,21 @@ def new_events_view(request: HttpRequest):
 
 
 
+def add_review_view(request: HttpRequest, event_id):
+
+    if request.method == "POST":
+
+        if not request.user.is_authenticated:
+            return render(request, "main/not_uth.html", status=401)
+
+        event_id = Event.objects.get(id=event_id)
+        new_review = Review(event=event_id, user=request.user, rating=request.POST["rating"], comment=request.POST["comment"])  
+        new_review.save()
+        return redirect("events:event_details_view", event_id=event_id.id)
+
+
+def review_page_view(request:HttpRequest, event_id):
+
+    event_detail = Event.objects.get(id=event_id)
+    reviews = Review.objects.filter(event=event_detail)
+    return render(request,"events/review_page.html",{"event_detail":event_detail,"reviews":reviews})

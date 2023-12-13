@@ -8,3 +8,10 @@
 .barcode{
     height: 10px;
 }
+
+
+.box-prof{
+    background-color: aquamarine;
+    font-family: 'Courier New', Courier, monospace;
+    border-color: blueviolet;
+}

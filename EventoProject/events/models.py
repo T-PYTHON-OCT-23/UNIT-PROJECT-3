@@ -14,6 +14,7 @@ class Event(models.Model):
     posting_date = models.DateField()
     category = models.CharField(max_length=100, choices=categories.choices)
     image = models.ImageField(upload_to="images/", default="images/default.jpg")
+    location = models.CharField(max_length=100)
 
     def __str__(self):
         return f"{self.title}"
@@ -26,10 +27,23 @@ class Ticket(models.Model):
     quantity = models.IntegerField()
     start_date = models.DateTimeField(auto_now_add=True)
     last_date = models.DateTimeField(auto_now_add=True)
-    
+
     
     def __str__(self):
         return f"{self.user.first_name} : {self.quantity}"
 
+
+
+
+class Review(models.Model):
+    event =  models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+    def __str__(self):
+        return f"{self.user} : {self.comment}"
 
 

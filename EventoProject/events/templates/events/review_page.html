@@ -1,0 +1,27 @@
+{% extends 'main/base.html' %}
+
+{% block title %} Reviews {% endblock %}
+
+{% block content %}
+
+
+{% if user.review_set.count > 0 %}
+<section class="row">
+  <h2>Reviews ({{user.review_set.count}}):</h2>
+    <div class="col">
+      <div class="d-flex flex-column gap-2">
+        {% for review in user.review_set.all %}
+        <div class="d-flex flex-column gap-2 border border-1 p-3">
+          <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
+          <a href="{% url 'events:event_details_view' review.event.id %}"><h6>{{ review.event.title }}</h6></a>
+          <h6 class="text-muted">{{ review.created_at }}</h6>
+          <p>{{ review.comment }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+</section>
+{% endif %}
+
+{% endblock %}

@@ -30,9 +30,12 @@
       <div class="card" style="width: 19rem; height: 27rem">
         <img src="{{event.image.url}}" class="card-img-top" style="width: 19rem; height: 25rem" alt="...">
         <div class="card-body">
-          <a href="{% url 'events:event_details_view' event.id %}" class="card-title link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h5>{{ event.title }}</h5></a>
+          <div class="d-flex justify-content-between align-items-center">
+            <a href="{% url 'events:event_details_view' event.id %}" class="card-title link-info link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><h5>{{ event.title }}</h5></a>
+          </div>
           <h5>{{ event.posting_date }}</h5>
           <h6>{{ event.category }}</h6>
+          <h6>{{ event.location }}</h6>
         </div>
       </div>
     </div>
