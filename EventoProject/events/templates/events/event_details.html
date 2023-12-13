@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Detail event {% endblock %}
+{% block title %} Event Details {% endblock %}
 
 {% block content %}
 
@@ -50,6 +50,7 @@
                   </svg></a>
               {% endif %}
             </div>
+            <p class="text-success display-5">Event Open</p>
             <h6 class="display-6"> Category: {{ event_detail.category }}</h6>
             <p class="display-6">Posting date: {{ event_detail.posting_date }}</p>
             <h6 class="display-6">Location : {{ event_detail.location }}</h6>
@@ -75,6 +76,11 @@
   <div class="row">
     <h1 class="display-1">Booking Ticket </h1>
     <hr>
+    {% if msg %}
+        <div class="alert alert-danger" role="alert">
+        {{ msg }}
+        </div>
+    {% endif %}
     <div class="col">
       {% if request.user.is_authenticated %}
 
@@ -89,7 +95,7 @@
             <option value="5">5 tickets</option>
             </select>
         <div class="d-flex flex-column justify-content-center align-items-center mt-4">
-            <input class="btn btn-success" type="submit" value="Book Now!"/>
+            <input class="btn btn-success" type="submit" value="Book ticket (Free)!"/>
         </div>
     </form>
     {%  else %}

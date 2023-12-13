@@ -2,9 +2,14 @@
 
 
 ## Edit the README.md file to include (include the info at the top):
-- Project Name : Event Managment System
-- Project Description : An Online platform that assists users to explore events and book online in various fields.
-- Features list : Registration / Booking Online / Events schedule / Explore various events 
+- Project Name : Evento Project
+- Project Description : Evento is a website where you can explore events, make online reservations, and register all in one place.
+- Features list : 
+1-Registration 
+2-Booking Online 
+3-You can add reviews on events / share it on public / you can see others reviews
+4-You can favour events 
+5-Explore various events from newset t
 
 
 ## Create a Project of your own choosing

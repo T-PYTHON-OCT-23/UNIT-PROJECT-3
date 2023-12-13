@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} All events {% endblock %}
+{% block title %} Search page {% endblock %}
 
 {% block content %}
 
@@ -9,14 +9,15 @@
 </div>
 <hr>
 </div>
-<div class="container1 m-5">
+<div class="container m-5">
     <div class="row gap-2">
         {% for event in events %}
         <div class="col border border-warning-subtle shadow p-3 mb-5 bg-body-tertiary rounded">
-            <img src="{{event.image.url}}" class="card-img-top p-3" style="height: 20rem;" alt="Event image">
+            <img src="{{event.image.url}}" class="card-img-top p-3" style="height: 20rem;width:22rem;" alt="Event image">
             <h5 class="fst-italic">Title : {{ event.title }}</h5>
             <h5 class="fst-italic">Posting date:{{ event.posting_date }}</h5>
             <h6 class="fst-italic">Category : {{ event.category }}</h6>
+            <a href="{% url 'events:event_details_view' event.id %}" class="btn btn-outline-secondary">Discover</a>
         </div>
         {% endfor %}
 

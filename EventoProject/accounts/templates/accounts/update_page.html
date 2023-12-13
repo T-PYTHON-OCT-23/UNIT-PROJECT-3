@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Update  User {% endblock %}
+{% block title %} Update User {% endblock %}
 
 
 {% block content %}
@@ -29,7 +29,7 @@
                     <input class="form-control" type="file" name="avatar"  placeholder="choose avatar"/>
                 </div>
                 <label>Birth date</label>
-                <input class="form-control" type="date" name="birth_date" required value="{{ request.user.profile.birth_date.isoformat }}" />
+                <input class="form-control" type="date" name="birth_date" required/>
 
 
 

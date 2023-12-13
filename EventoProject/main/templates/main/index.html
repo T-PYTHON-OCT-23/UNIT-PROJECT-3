@@ -1,6 +1,10 @@
 {% extends 'main/base.html' %}
 {% load static %}
 
+
+{% block title %} main {% endblock %}
+
+
 {% block content %}
 
 <div class="test  d-flex justify-content-center align-items-center m-4">
@@ -28,8 +32,8 @@
         Events
       </button>
       <ul class="dropdown-menu">
-        <li><a class="dropdown-item" href="{% url 'events:new_events_view' %}">New Events</a></li>
-        <li><a class="dropdown-item" href="{% url 'events:old_events_view' %}">Old Events</a></li>
+        <li><a class="dropdown-item" href="{% url 'events:new_events_view' %}">Latest Events</a></li>
+        <li><a class="dropdown-item" href="{% url 'events:old_events_view' %}">Earliest Events</a></li>
         <li><a class="dropdown-item" href="{% url 'events:events_home_view' %}">All Events</a></li>
       </ul>
     </div>

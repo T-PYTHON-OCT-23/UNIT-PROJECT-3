@@ -9,7 +9,7 @@ from events.models import Event, Review
 def home_page_view(request: HttpRequest):
 
     reviews = Review.objects.all().order_by("-rating")[0:4]
-    
+
     return render(request,"main/index.html" ,{"reviews" : reviews})
 
 

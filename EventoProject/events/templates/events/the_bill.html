@@ -1,6 +1,6 @@
 {% extends 'main/base.html' %}
 
-{% block title %} Booking page {% endblock %}
+{% block title %} The ticket page {% endblock %}
 
 {% block content %}
 
@@ -24,7 +24,7 @@
                 <h3>Category:{{ticket.event.category}}</h3>
                 <h6>Location : {{ ticket.event.location }}</h6>
                 <h6>Date : {{ ticket.event.posting_date }}</h6>
-                <br>Welcome, {{ ticket.user.first_name }} to {{ ticket.event.title }} you will had so much fun and will discover new things and many things.</div>
+                <br>Congratulations {{ ticket.user.first_name }} !, You've received your ticket, and the adventure is about to begin.  we are excited to meet in {{ ticket.event.title }}!.</div>
                 <div class="mt-4">
                     <a href="{% url 'events:event_details_view' event_detail.id %}" class="btn btn-outline-secondary">Event Details</a>
                     <a href="{% url 'events:my_tickets_view' %}" class="btn btn-outline-secondary">My Tickets</a>

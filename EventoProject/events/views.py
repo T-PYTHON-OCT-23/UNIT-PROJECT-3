@@ -5,12 +5,14 @@ from favorites.models import Favorite
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMessage
+from django.db import IntegrityError
+
 
 #To add e new event 
 def add_event_view(request: HttpRequest):
 
     if not request.user.is_staff:
-        return render(request, "main/not_uth.html", status=401)
+        return render(request, "main/not_authorized.html", status=401)
 
     if request.method == "POST":
         event = Event(title=request.POST["title"],content=request.POST["content"], posting_date=request.POST["posting_date"],category=request.POST["category"],image=request.FILES["image"],location=request.POST["location"])
@@ -48,27 +50,32 @@ def update_event_view(request: HttpRequest, event_id):
         return render(request, "main/not_uth.html", status=401)
     
     event = Event.objects.get(id=event_id)
+    try:
+        if request.method == "POST":
+            event.title = request.POST["title"]
+            event.content = request.POST["content"]
+            event.posting_date = request.POST["posting_date"]
+            event.category = request.POST["category"]
+            event.image = request.FILES["image"]
+            event.location = request.POST["location"]
+            event.save()
 
-    if request.method == "POST":
-        event.title = request.POST["title"]
-        event.content = request.POST["content"]
-        event.posting_date = request.POST["posting_date"]
-        event.category = request.POST["category"]
-        event.image = request.FILES["image"]
-        event.location = request.POST["location"]
-        event.save()
+            return redirect('events:event_details_view', event_id=event.id)
+    except Exception as e:
+        return render(request,"main/not_found.html")
 
-        return redirect('events:event_details_view', event_id=event.id)
 
     return render(request,"events/update_event.html", {"event" : event, "categories": Event.categories})
 
 
 #To display the content details of event
 def event_details_view(request:HttpRequest, event_id):
-
-    event_detail = Event.objects.get(id=event_id)
-    reviews = Review.objects.filter(event=event_detail)
-    tickets = Ticket.objects.filter(event=event_detail)
+    try:
+        event_detail = Event.objects.get(id=event_id)
+        reviews = Review.objects.filter(event=event_detail)
+        tickets = Ticket.objects.filter(event=event_detail)
+    except Exception as e:
+        return render(request,"main/not_found.html")
 
 
     is_favored = request.user.is_authenticated and Favorite.objects.filter(event=event_detail, user=request.user).exists()
@@ -100,34 +107,35 @@ def my_tickets_view(request: HttpRequest):
 
 #To book a ticket by the user 
 def add_ticket_view(request: HttpRequest, event_id):
+    msg = None
+    try:
+        if request.method == "POST":
+            if not request.user.is_authenticated:
+                return render(request, "main/not_authorized.html", status=401)
 
-    if request.method == "POST":
+            event = Event.objects.get(id=event_id)
+            new_ticket = Ticket(event=event, user=request.user, quantity=request.POST["quantity"])  
+            new_ticket.save()
 
-        if not request.user.is_authenticated:
-            return render(request, "main/not_uth.html", status=401)
+            tickets = Ticket.objects.filter(event=event)
 
-        event = Event.objects.get(id=event_id)
-        new_ticket = Ticket(event=event, user=request.user, quantity=request.POST["quantity"])  
-        new_ticket.save()
+            email_sent = False
+            if request.method =='POST':
+                name = request.user.username
+                email = request.user.email
+                quantity = request.POST['quantity']
+                bill_content = f"Congratulations {name}!, You've received your ticket, and the adventure is about to begin.\n We are excited to meet you in {new_ticket.event.title}.\n({quantity}) Tickets was booked successfully!\nYour tickets number is:(RX{new_ticket.id}) in {new_ticket.event.title}\n Location :{new_ticket.event.location}.See you there!"
+                send_mail(
+                    'The bill',#title
+                    bill_content, #message
+                    'settings.EMAIL_HOST_USER', #Sender if not avalaible considered 
+                    [email],#recive email
+                    fail_silently=False)
+                email_sent = True
+    except Exception as e:
+        return render(request,"main/not_found.html")
 
-        tickets = Ticket.objects.filter(event=event)
-
-
-        email_sent = False
-        if request.method =='POST':
-            name = request.user.username
-            email = request.user.email
-            quantity = request.POST['quantity']
-            bill_content = f"Yay! {name} Thank you for your booking. ({quantity}) Tickets was booked successfully! Your ticket number is:(RX{new_ticket.id}) in {new_ticket.event.title} | Location :{new_ticket.event.location}. See you there!"
-            send_mail(
-                'The bill',#title
-                bill_content, #message
-                'settings.EMAIL_HOST_USER', #Sender if not avalaible considered 
-                [email],#recive email
-                fail_silently=False)
-            email_sent = True
-
-        return render(request, "events/the_bill.html",{"event_detail": event, "tickets":tickets})
+    return render(request, "events/the_bill.html",{"event_detail": event, "tickets":tickets , "msg": msg })
 
 
 

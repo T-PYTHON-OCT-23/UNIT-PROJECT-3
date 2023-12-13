@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, Ticket
+from .models import Event, Ticket,Review
 
 
 # Register your models here.
@@ -10,10 +10,14 @@ class Event_Info(admin.ModelAdmin):
 
     list_display = ('title', 'content', 'posting_date', 'category')
 
-class Ticket_Info(admin.ModelAdmin):
 
-    list_display = ('quantity','start_date')
 
+class ReviewModel(admin.ModelAdmin):
+    list_display = ('user', 'event', 'rating', 'comment', 'created_at')
+    list_filter = ('event',)
 
 admin.site.register(Event, Event_Info)
-admin.site.register(Ticket, Ticket_Info)
+admin.site.register(Review, ReviewModel)
+
+
+
