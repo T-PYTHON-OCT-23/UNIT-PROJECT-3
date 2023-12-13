@@ -23,24 +23,30 @@ def register_user_view(request: HttpRequest):
 
             return redirect("account:login_user_view")
         except IntegrityError as e:
-            print(e)
             msg = f"Please select another username"
         except Exception as e:
             msg = f"something went wrong {e}"
 
     return render(request, "account/register.html", {"msg" : msg})
-
-
+ 
 def login_user_view(request: HttpRequest):
-    msg = None
-    if request.method == "POST":
-        user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
+    try:    
+        msg = None
+        if request.method == "POST":
+            
+            user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
+        
+            if user:
+                login(request, user)
+                return redirect("main:home_view")
+            else:
+                
+                msg = "Please provide correct username and password"
+                
+    except  Exception as e:
+        msg = f"Log out first and then try login in again {e}"
 
-        if user:
-            login(request, user)
-            return redirect("main:home_view")
-        else:
-            msg = "Please provide correct username and password"
+       
 
     return render(request, "account/login.html", {"msg" : msg})
 

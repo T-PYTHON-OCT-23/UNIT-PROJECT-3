@@ -5,7 +5,11 @@
 <section class="container mt-5">
 <div class="row">
     <div class="col">
-
+      {% if msg %}
+      <div class="alert alert-danger" role="alert">
+          {{ msg }}
+      </div>
+      {% endif %}
         <div class="d-flex flex-column gap-2">
           <div class="d-flex">
             <img class="detail-poster align-items-cover object-fit-cover" src="{{book.poster.url}}" width="350"  height="550"/>
@@ -46,7 +50,7 @@
       
               <div class="d-flex gap-2 mt-2 align-items-center" >
 
-              {% if  perms.book.update and perms.book.delete %}
+                {% if perms.books.change_book %}
               <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <button type="button" class="btn btn-outline-success" style="width: 180px;">Edit</button>
                 <div class="btn-group" role="group">
@@ -76,7 +80,7 @@
           <div class="d-flex flex-column gap-2 border border-1 p-3 g-3">
             <div class="d-flex align-items-center g-3">
               <a href="{% url 'account:user_profile_view' user_id=review.user.id %}  "><h3 >{{ review.user.first_name }} {{ review.user.last_name }}</h3></a>
-              {% if user.profile.is_writer %}
+              {% if review.user.profile.is_writer %}
             <span class="badge bg-info g-3 mx-3">writer</span> 
              {% endif %}
             </div>

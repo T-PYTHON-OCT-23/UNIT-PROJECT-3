@@ -34,4 +34,4 @@ def fav(request: HttpRequest):
 
     return render(request, 'favorite/fav.html', {"favorites" : favorites})
 
-# Create your views here.
+

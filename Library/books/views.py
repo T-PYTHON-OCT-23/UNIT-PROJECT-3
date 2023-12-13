@@ -8,14 +8,13 @@ from django.db.models import Avg, Sum, Max, Min
 # Create your views here.
 def add_book_view(request: HttpRequest):
 
-    if not request.user.has_perm("books.add_book_view"):
+    if not request.user.has_perm("books.add_book"):
        return render(request, "main/not_authorized.html", status=401)
-
-
+    
     msg = None
     if request.method == "POST":
         try:
-            new_book = Book(name=request.POST["name"], brief=request.POST["brief"], writer=request.POST["writer"], release_date=request.POST["release_date"], publishing_house=request.POST["publishing_house"], category=request.POST["category"],content=request.FILES["content"])
+            new_book = Book(user=request.user, name=request.POST["name"], brief=request.POST["brief"], writer=request.POST["writer"], release_date=request.POST["release_date"], publishing_house=request.POST["publishing_house"], category=request.POST["category"],content=request.FILES["content"])
             
             if "poster" in request.FILES:
 
@@ -68,48 +67,49 @@ def delete(request: HttpRequest, book_id):
 
     return redirect("books:book_home")
 
-
-    #if not request.user.is_staff:
-        #return render(request, status=401)
-
 def update(request : HttpRequest,book_id):
 
-    if not request.user.has_perm("book.update"):
+    if not request.user.has_perm("books.change_book"):
         return render(request, "main/not_authorized.html", status=401)
+    
+    msg = None
+    
+    try:
+        book=Book.objects.get(id=book_id)
+        if request.method=="POST":
+            book.name=request.POST['name']
+            book.brief=request.POST["brief"]
+            book.writer=request.POST["writer"]
+            book.release_date=request.POST["release_date"]
+            book.publishing_house=request.POST["publishing_house"]
 
-    
-    book=Book.objects.get(id=book_id)
-    
-    if request.method=="POST":
-        book.name=request.POST['name']
-        book.brief=request.POST["brief"]
-        book.writer=request.POST["writer"]
-        book.release_date=request.POST["release_date"]
-        book.publishing_house=request.POST["publishing_house"]
-
-        book.save()
-       
-        return redirect('books:book_detail_view',book_id=book.id)
-    
-    return render(request,'books/update.html',{"book" : book,'categories':Book.categories})
+            book.save()
+        
+            return redirect('books:book_detail_view',book_id=book.id)
+    except Exception as e:
+        msg =F"There is an error and try again{e}"
+    return render(request,'books/update.html',{"book" : book,'categories':Book.categories, "msg":msg})
 
 
 
 def add_review_view(request: HttpRequest, book_id):
 
     if request.method == "POST":
+        msg = None
+        try:
+            if not request.user.is_authenticated:
+                return render(request,'main/not_authorized.html', status=401)
 
-        if not request.user.is_authenticated:
-            return render(request,'main/not_authorized.html', status=401)
+            book_rev = Book.objects.get(id=book_id)
+            new_review = Review(book=book_rev, user=request.user, rating=request.POST["rating"], comment=request.POST["comment"])  
+            new_review.save()
+        except Exception as e:
+            msg =f"There is an error and try again{e}" 
 
-        book_rev = Book.objects.get(id=book_id)
-        new_review = Review(book=book_rev, user=request.user, rating=request.POST["rating"], comment=request.POST["comment"])  
-        new_review.save()
-        return redirect("books:book_detail_view", book_id=book_rev.id)
+    return redirect("books:book_detail_view", book_id=book_rev.id)
     
 
-def bookCat(request : HttpRequest):
-
+def bookCat(request : HttpRequest): 
     if "category" in request.GET and request.GET["category"] =="literature":
       books = Book.objects.filter(category__contains ="literature")
 

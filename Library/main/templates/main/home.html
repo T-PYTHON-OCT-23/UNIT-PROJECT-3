@@ -3,57 +3,57 @@
 {% block title %} HOME {% endblock %}
 {% block content %}
 <style>
-body {
-  font-family: sans-serif;
-}
-
-header {
-  background-color: #ffffff;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 3em;
-}
-
-.hero {
-  background-image: url("static/images/homeh.jpg");
-  background-size: cover;
-  height: 600px;
-  width: 100%;
-}
-
-.hero-content {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -70%);
-  width: 50%;
-  padding: 20px;
-  background-color: #d8b0b0db;
-}
-
-.hero-content h2 {
-  color: #ffffff;
-  font-size: 2em;
-}
-
-.hero-content p {
-  color: #ffffff;
-  font-size: 1.5em;
-}
-
-.search {
-  margin-top: 50px;
-}
-
-.search form {
-  width: 50%;
-  margin: 0 auto;
-}
-
-
-</style>
+  body {
+    font-family: sans-serif;
+  }
+  
+  header {
+    background-color: #ffffff;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 3em;
+  }
+  
+  .hero {
+    background-image: url("/static/images/homeh.jpg");
+    background-size: cover;
+    height: 600px;
+    width: 100%;
+  }
+  
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    width: 50%;
+    padding: 20px;
+    background-color: #d8b0b0db;
+  }
+  
+  .hero-content h2 {
+    color: #ffffff;
+    font-size: 2em;
+  }
+  
+  .hero-content p {
+    color: #ffffff;
+    font-size: 1.5em;
+  }
+  
+  .search {
+    margin-top: 50px;
+  }
+  
+  .search form {
+    width: 50%;
+    margin: 0 auto;
+  }
+  
+  
+  </style>
 
     <section class="hero">
       <div class="hero-content">
@@ -116,7 +116,13 @@ h1 {
         <div class="d-flex flex-row gap-4 ">
           {% for review in reviews %}
             <div class="d-flex flex-column alert alert-dismissible alert-secondary gap-2 p-3">
-              <h4><a style="color: #6cc3d5;" href="{% url 'account:user_profile_view' user_id=review.user.id %}  ">{{ review.user.first_name }} {{ review.user.last_name }}</h4></a> 
+              <div class=" align-items-center g-3">
+                <h4><a style="color: #6cc3d5;" href="{% url 'account:user_profile_view' user_id=review.user.id %}  ">{{ review.user.first_name }} {{ review.user.last_name }}</h4></a> 
+                {% if review.user.profile.is_writer %}
+              <span class="badge bg-info ">writer</span> 
+               {% endif %}
+              </div>
+             
             
               <p><a href="{% url 'books:book_detail_view'  review.book.id %}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">{{review.book.name}}</a></p>
               <div class=" d-flex justify-content-between align-items-center">
