@@ -1,98 +1,124 @@
+
 {% extends 'main/base.html' %}
 {% load static %}
-{% block title %}  {% endblock %}
+{% block title %} Add New Car {% endblock %}
 
 {% block content %}
 
-<section class="container">
+<section class="container mt-4">
 
-    <h1>Add New Car</h1>
+    <h1 class="mb-4">Add New Car</h1>
 
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-lg-6">
             <!-- form for submitting the data -->
 
             <form action="{% url 'car:add_car_view' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label>Car Name:</label>
-                <input class="form-control" type="text" name="name" placeholder="the name of car" />
-                <label>Car Model(Year):</label>
-                <input class="form-control" type="text" name="year" placeholder="years of release" />
 
-                <div>
-                    <select name="city">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Car Name:</label>
+                    <input class="form-control" type="text" name="name" id="name" placeholder="Enter the name of the car" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="year" class="form-label">Car Model (Year):</label>
+                    <input class="form-control" type="text" name="year" id="year" placeholder="Enter the year of release" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="city" class="form-label">City:</label>
+                    <select name="city" id="city" class="form-select">
                         <option value="Riyadh"> Riyadh </option>
                         <option value="Abha"> Abha </option>
                         <option value="Khobar"> Khobar </option>
                         <option value="Hail"> Hail </option>
                         <option value="Jeddah"> Jeddah </option>
-            
                     </select>
                 </div>
 
-                <div>
-                    <select name="vehicle_class">
+                <div class="mb-3">
+                    <label for="vehicle_class" class="form-label">Vehicle Class:</label>
+                    <select name="vehicle_class" id="vehicle_class" class="form-select">
                         <option value="Economic"> Economic </option>
                         <option value="Middle Class"> Middle Class </option>
                         <option value="Top Grade"> Top Grade </option>
                         <option value="Luxury"> Luxury </option>
                     </select>
                 </div>
-                
-                <div>
-                    <select name="vehicle_type">
+
+                <div class="mb-3">
+                    <label for="vehicle_type" class="form-label">Vehicle Type:</label>
+                    <select name="vehicle_type" id="vehicle_type" class="form-select">
                         <option value="Sedan"> Sedan </option>
                         <option value="SUV"> SUV </option>
                         <option value="VAN"> VAN </option>
                     </select>
                 </div>
 
-                <div>
-                    <select class="form-select" name="available">
+                <div class="mb-3">
+                    <label for="available" class="form-label">Availability:</label>
+                    <select class="form-select" name="available" id="available">
                         <option value="True">Available</option>
                         <option value="False">Not Available</option>
                     </select>
                 </div>
 
-                <label>Car Color:</label>
-                <input class="form-control" type="text" name="color" placeholder="car color" />
+                <!-- Add more form fields as needed -->
 
-                <label>Car Seats:</label>
-                <input class="form-control" type="text" name="seats" placeholder="number of seats" />
+                <div class="mb-3">
+                    <label for="color" class="form-label">Car Color:</label>
+                    <input class="form-control" type="text" name="color" id="color" placeholder="{{ car.color }}" />
+                </div>
 
-                <label>Car Pags:</label>
-                <input class="form-control" type="text" name="pags" placeholder="number of Pags" />
+                <div class="mb-3">
+                    <label for="seats" class="form-label">Car Seats:</label>
+                    <input class="form-control" type="text" name="seats" id="seats" placeholder="{{ car.seats }}" value="{{ car.seats }}" />
+                </div>
 
+                <div class="mb-3">
+                    <label for="pags" class="form-label">Car Pags:</label>
+                    <input class="form-control" type="text" name="pags" id="pags" placeholder="{{ car.pags }}" value="{{ car.pags }}" />
+                </div>
 
-                <label>Air Conditionar:</label>
-                <select name="air_conditioner" class="form-select">
-                    {% for key, value in air_conditioner_choices %}
-                        <option value="{{ key }}">{{ value }}</option>
-                    {% endfor %}
-                </select>
+                <div class="mb-3">
+                    <label for="air_conditioner" class="form-label">Air Conditioner:</label>
+                    <select name="air_conditioner" id="air_conditioner" class="form-select">
+                        {% for key, value in air_conditioner_choices %}
+                            <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-                <label>Transmission Type:</label>
-                <select name="transmission_type" class="form-select">
-                    {% for key, value in transmission_type_choices %}
-                        <option value="{{ key }}">{{ value }}</option>
-                    {% endfor %}
-                </select>
+                <div class="mb-3">
+                    <label for="transmission_type" class="form-label">Transmission Type:</label>
+                    <select name="transmission_type" id="transmission_type" class="form-select">
+                        {% for key, value in transmission_type_choices %}
+                            <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-                <label>Fuel Type:</label>
-                <select name="fuel_type" class="form-select">
-                    {% for key, value in fuel_type_choices %}
-                        <option value="{{ key }}">{{ value }}</option>
-                    {% endfor %}
-                </select>
+                <div class="mb-3">
+                    <label for="fuel_type" class="form-label">Fuel Type:</label>
+                    <select name="fuel_type" id="fuel_type" class="form-select">
+                        {% for key, value in fuel_type_choices %}
+                            <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Car Image:</label>
+                    <input type="file" name="image" id="image" accept="image/*" />
+                </div>
 
-                <label >Car Image</label>
-                <input type="file" name="image" />
+                <div class="mb-3">
+                    <label for="price" class="form-label">Car Price:</label>
+                    <input class="form-control" type="number" name="price" id="price" placeholder="Enter the price" required />
+                </div>
 
-                <label>Car price:</label>
-                <input class="form-control" type="number" name="price" placeholder="price" />
-
-                <input class="btn btn-primary" type="submit" value="Add Car" />
+                <button class="btn btn-primary" type="submit">Add Car</button>
             </form>
 
         </div>

@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpRequest,HttpResponse
 from datetime import datetime
-from .models import Car, Rental
-from django.core.paginator import Paginator
+from .models import Car, Rental , Review
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger 
+from django.db.models import Q
 
 # Create your views here.
 
@@ -52,11 +53,24 @@ def add_car_view(request : HttpRequest):
 def cars_view(request):
     cars = Car.objects.all().order_by("price") #cars = Car.objects.filter(available = True)
     number_of_cars = Car.objects.all().count()
+ 
+    page = request.GET.get('page')
+    # Set the number of items per page
+    number_of_items = 3
 
-    page=request.GET.get(page)
-    number_of_items=3
-    paginator = Paginator(cars,number_of_items)
-    cars = paginator.page(page)
+    # Create a Paginator object
+    paginator = Paginator(cars, number_of_items)
+
+    try:
+        cars = paginator.page(page)
+    except PageNotAnInteger :
+        page=1
+        # Get the specified page
+        cars = paginator.page(page)
+    except EmptyPage: 
+        cars = paginator.page(paginator.num_pages) 
+        cars = paginator.page(page)  
+
 
     air_conditioner_choices = Car.AIR_CONDITIONER_CHOICES
     transmission_type_choices = Car.TRANSMISSION_TYPE_CHOICES
@@ -73,14 +87,34 @@ def cars_view(request):
             "vehicle_type_choices": vehicle_type_choices,
             "price_choices": price_choices,
             "cars":cars,
-            "number_of_cars":number_of_cars
+            "number_of_cars":number_of_cars,
+            "paginator":paginator
         }
     return render(request, "car/cars.html", context)
 
 
 def cars_details_view(request:HttpRequest, pk):
     car = Car.objects.get(id=pk)
-    return render(request, "car/cars_details.html", {"car": car})
+
+    reviews = Review.objects.filter(car=car)
+
+    air_conditioner_choices = Car.AIR_CONDITIONER_CHOICES
+    transmission_type_choices = Car.TRANSMISSION_TYPE_CHOICES
+    fuel_type_choices = Car.FUEL_TYPE_CHOICES
+    vehicle_class_choices = Car.VEHICLE_CLASS_CHOICES
+    vehicle_type_choices = Car.VEHICLE_TYPE_CHOICES
+    price_choices = Car.PRICE_CHOICES
+
+
+    context= {
+            "air_conditioner_choices": air_conditioner_choices,
+            "transmission_type_choices": transmission_type_choices,
+            "fuel_type_choices": fuel_type_choices,
+            "vehicle_class_choices": vehicle_class_choices ,
+            "vehicle_type_choices": vehicle_type_choices,
+            "price_choices": price_choices
+        }
+    return render(request, "car/cars_details.html", {"car": car , "reviews":reviews , "context":context})
 
 
 def cars_update_view(request:HttpRequest, pk):
@@ -135,8 +169,10 @@ def cars_delete_view(request:HttpRequest, pk):
 def car_search_view(request:HttpRequest):
     if request.method == "GET":
         query =request.GET.get("query")
+        base_query = Q()
         if query:
-            cars = Car.objects.filter(name__icontains = query)
+            base_query &= Q(name__icontains=query)
+            cars = Car.objects.filter(base_query)
         else:
             cars = Car.objects.all()
         
@@ -162,4 +198,15 @@ def booking_search_view(request:HttpRequest):
     return render(request, 'car/booking_search.html', context)
     
 
+def add_review_view(request: HttpRequest, pk):
 
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return render(request, "main/not_authorized.html", status=401)
+        
+        car_obj = get_object_or_404(Car, id=pk)
+        new_review = Review(car=car_obj, renter=request.user,full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])  
+        new_review.save()
+        return redirect("car:cars_details_view", pk =car_obj.id)
+    
+    return render(request, "car/cars_details.html")

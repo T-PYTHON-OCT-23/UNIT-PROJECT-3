@@ -17,8 +17,7 @@ def register_user_view(request: HttpRequest):
             first_name=request.POST["first_name"],
             last_name=request.POST["last_name"],
             email=request.POST["email"],
-            password1=request.POST["password1"],
-            password2=request.POST["password2"],
+            password=request.POST["password1"],
             )
             return redirect("accounts:login_user_view")
         except IntegrityError as e:
