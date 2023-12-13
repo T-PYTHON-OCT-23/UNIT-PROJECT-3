@@ -3,10 +3,36 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-  <h2>Register</h2>
-  <form method="post" action="{% url 'register_user_view' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-  </form>
+
+<section class="container mt-5  d-flex justify-content-center align-middle">
+
+
+  {% if msg %}
+      <div class="alert alert-danger" role="alert">
+      {{ msg }}
+      </div>
+  {% endif %}
+  <div class="row">
+    <h1 class="d-flex justify-content-center">Register New User</h1>
+      <div class="col-12">
+
+          <form class="d-flex flex-column gap-1" action="{% url 'evalhub:register_user_view' %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+              <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
+              <input class="form-control"  type="text" name="first_name" required minlength="3" placeholder="First Name"/>
+              <input class="form-control" type="text" name="last_name" required minlength="3" placeholder="Last Name"/>
+              <input class="form-control" type="email" name="email" required minlength="3" placeholder="Email"/>
+              <input class="form-control" type="password" name="password" required minlength="3" placeholder="Password"/>
+
+
+              <input class="btn btn-primary" type="submit" value="Sing Up" />
+          </form>
+
+      </div>
+
+  </div>
+
+</section>
+
 {% endblock %}

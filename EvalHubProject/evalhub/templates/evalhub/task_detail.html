@@ -15,4 +15,14 @@
   {% else %}
     <p>No tasks available.</p>
   {% endif %}
+
+
+  {% for key, value in status.choices %}
+  <div class="form-check">
+      <input class="form-check-input" type="radio" name="status" id="{{key}}" value="{{value}}" required>
+      <label class="form-check-label" for="{{key}}">
+      {{value}}
+      </label>
+  </div>
+{% endfor %}
 {% endblock %}

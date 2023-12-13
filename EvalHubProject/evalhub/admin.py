@@ -8,7 +8,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 admin.site.register(CustomUser, CustomUserAdmin)
 
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('title', 'manager', 'employee', 'due_date', 'completed',)
+    list_display = ('title', 'manager', 'employee', 'due_date', 'completed','status',)
     list_filter = ('completed', 'due_date',)
     search_fields = ('title', 'manager__user__username', 'employee__user__username',)
 

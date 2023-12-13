@@ -7,16 +7,24 @@ class CustomUser(models.Model):
     manager_of = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='m_employees')
     performance_rating = models.FloatField(null=True, blank=True)
     employee_of = models.OneToOneField('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='e_manager')
+    about = models.TextField(default="")
+    birth_date = models.DateField(null=True , blank=True)
+    avatar = models.ImageField(upload_to="images/", default="images/avatar-default.png")
+    
 
     def __str__(self):
         return self.user.username
 
 class Task(models.Model):
+
+    status_choices = models.TextChoices("task_status", ["Done", "Late", "Progress", "Pending", "Canceled"])
+
     manager = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_assigned')
     employee = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='tasks_required')
     title = models.CharField(max_length=255)
     description = models.TextField()
     due_date = models.DateField()
+    status = models.CharField(max_length=64, choices=status_choices.choices, default="Pending")
     completed = models.BooleanField(default=False)
 
     def __str__(self):
