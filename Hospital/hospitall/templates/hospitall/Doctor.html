@@ -1,21 +1,66 @@
 {% extends 'main/base.html' %}
-{% block title%} عرض الأطباء {%endblock%}
+{% load static %}
+
+{% block title %}
+doctor
+{% endblock %}
 
 {% block content %}
+<style>
+    .title-bar {
+    display: flex;
+    align-items: center;
+    margin-top: -70px;
+}
+
+.title-bar hr {
+    flex-grow: 1;
+    border-width: 9px;
+}
+
+.title-bar span {
+    margin: 0 10px;
+    font-family: 'Times New Roman', serif;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.card {
+    width: 100%;
+}
+
+.card img {
+    object-fit: contain;
+    height: 200px;
+}
+body {
+        background-image: url('/static/img/434.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+</style>
 <section class="container">
-    <h1>جميع الأطباء</h1>
-    <select name="doctor">
+    <div class="title-bar">
+        <hr>
+        <span>All Doctor</span>
+        <hr>
+    </div>
+    <div class="row justify-content-center">
         {% for doctor in doctors %}
-            <option value="{{ doctor.id }}">{{ doctor.user.username }}</option>
-        {% endfor %}
-    
-    <div class="row">
-        {% for doctor in doctors %}
-            <div class="col-10 m-2">
-                <div class="d-flex flex-column gap-2 p-3 border border-1 rounded-4 shadow">
-                    <h2>{{ doctor.user.username }}</h2>
-                    <h5>{{doctor.clinic.name}}</h5>
-                    <a href="{% url 'hospitall:create_appointment' doctor.id %}">حجز موعد</a>
+            <div class="col-lg-5 m-2">
+                <div class="card">
+                    {% if doctor.image %}
+                        <img src="{{ doctor.image.url }}" class="card-img-top" alt="{{ doctor.user.username }}">
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" class="card-img-top" alt="Default Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ doctor.user.username }}</h5>
+                        <p class="card-text">{{ doctor.specialty }}</p>
+                        <p class="card-text"> Years of Experience : {{ doctor.experience }}</p>
+                        <p class="card-text">{{ doctor.cv }}</p>
+                    </div>
                 </div>
             </div>
         {% endfor %}

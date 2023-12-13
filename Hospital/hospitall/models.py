@@ -11,10 +11,15 @@ class Clinic(models.Model):
 class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     clinics = models.ManyToManyField(Clinic)
+    image = models.ImageField(upload_to='doctors/', default='images/default.jpg')
+    specialty = models.CharField(max_length=255)
+    experience = models.IntegerField()  
+    cv = models.TextField() 
 
 
     def __str__(self):
          return self.user.username
+
 
 class Appointment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
