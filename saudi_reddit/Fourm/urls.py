@@ -17,5 +17,6 @@ urlpatterns = [
     path('comment/<comment_slug>/upvote/', views.upvote_comment, name='upvote_comment'),
     path('comment/<comment_slug>/downvote/', views.downvote_comment, name='downvote_comment'),
     path('comment/<comment_slug>/delete/', views.delete_comment, name='delete_comment'),
+    path('/home',views.Feed,name='Feed'),
     # Add other paths as needed
 ]

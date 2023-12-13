@@ -142,9 +142,11 @@ def delete_comment(request, comment_slug):
         raise PermissionDenied 
     return redirect('Fourm:post_detail', subreddit_slug=comment.post.subreddit , post_slug=comment.post.slug)
 
+@login_required
+def Feed(request):
+    pass
 
 @login_required
-
 def update_comment(request, comment_slug):
     comment = get_object_or_404(Comment, slug=comment_slug)
     if comment.author == request.user:

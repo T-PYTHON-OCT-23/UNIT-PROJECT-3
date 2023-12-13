@@ -13,9 +13,9 @@
         {% if request.user.is_authenticated %}
             <!-- Subscribe/Unsubscribe Button -->
             {% if request.user in subreddit.subscribers.all %}
-                <a href="{% url 'subreddit:subreddit_unsubscribe' subreddit.slug %}" class="btn btn-danger mb-3">Unsubscribe</a>
+                <a href="{% url 'subreddit:subreddit_unsubscribe' subreddit.slug %}" class="btn btn-danger mb-3">Unsubscribe {{subreddit.subscribers.all.count}}</a>
             {% else %}
-                <a href="{% url 'subreddit:subreddit_subscribe' subreddit.slug %}" class="btn btn-primary mb-3">Subscribe</a>
+                <a href="{% url 'subreddit:subreddit_subscribe' subreddit.slug %}" class="btn btn-primary mb-3">Subscribe {{subreddit.subscribers.all.count}} </a>
             {% endif %}
         {% endif %}
 
@@ -45,6 +45,23 @@
                         <a href="{% url 'Fourm:post_detail'  post.subreddit.slug  post.slug %}">{{ post.title }}</a>
                     </h5>
                     <p class="card-text">{{ post.content }}</p>
+                    
+                    {% if post.video %}
+                    <div class="player"></div>
+                    <script>
+                        var playerElement = document.querySelector(".player");
+                        var player = new Clappr.Player({
+                            source: "{{ post.video.url }}",
+                            parent: playerElement,
+                            autoPlay: true,
+                            mute: true,
+                            height: 360,
+                            width: 720,
+                            plugins: [HlsjsPlayback],
+                        });
+                    </script>
+                    {% endif %}
+                    <p></p>
                     {% if post.author == request.user %}
                         <!-- Edit Post Button -->
                         <a href="{% url 'subreddit:post_update'  post.slug %}" class="btn btn-primary mb-3">Edit Post</a>
@@ -66,12 +83,6 @@
                         <a href="{% url 'subreddit:post_delete' post.slug %}" class="btn btn-danger mb-3">Delete Post</a>
                     {% endif %}
 
-                    {% if post.video %}
-                    <video width="320" height="240" controls>
-                        <source src="{{ post.video.url }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    {% endif %}
                     <p class="card-text">Created at: {{ post.created_at|date:"F j, Y, g:i a" }}</p>
                     <p class="card-text">
                         Created by: <a href="{% url 'User:profile_with_username' username=post.author.username %}">{{ post.author.username }} || {{post.author.profile.full_name}}</a>

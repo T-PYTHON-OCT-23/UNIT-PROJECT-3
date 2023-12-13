@@ -39,8 +39,8 @@ def post_delete(request, post_slug):
     return PermissionDenied
 
 @login_required
-def post_update(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
+def post_update(request, post_slug):
+    post = get_object_or_404(Post, slug=post_slug)
     if request.method == 'POST' and request.user == post.author:
         form = PostForm(request.POST, instance=post)
         if form.is_valid():

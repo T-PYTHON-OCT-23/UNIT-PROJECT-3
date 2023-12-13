@@ -10,11 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Kalnia:wght@600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@clappr/core@latest/dist/clappr-core.min.js"></script>
+    <script src='https://cdn.jsdelivr.net/npm/@clappr/hlsjs-playback@latest/dist/hlsjs-playback.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/@clappr/stats-plugin@latest/dist/clappr-stats.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/hls.js@latest'></script>
+
+
+
     <title>{% block title %}Saudi-Reddit{% endblock %}</title>
     <!-- Add your custom styles here -->
     <style>
         body {
-            font-family: 'Kalnia', sans-serif;
+            font-family: 'Nunito', sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f8f9fa; /* Bootstrap background color */
@@ -118,37 +125,46 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light" style="{% if subreddit %}background-color: rgba(255, 255, 255, 0.8);{% else %}background-color: #e9ecef;{% endif %}">
-            <ul class="navbar-nav mr-auto">
-        <nav>
-            <ul>
-                <li>
-                    <a href="{% url 'Fourm:index' %}"> 
-                <span class="material-symbols-outlined">
-                    home
-                    </span>
-                    </a>
-                </li>
-             
-                <!-- Add more navigation links as needed -->
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'User:profile_with_username' request.user.username %}">{{request.user.profile.full_name}}</a></li>
-                    <li>
-                    <a href="{% url 'User:logout' %}">
-                    <span class="material-symbols-outlined">
-                        logout
-                        </span></a></li>
-                    
-                {% else %}
-                    <li>
-                        <a href="{% url 'User:login' %}">
-                        <span class="material-symbols-outlined">
-                        login
-                        </span></a></li>
-                    <li><a href="{% url 'User:signup' %}">Sign up</a></li>
-                {% endif %}
 
+    <!-- Example Code -->
+    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'Fourm:index' %}">Saudi Reddit</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'Fourm:Feed' %}">My Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'User:profile_with_username' request.user.username %}">
+              {{request.user.profile.full_name}}</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'User:login' %}">Sign in</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'User:signup' %}">Sign up</a>
+            </li>
+
+            {% endif %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'User:logout' %}">Sign Out</a>
+          </li>
+            </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+   
                 {% if subreddit %}
    <!-- Subreddit Header and Icon -->
             <div class="row ml-auto mb-3">
@@ -164,6 +180,7 @@
     </header>
 
     <main>
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
         {% block content %}{% endblock %}
     </main>

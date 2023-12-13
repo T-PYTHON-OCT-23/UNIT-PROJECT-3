@@ -5,256 +5,361 @@
 {% endblock %}
 
 {% block content %}
-    <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}">{{ subreddit.name }}</a>
-    <h1>{{ post.title }}</h1>
-    <h6>
-        Posted by:
-        <a href="{% url 'User:profile_with_username' username=post.author.username %}">
-            {{ post.author.username }}
-        </a>
-        | {{ post.created_at|date:"F j, Y, g:i a" }}
-    </h6>
+    <div class="container mt-4">
 
-    <p>{{ post.content }}</p>
-
-    {% if post.image %}
-        <div class="image-overlay">
-            <img src="{{ post.image.url }}" alt="{{ post.title }} Image" class="post-image">
-            <div class="overlay-text"></div>
+        <!-- Subreddit Info Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}" class="text-decoration-none text-dark">
+                    <h5 class="card-title">{{ subreddit.name }}</h5>
+                </a>
+            </div>
         </div>
-    {% endif %}
 
-    {% if post.video %}
-        <video controls>
-            <source src="{{ post.video.url }}" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    {% endif %}
+        <!-- Post Info Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="card-title">{{ post.title }}</h1>
+                <h6 class="card-subtitle mb-2 text-muted">
+                    Posted by:
+                    <a href="{% url 'User:profile_with_username' username=post.author.username %}" class="text-decoration-none text-dark">
+                        {{ post.author.username }}
+                    </a>
+                    | {{ post.created_at|date:"F j, Y, g:i a" }}
+                </h6>
+            </div>
+        </div>
 
-    <p>
-        Author: <a href="{% url 'User:profile_with_username' username=post.author.username %}">{{ post.author.username }}</a> | Votes: {{ post.votes }} | Views: {{ post.views }}
-    </p>
-    {% if user.is_authenticated %}
-    <a href="{% url 'Fourm:upvote_post' post.slug %}" class="vote-button">
-        <span class="material-icons-outlined"></span>
-        Upvote
-    </a>
-    <a href="{% url 'Fourm:downvote_post' post.slug %}" class="vote-button">
-        <span class="material-icons-outlined"></span>
-        Downvote
-    </a>
-    
-    {% if user == post.author %}
-        <a href="{% url 'Fourm:delete_post' post.slug %}" class="delete-button">
-            <span class="material-icons-outlined"></span>
-            Delete
-        </a>
-    {% endif %}
-{% endif %}
-    <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}" class="vote-button">Back to {{ subreddit.name }}</a>
+        <!-- Post Content Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="card-text post-content">{{ post.content }}</p>
+            </div>
+        </div>
 
-    <h2>Comments</h2>
-    <div class="comments-section">
-        {% for comment in comments %}
-            <div class="comment">
-                <p class="comment-content">{{ comment.content }}</p>
-                <a href="{% url 'User:profile_with_username' username=comment.author.username %}" class="comment-author">{{ comment.author.username }} | Votes: {{ comment.votes }}</a>
-                {{ comment.created_at|date:"F j, Y, g:i a" }}
-                {% if comment.isContentEdited %}
-                    | Edited: {{ comment.whenContentEdited|date:"F j, Y, g:i a" }}
-                {% endif %}
-
-                {% if comment.image %}
-                    <div class="image-overlay">
-                        <img src="{{ comment.image.url }}" alt="{{ comment.title }} Image" class="post-image">
-                        <div class="overlay-text">View Image</div>
+        {% if post.image %}
+            <!-- Image Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="image-overlay position-relative">
+                        <img src="{{ post.image.url }}" alt="{{ post.title }} Image" class="post-image img-fluid rounded">
+                        <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white font-weight-bold" style="opacity: 0; transition: opacity 0.3s ease-in-out;">View Image</div>
                     </div>
-                {% endif %}
-
-                {% if comment.video %}
-                    <video controls>
-                        <source src="{{ comment.video.url }}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                {% endif %}
-
-                {% if user.is_authenticated %}
-
-                <div class="comment-actions">
-                    <a href="{% url 'Fourm:upvote_comment' comment.slug %}" class="vote-button {% if request.user.is_authenticated and request.user in comment.upvoters.all %}upvoted{% endif %}">
-                        <span class="material-symbols-outlined">
-                            arrow_upward
-                        </span>
-                    </a>
-                    
-                    <a href="{% url 'Fourm:downvote_comment' comment.slug %}" class="vote-button {% if request.user.is_authenticated and request.user in comment.downvoters.all %}downvoted{% endif %}">
-                        <span class="material-symbols-outlined">
-                            arrow_downward
-                        </span>
-                    </a>
-
-                    {% if user.is_authenticated and user == comment.author %}
-
-                    
-                    <a href="{% url 'Fourm:update_comment' comment.slug %}" class="edit-button">
-                        <span class="material-symbols-outlined">
-                            edit
-                        </span>
-                    </a>
-                    {% endif %}
-                    {% if user.is_authenticated and user == comment.author %}
-                        <a href="{% url 'Fourm:delete_comment' comment.slug %}" class="delete-button">
-                            <span class="material-symbols-outlined">
-                                delete_forever
-                            </span>
-                        </a>
-                    {% else %}
-                        <a href="{% url 'subreddit:comment_reply' comment.slug %}" class="reply-button">
-                            <span class="material-symbols-outlined">
-                                reply
-                            </span>
-                        </a>
-                    {% endif %}
-                    {% endif %}
                 </div>
             </div>
-        {% endfor %}
-    </div>
+        {% endif %}
 
-    {% if user.is_authenticated %}
-        <h3>Add a Comment</h3>
-        <div class="add-comment-section">
-            <form method="post" action="{% url 'Fourm:add_comment' post.slug %}" class="comment-form">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Add Comment" class="submit-button">
-            </form>
+        {% if post.video %}
+            <!-- Video Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="player"></div>
+                    <script>
+                        var playerElement = document.querySelector(".player");
+                        var player = new Clappr.Player({
+                            source: "{{ post.video.url }}",
+                            parent: playerElement,
+                            autoPlay: true,
+                            mute: true,
+                            height: 360,
+                            width: 720,
+                            plugins: [HlsjsPlayback],
+                        });
+                    </script>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Upvote Section -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <a href="{% url 'User:profile_with_username' username=post.author.username %}" class="badge badge-dark">{{ post.author.username }}</a>
+                {% if post.isContentEdited %}
+                    | Edited: {{ post.whenContentEdited|date:"F j, Y, g:i a" }}
+                {% endif %}
+                {% if user.is_authenticated %}
+
+                    <a href="{% url 'Fourm:upvote_post' post.slug %}"
+                    <span class="badge badge-primary {% if request.user.is_authenticated and request.user in post.upvoters.all %}badge badge-success{% endif %}" > Votes {{ post.upvoters.all.count }}</span>
+                </a>
+                <a href="{% url 'Fourm:downvote_post' post.slug %}" 
+                    <span class="badge badge-danger {% if request.user.is_authenticated and request.user in post.downvoters.all %} badge badge-dark {% endif %} ">Down Votes {{ post.downvoters.all.count }}</span>
+                </a>
+
+                    <span class="badge badge-info">Views {{ post.views }}</span>
+
+                {% else %}
+                    <p><a href="{% url 'User:login' %}" class="login-link">Log in</a> to upvote or downvote.</p>
+                {% endif %}
+            </p>
+            {% if request.user == post.author %}
+                <a href="{% url 'Fourm:delete_post' post.slug %}" class="btn btn btn-sm delete-button">
+                    <span class="material-symbols-outlined">delete_forever</span> 
+                </a>
+    
+                <a href="{% url 'subreddit:post_update' post.slug %}" class="btn btn btn-sm edit-button">
+                    <span class="material-symbols-outlined">edit</span>
+                
+            {% endif %}
+            <a href="{% url 'subreddit:subreddit_detail' subreddit.slug %}" class="btn btn  btn-sm vote-button">
+
+                <span class="material-symbols-outlined">
+                    undo
+                    </span>
+
+            </a>
+    
+            </div>
         </div>
-    {% else %}
-        <p><a href="{% url 'User:login' %}" class="login-link">Log in</a> to leave a comment.</p>
-    {% endif %}
 
+        <!-- Comments Card -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h2 class="card-title">Comments</h2>
+                <div class="comments-section">
+                    {% for comment in comments %}
+                        <div class="card border p-3 mb-3">
+                            <p class="card-text comment-content">{{ comment.content }}</p>
+                            <a href="{% url 'User:profile_with_username' username=comment.author.username %}" class="card-text comment-author text-decoration-none text-dark font-weight-bold">
+                                {{ comment.author.username }} {% if comment.author.username == post.author.username %} (OP) {% endif %} | Votes: {{ comment.votes }}
+                            </a>
+                            {{ comment.created_at|date:"F j, Y, g:i a" }}
+                            {% if comment.isContentEdited %}
+                                | Edited: {{ comment.whenContentEdited|date:"F j, Y, g:i a" }}
+                            {% endif %}
+
+                            {% if comment.image %}
+                                <!-- Comment Image Card -->
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <div class="image-overlay position-relative">
+                                            <img src="{{ comment.image.url }}" alt="{{ comment.title }} Image" class="post-image img-fluid rounded">
+                                            <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white font-weight-bold" style="opacity: 0; transition: opacity 0.3s ease-in-out;">View Image</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            {% if comment.video %}
+                                <!-- Comment Video Card -->
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <div class="player"></div>
+                                        <script>
+                                            var playerElement = document.querySelector(".player");
+                                            var player = new Clappr.Player({
+                                                source: "{{ comment.video.url }}",
+                                                parent: playerElement,
+                                                autoPlay: true,
+                                                mute: true,
+                                                height: 360,
+                                                width: 720,
+                                                plugins: [HlsjsPlayback],
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <p></p>
+
+                            {% if user.is_authenticated %}
+                                <div class="card mt-2">
+                                    <div class="card-body comment-actions">
+                                        <a href="{% url 'Fourm:upvote_comment' comment.slug %}" class="btn btn-outline-primary btn-sm vote-button {% if request.user.is_authenticated and request.user in comment.upvoters.all %}upvoted{% endif %}">
+                                            <span class="material-symbols-outlined">arrow_upward</span>
+                                        </a>
+                                        
+                                        <a href="{% url 'Fourm:downvote_comment' comment.slug %}" class="btn btn-outline-danger btn-sm vote-button {% if request.user.is_authenticated and request.user in comment.downvoters.all %}downvoted{% endif %}">
+                                            <span class="material-symbols-outlined">arrow_downward</span>
+                                        </a>
+
+                                        {% if user.is_authenticated and user == comment.author %}
+                                            <a href="{% url 'Fourm:update_comment' comment.slug %}" class="btn btn-outline-secondary btn-sm edit-button">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </a>
+                                        {% endif %}
+                                        {% if user.is_authenticated and user == comment.author %}
+                                            <a href="{% url 'Fourm:delete_comment' comment.slug %}" class="btn btn-outline-danger btn-sm delete-button">
+                                                <span class="material-symbols-outlined">delete_forever</span>
+                                            </a>
+                                        {% else %}
+                                            <a href="{% url 'subreddit:comment_reply' comment.slug %}" class="btn btn-outline-secondary btn-sm reply-button">
+                                                <span class="material-symbols-outlined">reply</span>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <!-- Add Comment Card -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h3 class="card-title">Add a Comment</h3>
+                    <div class="add-comment-section">
+                        <form method="post" action="{% url 'Fourm:add_comment' post.slug %}" class="comment-form">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <input type="submit" value="Add Comment" class="btn btn-primary btn-sm submit-button">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <!-- Login Prompt Card -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <p class="card-text">
+                        <a href="{% url 'User:login' %}" class="login-link">Log in</a> to leave a comment.
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block style %}
-<style>
-    .comment-form textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-    }
+    <style>
+        /* Custom styles for upvoted and downvoted buttons */
+        .vote-button.upvoted {
+            color: green;
+        }
 
-    /* Global Styles */
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f8f9fa; /* Bootstrap background color */
-        color: #495057; /* Bootstrap text color */
-    }
+        .vote-button.downvoted {
+            color: red;
+        }
 
-    .container {
-        margin-top: 20px;
-    }
+        /* Additional styles for overlay text on images */
+        .image-overlay:hover .overlay-text {
+            opacity: 1;
 
-    /* Header Styles */
-    h1 {
-        color: #343a40; /* Bootstrap dark color */
-        margin-bottom: 20px;
-    }
+        }
+        /* Custom styles for upvoted and downvoted buttons */
+        .vote-button.upvoted {
+            color: green;
+        }
+        
+        .vote-button.downvoted {
+            color: red;
+        }
+        
+        /* Additional styles for overlay text on images */
+        .image-overlay:hover .overlay-text {
+            opacity: 1;
+        }
+        
+        /* Global Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa; /* Bootstrap background color */
+            color: #495057; /* Bootstrap text color */
+        }
+        
+        .container {
+            margin-top: 20px;
+        }
+        
+        /* Header Styles */
+        h1 {
+            color: #343a40; /* Bootstrap dark color */
+            margin-bottom: 20px;
+        }
+        
+        /* Post Content Styles */
+        .post-content {
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        /* Image Styles */
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px; /* Optional: Adds rounded corners to the image */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow to the image */
+        }
+        
+        .image-overlay {
+            position: relative;
+        }
+        
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        /* Comments Styles */
+        .comments-section {
+            margin-top: 30px;
+        }
+        
+        .comment {
+            border: 1px solid #ced4da; /* Bootstrap gray border color */
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .comment-content {
+            margin-bottom: 10px;
+        }
+        
+        .comment-author {
+            font-size: 14px;
+            color: #868e96; /* Bootstrap secondary color */
+        }
+        
+        .comment-actions {
+            margin-top: 10px;
+        }
+        
+        .comment-actions a {
+            color: #000000; /* Bootstrap primary color */
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        .comment-actions a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Add Comment Section Styles */
+        .add-comment-section {
+            margin-top: 30px;
+        }
+        
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        /* Custom styles for upvoted and downvoted buttons in comments */
+        .vote-button.upvoted.comment-upvoted {
+            color: green;
+        }
+        
+        .vote-button.downvoted.comment-downvoted {
+            color: red;
+        }
+        
+    </style>
 
-    /* Post Content Styles */
-    .post-content {
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
 
-    /* Image Styles */
-    .post-image {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 20px;
-        border-radius: 8px; /* Optional: Adds rounded corners to the image */
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow to the image */
-    }
-
-    .image-overlay {
-        position: relative;
-    }
-
-    .overlay-text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #ffffff;
-        font-size: 18px;
-        font-weight: bold;
-        text-align: center;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    .image-overlay:hover .overlay-text {
-        opacity: 1;
-    }
-
-    /* Comments Styles */
-    .comments-section {
-        margin-top: 30px;
-    }
-
-    .comment {
-        border: 1px solid #ced4da; /* Bootstrap gray border color */
-        padding: 15px;
-        margin-bottom: 20px;
-    }
-
-    .comment-content {
-        margin-bottom: 10px;
-    }
-
-    .comment-author {
-        font-size: 14px;
-        color: #868e96; /* Bootstrap secondary color */
-    }
-
-    .comment-actions {
-        margin-top: 10px;
-    }
-
-    .comment-actions a {
-        color: #000000; /* Bootstrap primary color */
-        text-decoration: none;
-        margin-right: 10px;
-    }
-
-    .comment-actions a:hover {
-        text-decoration: underline;
-    }
-
-    /* Add Comment Section Styles */
-    .add-comment-section {
-        margin-top: 30px;
-    }
-
-    .comment-form {
-        margin-top: 15px;
-    }
-
-    .comment-form textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-    }
-
-    /* Custom styles for upvoted and downvoted buttons */
-    .vote-button.upvoted {
-        color: green;
-    }
-
-    .vote-button.downvoted {
-        color: red;
-    }
-</style>
+    
 {% endblock %}
