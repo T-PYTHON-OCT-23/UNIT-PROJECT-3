@@ -3,19 +3,24 @@
 {% block title %}Add Ingredient{% endblock%}
 {% block content%}
 <div class="container">
+    <div class="row mt-2">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+    </div>
     <div class="row">
         <h1 class="mt-2 text-success text-center">Add new ingredient</h1>
         <div class="col">
             <form action="{% url 'ingredients:add_ingredient' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h5>Name:</h5>
-                <input class="form-control" type="text" name="name" placeholder="Name of ingredient" />
+                <input class="form-control" type="text" name="name" placeholder="Name of ingredient" required minlength="4"/>
                 <h5>Description:</h5>
-                <textarea class="form-control" name="description"></textarea>
-                <h5>brand:</h5>
-                <input class="form-control" type="text" name="brand" placeholder="Brand of ingredient"/>
+                <textarea class="form-control" name="description" required minlength="10"></textarea>
                 <h5>image:</h5>
-                <input type="file" name="image"  class="form-control" accept="image/*"/>
+                <input type="file" name="image"  class="form-control" accept="image/*" required/>
                 <input class="btn btn-success my-4 px-3" type="submit" value="Add ingredient" />
             </form>
         </div>

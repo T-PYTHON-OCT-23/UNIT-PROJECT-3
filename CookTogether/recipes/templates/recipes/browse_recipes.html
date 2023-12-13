@@ -3,15 +3,22 @@
 {% block title %}Recipes{% endblock%}
 {% block content%}
 <div class="container">
-<h1 class="text-center text-success mt-3">All Recipes</h1>
-<div class="row row-cols-1 row-cols-md-3 g-4 my-2">
+  <div class="row mt-2">
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+    {% endif %}
+</div>
+<h1 class="text-center text-success my-3">All Recipes</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4">
     {% for recipe in recipes %}
     <div class="col">
       <div class="card">
         <a href="{% url 'recipes:detail_recipe' recipe.id %}"><img src="{{recipe.image.url}}" class="card-img-top" height="220px" alt="..."></a>
         <div class="card-body test">
           <div class="d-flex justify-content-between align-items-center">
-          <h5 class="card-title">{{recipe.name}}</h5>
+          <h5 class="card-title text-success">{{recipe.name}}</h5>
           {% if not recipe.is_favored %}
           <a href="{% url 'favorites:add_favorite_recipe' recipe.id %}?next=browse"><i class="bi bi-heart"></i></a>
           {% else %}
@@ -24,5 +31,6 @@
   </div>
   {% endfor %}
   
+</div>
 </div>
 {% endblock %}

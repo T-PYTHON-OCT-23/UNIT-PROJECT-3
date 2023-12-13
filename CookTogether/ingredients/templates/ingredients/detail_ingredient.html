@@ -2,14 +2,42 @@
 {%load static %}
 {% block title %}Detail ingredient{% endblock%}
 {% block content%}
-<div class="container">
-<div class="row">
+<div class="container-fluid">
+<div class="row gap-2">
     <div class="col">
-       <img src="{{ingredient.image.url}}" height="200px" />
-        <h5>{{ingredient.name}}</h5>
-        <h5>{{ingredient.description}}</h5>
-        <h5>Brand: {{ingredient.brand}}</h5>
+        <div class="d-flex align-items-center gap-2 mt-4">
+        <h2 class="text-success">{{ingredient.name}}</h2>
+        <div class="btn-group">
+            <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Edit</button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item"  data-bs-toggle="modal" data-bs-target="#deleteingredient">Delete</a></li>
+              <li><a class="dropdown-item" href="{% url 'ingredients:update_ingredient' ingredient.id %}">Update</a></li>
+            </ul>
+          </div>
+        </div>
+        <h4 class="mt-4">{{ingredient.description}}</h4>
     </div>
+    <div class="col">
+        <img src="{{ingredient.image.url}}" height="300px" width="700px" class="rounded"/>
+    </div>
+    <div class="modal fade" id="deleteingredient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="deleterecipe">Delete ingredient</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete {{ingredient.name}} ingredient?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+              <a href="{% url 'ingredients:delete_ingredient' ingredient.id %}" class="btn btn-danger">Yes, I want to delete it.</a>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 </div>
 {% endblock %}

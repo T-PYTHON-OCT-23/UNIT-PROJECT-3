@@ -3,7 +3,14 @@
 {% block title %}Add New Recipe{% endblock%}
 {% block content%}
 <div class="container">
-<div class="row">
+    <div class="row mt-2">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+    </div>
+<div class="row mt-2">
     <h1 class="mt-2 text-success text-center">Add New Recipe</h1>
     <div class="col-10">
         <form action="{% url 'recipes:add_recipe' %}" method="post" enctype="multipart/form-data">

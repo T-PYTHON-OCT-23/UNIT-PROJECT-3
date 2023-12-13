@@ -3,6 +3,13 @@
 {% block title %}Detail Recipe{% endblock%}
 {% block content%}
 <div class="container-fluid">
+  <div class="row mt-2">
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+{% endif %}
+</div>
 <div class="row">
 <div class="col">
 <div class="d-flex align-items-center gap-2 mt-4">
@@ -12,22 +19,32 @@
 {% else %}
 <a href="{% url 'favorites:add_favorite_recipe' recipe.id %}"><i class="bi bi-heart-fill"></i></a>
 {% endif %}
+{% if request.user.is_staff %}
 <div class="btn-group">
   <button type="button" class="btn btn-success dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
     Edit</button>
   <ul class="dropdown-menu">
+    {% if perms.ingredients.add_ingredient%}
     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#ModalIngredient">Add ingredient</a></li>
+    {% endif %}
+    {% if perms.recipes.delete_recipe%}
     <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#deleterecipe">Delete</a></li>
+    {% endif %}
+    {% if perms.recipes.change_recipe%}
     <li><a class="dropdown-item" href="{% url 'recipes:update_recipe' recipe.id %}">Update</a></li>
+    {% endif %}
   </ul>
 </div>
+{% endif %}
 </div>
-<div class="d-flex align-items-center gap-2">
-<h4>{{recipe.cal}} Cal</h4>
-<span class="material-symbols-outlined">schedule</span> 
-<h4>{{recipe.time}} min</h4>
+<div class="d-flex align-items-center gap-2 mt-2">
+<h4>{{recipe.cal}}</h4>
+<img src="{%static 'images/calories.png'%}" height="30px" width="35px"/>
+<h4>{{recipe.time}}</h4>
+<img src="{%static 'images/timer.png'%}" height="30px" width="35px"/>
+
 </div>
-<h4 class="mt-4">{{recipe.description}}</h4>
+<h4 class="mt-2">{{recipe.description}}</h4>
 </div>
 <div class="col">
 <img src="{{recipe.image.url}}" height="300px" width="700px" class="rounded"/>
@@ -36,8 +53,9 @@
 <hr>
 <div class="row">
     {% if recipe.ingredients.count > 0 %}
-    <div class="d-flex gap-2 justify-content-between align-items-center">
+    <div class="d-flex gap-2 align-items-center">
     <h3 class="text-success">Ingredients in this recipe</h3>
+    <img src="{%static 'images/ingredient.png'%}" height="30px" width="35px"/>
     </div>
     <section class="row row-cols-12 row-cols-md-4">
       {% for ingredients in recipe.ingredients.all %}
@@ -49,7 +67,9 @@
             <h5>{{ingredients.name}}</h5>
           </div>
           </a>
+          {% if request.user.is_superuser %}
           <a href="{% url 'ingredients:delete_ingredients_from_recipe' recipe.id ingredients.id %}" class="btn btn-danger">remove</a>
+          {% endif %}
         </div>
       </div>
       {% endfor %}
@@ -69,7 +89,7 @@
                 <div class="d-flex gap-2 justify-content-between align-items-center mt-2">
                   <div class="d-flex align-items-center gap-3">
                     <img src="{{ ingredient.image.url}}" height="60px" width="50" class="rounded" />
-                    <h5>{{ ingredient.name}}</h5>
+                    <h6>{{ ingredient.name}}</h6>
                  </div>
                   <a href="{% url 'ingredients:add_ingredients_to_recipe' recipe.id ingredient.id %}" class="btn btn-primary">Add</a>
                 </div>
@@ -104,11 +124,17 @@
 <hr>
 <div class="row mt-3 m-1 gap-2">
 <div class="col detail p-2">
+  <div class="d-flex align-items-center gap-2">
     <h3>Quantities of ingredients</h3>
+    <img src="{%static 'images/quantity.png'%}" height="30px" width="35px"/>
+  </div>
 <p class="text-light">{{recipe.quantities_ingredients}}</p>
 </div>
 <div class="col detail p-2">
+  <div class="d-flex align-items-center gap-2">
     <h3>Instructions</h3>
+    <img src="{%static 'images/instructions.png'%}" height="30px" width="35px"/>
+  </div>
 <p class="text-light">{{recipe.instructions}}</p>
 </div>
 </div>
@@ -135,7 +161,10 @@
   {% endif %}
   <section class="row m-3">
     {% if request.user.is_authenticated %}
+    <div class="d-flex align-items-center gap-2">
       <h2 class="text-success">Add reviews</h2>
+      <img src="{%static 'images/rating.png'%}" height="30px" width="35px"/>
+    </div>
       <form action="{% url 'recipes:detail_recipe' recipe.id %}" method="POST">
         {% csrf_token %}
             <label>rating?</label>

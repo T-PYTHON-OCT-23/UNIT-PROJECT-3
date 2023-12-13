@@ -3,21 +3,25 @@
 {% block title %}Update ingredient{% endblock%}
 {% block content%}
 <div class="container">
+    <div class="row mt-2">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+    </div>
     <div class="row">
+        <h1 class="text-center text-success mt-4">Update {{ingredient.name}} <img src="{{ingredient.image.url}}" height="60px" width="80px" class="update"/></h1>
         <div class="col">
             <form action="{% url 'ingredients:update_ingredient' ingredient.id %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <label>Name:</label>
-                <input class="form-control" type="text" name="name" placeholder="Name of ingredient" value="{{ingredient.name}}"/>
-                <label>Description:</label>
-                <textarea class="form-control" name="description">{{ingredient.description}}</textarea>
-                <label>brand:</label>
-                <input class="form-control" type="text" name="brand" placeholder="Brand of ingredient" value="{{ingredient.brand}}"/>
-                <img src="{{ingredient.image.url}}" height="200px" width="250" class="rounded"/>
-                <br>
-                <label>image:</label>
+                <h5>Name:</h5>
+                <input class="form-control" type="text" name="name" placeholder="Name of ingredient" value="{{ingredient.name}}" required minlength="4"/>
+                <h5>Description:</h5>
+                <textarea class="form-control" name="description" required minlength="10">{{ingredient.description}}</textarea>
+                <h5>image:</h5>
                 <input type="file" name="image"  class="form-control" accept="image/*"/>
-                <input class="btn btn-success" type="submit" value="Update ingredient" />
+                <input class="btn btn-success my-4 px-3" type="submit" value="Update ingredient" />
             </form>
         </div>
     </div>

@@ -3,23 +3,28 @@
 {% block title %}Favorites{% endblock%}
 {% block content%}
 <div class="container">
-<div class="row row-cols-1 row-cols-md-2 g-4">
+  <h1 class="text-center text-success my-3">My Favorites</h1>
+
+  {% if favorites.count == 0 %}
+  <div class="alert alert-success">You don't have any favorites yet.</div>
+  {% endif %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
     {% for favorite in favorites %}
     <div class="col">
       <div class="card">
-        <a href="{% url 'recipes:detail_recipe' favorite.id %}"><img src="{{favorite.recipe.image.url}}" class="card-img-top" height="220px" alt="..."></a>
-        <div class="card-body">
+        <a href="{% url 'recipes:detail_recipe' favorite.recipe.id %}"><img src="{{favorite.recipe.image.url}}" class="card-img-top" height="220px" alt="..."></a>
+        <div class="card-body test">
           <div class="d-flex justify-content-between align-items-center">
-          <a href="{% url 'recipes:detail_recipe' favorite.id %}"><h5 class="card-title">{{favorite.recipe.name}}</h5></a>
+          <h5 class="card-title text-success">{{favorite.recipe.name}}</h5>
           <a href="{% url 'favorites:delete_favorite_recipe' favorite.recipe.id %}"><i class="bi bi-heart-fill"></i></a>
           </div>
-          <p class="card-text">{{favorite.recipe.description}}</p>
-          <a type="button" class="btn btn-primary btn-sm" href="{% url 'recipes:update_recipe' favorite.id %}">Update</a>
-          <a type="button" class="btn btn-secondary btn-sm" href="{% url 'recipes:delete_recipe' favorite.id %}">Delete</a>
+          <h6 class="card-text">{{favorite.recipe.description}}</h6>
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
+
 </div>
 {% endblock %}

@@ -3,17 +3,22 @@
 {% block title %}ingredients{% endblock%}
 {% block content%}
 <div class="container">
-    <div class="row row-cols-1 row-cols-md-2 g-4">
+  <div class="row mt-2">
+    {% if msg %}
+    <div class="alert alert-danger" role="alert">
+        {{ msg }}
+    </div>
+{% endif %}
+</div>
+  <h1 class="text-center text-success my-3">All ingredients</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for ingredient in ingredients %}
         <div class="col">
           <div class="card">
             <a href="{% url 'ingredients:detail_ingredient' ingredient.id%}"><img src="{{ingredient.image.url}}" class="card-img-top" height="220px" alt="..."> </a>
-            <div class="card-body">
-              <a href="{% url 'ingredients:detail_ingredient' ingredient.id%}"><h5 class="card-title">{{ingredient.name}}</h5></a>
-              <p class="card-text">{{ingredient.description}}</p>
-              <p class="card-text">{{ingredient.brand}}</p>
-              <a type="button" class="btn btn-primary btn-sm" href="{% url 'ingredients:update_ingredient' ingredient.id %}">Update</a>
-              <a type="button" class="btn btn-secondary btn-sm" href="{% url 'ingredients:delete_ingredient' ingredient.id %}">Delete</a>
+            <div class="card-body test">
+              <h5 class="card-title text-success">{{ingredient.name}}</h5>
+              <h6 class="card-text">{{ingredient.description}}</h6>
             </div>
           </div>
         </div>

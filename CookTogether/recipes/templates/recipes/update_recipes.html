@@ -3,27 +3,34 @@
 {% block title %}Update {{recipe.name}}{% endblock%}
 {% block content%}
 <div class="container">
+    <div class="row mt-2">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+    {% endif %}
+    </div>
     <div class="row">
         <h1 class="text-center text-success mt-4">Update {{recipe.name}} <img src="{{recipe.image.url}}" height="60px" width="80px" class="update"/></h1>
         <div class="col-10">
             <form action="{% url 'recipes:update_recipe' recipe.id %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <h5>Name:</h5>
-                <input class="form-control" type="text" name="name" placeholder="Name of Recipe" value="{{recipe.name}}"/>
+                <input class="form-control" type="text" name="name" placeholder="Name of Recipe" value="{{recipe.name}}" required minlength="8"/>
                 <h5>Description:</h5>
-                <textarea class="form-control" name="description">{{recipe.description}}</textarea>
+                <textarea class="form-control" name="description" required minlength="20">{{recipe.description}}</textarea>
                 <h5>Time:</h5>
-                <input class="form-control" type="number" name="time" placeholder="Time of Recipe" value="{{recipe.time}}"/>
+                <input class="form-control" type="number" name="time" placeholder="Time of Recipe" value="{{recipe.time}}" required/>
                 <h5>Cal:</h5>
-                <input class="form-control" type="number" name="cal" placeholder="Cal of Recipe" value="{{recipe.cal}}"/>
+                <input class="form-control" type="number" name="cal" placeholder="Cal of Recipe" value="{{recipe.cal}}" required />
                 <h5>Quantities of ingredients:</h5>
-                <textarea class="form-control" name="quantities_ingredients" required minlength="50">{{recipe.quantities_ingredients}}</textarea>
+                <textarea class="form-control" name="quantities_ingredients" required minlength="50" >{{recipe.quantities_ingredients}}</textarea>
                 <h5>Instructions:</h5>
-                <textarea class="form-control" name="instructions">{{recipe.instructions}}</textarea>
+                <textarea class="form-control" name="instructions" required minlength="50">{{recipe.instructions}}</textarea>
                 <h5>Meals:</h5> 
                 {% for key, value in categories.choices %}
                 <div class="form-check">
-                <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if recipe.category == key %} checked {% endif %}>
+                <input class="form-check-input" type="radio" name="category" id="{{key}}" value="{{value}}" {% if recipe.category == key %} checked {% endif %} required>
                 <label class="form-check-label" for="{{key}}">{{value}}</label>
                 </div>
                 {% endfor %}

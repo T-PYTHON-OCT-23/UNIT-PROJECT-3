@@ -3,6 +3,13 @@
 {% block title %}Home{% endblock%}
 {% block content%}
 <div class="container-fluid">
+    <div class="row mt-2">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+    </div>
 <div class="row main">
 <div class="col mx-2">
     <h1 class="mt-5 style text-light">Healthy Food,</h1>
@@ -18,7 +25,7 @@
     
             <div class="category-item">
                 <a href="{% url 'recipes:recipe_categories' 'Breakfast&Brunch' %}"><img src="{% static 'images/breakfast.png'%}" height="50" width="60"></a>
-                <h5>Breakfast<br>&Brunch</h5>
+                <h5>Breakfas&Brunch</h5>
             </div>
     
             <div class="category-item">
@@ -83,7 +90,28 @@
 </div>
 </div>
 <!---------->
-
+<h1 class="text-center mt-2">Our delicious recipes</h1>
+<div class="row row-cols-1 row-cols-md-3 g-4 my-2">
+    {% for recipe in recipes %}
+    <div class="col">
+      <div class="card">
+        <a href="{% url 'recipes:detail_recipe' recipe.id %}"><img src="{{recipe.image.url}}" class="card-img-top" height="220px" alt="..."></a>
+        <div class="card-body test">
+          <div class="d-flex justify-content-between align-items-center">
+          <h5 class="card-title text-success">{{recipe.name}}</h5>
+          {% if not recipe.is_favored %}
+          <a href="{% url 'favorites:add_favorite_recipe' recipe.id %}?next=browse"><i class="bi bi-heart"></i></a>
+          {% else %}
+          <a href="{% url 'favorites:add_favorite_recipe' recipe.id %}?next=browse"><i class="bi bi-heart-fill"></i></a>
+          {% endif %}
+          </div>  
+          <h6 class="card-text">{{recipe.description}}</h6>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  
+</div>
 </div>
 
 {% endblock %}

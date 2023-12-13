@@ -9,5 +9,6 @@ urlpatterns = [
     path('update/recipe/<recipe_id>/',views.update_recipe,name='update_recipe'),
     path('search/page',views.search_page,name='search_page'),
     path('recipe/categories/<cat>/',views.recipe_categories,name='recipe_categories'),
-    path('not/exist',views.not_exist,name='not_exist')
+    path('not/exist',views.not_exist,name='not_exist'),
+    path('not/authorized',views.not_authorized,name='not_authorized')
 ]
