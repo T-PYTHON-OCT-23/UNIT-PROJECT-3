@@ -50,22 +50,14 @@
         {% endif %}
 
         {% if post.video %}
-            <!-- Video Card -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="player"></div>
-                    <script>
-                        var playerElement = document.querySelector(".player");
-                        var player = new Clappr.Player({
-                            source: "{{ post.video.url }}",
-                            parent: playerElement,
-                            autoPlay: true,
-                            mute: true,
-                            height: 360,
-                            width: 720,
-                            plugins: [HlsjsPlayback],
-                        });
-                    </script>
+        
+        
+        <div class="video-overlay position-relative">
+            <video controls class="post-video img-fluid rounded">
+                <source src="{{ pos.video.url }}" type="video/mp4">
+            </video>
+            <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white font-weight-bold" style="opacity: 0; transition: opacity 0.3s ease-in-out;">View Video</div>
+        </div>
                 </div>
             </div>
         {% endif %}
@@ -144,20 +136,13 @@
                                 <!-- Comment Video Card -->
                                 <div class="card mt-3">
                                     <div class="card-body">
-                                        <div class="player"></div>
-                                        <script>
-                                            var playerElement = document.querySelector(".player");
-                                            var player = new Clappr.Player({
-                                                source: "{{ comment.video.url }}",
-                                                parent: playerElement,
-                                                autoPlay: true,
-                                                mute: true,
-                                                height: 360,
-                                                width: 720,
-                                                plugins: [HlsjsPlayback],
-                                            });
-                                        </script>
-                                    </div>
+                                        <div class="video-overlay position-relative">
+                                            <video controls class="post-video img-fluid rounded">
+                                                <source src="{{ comment.video.url }}" type="video/mp4">
+                                            </video>
+                                            <div class="overlay-text position-absolute top-50 start-50 translate-middle text-white font-weight-bold" style="opacity: 0; transition: opacity 0.3s ease-in-out;">View Video</div>
+                                        </div>
+                              </div>
                                 </div>
                             {% endif %}
                             <p></p>

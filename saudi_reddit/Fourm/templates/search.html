@@ -1,0 +1,32 @@
+<!-- FILEPATH: /c:/Users/bdrkh/Documents/Python/Saudi-reddit/saudi_reddit/Fourm/templates/search.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+
+Search {{ query }}
+
+{% endblock %}
+
+{% block content %}
+{% if posts %}
+    <div class="row">
+        {% for post in posts %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="meta">
+                            <span class="date">{{ post.date_posted }}</span>
+                            <span class="user">{{ post.author }}</span>
+                        </p>
+                        <h5 class="card-title"><a href="{% url 'Fourm:post_detail' post.subreddit.slug post.slug %}">{{ post.title }}</a></h5>
+                        <p class="card-text">{{ post.content|slice:":100" }}...</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <h1>No results found</h1>
+{% endif %}
+{% endblock %}

@@ -144,7 +144,9 @@ def delete_comment(request, comment_slug):
 
 @login_required
 def Feed(request):
-    pass
+    subscribed_subreddits=Subreddit.objects.filter(subscribers=request.user)
+    posts = Post.objects.filter(subreddit__in=subscribed_subreddits)
+    return render(request, 'Feed.html', {'posts': posts})
 
 @login_required
 def update_comment(request, comment_slug):
@@ -168,6 +170,6 @@ def Search_bar(request):
     query = request.GET.get('search')
     if query:
         posts = Post.objects.filter(title__icontains=query)
-        return render(request, 'search.html', {'posts': posts})
+        return render(request, 'search.html', {"query":query,'posts': posts})
     else:
         return redirect('Fourm:index')

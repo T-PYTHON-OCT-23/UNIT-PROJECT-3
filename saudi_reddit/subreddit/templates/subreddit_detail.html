@@ -47,19 +47,9 @@
                     <p class="card-text">{{ post.content }}</p>
                     
                     {% if post.video %}
-                    <div class="player"></div>
-                    <script>
-                        var playerElement = document.querySelector(".player");
-                        var player = new Clappr.Player({
-                            source: "{{ post.video.url }}",
-                            parent: playerElement,
-                            autoPlay: true,
-                            mute: true,
-                            height: 360,
-                            width: 720,
-                            plugins: [HlsjsPlayback],
-                        });
-                    </script>
+                    <video width="720" height="320" controls>
+                        <source src="{{ post.video.url }}" type="video/mp4">
+                        Your browser does not support the video tag.
                     {% endif %}
                     <p></p>
                     {% if post.author == request.user %}
