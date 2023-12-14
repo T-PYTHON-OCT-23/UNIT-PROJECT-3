@@ -133,5 +133,33 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 - Project Description
 - Features list.
 
+
+-----------------------------------------------------------------------------
+
+## Car Rental Application Project
+
+The Car Rental website is a comprehensive web-based platform designed to streamline the process of renting and managing cars. Built using the Django web framework in Python, the application provides users with a user-friendly interface for browsing available cars, making bookings, and leaving reviews.
+
+
+* The application offers the following key features:
+
+- User authentication and authorization using Django's built-in User model.
+- CRUD (Create, Read, Update, Delete) functionality for car listings.
+- Rental transactions management, including pickup and return details.
+- User reviews and ratings for rented cars.
+- Advanced search functionality for finding available cars based on various criteria.
+
+* Database "Models" :
+
+- Car Model:
+Attributes: name, year, image, available, vehicle_class, vehicle_type, color, seats, pags, air_conditioner, transmission_type, fuel_type, price, city.
+
+- Rental Model:
+Attributes: car, renter, rental_pickup_location, rental_return_location, rental_pickup_Datetime, rental_return_Datetime, total_cost, is_available.
+
+- Review Model:
+Attributes: car, reviewer, rating, comment, created_at.
+Relationships are established between models, ensuring data integrity.
+
  
 

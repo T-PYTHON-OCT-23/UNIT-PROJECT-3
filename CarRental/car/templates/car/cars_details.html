@@ -52,10 +52,10 @@
   <div class="row">
       <h2 class="mb-3">Reviews:</h2>
       <div class="col">
-          <div class="d-flex flex-column gap-3">
+          <div class="row-cols-4 mt-3 gap-3 ">
               {% for review in reviews %}
               <div class="border p-3">
-                  <h3>{{ review.user.first_name }} {{ review.full_name }}</h3>
+                  <h3>{{ review.user.first_name }} </h3>
                   <h6 class="text-muted">{{ review.created_at }}</h6>
                   <p>{{ review.comment }}</p>
               </div>
@@ -69,7 +69,7 @@
       {% if request.user.is_authenticated %}
       <h2 class="mb-3">Add Review:</h2>
       <div class="col-6">
-          <form action="" method="POST">
+          <form action="{% url 'car:add_review_view' car.id %}" method="POST">
               {% csrf_token %}
               <div class="form-group">
                   <label for="rating">Rating:</label>
@@ -82,7 +82,7 @@
                   </select>
               </div>
               <div class="form-group">
-                  <label for="comment">Your Review:</label>
+                  <label for="comment">Your Comment:</label>
                   <textarea class="form-control" name="comment" placeholder="Enter your review"
                       required minlength="5"></textarea>
               </div>

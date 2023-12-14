@@ -93,12 +93,12 @@ class Review(models.Model):
     """
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
-    rating = models.PositiveIntegerField(default="")
+    rating = models.IntegerField(default="")
     comment = models.TextField(default="")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.reviewer.username} - {self.car} - {self.rating}"
+        return f"Review for {self.car} - {self.rating} stars"
     
 
 class RentalCompany(models.Model):
@@ -111,8 +111,3 @@ class RentalCompany(models.Model):
     def __str__(self):
         return self.name
     
-
-class Filtring(models.Model):
-   vehicle_class = models.CharField(max_length=100, default="")
-   vehicle_type = models.CharField(max_length=100, default="")
-

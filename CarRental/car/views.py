@@ -184,9 +184,8 @@ def booking_search_view(request:HttpRequest):
         city =request.GET.get("city")
         vehicle_class = request.GET.get("vehicle_class")
         vehicle_type = request.GET.get("vehicle_type")
-        price = request.GET.get("price")
 
-        cars = Car.objects.filter(city=city, price__gte=price, available=True,vehicle_class=vehicle_class,vehicle_type=vehicle_type)
+        cars = Car.objects.filter(city=city, available=True,vehicle_class=vehicle_class,vehicle_type=vehicle_type)
 
     else:
         cars = []
@@ -201,11 +200,13 @@ def booking_search_view(request:HttpRequest):
 def add_review_view(request: HttpRequest, pk):
 
     if request.method == "POST":
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment')
         if not request.user.is_authenticated:
             return render(request, "main/not_authorized.html", status=401)
         
-        car_obj = get_object_or_404(Car, id=pk)
-        new_review = Review(car=car_obj, renter=request.user,full_name=request.POST["full_name"], rating=request.POST["rating"], comment=request.POST["comment"])  
+        car_obj = Car.objects.get(id=pk)
+        new_review = Review(car=car_obj, reviewer=request.user,rating=rating, comment=comment)  
         new_review.save()
         return redirect("car:cars_details_view", pk =car_obj.id)
     

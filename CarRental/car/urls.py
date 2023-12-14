@@ -11,5 +11,5 @@ urlpatterns = [
     path("delet/<str:pk>",views.cars_delete_view,name="cars_delete_view"),
     path("search/",views.car_search_view,name="car_search_view"),
     path("booking/search/",views.booking_search_view,name="booking_search_view"),
-    path("booking/search/",views.add_review_view,name="add_review_view")
+    path("booking/search/<str:pk>",views.add_review_view,name="add_review_view")
 ]
