@@ -6,16 +6,16 @@
 </title>
 
 {% block content %}
-
 <section class="h-100 gradient-custom-2">
     <div class="container py-5 h-100">
+
         {% if user_recipes.count == 0 %}
         <div class="alert alert-info">You don't have any recipes yet. <a href="{% url 'recipes:add_recipe_view' %}">Share recipes</a></div>
         {%else%}
         <h1> {{ user.first_name }}'s recipes</h1>
         {% endif %}
         <div class="row  g-4 row-cols-1 row-cols-md-3 p-5">
-           
+
 
             {% for recipe in user_recipes %}
             <div class="col">
@@ -43,4 +43,3 @@
     </div>
   </section>
     {%endblock%}
-

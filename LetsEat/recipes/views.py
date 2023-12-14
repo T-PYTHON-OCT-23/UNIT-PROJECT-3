@@ -67,8 +67,8 @@ def recipe_detail_view(request:HttpRequest, recipe_id):
 
 def update_recipe_view(request: HttpRequest, recipe_id):
     
-    if not request.user.is_authenticated:
-        return render(request, 'main/not_authrized.html')
+    # if not request.user.is_authenticated:
+    #     return render(request, 'main/not_authrized.html')
 
     recipe = Recipe.objects.get(id= recipe_id)
 
@@ -89,9 +89,9 @@ def update_recipe_view(request: HttpRequest, recipe_id):
 
 
 def delete_recipe_view(request: HttpRequest, recipe_id):
- 
+    msg=None
     try:
-        msg=None
+       
 
         recipe = Recipe.objects.get(id=recipe_id)
         recipe.delete()
@@ -103,19 +103,17 @@ def delete_recipe_view(request: HttpRequest, recipe_id):
 
 
 def search_results_view(request: HttpRequest):
-    try:
-            if "search" in request.GET:
-                keyword = request.GET["search"]
-                recipes = Recipe.objects.filter(name__icontains=keyword )
-                recipes = Recipe.objects.filter(category__icontains=keyword )
-                # recipes = User.objects.filter(username__icontains=keyword )
-            else:
-                recipes = Recipe.objects.all()
+   
+    if "search" in request.GET:
+        keyword = request.GET["search"]
+        recipes = Recipe.objects.filter(name__icontains=keyword )
+        # recipes = Recipe.objects.filter(category__icontains=keyword )
+        # recipes = User.objects.filter(username__icontains=keyword )
+    else:
+        recipes = Recipe.objects.all()
             
-            recipe_count= recipes.count()
-    except Exception as e:
-        return render(request, 'main/not_found.html')
-
+    recipe_count= recipes.count()
+   
     return render(request, "recipes/search_recipe.html", {"recipes" : recipes , "recipe_count":recipe_count})
     
 

@@ -57,15 +57,9 @@
                 <div class="mb-5">
               <div class="d-flex justify-content-between align-items-center mb-4">
                 <p class="lead fw-normal mb-0">{{ user.first_name }}'s Recipes</p>
-                <p class="mb-0"><a href=" {% url 'accounts:user_recipes_view' %} " class="text-muted">Show all</a></p>
+                <p class="mb-0"><a href=" {% url 'accounts:user_recipes_view' user.id %} " class="text-muted">Show all</a></p>
               </div>
-              <!-- <div class="p-4" style="background-color: #f8f9fa;">
-              <div class="row g-2">
-                <div class="col mb-2">
-                  <img src="{{ user.recipe.picture.url }}" class="w-100 rounded-3">
-                </div>
-              </div>
-            </div> -->
+              
                 </div>
 
 <!-- show user favoraites -->
@@ -74,13 +68,7 @@
               <p class="lead fw-normal mb-0">Recent Saved</p>
               <p class="mb-0"><a href="{% url 'favorites:my_favorites_view' %}" class="text-muted">Show all</a></p>
             </div>
-            <!-- <div class="p-4" style="background-color: #f8f9fa;">
-            <div class="row g-2">
-              <div class="col mb-2">
-                <img src="{}" class="w-100 rounded-3">
-              </div>
-            </div>
-          </div> -->
+           
           </div>
 
 

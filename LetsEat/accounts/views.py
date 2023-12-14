@@ -60,7 +60,7 @@ def user_profile_view(request: HttpRequest, user_id  ):
         # recipe= Recipe.objects.filter(user=request.user)
 
     except:
-        return render(request, 'main/not_found.html')
+        return render(request, 'main/not_authrized.html')
     
     return render(request, 'accounts/profile.html', { "user":user })
 
@@ -98,17 +98,25 @@ def update_user_view(request: HttpRequest):
         except IntegrityError as e:
             msg = f"Please select another username"
         except Exception as e:
-            return render(request, "main/not_authrized.html")
-        
+            msg = f"something went wrong {e}"
+
     return render(request, "accounts/update_profile.html", {"msg" : msg})
 
 
-def user_recipes_view(request:HttpRequest ):
-        
-    user_recipes = Recipe.objects.filter(user=request.user)
 
-    return render(request ,  'accounts/user_recipes.html' ,{"user_recipes" :user_recipes  } )
+def user_recipes_view(request, user_id):
+    try:
+        # Get the user based on the provided user_id
+        user = User.objects.get(id=user_id)
 
+        # Fetch recipes associated with the user
+        user_recipes = Recipe.objects.filter(user=user)
+
+        return render(request, 'accounts/user_recipes.html', {"user_recipes": user_recipes, "user": user})
+
+    except User.DoesNotExist:
+        # Handle the case where the user is not found
+        return render(request, 'main/not_found.html')
 
 
 def community_view (request:HttpRequest):
