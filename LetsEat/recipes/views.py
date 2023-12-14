@@ -67,7 +67,9 @@ def recipe_detail_view(request:HttpRequest, recipe_id):
 
 def update_recipe_view(request: HttpRequest, recipe_id):
     
-    
+    if not request.user.is_authenticated:
+        return render(request, 'main/not_authrized.html')
+
     recipe = Recipe.objects.get(id= recipe_id)
 
     if request.method == "POST":
