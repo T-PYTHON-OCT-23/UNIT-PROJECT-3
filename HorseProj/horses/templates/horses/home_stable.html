@@ -6,9 +6,9 @@
 {% block contant %}
 <section class="container_services p-2">
     <h1 class="contents"> Horse Sense offers you the best stables so you can live a different experience</h1>
-    <div class="row row-cols-1 row-cols-md-3">
+    <div class="row row-cols-1 row-cols-md-3 p-4">
         {% for stable in stables %}
-            <div class="col ">
+            <div class="col p-4">
                <div class="d-flex flex-column gap-2  border border-3 rounded-4 h-100 justify-content-start">
             
                     <img class="imgStable" src="{{stable.img.url}}" />

@@ -14,7 +14,30 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 - Use naming conventions.
 - Strive to make the user journey intuitive and complete.
 
+## My projects:
 
+name : Equestrian World Project
+
+
+## Project Description
+A project that provides you with all your needs in the world of equestrianism
+One of the horse stables provides you with accommodation, training, and visits to the stable
+We provide you with stores for horse supplies
+
+We also provide you with consultations in several cases with the best consultants.
+
+
+## Features list.
+
+Add a horses stable 
+Add  horses stable services 
+Service Request
+Add a store
+Add products to the store
+Request a product
+
+Request a consultation
+Add comments
 
 ## Example Projects :
 
