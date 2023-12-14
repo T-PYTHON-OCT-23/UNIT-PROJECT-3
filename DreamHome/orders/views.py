@@ -74,8 +74,3 @@ def shooping_backet_view(request: HttpRequest):
 
 
 
-def test_backet_view(request: HttpRequest):
-
-  
-
-    return render(request, 'orders/add_order.html')

@@ -520,7 +520,11 @@ button:hover{
   width:250px;
   height:250px;
 }
-.container{
+.container-x{
+  text-align: center;
+}
+
+.container_h{
   text-align: center;
 }
 
