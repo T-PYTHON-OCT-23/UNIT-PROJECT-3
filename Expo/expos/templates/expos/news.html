@@ -246,7 +246,7 @@
                 <div class="projcard-subtitle">Date at :{{news.publishd_at}}</div>
                 <div class="projcard-bar"></div>
                 <div class="projcard-description">{{news.content}}</div>
-                <a href="{% url 'bookmarks:add_bookmark_view' news.id %}" style="text-decoration: none;">
+                <a href="{% url 'bookmarks:add_bookmark_view' news_id=news.id %}" style="text-decoration: none;">
                     <button class="bookmarkBtn">
                         <span class="IconContainer">
                             <svg viewBox="0 0 384 512" height="0.9em" class="icon">

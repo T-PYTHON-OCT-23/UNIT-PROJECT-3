@@ -28,16 +28,12 @@ def register_view(request: HttpRequest):
 
     return render(request, "accounts/register.html", {"msg" : msg})
 
-
-
 def login_view(request: HttpRequest):
     msg = None
     if request.method == "POST":
-        #first : authenticate the user data
         user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
 
         if user:
-            #second: login the user
             login(request, user)
             return redirect("main:home_view")
         else:
@@ -45,11 +41,8 @@ def login_view(request: HttpRequest):
 
     return render(request, "accounts/login.html", {"msg" : msg})
 
-
-
 def logout_view(request: HttpRequest):
 
-    #log out the user
     if request.user.is_authenticated:
         logout(request)    
 
@@ -70,10 +63,12 @@ def update_user_view(request: HttpRequest):
                 try:
                     profile : Profile = request.user.profile
                 except Exception as e:
-                    profile = Profile(user=user, birth_date=request.POST["birth_date"])
+                    profile = Profile(user=user, birth_date=request.POST["birth_date"] , job=request.POST["job"])
                     profile.save()
 
                 profile.birth_date = request.POST["birth_date"]
+                profile.job = request.POST["job"]
+
                 if 'avatar' in request.FILES: profile.avatar = request.FILES["avatar"]
                 profile.save()
 
@@ -91,11 +86,8 @@ def update_user_view(request: HttpRequest):
 def user_profile_view(request: HttpRequest, user_id):
 
     try:
-        
         user = User.objects.get(id=user_id)
 
     except:
         return render(request, 'main/not_found.html')
-    
-
     return render(request, 'accounts/profile.html', {"user":user})

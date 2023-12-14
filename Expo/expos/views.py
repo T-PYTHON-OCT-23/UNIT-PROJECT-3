@@ -29,22 +29,22 @@ def news_home_view(request: HttpRequest):
     
 
     news = News.objects.all()
-    # is_bookmarked = request.user.is_authenticated and Bookmark.objects.filter(news=news, user=request.user).exists()
+
     if "search" in request.GET:
         keyword = request.GET["search"]
         news = News.objects.filter(title__icontains=keyword)
     else:
         news = News.objects.all()
 
-    return render(request, "expos/news.html", {"news" :news })
+    return render(request, "expos/news.html", {"news" :news})
 
 
 def news_detail_view(request:HttpRequest, news_id):
     
         news = News.objects.get(id=news_id)
-       
+        is_bookmarked = request.user.is_authenticated and Bookmark.objects.filter(news=news, user=request.user).exists()
 
-        return render(request, "expos/news_detail.html", {"news" : news })
+        return render(request, "bookmarks/my_bookmark.html", {"news" : news , "is_bookmarked" :is_bookmarked})
 
 
 def add_event_view(request: HttpRequest):
@@ -70,7 +70,6 @@ def event_detail_view(request:HttpRequest,event_id):
         if request.method == "POST":
             nReview = Review(event=event, user=request.user, rating=request.POST["rating"], comment=request.POST["comment"])
             nReview.save()
-
         reviews = Review.objects.filter(event=event)
     
         return render(request, "expos/event_detail.html", {"event" : event ,"reviews":reviews })
@@ -135,11 +134,8 @@ def update_event_view(request: HttpRequest, event_id):
 def reservation_event_view(request:HttpRequest ,event_id):
     event = Event.objects.get(id=event_id)
 
-    user = request.user
-    new_reservation = None
-
     if request.method == "POST":
-        new_reservation = Reservation(event=event, user=user, quantity=request.POST["quantity"])
+        new_reservation = Reservation(event=event, user=request.user, quantity=request.POST["quantity"])
         new_reservation.save()
         return redirect('expos:ticket_view')
 
@@ -156,8 +152,6 @@ def my_tickets_view(request:HttpRequest):
 
 
     return render(request,'expos/my_tickets.html', {"reservation" : reservation})
-
-
 
 
 

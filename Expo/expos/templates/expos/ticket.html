@@ -59,6 +59,6 @@
   content: "click here to show your ticket ";
 }
 </style>
-<a href="{% url 'expos:my_tickets_view' %}" style="text-decoration: none;"><div class="card">Your Reservation success !<br> Thank You </div></a>
+<a href="{% url 'expos:my_tickets_view' %}" style="text-decoration: none;"><div class="card">Your Reservation success ! {% if new_reservation %} {{new_reservation.total}} {% endif %}<br> Thank You. </div></a>
 
 {% endblock %}

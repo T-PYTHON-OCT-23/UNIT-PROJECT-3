@@ -4,18 +4,18 @@
 
 
 {% block content %}
-    <section class="container">
+    <section class="cont pt-4">
         <h1>My Bookmarks</h1>
-        <div class="row row-cols-12 row-cols-md-3 g-3">
+        <div class="row  g-4 row-cols-1 row-cols-md-3">
             {% if bookmarks.count == 0 %}
              <div class="alert alert-info">You don't have any bookmarks yet.</div>
             {% endif %}
-            {% for Bookmark in Bookmarks %}
+            {% for bookmark in bookmarks %}
                 <div class="col">
-                    <div class="fav-card d-flex align-items-first gap-2 border border-1 rounded">
-                        <img class="rounded" src="{{ Bookmark.news.poster.url }}" />
+                    <div class="d-flex flex-column gap-2 p-0 border border-1 rounded-4 shadow h-100 overflow-hidden justify-content-start">
+                        <img class="rounded" src="{{ bookmark.news.poster.url }}" />
                         <div>
-                            <a href="{% url 'expos:news_detail_view' bookmark.news.id %}"><h4>{{ bookmark.news.title }}</h4></a>
+                            <a href="{% url 'expos:news_home_view'%}"><h4>{{ bookmark.news.title }}</h4></a>
                         </div>
 
                     </div>

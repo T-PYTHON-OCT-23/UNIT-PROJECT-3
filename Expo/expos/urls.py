@@ -15,6 +15,4 @@ urlpatterns = [
     path("reservation/<event_id>/",views.reservation_event_view, name="reservation_event_view"),
     path('ticket/', views.ticket_view, name='ticket_view'),
     path('my_tickets/',views.my_tickets_view,name="my_tickets_view"),
-
-
 ]

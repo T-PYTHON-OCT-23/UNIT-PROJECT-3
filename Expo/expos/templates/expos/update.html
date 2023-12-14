@@ -5,36 +5,181 @@
 
 
 {% block content %}
-    <div class="container mt-5"> 
 
-        <div class="row">
-            <h2>Update {{event.title}}:</h2>
-            <div class="col">
 
-                <form action="{% url 'expos:update_event_view' event.id %}" method="POST" enctype="multipart/form-data">
 
-                    {% csrf_token %}
-                <label>Event Title:</label>
-                <input class="form-control" type="text" name="title" placeholder="Event Title" value="{{event.title}}" />
+<style>
+    .card {
+        --main-color: #000;
+        --submain-color: #78858F;
+        --bg-color: #fff;
+        font-family: system-ui, -apple-system, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+        position: relative;
+        width: 1400px;
+        height: 384px;
+        margin: auto;
+        margin-left: 160px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 20px;
+        background: var(--bg-color);
+    }
 
-                <label>Event Content:</label>
-                <textarea class="form-control" name="content">{{event.content}}</textarea>
+    .card__btn {
+        margin-top: 15px;
+        width: 76px;
+        height: 31px;
+        border: 2px solid var(--main-color);
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: 11px;
+        color: var(--main-color);
+        background: var(--bg-color);
+        text-transform: uppercase;
+        transition: all 0.3s;
+    }
 
-                <label>Event Poster:</label>
-                <input type="file" name="poster"  class="form-control" accept="image/*"/>
+    .card__btn-solid {
+        background: var(--main-color);
+        color: var(--bg-color);
+    }
 
-                <label>Price :</label>
-                <input class="form-control" type="text" name="price" placeholder="price" value="{{event.price}}" />
+    .card__btn:hover {
+        background: var(--main-color);
+        color: var(--bg-color);
+    }
 
-                <label>Event Date:</label>
-                <input class="form-control" name="date" type="date" value="{{event.date|date:'Y-m-d'}}" />
+    .card__btn-solid:hover {
+        background: var(--bg-color);
+        color: var(--main-color);
+    }
 
-                <input class="btn btn-primary mt-2" type="submit" value="Update Event" />
+    /* card-2 */
+    .infos {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        grid-gap: 1rem;
+        gap: 1rem;
+    }
 
-                </form>
+    .coolinput {
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        position: static;
+        max-width: 240px;
+    }
 
+    .coolinput label.text {
+        font-size: 0.75rem;
+        color: #937bfe;
+        font-weight: 700;
+        position: relative;
+        top: 0.5rem;
+        margin: 0 0 0 7px;
+        padding: 0 3px;
+        background: #ffffff;
+        width: fit-content;
+        border-radius: 50px;
+    }
+
+    .coolinput input[type=text].input {
+        padding: 11px 10px;
+        font-size: 0.75rem;
+        border: 2px #937bfe solid;
+        border-radius: 5px;
+        background: #ffffff;
+    }
+
+    .coolinput input[type=email].input {
+        padding: 11px 10px;
+        font-size: 0.75rem;
+        border: 2px #937bfe solid;
+        border-radius: 5px;
+        background: #ffffff;
+    }
+
+    .coolinput input[type=date].input {
+        padding: 10px 10px;
+        font-size: 0.75rem;
+        border: 2px #937bfe solid;
+        border-radius: 5px;
+        background: #ffffff;
+    }
+
+    .coolinput input[type=file].input {
+        padding: 9px 10px;
+        font-size: 0.75rem;
+        border: 2px #937bfe solid;
+        border-radius: 5px;
+        background: #ffffff;
+    }
+
+    .coolinput textarea[type=text].input {
+        padding: 9px 10px;
+        font-size: 0.75rem;
+        border: 2px #937bfe solid;
+        border-radius: 5px;
+        background: #ffffff;
+        width: 400px;
+        height: 200px;
+    }
+
+
+
+    .coolinput input[type=text].input:focus {
+        outline: none;
+    }
+
+
+    .card__btn-solid {
+        background: var(--main-color);
+        color: var(--bg-color);
+        margin-top: 250px;
+    }
+</style>
+{% if msg %}
+<div class="alert alert-danger" role="alert">
+    {{ msg }}
+</div>
+{% endif %}
+
+<!-- Card-1 -->
+<div class="card">
+    <h2>Update {{event.title}}:</h2>
+
+    <form action="{% url 'expos:update_event_view' event.id %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="infos">
+            <div class="coolinput">
+                <label for="input" class="text">Event Title:</label>
+                <input type="text" placeholder="Event Title" name="title" class="input" value="{{event.title}}">
             </div>
-        </div>
 
-    </div>
+            <div class="coolinput">
+                <label for="input" class="text">Price:</label>
+                <input type="text" placeholder="Job" name="price" class="input" value="{{event.price}}">
+            </div>
+            <div class="coolinput">
+                <label for="input" class="text">Event Date:</label>
+                <input type="date" name="date" class="input" required value="{{event.date|date:'Y-m-d'}}">
+            </div>
+            <div class="coolinput">
+                <label for="input" class="text">Event Poster:</label>
+                <input class="input" type="file" name="poster" accept="image/*" />
+            </div>
+            <div class="coolinput">
+                <label for="input" class="text">Event Content:</label>
+                <textarea type="text" placeholder="Last Name" name="content" class="input">{{event.content}}</textarea>
+            </div>
+            <input class="card__btn card__btn-solid" type="submit" value="Done" />
+
+    </form>
+</div>
+
+
+
+
 {% endblock %}
