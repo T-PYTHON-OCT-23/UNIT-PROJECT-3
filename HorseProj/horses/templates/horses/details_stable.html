@@ -63,7 +63,7 @@
           {% if request.user.is_authenticated %}
           <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">Book now</a>
           {% else %}
-          <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#orderModal-{{service.id}}">Book now </a>
+          <a>To Book please <a href="{% url 'users:login_views' %}">sign in</a>.
           {%endif%}
         </div>
      
