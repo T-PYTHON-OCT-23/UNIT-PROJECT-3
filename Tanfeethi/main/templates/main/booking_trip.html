@@ -4,39 +4,174 @@
 {% block content %} 
 
 
-<section class="container">
-    <div class="row">
-        <div class="col">
-            <div class="border shadow">
-                <h1>Book a Trip</h1>
-                <h2>{{ flight.departure_time }} -> {{ flight.arrival_time}}</h2>
+<style>
+    .card{
+  margin:auto;
+  border:solid 1px #dbdad7; 
+  width:60%; 
+  padding-left:10px!important;
+  padding-bottom:10px!important;
+  padding-right:10px!important;
+  padding-top: 0px!important;
+  
+}
+
+.card-title{
+  margin:auto;
+  padding:15px;
+  background-color: #2f7fad;
+  color: white;
+  width:80%;
+}
+
+div.card-body{
+  padding:0px;
+}
+.custom-select{
+  width:100%;
+}
+
+.btn2{
+  margin-left:10%;
+}
+input {
+  outline: 0!important;
+  border-width: 0 0 2px!important;
+  border-color: #d1d1cf!important;
+}
+input:focus {
+  border-color: #d1d1cf!important;
+ -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+}
+
+select{
+
+ outline: 0!important;
+  border-width: 0 0 2px!important;
+  border-color: #d1d1cf!important;
+}
+
+select:focus{
+    border-color: #d1d1cf!important;
+ -webkit-box-shadow: none!important;
+  box-shadow: none!important;
+}
+
+.radiobtn{
+  margin-left: 3.5%;
+}
+
+.icons{
+  margin:auto!important;
+
+}
+
+.fa{
+  border-radius: 25px;
+  width: 10%;
+  margin-left: 5%;
+  border:solid 2px #dbdad7;
+  margin-top:5%;
+  text-align: center;
+}
+
+.fa-plane{
+  color:#1cad9f;
+}
+
+.fa-taxi{
+  color: #c2f700;
+}
+
+.fa-train{
+  color:red;
+}
+
+@media only screen and (max-width: 600px) {
+  .card{
+    margin:auto;
+    border:solid 1px #dbdad7;
+    width:90%;
+    padding-left:10px!important;
+    padding-bottom:10px!important;
+    padding-right:10px!important;
+    padding-top: 0px!important;
+  
+  }
+
+  .fa{
+    border-radius: 25px;
+    width: 15%;
+    margin-left: 5%;
+    border:solid 2px #dbdad7;
+    margin-top:5%;
+    text-align: center;
+  }
+}
+</style>
 
 
-                <form method="POST" action="{% url 'main:booking_trip_view' flight.id %}">
-                    {% csrf_token %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--Card-->
 
-                    
-                    
-                    <label for="first_name">First Name:</label>
-                    <input type="text" id="first_name" name="first_name" required><br>
-            
-                    <label for="last_name">Last Name:</label>
-                    <input type="text" id="last_name" name="last_name" required><br>
-            
-                   
-            
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-            
-                {% if msg %}
-                    <p>{{ msg }}</p>
-                {% endif %}
-            
-            </div>
+
+<div class="card shadow mb-5 bg-white rounded" style="margin-top: 200px;">
+
+	<div class="card-body">
+
+
+    {% if msg %}
+    <p class="alert alert-danger">{{ msg }}</p>
+{% endif %}
+ <div class="icons text-srart">
+
+<i class="fa fa-plane fa-2x"  aria-hidden="true" style="margin-bottom: 100px; color: #a658d1cd;"> fly Tanfeethi </i>
+ </div>
+    <hr>
+     
+    
+		<div class="row">
+      <form method="POST" action="{% url 'main:booking_trip_view' trips.id %}">
+        {% csrf_token %}
+        <div class="col-sm-6">
+            <input placeholder="&#xf073; {{ trips.departure_city.name }}" type="text"  class="form-control datepicker mb-4" style="font-family:Arial" >
+        </div>
+
+            <div class="col-sm-6">
+                <input placeholder="&#xf073; {{ trips.arrival_city.name}}" type="text" class="form-control datepicker" style="font-family:Arial, FontAwesome" >
         </div>
     </div>
-</section>
-    
 
+		<div class="row">
+
+			<div class="col-sm-6">
+				<input placeholder="&#xf073; {{ trips.departure_time }}" type="text" id="date-picker-example" class="form-control datepicker mb-4" style="font-family:Arial, FontAwesome" >
+			</div>
+
+				<div class="col-sm-6">
+					<input placeholder="&#xf073; {{ trips.arrival_time}}" type="text" id="date-picker-example" class="form-control datepicker" style="font-family:Arial, FontAwesome" >
+			</div>
+
+				</div>
+
+
+				<div class="row mt-4">
+                <div class="col-sm-6">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" name="first_name" required><br>
+                </div>
+        
+                <div class="col-sm-6">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" name="last_name" required><br>
+                </div>
+            </div>
+        
+              <button type="submit" class="btn btn-primary float-right mt-5">Booking</button>
+        </div>
+		</div>
+  </form>
+  
 
 {% endblock %}

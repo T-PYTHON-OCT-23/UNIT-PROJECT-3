@@ -10,5 +10,8 @@ urlpatterns = [
     path('add/trip/' , views.add_trip_view , name='add_trip_view'),
     path('confirmation/page/' , views.confirmation_page , name='confirmation_page'),
     path('error/page/' , views.error_page_view , name='error_page_view'),
-    path("add/new/city/" , views.add_city_view , name="add_city_view"),
+    path('payment/<int:trip_id>/' , views.payment_view , name='payment_view'),
+    path("search/", views.search_view, name="search_view"),
+
+
 ]

@@ -6,7 +6,29 @@
     {% csrf_token %}
     <!-- 2 column grid layout with text inputs for the first and last names -->
     <div class="row mb-4 justify-content-center border shadow" style="margin-top: 120px; margin-left: 300px; margin-right: 300px;">
-      <div class="col-2" >
+
+
+      <div class="col-12" >
+        <labelclass="form-label" for="form6Example1"><b>Arrival City:</b></label>
+        <select class="form-select" aria-label="Select Arrival City" name="arrival_city">
+          <option selected disabled>Select Arrival City</option>
+          {% for city in cities %}
+              <option value="{{ city.id }}">{{ city.name }}</option>
+          {% endfor %}
+      </select>
+      </div>
+      <div class="col-12" >
+        <labelclass="form-label" for="form6Example1"><b>Departure City:</b></label>
+        <select class="form-select" aria-label="Select Arrival City" name="departure_city">
+          <option selected disabled>Select Departure City</option>
+          {% for city in cities %}
+              <option value="{{ city.id }}">{{ city.name }}</option>
+          {% endfor %}
+      </select>
+      </div>
+
+      
+      <div class="col-12" >
         <div data-mdb-input-init class="form-outline" >
           <label class="form-label" for="form6Example1"><b> Departure Time:</b> </label>
           <input type="datetime-local" id="form6Example1" class="form-control" name="departure_time" value="2023-09-19T08:30"  />
@@ -15,24 +37,8 @@
       </div>
 
 
-      <div class="col-2" >
-        <select class="form-select" aria-label="Select Arrival City" name="arrival_city">
-          <option selected disabled>Select Arrival City:</option>
-          {% for city in cities %}
-              <option value="{{ city.id }}">{{ city.name }}</option>
-          {% endfor %}
-      </select>
-      </div>
-      <div class="col-2" >
-        <select class="form-select" aria-label="Select Arrival City" name="departure_city">
-          <option selected disabled>Select Departure City:</option>
-          {% for city in cities %}
-              <option value="{{ city.id }}">{{ city.name }}</option>
-          {% endfor %}
-      </select>
-      </div>
 
-      <div class="col-2">
+      <div class="col-12">
         <div data-mdb-input-init class="form-outline">
           <label class="form-label" for="form6Example2"><b> Arrival Time:</b> </label>
           <input type="datetime-local" id="form6Example2" class="form-control" name="arrival_time" value="2023-09-19T08:30" />
@@ -41,8 +47,7 @@
     </div>
 
 
-    <div class="row mb-4 justify-content-center " style="margin-top: 20px; margin-left: 300px; margin-right: 300px;">
-      <div class="col-2" >
+      <div class="col-12" >
         <div data-mdb-input-init class="form-outline" >
           <label class="form-label" for="form6Example1"><b>  Price:</b> </label>
           <input type="number" id="form6Example1" class="form-control" name="price" required  />
@@ -50,7 +55,7 @@
         </div>
       </div>
       
-      <div class="col-2">
+      <div class="col-12">
         <div data-mdb-input-init class="form-outline">
           <label class="form-label" for="form6Example2"><b> Availabe Seats:</b> </label>
           <input type="number" id="form6Example2" class="form-control" name="seat_number"  required/>
@@ -59,7 +64,6 @@
     </div>
 
 
-    <div class="row mb-4 justify-content-center " style="margin-top: 20px; margin-left: 300px; margin-right: 300px;">
       <div class="col-2" >
         <div data-mdb-input-init class="form-outline" >
           <button type="submit" class="btn btn-success col-sm-12 col-md-10 col-lg-9 col-xl-8" name="submit">Submit</button>

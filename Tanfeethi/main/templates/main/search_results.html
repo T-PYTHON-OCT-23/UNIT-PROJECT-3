@@ -17,46 +17,44 @@
             <select name="sort_by" id="sort_by">
                 <option value="price">Price Ascending ↑</option>
                 <option value="-price">Price Descending ↓</option>
-                <option value="departure_time">Earliest Trip </option>
-                <option value="-departure_time">Latest Trip </option>
             </select>
             <button type="submit" class="btn btn-success">Sort</button>
         </form>
-        {% if trips %}
-        {% for trip in trips %}
+        {% if cities %}
+        {% for city in cities %}
             <div class="col d-flex justify-content-around align-items-center mb-auto p-4" >
-                <strong><br>Departure Time:</strong> <br>{{ trip.departure_time }}
-                <strong><br>From:</strong> <br>{{ trip.departure_city }}
+                <strong><br>Departure Time:</strong> <br>{{ city.departure_time }}
+                <strong><br>From:</strong> <br>{{ city.departure_city }}
     
                 <div class="justify-content-center align-items-center" >
-                    {{ trip.duration }} <br>
+                    {{ city.duration }} <br>
                     -------- <span class="material-symbols-outlined">flight_takeoff</span> --------
                 </div>
     
-                <strong><br>Arrival Time:</strong> <br>{{ trip.arrival_time }}
-                <strong><br>To:</strong> <br>{{ trip.arrival_city }}
+                <strong><br>Arrival Time:</strong> <br>{{ city.arrival_time }}
+                <strong><br>To:</strong> <br>{{ city.arrival_city }}
     
                 <div class="d-flex flex-column">
                     
-                    <a href="{% url 'main:booking_trip_view' trip.id %}"  class="btn btn-success">
+                    <a href="{% url 'main:booking_trip_view' city.id %}"  class="btn btn-success">
                         Reservation <br>
-                        <p>Price: ${{ trip.price }}</p>
+                        <p>Price: ${{ city.price }}</p>
                     </a>
                     <div id="accordion">
                         <div class="card">
-                            <div class="card-header" id="heading{{ trip.id }}">
+                            <div class="card-header" id="heading{{ city.id }}">
                                 <h5 class="mb-0">
-                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ trip.id }}" aria-expanded="true" aria-controls="collapse{{ trip.id }}">
+                                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapse{{ city.id }}" aria-expanded="true" aria-controls="collapse{{ city.id }}">
                                         Flight Details</button>
                                 </h5>
                             </div>
-                            <div id="collapse{{ trip.id }}" class="collapse" aria-labelledby="heading{{ trip.id }}" data-parent="#accordion">
+                            <div id="collapse{{ city.id }}" class="collapse" aria-labelledby="heading{{ city.id }}" data-parent="#accordion">
                                 <div class="card-body">
-                                    <strong>Seats Available:</strong> {{ trip.seat_number }} <br>
-                                    <strong>Price:</strong> ${{ trip.price }} <br>
-                                    <strong>Arrival Time:</strong> {{ trip.arrival_time }} <br>
-                                    <strong>Departure Time:</strong> {{ trip.departure_time }} <br>
-                                    <strong>Duration:</strong> {{ trip.duration }}
+                                    <strong>Seats Available:</strong> {{ city.seat_number }} <br>
+                                    <strong>Price:</strong> ${{ city.price }} <br>
+                                    <strong>Arrival Time:</strong> {{ city.arrival_time }} <br>
+                                    <strong>Departure Time:</strong> {{ city.departure_time }} <br>
+                                    <strong>Duration:</strong> {{ city.duration }}
                                 </div>
                             </div>
                         </div>

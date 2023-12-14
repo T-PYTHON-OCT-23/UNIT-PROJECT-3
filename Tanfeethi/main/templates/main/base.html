@@ -8,6 +8,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -15,59 +17,64 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
 </head>
 
-
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- <a class="navbar-brand" href="{% url 'main:home_view' %}"> <img class="d-flex rounded-circle" style="position: relative; width: 12%; height: auto;" src="{% static 'images/logo.png' %}" /> </a> -->
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto" >
-      <li class="nav-item active " >
-        <a class="nav-link"  href="{% url 'main:home_view' %}">Home </a>
-      </li>
+<body class="bg-light">
 
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'main:add_trip_view' %}">Add Trip</a>
-      </li>
+<!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <div class="container-fluid justify-content-between">
+    <!-- Left elements -->
+    <div class="d-flex align-items-center">
+      <!-- Brand -->
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="{% url 'main:home_view' %}">
+        <img src="/static/images/logo.png" height="60"alt="MDB Logo" loading="lazy" style="margin-top: 2px; border-radius: 50px;"/>
+      </a>
+      <ul class="navbar-nav flex-row d-none d-md-flex">
+        <li class="nav-item me-3 me-lg-1 active">
+          <a class="nav-link" href="{% url 'main:home_view' %}">Home </a>
+        </li>
+  {%if request.user.is_staff%}
+        <li class="nav-item me-3 me-lg-1">
+          <a class="nav-link" href="{% url 'main:add_trip_view' %}">Add Trip
+            <span><i class="fas fa-flag fa-lg"></i></span>
+          </a>
+        </li>
+    {% endif %}
+    </div>
+    <!-- Left elements -->
 
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'account:profile_view' user.id %}">My Profile</a>
-      </li>
+    <!-- Center elements -->
 
-      
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
+      <!-- Search form -->
+      <form role="search" action="{% url 'main:search_view' %}" method="get" >
+        <input name="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+  
+      </form>
+   
+
+    <!-- Center elements -->
+
+    <!-- Right elements -->
+    <ul class="navbar-nav flex-row align-items-center">
+      <li class="nav-item me-3 me-lg-1">
+         
       {% if not request.user.is_authenticated %}
-        <div class="d-flex flex-row algin-items-center">
-            <li class="nav-item">
-                <a class="nav-link " href="{% url 'account:register_view' %}"><span class="material-symbols-outlined">account_circle </span><br> sign in </a>
-            </li>
-        </div>
-{% else %}
-<div class="d-flex flex-row algin-items-center">
-  <li class="nav-item">
-      <a class="nav-link " href="{% url 'account:logout_view' %}"><span class="material-symbols-outlined">logout</span><br> logout </a>
-  </li>
-</div>
-{% endif %}
-    </ul>
-    <form class="form-inline my-2 my-lg-0 position-absolute end-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <a class="nav-link d-sm-flex align-items-sm-center" href="{% url 'account:register_view' %}"><span class="material-symbols-outlined">account_circle </span><br> </a>
+        {% else %}
+         <a href="{% url 'account:profile_view' request.user.id %}"> <strong class="d-none d-sm-block ms-1">@{{request.user.first_name}} </strong></a>
+        
+<li class="nav-item">
+  <a class="nav-link " href="{% url 'account:logout_view' %}"><span class="material-symbols-outlined">logout</span><br>  </a>
+</li>
 
-    </form>
+{% endif %}
+
+      </li>
+
+    <!-- Right elements -->
   </div>
 </nav>
+
 
 
 {% block content %} 

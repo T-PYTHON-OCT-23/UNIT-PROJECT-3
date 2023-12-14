@@ -17,7 +17,7 @@ class Flight(models.Model):#flight detailes
     departure_time = models.DateTimeField()
     arrival_time = models.DateTimeField()
     price = models.DecimalField(max_digits=10, decimal_places=2) 
-    seat_number = models.CharField(max_length=10,null=True)
+    seat_number = models.IntegerField(null=True)
 
 
     def duration(self):

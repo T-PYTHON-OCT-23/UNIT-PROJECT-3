@@ -8,7 +8,6 @@
 {% block content %}
 
  
-<a href="{% url 'account:update_profile_view'%}" class="btn btn-primary">Update</a>                      
 
 
 <div class="container mt-5">
@@ -20,16 +19,41 @@
             <div class="card p-3 py-4">
             
                 
-                <div class="text-center mt-3">
+                <div class="text-center mt-3 ">
+                    {% if request.user.is_staff %}
                     <span class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
+                    {% else %}
+                    <span class="bg-success p-1 px-4 rounded text-white">active</span>
+                    {% endif %}
                     <h5 class="mt-2 mb-0">@{{ user.username}}</h5>
                     <h5> {{ user.first_name }} {{ user.last_name }}</h5>
-                    <span>{{user.profile.gender}}</span>    
+                    <span>{{user.profile.gender}}</span>   
+                    <span>{{user.profile.birth_date}}</span>   
+                    
+                        
+                    
+                        <h3 style="color: rgb(143, 118, 224); margin-top: 50px;">Your Reservations:</h3>
+
+                        <div class="d-flex flex-row border shadow" style="margin-top: 50px; margin-bottom: 50px;">
+                        
+                            {% for flight in flights %}
+                            <ul>
+                                <li>
+                                    Departure City: {{ flight.departure_city.name }}<br>
+                                    Arrival City: {{ flight.arrival_city.name }}<br>
+                                    Departure Time: {{ flight.departure_time }}<br>
+                                    Arrival Time: {{ flight.arrival_time }}<br>
+                                    Price: {{ flight.price }}<br>
+                                </li>
+                            </ul>
+                            {% endfor %}
+                      
+                        </div>
                     
                     <div class="buttons">
                         
-                        <button class="btn btn-outline-primary px-4">Message</button>
-                        <a class="text-decoration-none" href="mailto:{{ user.email }}"> <button class="btn btn-primary px-4 ms-3">Contact</button> </a>
+                        <a href="{% url 'account:update_profile_view'%}" ><button class="btn btn-outline-primary px-4">update</button></a>
+                        <a href="mailto:{{ user.email }}"> <button class="btn btn-outline-primary px-4">Contact</button> </a>
                     </div>
                     
                     
@@ -45,4 +69,7 @@
     </div>
     
 </div>
+
+
+
 {% endblock %}

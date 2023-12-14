@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate , login , logout 
 from django.db.utils import IntegrityError
 from .models import Profile
+from main.models import Reservation
+from django.shortcuts import render, get_object_or_404
+
+
 
 
 
@@ -18,8 +22,7 @@ def register_view(request : HttpRequest):
             user = User.objects.create_user( username=request.POST["username"] , first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"] , password=request.POST['password'] )
             user.save()
 
-            profile = Profile(user=user , gender = request.POST["gender"])
-            if "avatar" in request.FILES: profile = request.FILES["avatar"]
+            profile = Profile(user=user , gender = request.POST["gender"] )
             profile.save()
 
             return redirect('main:home_view')
@@ -61,18 +64,27 @@ def logout_view(request : HttpRequest):
 
 
 
-def profile_view(request: HttpRequest, user_id):
-    try: 
+def profile_view(request, user_id):
+    try:
         user = User.objects.get(id=user_id)
-    except:
-        return render(request, 'main/error_page.html')
+        user_profile = Profile.objects.get(user=user)
+        reservations = Reservation.objects.filter(passenger=user)
+        flights = [reservation.flight for reservation in reservations]
+    except Profile.DoesNotExist:
+        return render(request, 'main/error_page.html', {'error_message': 'Profile not found'})
+    except User.DoesNotExist:
+        return render(request, 'main/error_page.html', {'error_message': 'User not found'})
+    except Exception as e:
+        return render(request, 'main/error_page.html', {'error_message': str(e)})
+
+    return render(request, 'account/profile.html', {"user": user, 'user_profile': user_profile, 'flights': flights})
     
 
-    return render(request, 'account/profile.html', {"user":user})
 
 
 
 def update_profile_view(request: HttpRequest):
+    
     msg = None
     if request.method == "POST":
         try:
@@ -103,3 +115,8 @@ def update_profile_view(request: HttpRequest):
             msg = f"something wrong {e}"
 
     return render(request, "account/update.html", {"msg" : msg})
+
+
+
+
+
