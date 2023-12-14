@@ -11,7 +11,7 @@ def add_art_view(request: HttpRequest):
     msg = None
     if request.method == "POST":
         try:
-            new_art = Art(poster=request.POST["poster"], title=request.POST["title"])
+            new_art = Art( title=request.POST["title"])
             if "poster" in request.FILES:
                 new_art.poster = request.FILES["poster"]
 
