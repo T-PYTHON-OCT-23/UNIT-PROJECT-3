@@ -186,15 +186,15 @@ def booking_search_view(request:HttpRequest):
         vehicle_type = request.GET.get("vehicle_type")
 
         cars = Car.objects.filter(city=city, available=True,vehicle_class=vehicle_class,vehicle_type=vehicle_type)
-
+    
     else:
-        cars = []
+        cars = None
 
     context = {
         'cars': cars,
     }
 
-    return render(request, 'car/booking_search.html', context)
+    return render(request, 'main/home.html', context)
     
 
 def add_review_view(request: HttpRequest, pk):

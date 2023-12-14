@@ -19,19 +19,23 @@
         background-position: center;
         color: white;
     }
+    .card{
+        color: black;
+    }
 </style>
 
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Welcome</h1>
+        <h1 class="text-center mb-4">Welcome to RENT CAR</h1>
 
         <!-- Available Cars Search Form -->
-        <form action="#" method="get" class="mb-4">
+        <form action="{% url 'car:booking_search_view' %}" method="get" class="mb-4">
             <h3>Available Cars</h3>
 
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="vehicle_class">Vehicle Class:</label>
                     <select name="vehicle_class" class="form-control">
+                        <option >All</option>
                         <option value="Economic">Economic</option>
                         <option value="Middle Class">Middle Class</option>
                         <option value="Top Grade">Top Grade</option>
@@ -42,6 +46,7 @@
                 <div class="form-group col-md-4">
                     <label for="vehicle_type">Vehicle Type:</label>
                     <select name="vehicle_type" class="form-control">
+                        <option >All</option>
                         <option value="Sedan">Sedan</option>
                         <option value="SUV">SUV</option>
                         <option value="VAN">VAN</option>
@@ -71,21 +76,35 @@
             </div>
         </form>
 
-        <!-- Display Search Results -->
-        <div class="mt-4">
-            <h3>Search Results</h3>
-            {% if cars %}
-                <ul class="list-group">
-                {% for car in cars %}
-                    <li class="list-group-item">{{ car.name }} - {{ car.year }} ({{ car.available }})</li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="text-muted">No cars found. Please try a different search query or check back later.</p>
-            {% endif %}
+<!-- Display Search Results -->
+<div class="mt-4">
+    <h3>Search Results</h3>
+    {% if cars %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for car in cars %}
+                <div class="col mb-4">
+                    <div class="card">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="Car Image">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center gap-1">
+                                <h5 class="p-0 m-0">{{ car.rating }}</h5>
+                                <span class="material-symbols-outlined">star</span>
+                            </div>
+                            <h5 class="card-title">{{ car.name }} - {{ car.year }} ({{ car.available }})</h5>
+                            <h6 class="card-title">Price for day: ${{ car.price }}</h6>
+                            <a href="{% url 'car:cars_details_view' car.pk %}" class="btn btn-primary">More details</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-    </div>
+    {% else %}
+        <div class="" role="alert">
+            <p class="text-muted">No cars found. Please try a different search query or check back later.</p>
+        </div>
+    {% endif %}
 </div>
+
 
 
 <style>

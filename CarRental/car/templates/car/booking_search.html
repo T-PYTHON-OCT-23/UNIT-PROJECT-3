@@ -1,11 +1,11 @@
-
+<!-- 
 {% extends 'main/base.html' %}
 {% load static %}
 {% block title %} Car Rental Search {% endblock %}
 
 {% block content %}
 
-    <!-- Available Cars Search Form -->
+     Available Cars Search Form 
     <form action="{% url 'car:booking_search_view' %}" method="get">
         <h3>Available Cars</h3>
 
@@ -43,21 +43,31 @@
 
 </div>
 
-<!-- Display Search Results -->
-    <div class="mt-4">
-        <h3>Search Results</h3>
-        {% if cars %}
-            <ul>
-                {% for car in cars %}
-                    <li>{{ car.name }} - {{ car.year }} ({{ car.available }})</li>
-                {% endfor %}
-            </ul>
-        {% else %}
+ Display Search Results 
+<div class="mt-4">
+    <h3>Search Results</h3>
+    {% if cars %}
+        <div class="card-deck">
+            {% for car in cars %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ car.name }}</h5>
+                        <p class="card-text">Year: {{ car.year }}</p>
+                        <p class="card-text">Type: {{ car.vehicle_type }}</p>
+                        <p class="card-text">Class: {{ car.vehicle_class }}</p>
+                        <p class="card-text">Price: {{ car.price }}</p>
+                        <p class="card-text">Available: {{ car.available }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
         <p>No cars found. Please try a different search query or check back later.</p>
-        {% endif %}
+    {% endif %}
+</div>
+
+
+
     </div>
 
-
-    </div>
-
-{% endblock %}
+{% endblock %} -->
