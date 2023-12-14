@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from events.models import Event, Review
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 
@@ -23,7 +25,7 @@ def contact_us_view(request):
         message = request.POST["message"]
         email = request.POST["email"]
         name = request.POST['name']
-        message_content = f"{email} sent you a message : \n {message}"
+        message_content = f" ({email}) sent you a message : \n Message content: {message}"
         send_mail(
             'Contact Form',#title
             message_content, #message

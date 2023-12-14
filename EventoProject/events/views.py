@@ -95,8 +95,6 @@ def search_page_view(request:HttpRequest):
     return render(request,"events/search_page.html",{"events": events})
 
 
-
-
 #To display the tickets page of the user
 def my_tickets_view(request: HttpRequest):
 
@@ -117,7 +115,7 @@ def add_ticket_view(request: HttpRequest, event_id):
             new_ticket = Ticket(event=event, user=request.user, quantity=request.POST["quantity"])  
             new_ticket.save()
 
-            tickets = Ticket.objects.filter(event=event)
+            tickets = Ticket.objects.filter(user=request.user)
 
             email_sent = False
             if request.method =='POST':
@@ -135,7 +133,7 @@ def add_ticket_view(request: HttpRequest, event_id):
     except Exception as e:
         return render(request,"main/not_found.html")
 
-    return render(request, "events/the_bill.html",{"event_detail": event, "tickets":tickets , "msg": msg })
+    return render(request, "events/ticket_details.html",{"event_detail": event, "tickets":tickets , "msg": msg })
 
 
 
@@ -151,12 +149,6 @@ def events_home_view_catego(request: HttpRequest, cat):
 
     return render(request, "events/events_home.html", {"events" : events, "events_count" : events_count})
 
-
-def old_tickets_view(request: HttpRequest):
-
-    tickets = Ticket.Event.objects.filter().order_by("posting_date")
-
-    return render(request, "events/ticket_details.html", {"tickets":tickets})
 
 
 #Filtering the events from the old events
@@ -178,7 +170,6 @@ def new_events_view(request: HttpRequest):
 
 
 def add_review_view(request: HttpRequest, event_id):
-
 
     if request.method == "POST":
 

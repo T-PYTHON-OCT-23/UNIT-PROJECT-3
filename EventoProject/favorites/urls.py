@@ -6,7 +6,5 @@ app_name = "favorites"
 urlpatterns = [
     path('<event_id>/add/', views.add_favorite_view, name="add_favorite_view"),
     path('', views.my_favorites_view, name="my_favorites_view"),
-    path("old_fav/", views.old_favorites_view , name="old_favorites_view"),
-    path("new_fav/", views.new_favorites_view, name="new_favorites_view")
 ]
 

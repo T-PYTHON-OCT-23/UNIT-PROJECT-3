@@ -95,3 +95,5 @@ def update_user_view(request: HttpRequest):
             msg = f"something went wrong {e}"
 
     return render(request, "accounts/update_page.html", {"msg" : msg})
+
+

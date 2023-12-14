@@ -11,17 +11,17 @@
         <div class="col">
             <h2 class="display-4 text-center">Update Profile</h2>       
                 {% if msg %}
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-warning m-5" role="alert">
                     {{ msg }}
                     </div>
                 {% endif %}
             <form action="{% url 'accounts:update_user_view' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                <input class="form-control m-2" type="text" name="first_name" required minlength="3" placeholder="first name"/>
-                <input class="form-control m-2" type="text" name="last_name" required minlength="3" placeholder="last name"/>
-                <input class="form-control m-2" type="text" name="username" required minlength="5" placeholder="username"/>
-                <input class="form-control m-2" type="email" name="email" required minlength="5" placeholder="email"/>
+                <input class="form-control m-2" type="text" name="first_name" required minlength="3" placeholder="first name" value="{{ request.user.first_name }}"/>
+                <input class="form-control m-2" type="text" name="last_name" required minlength="3" placeholder="last name" value="{{ request.user.last_name }}"/>
+                <input class="form-control m-2" type="text" placeholder="{{ request.user.username }}" value="{{ request.user.username }}" disabled>
+                <input class="form-control m-2" type="email" name="email" required minlength="5" placeholder="email" value="{{ request.user.email }}"/>
                 <input class="form-control m-2" type="password" name="password" required minlength="8" placeholder="password"/>
                 
                 <div class="d-flex align-items-center gap-2 ">
@@ -30,7 +30,6 @@
                 </div>
                 <label>Birth date</label>
                 <input class="form-control" type="date" name="birth_date" required/>
-
 
 
                 <div class="d-flex flex-column justify-content-center align-items-center mt-4">
@@ -44,9 +43,6 @@
     </div>
 
 </div>
-
-
-
 
 
 {% endblock %}

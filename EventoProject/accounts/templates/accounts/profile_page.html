@@ -34,6 +34,7 @@
           <h5 class="fw-light">Last name: {{ user.last_name }}</h5>
           <h5 class="fw-light"> Username: {{ user.username }}</h5>
           <h5 class="fw-light">Email: {{ user.email }}</h5>
+          <h5 class="fw-light">Birth date: {{user.profile.birth_date}}</h5>
           <div class="">
             <a href="{% url 'favorites:my_favorites_view' %}" class="btn btn-outline-danger m-2 " style="height:4rem; width: 10rem;">Favorites<span class="material-symbols-outlined">favorite</span></a>
             <a href="{% url 'events:my_tickets_view' %}" class="btn btn-outline-warning m-2" style="height:4rem; width: 10rem;">Tickets<span class="material-symbols-outlined">local_activity</span></a>  
