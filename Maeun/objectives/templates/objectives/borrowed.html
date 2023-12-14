@@ -1,14 +1,16 @@
 {% extends "main/base.html" %}
-{% block title%} My borrowed stuff  {% endblock %}
+{% block title%} My unavailable objectives  {% endblock %}
 
-{% block section %} My borrowed stuff {% endblock %}
+{% block section %} My unavailable objectives {% endblock %}
 
 
 {% block content %}
 
 <section class="container pt-4">
 
-
+    {% if objs.count == 0 %}
+        <div class="alert alert-info">All your objectives available.</div>
+       {% endif %}
 
 
     <div class="row  g-4 row-cols-1 row-cols-md-3">
@@ -16,13 +18,13 @@
         {% for obj in objs %}
             {% if obj.reserved == True %}
             <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{obj.poster.url}}" class="card-img-top" alt="...">
+                <div class="card" >
+                    <img src="{{obj.poster.url}}" class="card-img-top img-card" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">{{obj.name}}</h5>
                       <p class="card-text">{{obj.description}}</p>
                       <div class="d-flex justify-content-between">
-                        <a href="{% url 'objectives:objective_retrieved_view' obj.id %}" class="btn btn-success">Retrieved</a>
+                        <a href="{% url 'objectives:objective_retrieved_view' obj.id  %}" class="btn btn-success">Retrieved</a>
                       </div>
 
 

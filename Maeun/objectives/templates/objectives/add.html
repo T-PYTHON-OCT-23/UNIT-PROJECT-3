@@ -6,7 +6,11 @@
 {% block content %}
 <div class="container"> 
     <div class="row">
-
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
         <div class="col-9">
             <form action="{% url 'objectives:add_view' %}" method="POST" enctype="multipart/form-data" >
                 {% csrf_token %}

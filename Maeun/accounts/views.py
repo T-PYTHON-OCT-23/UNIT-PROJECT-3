@@ -39,9 +39,9 @@ def login_view(request:HttpRequest):
 
 def logout_user_view(request: HttpRequest):
 
-    #log out the user
+
     if request.user.is_authenticated:
         logout(request)    
 
-    return redirect("accounts:login_user_view")
+    return redirect("accounts:login_view")
 

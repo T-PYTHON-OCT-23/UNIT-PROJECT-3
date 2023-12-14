@@ -8,11 +8,9 @@
 
 <section class="container pt-4">
 
-    <div class="d-flex justify-content-between">
-    <h1>count my objectives ({{obj_count}})</h1>
-
-
-    </div>
+    {% if objs.count == 0 %}
+        <div class="alert alert-info">You don't have any Objectives yet.</div>
+       {% endif %}
 
 
     <div class="row  g-4 row-cols-1 row-cols-md-3">
@@ -21,8 +19,8 @@
         {% if obj.reserved == False %}
 
             <div class="col">
-                <div class="card" style="width: 18rem;">
-                    <img src="{{obj.poster.url}}" class="card-img-top" alt="...">
+                <div class="card" >
+                    <img src="{{obj.poster.url}}" class="card-img-top img-card" alt="...">
                     <div class="card-body">
                       <h5 class="card-title">{{obj.name}}</h5>
                       <p class="card-text">{{obj.description}}</p>

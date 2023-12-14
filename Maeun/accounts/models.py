@@ -11,3 +11,4 @@ class Profile(models.Model):
     phone_number=models.CharField(max_length=64)
     city = models.CharField(max_length=64, choices=cities.choices, default=cities.Riyadh)
     
+    

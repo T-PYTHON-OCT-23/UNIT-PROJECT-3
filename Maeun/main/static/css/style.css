@@ -133,3 +133,19 @@
 .detail-poster {
     max-height: 20vh;
 }
+
+.card {
+    width: 18rem;
+    height: 22rem; 
+    object-fit: cover;
+}
+
+.img-card{
+    width: 18rem;  
+    height: 12rem;
+}
+
+.poster-home{
+    width: 800px;  
+    height: 300px; 
+}

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 class Objective(models.Model):
     categories = models.TextChoices("Categories",["Equipment", "Houseware", "Agriculture tools", "Car tools","Other"])
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     
     name = models.CharField(max_length=2048)
     description = models.TextField()
@@ -20,6 +21,7 @@ class Order(models.Model):
     objective = models.ForeignKey(Objective, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    acceptance = models.BooleanField(default=0)
     day = models.IntegerField(default=0)
     hour= models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)

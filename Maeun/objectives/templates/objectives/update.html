@@ -9,6 +9,11 @@
     <div class="container"> 
 
         <div class="row">
+            {% if msg %}
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}
+            </div>
+            {% endif %}
             <h2>Update {{obj.name}}:</h2>
             <div class="col">
 

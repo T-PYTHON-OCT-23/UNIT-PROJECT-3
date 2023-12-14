@@ -1,20 +1,19 @@
 {% extends "main/base.html" %}
-{% block title%} loan requests  {% endblock %}
+{% block title%} Borrowed objectives  {% endblock %}
 
-{% block section %} loan requests {% endblock %}
+{% block section %} Borrowed objectives {% endblock %}
 
 
 {% block content %}
 
 <section class="container pt-4">
 
+
     {% if orders.count == 0 %}
-        <div class="alert alert-info">You don't have any requests yet.</div>
+        <div class="alert alert-info">You don't have any borrowed objectives yet.</div>
        {% endif %}
 
-
     <div class="row  g-4 row-cols-1 row-cols-md-3">
-
 
         {% for order in orders %}
             <div class="col">
@@ -30,17 +29,8 @@
                         </div>
                         <div >
                             <p> from: {{order.created_at}} </p>
-                            <p> by: {{order.user}} </p>
                         </div>
                       
-                        <div class="d-flex justify-content-start gap-2">
-                            <a href="{% url 'objectives:order_acceptance_view' order.id %}" class="btn btn-info">Acceptance</a>
-                            <a href="{% url 'objectives:order_rejection_view' order.id %}" class="btn btn-danger">Rejection</a>
-                        </div>
-
-
-
-
                     </div>
                   </div>
             </div>

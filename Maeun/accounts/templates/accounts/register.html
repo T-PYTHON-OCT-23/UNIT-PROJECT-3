@@ -10,7 +10,7 @@
   <div class="alert alert-danger" role="alert">
     {{ msg }}
 {% endif %}
-<form class="row g-3 needs-validation" action="{% url 'accounts:register_user_view' %}" method="post" novalidate>
+<form class="row g-3 needs-validation" action="{% url 'accounts:register_user_view' %}" method="post" >
     {% csrf_token %}
     <div class="col-md-4 position-relative">
       <label for="validationTooltip01" class="form-label">First name</label>
@@ -52,7 +52,7 @@
       </div>
       <div class="col-md-6 position-relative">
         <label for="validationTooltip03" class="form-label">phone number</label>
-        <input type="phone" class="form-control" id="validationTooltip03" required>
+        <input type="phone" class="form-control" id="validationTooltip03" name="phone_number" required>
         <div class="invalid-tooltip">
           Please provide a valid phone number .
         </div>
