@@ -129,9 +129,14 @@ Base on what you’ve learned until now , create a project of your choosing. Imp
 
 
 ## Edit the README.md file to include (include the info at the top):
-- Project Name
-- Project Description
-- Features list.
+- Project Name:Riyadh - Expo 2030
+- Project Description - The Expo website is for displaying Expo events and news and allows the user to browse them and book tickets through the website
+- Features list. 
+    1-users registration
+    2-event tickets
+    3-browse news
+    4-reviews
+    5-browse event
 
  
 
