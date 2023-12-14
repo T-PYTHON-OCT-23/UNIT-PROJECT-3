@@ -1,6 +1,5 @@
 from django.urls import path 
 from . import views
-from .views import is_manager, is_visiter, is_bloggers
 
 
 app_name = "recipes"
@@ -15,7 +14,5 @@ urlpatterns = [
     path("category/", views.recipe_category_view, name="recipe_category_view"),
 
 
-    path('blogger/', is_manager, name='is_manager'),
-    path('manager/', is_bloggers, name='is_bloggers'),
-    path('visitor/', is_visiter, name='is_visiter'),
+   
 ]

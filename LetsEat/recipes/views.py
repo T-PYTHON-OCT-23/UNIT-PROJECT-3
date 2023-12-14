@@ -3,7 +3,6 @@ from django.http import HttpRequest , HttpResponse
 from .models import Recipe, Review
 from favorites.models import Favorite
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import user_passes_test
 
 
 # Create your views here.
@@ -24,10 +23,6 @@ def home_recipes_view(request: HttpRequest):
 
 
 def add_recipe_view(request:HttpRequest):
-          
-      if request.user.groups.filter(name='bloggers').exists():
-        return render(request, 'main/not_authorized.html')
-
       msg = None
 
       if request.method == "POST":
@@ -45,35 +40,34 @@ def add_recipe_view(request:HttpRequest):
 
 
 def recipe_detail_view(request:HttpRequest, recipe_id):
+    try:
+        recipe_detail = Recipe.objects.get(id=recipe_id)
+        
+        if request.method=="POST":
+            review = Review(recipe=recipe_detail ,user=request.user ,review=request.POST["review"] , rating=request.POST["rating"])
+            if 'image' in request.FILES: review.image = request.FILES["image"]
+            review.save()
+        # else:
+        #     review=request.user.is_authenticated and Review.objects.filter(recipe=recipe_detail, user=request.user).exists()
+        #     review.delete()
+        
 
-    recipe_detail = Recipe.objects.get(id=recipe_id)
+        reviews = Review.objects.filter(recipe=recipe_detail)
+
+
+        reviews_count =reviews.count()
+
+        is_favored = request.user.is_authenticated and Favorite.objects.filter(recipe=recipe_detail, user=request.user).exists()
+    except Exception as e:
+        return render(request, 'main/not_found.html')
     
-    if request.method=="POST":
-        review = Review(recipe=recipe_detail ,user=request.user ,review=request.POST["review"] , rating=request.POST["rating"])
-        if 'image' in request.FILES: review.image = request.FILES["image"]
-        review.save()
-    # else:
-    #     review=request.user.is_authenticated and Review.objects.filter(recipe=recipe_detail, user=request.user).exists()
-    #     review.delete()
-    
-
-    reviews = Review.objects.filter(recipe=recipe_detail)
-
-
-    reviews_count =reviews.count()
-
-    is_favored = request.user.is_authenticated and Favorite.objects.filter(recipe=recipe_detail, user=request.user).exists()
-
     return render(request, "recipes/display_recipes.html", {"recipe" : recipe_detail , "reviews" : reviews , "reviews_count": reviews_count , "is_favored" : is_favored })
-
 
 
 
 def update_recipe_view(request: HttpRequest, recipe_id):
     
-    if request.user.groups.filter(name='bloggers').exists():
-        return render(request, 'main/not_authorized.html')
-
+    
     recipe = Recipe.objects.get(id= recipe_id)
 
     if request.method == "POST":
@@ -94,15 +88,16 @@ def update_recipe_view(request: HttpRequest, recipe_id):
 
 def delete_recipe_view(request: HttpRequest, recipe_id):
  
-    if not request.user.groups.filter(name='manager').exists():
-        return render(request, 'main/not_authrized.html')
+    try:
+        msg=None
 
-    msg=None
-
-    recipe = Recipe.objects.get(id=recipe_id)
-    recipe.delete()
-   
+        recipe = Recipe.objects.get(id=recipe_id)
+        recipe.delete()
+    except Exception as e:
+        return render(request, 'main/not_found.html')
+        
     return redirect("recipes:home_recipes_view")
+
 
 
 def search_results_view(request: HttpRequest):
@@ -152,30 +147,3 @@ def recipe_category_view (request: HttpRequest):
     return render(request, "recipes/recipe_home.html", {"recipes" : recipe , " recipe_count" :  recipe_count })
 
 
-
-
-#Groups permission
-
-def is_manager(user):
-    return user.groups.filter(name='manager').exists()
-
-@user_passes_test(is_manager)
-def admin_dashboard(request):
-    return render(request, 'main/not_authrized.html')
-
-
-def is_bloggers(user):
-    return user.groups.filter(name='bloggers').exists()
-
-@user_passes_test(is_bloggers)
-def admin_dashboard(request):
-    return render(request, 'main/not_authrized.html')
-
-
-
-def is_visiter(user):
-    return user.groups.filter(name='visiter').exists()
-
-@user_passes_test(is_visiter)
-def admin_dashboard(request):
-    return render(request, 'main/home.html')

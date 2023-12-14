@@ -15,6 +15,7 @@
     </script>
     
 <div class="container p-5">
+  {% if request.user.is_staff %}
   <div class="d-flex align-items-center gap-1">
         <div class="dropdown">
               <button   class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,6 +35,8 @@
           </div>
        <!-- if is favored -->
         </div> 
+        {%endif%}
+
       
       
 

@@ -98,8 +98,8 @@ def update_user_view(request: HttpRequest):
         except IntegrityError as e:
             msg = f"Please select another username"
         except Exception as e:
-            msg = f"something went wrong {e}"
-
+            return render(request, "main/not_authrized.html")
+        
     return render(request, "accounts/update_profile.html", {"msg" : msg})
 
 

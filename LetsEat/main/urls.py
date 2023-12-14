@@ -9,5 +9,6 @@ urlpatterns = [
     path("about/" , views.about_view , name= "about_view"),
     path("not_found/" , views.not_found_view , name= "not_found_view"),
     path("not_authrize/" , views.not_authrize_view , name= "not_authrize_view"),
+    path("contact/" , views.contact_view , name= "contact_view"),
 
 ]
