@@ -7,25 +7,25 @@
 <section class="container mt-5">
     
     <div class="row g-3">
-        <div class="col-3">
+        <div class="col-2">
             <div class="d-flex flex-column gap-1">
-                <img class="w-100 rounded-circle" src="{{ user.customuser.avatar.url }}" />
+                <img class="w-100 rounded-circle" src="{{ c_user.avatar.url }}" />
                 <div class="d-flex align-items-center justify-content-center gap-2">
-                    <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
+                    <a href="mailto:{{ c_user.user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col ">
             <div class=" d-flex justify-content-between align-items-center">
-                <h1>{{ user.first_name }} {{ user.last_name }} </h1>
+                <h1>{{ c_user.user.first_name }} {{ c_user.user.last_name }} </h1>
                 {% if request.user.is_authenticated and request.user.id == user.id %}
                 <a href="{% url 'account:update_user_view'%}" class="btn btn-primary">Update</a>
                 {% endif %}
             </div>
 
-            <h5>@{{ user.username}}</h5>
+            <h5>@{{ c_user.user.username}}</h5>
             <p>
-                {{ user.customuser.about }}
+                {{ c_user.about }}
             </p>
         </div>
     </div>

@@ -8,10 +8,22 @@
 <div class="container">
 
     <div class="row mt-3">
-        <div class="col-12 col-md-6 order-2 order-md-1">
+        <div class="col">
             <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
-                <h2>Welcome {{ request.user.first_name }} {{ request.user.last_name }}</h2>
-                <p>Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash </p>
+                {% if request.user.is_authenticated %}
+                <h1>Welcome {{ request.user.first_name }} {{ request.user.last_name }}</h1>
+                {% elif not request.user.is_authenticated %}
+                <h1>Welcome ..</h1>
+                {% endif %}
+                <h3> Our vision: </h3>
+                <p>
+                    EvalHub is a web-based platform designed to facilitate efficient employee evaluation and task management within an organization. 
+                    The platform enables managers to assign tasks to their team members, set due dates, and receive detailed reports on task completion. 
+                    It establishes a streamlined communication channel between managers and employees, fostering a transparent and constructive feedback loop. 
+                    Through EvalHub, organizations can enhance their performance evaluation processes, track progress, and promote continuous improvement among their workforce.
+                </p>
+                
+                <p>EvalHub aims to streamline the evaluation process, promote collaboration, and contribute to the overall improvement of organizational productivity and employee satisfaction.</p>    
             </div>
         </div>
     </div>

@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
-from .models import CustomUser, Task, Feedback
+from .models import CustomUser, Task, Feedback, Report
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
@@ -25,20 +25,43 @@ def add_task_view(request: HttpRequest):
 
     return render(request, "evalhub/add_task.html", {"status_choices" : Task.status_choices ,  "msg" : msg, "employees":employees})
 
-def task_list(request: HttpRequest):
+def add_report_view(request: HttpRequest, task_id):
+    msg = None
+    task=Task.objects.get(id=task_id)
+    if request.method == "POST":
+        try:
+            new_report : Report = Report(task=task, submitted_by=request.user, report_text=request.POST["report_text"], submitted_to=task.manager) 
+            new_report.save()
+            return redirect("evalhub:report_list")
+        except Exception as e:
+            msg = f"An error occured, please fill in all fields and try again . {e}"
 
+    return render(request, "evalhub/add_report.html", {"msg" : msg,"task":task})
+
+def task_list(request: HttpRequest):
+    
     as_m_tasks: Task = Task.objects.filter(employee=request.user)
     as_e_tasks: Task = Task.objects.filter(manager=request.user)
 
     return render(request, 'evalhub/task_list.html', {'as_e_tasks': as_e_tasks , 'as_m_tasks': as_m_tasks})  
 
+def report_list(request: HttpRequest ):
+    report_as_e=Report.objects.filter(submitted_to=request.user)
+    report_as_m=Report.objects.filter(submitted_by=request.user)
+
+    return render(request, 'evalhub/report_list.html', {'report_as_e':report_as_e, 'report_as_m':report_as_m})  
+
 def task_detail(request: HttpRequest, task_id):
     task: Task = get_object_or_404(Task, id=task_id)
     return render(request, 'evalhub/task_detail.html', {'task': task})  
 
+def report_detail(request: HttpRequest, report_id):
+    report: Report = get_object_or_404(Report, id=report_id)
+    return render(request, 'evalhub/report_detail.html', {'report': report})
+
 def feedback_detail(request: HttpRequest, task_id):
-    task: Task = get_object_or_404(Task, pk=task_id, manager=request.user.customuser)
-    feedback: False = Feedback.objects.get(task=task)
+    task: Task = get_object_or_404(Task, id=task_id)
+    feedback = Feedback.objects.get(task=task)
     return render(request, 'evalhub/feedback_detail.html', {'feedback': feedback})  
 
 def complete_task(request: HttpRequest, task_id):

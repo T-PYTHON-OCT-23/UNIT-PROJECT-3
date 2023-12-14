@@ -39,7 +39,7 @@
               <a class="nav-link" href="{% url 'evalhub:add_task_view'%}">Assign new task</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">My Reports</a>
+              <a class="nav-link" href="{% url 'evalhub:report_list'%}">My Reports</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">My Feedback</a>
@@ -51,12 +51,12 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 {% if not request.user.is_authenticated %}
-                <li><a class="dropdown-item" href="{% url 'evalhub:login_user_view' %}">sign in</a></li>
-                <li><a class="dropdown-item" href="{% url 'evalhub:register_user_view' %}">register</a></li>
+                <li><a class="dropdown-item" href="{% url 'account:login_user_view' %}">sign in</a></li>
+                <li><a class="dropdown-item" href="{% url 'account:register_user_view' %}">register</a></li>
                 {% endif %}
                 {% if request.user.is_authenticated %}
-                <li><a class="dropdown-item" href="{% url 'evalhub:user_profile_view' request.user.id %}">profile</a></li>
-                <li><a class="dropdown-item" href="{% url 'evalhub:logout_user_view' %}">log out</a></li>
+                <li><a class="dropdown-item" href="{% url 'account:user_profile_view' request.user.id %}">profile</a></li>
+                <li><a class="dropdown-item" href="{% url 'account:logout_user_view' %}">log out</a></li>
                 {% endif %}
               </ul>
             </li>
@@ -73,5 +73,8 @@
     {% endblock %}
 
     </div>
+    <footer>
+      All rights reserved for Khamis.co
+    </footer>
 </body>
 </html>

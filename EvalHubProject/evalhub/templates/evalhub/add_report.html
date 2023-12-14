@@ -1,0 +1,32 @@
+{% extends 'evalhub/base.html' %}
+
+{% block title %} Add New Report {% endblock %}
+
+{% block content %}
+
+<section class="container d-flex justify-content-center py-3">
+
+
+
+    <div class="row w-50">
+        {% if msg %}
+        <div class="alert alert-danger" role="alert">
+            {{ msg }}
+        </div>
+        {% endif %}
+
+        <div class="col ">
+            <form action="{% url 'evalhub:add_report_view' task.id %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+                {% csrf_token %}
+                <label class="d-flex justify-content-center"> Report:</label>
+                <input class="form-control" type="text" name="report_text" placeholder="Report" required minlength="4" />
+                <input class="btn btn-primary d-flex justify-content-center" type="submit" value="Report" />
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

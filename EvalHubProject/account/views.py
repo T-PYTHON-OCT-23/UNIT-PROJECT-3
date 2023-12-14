@@ -30,7 +30,7 @@ def login_user_view(request: HttpRequest):
 
             if user:
                 login(request, user)
-                return redirect("account:home_page_view")
+                return redirect("evalhub:home_page_view")
             else:
                 msg = "Please provide correct username and password"
 
@@ -45,9 +45,10 @@ def logout_user_view(request: HttpRequest):
 
 
 def user_profile_view(request: HttpRequest, user_id):
-    user = request.user
+    
+    c_user = CustomUser.objects.get(user=User.objects.get(id=user_id))
 
-    return render(request, 'account/user_profile.html', {'user': user})  
+    return render(request, 'account/user_profile.html', {'c_user':c_user })  
 
 def update_user_view(request: HttpRequest):
     msg = None
