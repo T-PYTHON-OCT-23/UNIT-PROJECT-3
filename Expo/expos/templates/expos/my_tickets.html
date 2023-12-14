@@ -116,7 +116,7 @@
                 <p><strong>Saudi arabia</strong> Expo 2030
                 <p>
                 <p>SA: +966 5656656565</p>
-                <h5>{% if new_reservation %} {{new_reservation.total}} {% endif %}</h5>
+                <h5 class="opacity-50"><i class="bi bi-ticket-perforated-fill">{{ticket.quantity}}</i> {% if reservation %}- ${{ticket.total}} {% endif %}</h5>
 
             </div>
         </div>
