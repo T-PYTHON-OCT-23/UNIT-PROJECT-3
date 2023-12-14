@@ -13,10 +13,48 @@
     <p>Due Date Extension: {{ task.feedback.due_date_extension }}</p>
   {% endif %}
 
-  <!-- Allow Manager to Provide Feedback -->
-  <form method="post" action="{% url 'feedback_detail' task.id %}">
-    {% csrf_token %}
-    {{ feedback_form.as_p }}
-    <button type="submit">Provide Feedback</button>
-  </form>
+  
+<section class="container d-flex justify-content-center py-3">
+
+
+
+  <div class="row w-50">
+      {% if msg %}
+      <div class="alert alert-danger" role="alert">
+          {{ msg }}
+      </div>
+      {% endif %}
+
+      <div class="col ">
+          <!-- form for submitting the data -->
+          <form action="{% url 'evalhub:add_task_view' %}" method="POST" enctype="multipart/form-data" class="d-flex flex-column gap-2">
+              {% csrf_token %}
+              <label class="d-flex justify-content-center">Task Title:</label>
+              <input class="form-control" type="text" name="title" placeholder="Task Title" required minlength="4" />
+
+              <label class="d-flex justify-content-center" > Task Description:</label>
+              <textarea class="form-control" name="description" required></textarea>
+
+              <label class="d-flex justify-content-center">Assign To :</label>
+
+             
+              <select name="employee" id="{{employee}}" value="{{employee}}" required>
+                  {% for employee in employees %}
+                  <option class="form-check-label d-flex justify-content-center" for="{{employee}}">
+                  {{employee}}
+                  </option>
+                  {% endfor %}
+              </select>
+              
+              <label class="d-flex justify-content-center">Task Due Date:</label>
+              <input class="form-control" name="due_date" type="date" required/>
+
+              <input class="btn btn-primary d-flex justify-content-center" type="submit" value=" Assign Task" />
+          </form>
+
+      </div>
+
+  </div>
+
+</section>
 {% endblock %}

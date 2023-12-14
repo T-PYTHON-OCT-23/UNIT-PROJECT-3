@@ -7,17 +7,6 @@
 
 <div class="container">
 
-    <div class="row mt-3">
-        <div class="col-12 col-md-6 order-2 order-md-1">
-            <div class="d-flex flex-column gap-2 h-100 justify-content-center align-items-start">
-                <h2>Welcome {{ request.user.first_name }} {{ request.user.last_name }}</h2>
-                <p>Miles Morales catapults across the Multiverse, where he encounters a team of Spider-People charged with protecting its very existence. When the heroes clash </p>
-            </div>
-        </div>
-    </div>
-
-    <hr />
-
     <a class="text-decoration-none text-black" href="{% url 'evalhub:task_list' %}">
         <div class="d-flex mt-5 justify-content-between align-items-center">
             <h2>Tasks You Asigned to employees </h2>

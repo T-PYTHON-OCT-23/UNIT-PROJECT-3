@@ -7,64 +7,6 @@ from .models import CustomUser, Task, Feedback
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
-def register_user_view(request: HttpRequest):
-    msg = None
-    if request.method == "POST":
-        user: User = User.objects.create_user(username=request.POST["username"], first_name=request.POST["first_name"], last_name=request.POST["last_name"], email=request.POST["email"], password=request.POST["password"])
-        user.save()
-
-        c_user: CustomUser= CustomUser(user=user)
-        c_user.save()
-        return redirect("evalhub:login_user_view")
-
-    return render(request, 'evalhub/register.html', {"msg" : msg}) 
-
-def login_user_view(request: HttpRequest):
-    msg = None
-    if request.method == "POST":
-        user = authenticate(request, username=request.POST["username"], password=request.POST["password"])
-
-        if user:
-            login(request, user)
-            return redirect("evalhub:home_page_view")
-        else:
-            msg = "Please provide correct username and password"
-
-    return render(request, 'evalhub/login.html', {"msg" : msg}) 
-
-def logout_user_view(request: HttpRequest):
-    logout(request)
-    return redirect('evalhub:login_user_view')  
-
-
-def user_profile_view(request: HttpRequest, user_id):
-    user = request.user
-
-    return render(request, 'evalhub/user_profile.html', {'user': user})  
-
-def update_user_view(request: HttpRequest):
-    msg = None
-
-    if request.method == "POST":
-        try:
-            if request.user.is_authenticated:
-                user : User = request.user
-                user.first_name = request.POST["first_name"]
-                user.last_name = request.POST["last_name"]
-                user.email = request.POST["email"]
-                user.save()
-
-                return redirect("evalhub:user_profile_view", user_id = request.user.id)
-
-            else:
-                return redirect("accounts:login_user_view")
-        except IntegrityError as e:
-            msg = f"Please select another username"
-        except Exception as e:
-            msg = f"something went wrong {e}"
-
-    return render(request, 'evalhub/update_user.html', {"msg" : msg})  
-
 def home_page_view(request: HttpRequest):
 
     return render(request, 'evalhub/home_page.html')

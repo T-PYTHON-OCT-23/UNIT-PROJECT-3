@@ -16,7 +16,7 @@
 
           <div class="d-flex flex-column gap-3 justify-content-center align-items-center">
               <h1>Log In</h1>
-              <form class="d-flex flex-column gap-1" style="width: 40vw;" action="{% url 'evalhub:login_user_view' %}" method="post">
+              <form class="d-flex flex-column gap-1" style="width: 40vw;" action="{% url 'account:login_user_view' %}" method="post">
                   {% csrf_token %}
 
                   <input class="form-control" type="text" name="username" required minlength="3" placeholder="username"/>
@@ -26,7 +26,7 @@
                   <input class="btn btn-primary" type="submit" value="Sing In" />
               </form>
 
-              <h5>You don't have an account ? please <a href="{% url 'evalhub:register_user_view' %}">Sign up</a>.</h5>
+              <h5>You don't have an account ? please <a href="{% url 'account:register_user_view' %}">Sign up</a>.</h5>
 
           </div>
 
