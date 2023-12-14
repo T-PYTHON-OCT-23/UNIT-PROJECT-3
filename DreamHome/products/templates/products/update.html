@@ -17,21 +17,20 @@
                     <label>Product Name:</label>
                     <input class="form-control" type="text" name="name" placeholder="Name" required minlength="4" />
             
-                    <label>product_price:</label>
-                    <input class="form-control" type="text" name="product_price" placeholder="$" required minlength="2" />
-            
-                    
+
+                    <label>Product Price:</label>
+                    <select name="product_price" class="form-select" >
+                        <option value="50"  {% if product.product_price == 50 %} selected {% endif %}>50 </option>
+                        <option value="100" {% if product.product_price == 100 %} selected {% endif %}>100 </option>
+                        <option value="150" {% if product.product_price == 150 %} selected {% endif %}>150 </option>
+                        <option value="60"  {% if product.product_price == 60 %} selected {% endif %}>60</option>
+                        <option value="40"  {% if product.product_price == 40 %} selected {% endif %}>40</option>
+                    </select>
+
+                   
                     <label>content</label>
                     <textarea class="form-control" name="content" required></textarea>
             
-                    <label>Size:</label>
-                    <select name="rating" class="form-select" >
-                        <option value="1" {% if product.size == 1 %} selected {% endif %}>1 </option>
-                        <option value="2" {% if product.size == 2 %} selected {% endif %}>2 </option>
-                        <option value="3" {% if product.size == 3 %} selected {% endif %}>3 </option>
-                        <option value="4" {% if product.size == 4 %} selected {% endif %}>4 </option>
-                        <option value="5" {% if product.size == 5 %} selected {% endif %}>5 </option>
-                    </select>
             
                     <label>Choose Color:</label>
             

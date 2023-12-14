@@ -19,9 +19,18 @@
   justify-content: center;
 }
 
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  margin-left: 30px;
+
+}
 
     </style>
   </head>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <body>
 
     <div class="container">
@@ -49,9 +58,11 @@
               <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
             </svg></a>
              
-            <a href="{% url 'orders:my_orders_view' %}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+            <a href="{% url 'accounts:user_profile_view' user.id %}"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
               <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
             </svg></a>
+
+           
 
           </div>
       </div>
@@ -74,33 +85,35 @@
                   <a class="nav-link active" aria-current="page" href="{% url 'products:add_products_view' %}">Add Product</a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Details</a>
-                </li>
-
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Sales</a>
-                </li>
-
                 
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                  <div class="d-flex align-items-center">
+                    <a class="nav-link m-0" href="{% url 'accounts:user_profile_view'  request.user.id %}">welcome, {{ request.user.username }}</a>
+                  </div>
 
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Trademarks</a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Products</a></li>
-                    <li><a class="dropdown-item" href="#">New product</a></li>
-                    <li><a class="dropdown-item" href="#">sales</a></li>
-                  </ul>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:logout_user_view' %}" >Log out</a>
+                </li>
+              {% else %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:login_user_view' %}" >Sign in</a>
+                </li>
+              {% endif %}
+
               </ul>
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+
+              <form class="d-flex" role="search" action= "{% url 'products:search_results_view' %}" method="GET">
+                <input  name="search" class="form-control me-2" type="search"   placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success"  type="submit">Search</button>
               </form>
             </div>
           </div>
+        </div>
         </nav>
-        
+      
   {% block content %}
 
   {% endblock %}

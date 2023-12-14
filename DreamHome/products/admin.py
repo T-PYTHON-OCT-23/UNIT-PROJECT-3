@@ -4,8 +4,8 @@ from .models import Product, Review
 
 class ProductAdmin(admin.ModelAdmin):
 
-    list_display = ('name', 'content', 'size','choose_product')
-    #list_filter = ('content', 'size')
+    list_display = ('name', 'content', 'choose_product')
+    #list_filter = ('content', )
 
 
 class ReviewModel(admin.ModelAdmin):

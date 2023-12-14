@@ -29,10 +29,13 @@ def add_favorite_view(request:HttpRequest, product_id):
 
 
 def my_favorites_view(request: HttpRequest):
-
+    
+ try:
     favorites = Favorite.objects.filter(user=request.user)
-
-    return render(request, 'favorites/favorites.html', {"favorites" : favorites})
+ 
+ except:
+        return render(request, "accounts/login.html")   
+ return render(request, 'favorites/favorites.html', {"favorites" : favorites})
 
 
 

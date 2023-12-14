@@ -1,0 +1,59 @@
+{% extends 'main/base.html' %}
+
+{% block title %} User profile {% endblock %}
+
+
+{% block content %}
+
+<section class="vh-100" style="background-color: #eee;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-md-12 col-xl-4">
+  
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body text-center">
+              <div class="mt-3 mb-4">
+                <img src="{{ user.profile.avatar.url }}"
+                  class="rounded-circle img-fluid" style="width: 100px;" />
+              </div>
+              <a href="mailto:{{ user.email }}"><i class="bi bi-envelope-at-fill social"></i></a>
+              <h4 class="mb-2">{{ user.first_name }} {{ user.last_name }}</h4>
+              <p class="text-muted mb-4">@{{ user.username}} <span class="mx-2">|</span> <a> </a>
+         
+        <div class="col">
+            <div class=" d-flex justify-content-between align-items-center">
+               
+                {% if request.user.is_authenticated and request.user.id == user.id %}
+                <a href="{% url 'accounts:update_user_view'%}" class="btn btn-primary  d-flex  ">Update</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+            {% if user.review_set.count > 0 %}
+            <section class="row">
+              <h2>Reviews ({{user.review_set.count}}):</h2>
+                <div class="col">
+                  <div class="d-flex flex-column gap-2">
+                    {% for review in user.review_set.all %}
+                    <div class="d-flex flex-column gap-2 border border-1 p-3">
+                      <a href="{% url 'accounts:user_profile_view' review.user.id %}" class="text-decoration-none text-black"><h4 >{{ review.user.first_name }} {{ review.user.last_name }}</h4></a>
+                      <a href="{% url 'products:product_detail_view' review.product.id %}"><h6>{{ review.product.name }}</h6></a>
+                      <h6 class="text-muted">{{ review.created_at }}</h6>
+                      <p>{{ review.comment }}</p>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                
+            </section>
+            {% endif %}
+        </div>
+        </div>
+    </div>
+</div>
+
+</section>
+
+
+
+{% endblock %}

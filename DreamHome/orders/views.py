@@ -5,6 +5,11 @@ from .models import Product,Order,Repair
 # Create your views here.
 
 def repair_products_view(request:HttpRequest ):
+
+
+    if not request.user.is_authenticated:
+        return redirect("accounts:login_user_view")
+    
     if request.method =="POST":
         new_repairs=Repair(full_name=request.POST["full_name"], number=request.POST["number"],city=request.POST["city"],address_details=request.POST["address_details"],total=request.POST["total"])
         new_repairs.save()
@@ -37,7 +42,7 @@ def delete_order_view(request: HttpRequest, order_id):
 
 
 def my_orders_view(request: HttpRequest):
-
+ try:
    orders = Order.objects.filter(user=request.user)
 
    total = 0
@@ -45,7 +50,11 @@ def my_orders_view(request: HttpRequest):
    for order in orders:
        total += float(order.product.product_price)
 
-   return render(request, 'orders/my_orders.html', {"orders" : orders, "total" : total})
+ except:
+        return render(request, "accounts/login.html")   
+ return render(request, 'orders/my_orders.html', {"orders" : orders, "total" : total})
+
+
 
 
 def pay_view(request: HttpRequest):
@@ -61,3 +70,11 @@ def shooping_backet_view(request: HttpRequest):
   
 
     return render(request, 'orders/shooping_backet.html')
+
+
+
+def test_backet_view(request: HttpRequest):
+
+  
+
+    return render(request, 'orders/add_order.html')

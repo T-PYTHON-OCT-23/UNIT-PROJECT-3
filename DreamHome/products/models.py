@@ -11,8 +11,7 @@ class Product(models.Model):
     
   name=models.CharField(max_length=2048) 
   content=models.TextField()
-  size=models.IntegerField()
-  product_price= models.IntegerField(max_length=20) 
+  product_price= models.IntegerField()
   choose_product= models.CharField(max_length=70, choices=choose_color.choices, default="Cultural" )
   product= models.ImageField(upload_to="images/", default="images/default.jpg")
 
@@ -27,6 +26,7 @@ class Review(models.Model):
     rating = models.IntegerField()
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    image= models.ImageField(upload_to="images/", default="images/default.jpg")
 
 
     def __str__(self):

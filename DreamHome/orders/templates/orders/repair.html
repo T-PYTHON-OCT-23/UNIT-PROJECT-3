@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-
+{% load static %}
 {% block title %} Add New Repair {% endblock %}
 
 {% block content %}
@@ -7,46 +7,25 @@
 <section class="container">
 
     <h1>Add New Repair</h1>
+    <div class="images">
+    <img src="/static/images/1-removebg-preview.png" class="rounded float-right  h-50 w-50" alt="" >
+    <img src="/static/images/2-removebg-preview.png" class="rounded float-right h-50 w-50" alt="...">
+  </div>
 
-    <div class="row">
+      <div class="social_media">
+        <a href="#" class="fb"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="insta"><i class="fab fa-instagram"></i></a>
+        <a href="https://web.whatsapp.com/" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="yt"><i class="fab fa-youtube"></i></a>
+      </div>
+      <div class="s">
+      <img src="/static/images/3-removebg-preview.png" class="rounded float-end  h-50 w-50" alt="" >
 
-    <div class="col-6">
+    </div>
 
-    <form action="{% url 'orders:shooping_backet_view' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        
-        <label>Full Name:</label>
-        <input class="form-control" type="text" name="full_name" placeholder="Full Name" required minlength="5" />
-
-        <label>Phone Number:</label>
-        <input class="form-control" type="text" name="number" placeholder="+996" required minlength="10" />
-         
-        <label>City:</label>
-        {% for key, value in  your_city.choices %}
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="your_city" id="{{ key }}" value="{{ value }}">
-                <label class="form-check-label" for="{{ key }}">
-                {{ value }}
-                </label>
-            </div>
-        {% endfor %}
-
-        <label>Address Details:</label>
-        <textarea class="form-control" name="address_details"required></textarea>
-
-        <label>Total Amount:</label>
-        <select name="size" class="form-select">
-            <option value="1">30 </option>
-            <option value="2">50</option>
-         </select>
+  </section>
 
 
-        
-        <input class="btn btn-primary mt-2" type="submit" value=" Create Repair" />
- 
-     </form>
-   </div> 
- 
-</div> 
-</section>
+
 {% endblock %}

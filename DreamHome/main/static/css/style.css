@@ -5,17 +5,34 @@
     margin: 0px;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-   
 }
 
 bady{
     padding: 0;
     margin: 0;
-   
+   }
+h1, h2, h3, h4, h5 {
+    font-family: 'Amiri', serif;
+    font-family: 'Lateef', serif;
+    font-family: 'Noto Naskh Arabic', serif;
+    font-family: 'Amiri', serif;
+    font-family: 'Aref Ruqaa', serif;
+    font-family: 'Lateef', serif;
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+  
+  p, a {
+    font-family: 'Noto Naskh Arabic', serif;
   }
 
+  a {
+    text-decoration: none;
+  }
+  
+
+
 .login{
-    background-color:rgb(238 224 208 / 59%);
+    background-image: url( /static/images/home.jpg);
 }
 
 /* navbar top */
@@ -66,7 +83,7 @@ bady{
 .main-content{
     width: 100%;
     height: 80vh;
-    background-image: url( /static/images/background.jpg);
+    background-image: url( /static/images/home.jpg);
     background-size: cover;
     background-position: 50%;
 }
@@ -77,27 +94,23 @@ bady{
 }
 .content h1{
     font-size: 60px;
+    color: #ffffff;
 }
 #btn1 button{
     width: 150px;
-    height: 32px;
-    background: transparent;
     border: 1px solid black;
-    letter-spacing: 3px;
-    font-weight: bold;
     transition: 0.5s ease;
     cursor: pointer;
-    
+    color: #ffffff;
    
 }
+
 #btn1 button:hover{
-    background-color: rgb(0, 51, 128);
+    background-color:#ffffff8a;
+    color: #ffffff;
 }
 
 #btn2 button{
-    width: 100px;
-    height: 30px;
-    background: transparent;
     border: 1px solid black;
     transition: 0.5s ease;
     cursor: pointer;
@@ -371,7 +384,7 @@ bady{
 }
 
 .container_r{
-    display: flex;
+  
     width: 70%;
     margin-bottom: 30px;
 }
@@ -382,10 +395,8 @@ bady{
     grid-gap: 20px;
 }
 .sidebar{
-    width: 40%;
     border-radius: 5px;
-    background-color: #eee;
-    margin-left: 20px;
+    background-color: #eeeeeea6;
     padding: 15px;
     text-align: center;
 }
@@ -440,8 +451,13 @@ bady{
 }
 h2{
     font-size: 20px;
-    color: red;
-}
+    color: rgb(0, 0, 0);}
+    
+h4{
+      
+      color: rgb(0, 0, 0);}
+
+
 button{
     width: 100%;
     position: relative;
@@ -466,10 +482,8 @@ button:hover{
     margin: 10px 10px;
 }
 .row-img{
-    width: 50px;
-    height: 50px;
-    border-radius: 50px;
-    border: 1px solid #d28b2e9e;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -502,11 +516,204 @@ button:hover{
 }
 
 .true{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   width:250px;
   height:250px;
-  margin: auto;
- 
 }
+.container{
+  text-align: center;
+}
+
+.avatar {
+  width: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  object-fit: cover;
+  margin-left: 30px;
+
+}
+
+
+.social_media{
+  height: 100%;
+  place-items: center;
+  margin-right: 50px;
+  margin-left: 50px;
+  
+}
+.social_media a{
+  position: relative;
+  height: 60px;
+  width: 60px;
+  margin: 0 10px;
+  display: inline-flex;
+  text-decoration: none;
+  border-radius: 50%;
+  transition: all 0.3s;
+  box-shadow: -3px -3px 7px #ffffff,
+              3px 3px 5px #ceced1;
+}
+.social_media a:hover:before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  background: #ecf0f3;
+  box-shadow: inset -3px -3px 7px #ffffff,
+              inset 3px 3px 5px #ceced1;
+}
+.social_media a i{
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 25px;
+  line-height: 60px;
+}
+.social_media a:hover i{
+  transform: scale(0.9);
+}
+.social_media a.fb i{
+  color: #4267B2;
+}
+.social_media a.twitter i{
+  color: #1DA1F2;
+}
+.social_media a.insta i{
+  color: #E1306C;
+}
+.social_media a.git i{
+  color: #333;
+}
+.social_media a.yt i{
+  color: #ff0000;
+}
+
+
+.big-shop{
+  width: 90%;
+  margin: 150px auto; 
+}
+.big-shop .shop-title{
+  text-align: center;
+  margin-bottom: 50px;
+}
+.big-shop .shop-title h2{
+  font-weight: 700;
+  font-family: 'Fenix' , serif;
+}
+.big-shop .shop-title p{
+  font-size: 15px;
+}
+.big-shop .shop-flex{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.shop-flex .shop-one{
+  width: 26%;
+}
+.shop-flex img{
+  width: 100%;
+}
+.shop-flex .shop-two{
+  width: 44%;
+}
+.shop-flex .image-one{
+  position: relative;
+  margin-bottom: 20px;
+}
+.shop-flex .overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.5);
+  display: flex;
+  align-items: center;
+  padding: 0px 20px;
+  opacity: 0;
+  transition: opacity .3s ease-in-out;
+}
+.shop-flex .overlay .txt{
+  color: #FFF;
+}
+.shop-flex .overlay .txt h3{
+  margin-bottom: 3px;
+}
+.shop-flex .overlay .txt span{
+  color: #45ccb8;
+}
+.shop-flex .overlay .link{
+  position: absolute;
+  bottom: 50px;
+}
+.shop-flex .overlay .link a{
+  color: #FFF;
+  text-decoration: none;
+  text-transform: capitalize;
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 5px;
+}
+.shop-flex .overlay .link i{
+  vertical-align: middle;
+  transition: padding .4s ease-in-out;
+  font-size: 15px;
+}
+.shop-flex .overlay .link a:hover i{
+  padding-left: 3px;
+}
+.shop-flex .overlay .link a::before{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  background: #FFF;
+  width: 100%;
+  height: 2px;
+  transition: left .4s ease-in-out;
+}
+.shop-flex .overlay .link a:hover::before{
+  left: 0;
+}
+
+.shop-flex .image-one:hover .txt{
+  animation: job1 .7s ease-in-out forwards;
+}
+
+.shop-flex .image-one:hover .link{
+  animation: job1_link .7s ease-in-out forwards;
+}
+.shop-flex .image-one:hover .overlay{
+  opacity: 1;
+}
+
+.shop-flex .shop-two{
+  position: relative;
+  height: 100%;
+}
+
+.shop-flex .shop-two:hover .txt{
+  animation: job1 .7s ease-in-out forwards;
+}
+
+.shop-flex .shop-two:hover .link{
+  animation: job1_link .7s ease-in-out forwards;
+}
+.shop-flex .shop-two:hover .overlay{
+  opacity: 1;
+}
+
+
 
 
 

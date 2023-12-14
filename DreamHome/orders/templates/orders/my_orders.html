@@ -7,21 +7,18 @@
 
 <h1>ddddddddddd</h1>
 
-        <div class="header_e">
-            <p class="logo">LOGO</p>
-            <div class="cart"><i class="fa-solid fa-cart-shopping"></i><p id="count">0</p></div>
-        </div>
         <div class="container_r">
             
             <div class="sidebar">
-                <div class="head"><p>My Cart</p></div>
+                <div class="head"><h3>My Cart</h3></div>
                 {% for order in orders %}
                 <div class='cart-item'>
                     <div class='row-img'>
                         <img class='rowimg' src={{order.product.product.url}}>
                     </div>
-                    <p style='font-size:12px;'>{{ order.product.name}}</p>
-                    <h2 style='font-size: 15px;'>{{ order.product.price}}</h2>
+                    <h3 style='font-size:12px;'>{{ order.product.product_price}}</h3>
+                    <h3 style='font-size:12px;'>{{ order.product.name}}</h3>
+                    <h2 style='font-size: 15px; '>{{ order.product.price}}</h2>
                     <i class='fa-solid fa-trash' ><a href="{% url 'orders:delete_order_view' order.id  %}">delete</a></i>
                 </div>
                 {% endfor %}
@@ -33,6 +30,9 @@
                     <h2 id="total">$ {{total}}</h2>
                 </div>
             </div>
+
+
+            <button type="button" class=" Payment fa-solid  h-100 " data-mdb-ripple-init><a href="{% url 'orders:pay_view' %}">Payment</button></a>
         </div>
         
 
