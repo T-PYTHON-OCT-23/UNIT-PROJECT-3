@@ -6,7 +6,7 @@
         <div class="content_unthorized">
             <h1 class="text-success">Registration successful</h1>
             <p>Welcome!' {{user.first_name}}</p>
-            <p>Return to Home > <a class="a_unthorized text-body-secondary text-white" href="{%url 'main:home_view' % }">@{{user.username}}</a></p>
+            <p>Return to Home > <a class="a_unthorized text-body-secondary text-white" href="{% url 'main:home_view' %}">@{{user.username}}</a></p>
         </div>
     </div>
 </section>

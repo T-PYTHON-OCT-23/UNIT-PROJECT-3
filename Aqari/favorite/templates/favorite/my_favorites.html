@@ -15,9 +15,9 @@
     <div class="col h-100" > 
            
 <div class="card" style="width: 18rem;">
-    <img src="{{fav.property.image.url}}" class="card-img-top" style="height: 18rem;" alt="...">
+    <a href="{%url 'property:detail_property_view' fav.property.id%}" class="text-decoration-none"> <img src="{{fav.property.image.url}}" class="card-img-top" style="height: 18rem;" alt="..."></a>
     <div class="card-body h-100">
-        <a href="{%url 'property:detail_property_view' fav.property.id%}"><h3>{{fav.property.title}}</h3></a>
+        <a href="{%url 'property:detail_property_view' fav.property.id%}" class="text-decoration-none text-dark"><h3>{{fav.property.title}}</h3></a>
       <p class="card-text h-100">{{fav.property.description}}</p>
     </div>
 

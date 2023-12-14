@@ -39,18 +39,32 @@
 {%endif%}
     <ul class="property-details-list">
       {%if property_detail.bedrooms > 0%}
-      <li>Bedrooms: {{ property_detail.bedrooms }}</li>
+      <li><span class="material-symbols-outlined">
+        bedroom_parent
+        </span>  Bedrooms: {{ property_detail.bedrooms }}</li>
       {%endif%}
       {%if property_detail.bathrooms > 0%}
-      <li>Bathrooms: {{ property_detail.bathrooms }}</li>
+      <li><span class="material-symbols-outlined">
+        bathroom
+        </span>  Bathrooms: {{ property_detail.bathrooms }}</li>
       {%endif%}
       {%if property_detail.floor > 0%}
-      <li>Floor: {{ property_detail.floor }}</li>
+      <li><span class="material-symbols-outlined">
+        floor
+        </span>  Floor: {{ property_detail.floor }}</li>
       {%endif%}
-      <li>Area: {{ property_detail.area }} sq. m.</li>
-      <li>Location: {{ property_detail.location }}</li>
-      <li>Owner: {{ property_detail.owner.username }}</li>
-      <li>Created At: {{ property_detail.created_at }}</li>
+      <li><span class="material-symbols-outlined">
+        crop_square
+        </span>  Area: {{ property_detail.area }} sq. m.</li>
+      <li><span class="material-symbols-outlined">
+        pin_drop
+        </span>  Location: {{ property_detail.location }}</li>
+      <li><span class="material-symbols-outlined">
+        account_circle
+        </span>  Owner: {{ property_detail.owner.username }}</li>
+      <li><span class="material-symbols-outlined">
+        calendar_month
+        </span>  Created At: {{ property_detail.created_at }}</li>
       
       
   </ul>
@@ -95,9 +109,11 @@
 {%for comment in comments%}
 <div class="card mb-3" style="width: 100%;">
   <div class="card-body">
-    <h5 class="card-title">{{comment.user.first_name}}{%if user == comment.property.owner%} :(owner) {%endif%}</h5>
+    <h5 class="card-title">{{comment.user.first_name}}{%if user == comment.property.owner%} :(the owner) {%endif%} {%if user != comment.property.owner%} <h6 class="text-warnin"> Rating: {{comment.rating}} <span class="text-warning mt-5 material-symbols-outlined">
+      star_half
+      </span></h6>{%endif%}</h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">{{comment.created_at}}</h6>
-    <p class="card-text">{{comment.text}}</p>
+    <p class="card-text">Comment: {{comment.text}}</p>
   </div>
 </div>
 {%endfor%}

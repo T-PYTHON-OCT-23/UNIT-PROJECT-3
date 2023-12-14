@@ -22,7 +22,7 @@
             </div>
           {% endif %}
         </div>
-        <img src="{{ property.image.url }}" class="rounded w-100" style="height: 20rem;  object-fit: cover;">
+        <a href="{% url 'property:detail_property_view' property.id %}" class="text-decoration-none"><img src="{{ property.image.url }}" class="rounded w-100" style="height: 20rem;  object-fit: cover;"></a>
         <h2 class="fw-normal">{{ property.title }}</h2>
         <p>Timestamp: {{ property.created_at }}</p>
         <p><a class="btn btn-secondary" href="{% url 'property:detail_property_view' property.id %}">Discover »</a></p>
