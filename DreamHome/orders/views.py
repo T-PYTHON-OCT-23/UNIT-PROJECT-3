@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
-from .models import Product,Order,Repair
+from .models import Product,Order ,Repair
 
 # Create your views here.
 
@@ -20,7 +20,8 @@ def repair_products_view(request:HttpRequest ):
 
 
 def add_order_view(request: HttpRequest, product_id):
- 
+   if not request.user.is_authenticated:
+       return redirect("main:not_found_view")
    
    product = Product.objects.get(id=product_id)
    new_order =Order(product= product, user=request.user) 

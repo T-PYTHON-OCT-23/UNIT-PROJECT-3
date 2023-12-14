@@ -1,8 +1,8 @@
 {% extends 'main/base.html' %}
- 
+{% load static %}
 {% block title %} home {% endblock %}
-
 {% block content %}
+
 
 <div class="main-content">
 <div class="navbar-top"> 
@@ -116,31 +116,28 @@
     <div class="row" style="margin-top: 50px;">
         <div class="col-md-4 py-3 py-md-0">
             <div class="card">
-                <img src="static/images/background.jpg" alt="" class="card image-top" height="200px">
+                <img src="{% static 'images/hert1.jpg'%}" alt="" class="card image-top" height="200px">
                 <div class="card-body">
-                    <h5 class="card-titel text-center">BLACK FRIDAY SALES</h5>
-                    <p class="text-center">test</p>
-                    <div id="btn2" class="text-center"><button>View More</button></div>
+                    <h5 class="card-titel text-center">DECORATION</h5>
+                    <div id="btn2" class="text-center"><button>Shop Now</button></div>
                 </div>
             </div>
        
         </div>
         <div class="col-md-4 py-3 py-md-0">
             <div class="card">
-                <img src="static/images/background.jpg" alt="" class="card image-top" height="200px">
+                <img src="{% static 'images/Black Friday.jpg'%}" alt="" class="card image-top" height="200px">
                 <div class="card-body">
-                    <h5 class="card-titel text-center">LATEST PRODUCTS</h5>
-                    <p class="text-center">test</p>
-                    <div id="btn2" class="text-center"><button>View More</button></div>
+                    <h5 class="card-titel text-center">BLACK FRIDAY SALES</h5>
+                    <div id="btn2" class="text-center"><button>Shop Now</button></div>
                 </div>
             </div>
         </div>
         <div class="col-md-4 py-3 py-md-0">
             <div class="card">
-                <img src="static/images/background.jpg" alt="" class="card image-top" height="200px">
+                <img src="{% static 'images/DreamHome.jpg'%}" alt="" class="card image-top" height="200px">
                 <div class="card-body">
-                    <h5 class="card-titel text-center">USER FRIENDLEY</h5>
-                    <p class="text-center">test</p>
+                    <h5 class="card-titel text-center">REPAIR</h5>
                     <div id="btn2" class="text-center"><button><a href="{% url 'orders:repair_products_view' %}">Shop Now</a></button></div>
                 </div>
             </div>
@@ -158,30 +155,30 @@
     <div class="row" style="margin-top: 100px;">
         <div class="col-md-4 py-3 py-md-0">
             <div class="card" id="tpc">
-                <img src="static/images/background.jpg" alt="" class="card image-top">
+                <img src="{% static 'images/img11.jpg'%}" alt="" class="card image-top">
                 <div class="card-img-overlay">
-                    <h4 class="card-titel">Best Chair</h4>
-                    <p class="card-text">test.</p>
+                    <h4 class="card-titel">Sofa</h4>
+                 
                   
                 </div>
             </div>
         </div>
         <div class="col-md-4 py-3 py-md-0">
             <div class="card" id="tpc">
-                <img src="static/images/background.jpg" alt="" class="card image-top">
+                <img src="{% static 'images/clothes_hanger.jpg'%}" alt="" class="card image-top">
                 <div class="card-img-overlay">
-                    <h4 class="card-titel">Sofa</h4>
-                    <p class="card-text">test.</p>
+                    <h4 class="card-titel">clothes Hanger</h4>
+                    
                     
                 </div>
             </div>
         </div>
         <div class="col-md-4 py-3 py-md-0">
             <div class="card" id="tpc">
-                <img src="static/images/background.jpg" alt="" class="card image-top">
+                <img src="{% static 'images/img12.jpg'%}" alt="" class="card image-top">
                 <div class="card-img-overlay">
-                    <h4 class="card-titel">Work Desk</h4>
-                    <p class="card-text">test.</p>
+                    <h4 class="card-titel">Tables</h4>
+                   
                  
                 </div>
             </div>

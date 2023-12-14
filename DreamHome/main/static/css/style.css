@@ -28,8 +28,6 @@ h1, h2, h3, h4, h5 {
   a {
     text-decoration: none;
   }
-  
-
 
 .login{
     background-image: url( /static/images/home.jpg);
@@ -510,7 +508,7 @@ button:hover{
   color: red;
 }
 
-.container{
+.container_h{
   align-items: center;
   
 }

@@ -24,6 +24,9 @@ def display_products_view(request: HttpRequest):
 
 def product_detail_view(request:HttpRequest, product_id):
      
+    if not request.user.is_authenticated:
+         redirect("accounts:login_user_view")
+
     product_detail = Product.objects.get(id=product_id)
     try:
 
@@ -34,7 +37,7 @@ def product_detail_view(request:HttpRequest, product_id):
          return redirect("products:product_detail_view", product_detail.id)
     except Exception as e:
       return render(request, "products/not_exist.html")
-    reviews = Review.objects.filter(product=product_detail)
+    reviews = Review.objects.filter(product=product_detail.id)
     reviews_count= reviews.count()
     is_favored=request.user.is_authenticated and Favorite.objects.filter(product=product_detail, user=request.user).exists
     

@@ -7,6 +7,7 @@ from products.models import Product
 
 def add_favorite_view(request:HttpRequest, product_id):
 
+
     product = Product.objects.get(id=product_id)
     user_favored = Favorite.objects.filter(user=request.user, product=product).first() 
     if not request.user.is_authenticated:
@@ -29,13 +30,17 @@ def add_favorite_view(request:HttpRequest, product_id):
 
 
 def my_favorites_view(request: HttpRequest):
+ 
     
+ if not request.user.is_authenticated:
+       return redirect("main:not_found_view")  
  try:
     favorites = Favorite.objects.filter(user=request.user)
  
  except:
         return render(request, "accounts/login.html")   
  return render(request, 'favorites/favorites.html', {"favorites" : favorites})
+
 
 
 

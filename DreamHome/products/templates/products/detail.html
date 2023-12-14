@@ -50,6 +50,7 @@
         
         <div class="d-flex justify-content-end ">
           <div class="dropdown">
+            {% if request.user.is_staff %}
               <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Edit
               </button>
@@ -57,7 +58,7 @@
                 <li><a class="dropdown-item" href="{% url 'products:update_product_view' product_detail.id %}">Update</a></li>
                 <li><a class="dropdown-item" href="{% url 'products:delete_product_view' product_detail.id %}">Delete</a></li>
               </ul>
-              
+            {% endif %}
             </div>
             
       </div>

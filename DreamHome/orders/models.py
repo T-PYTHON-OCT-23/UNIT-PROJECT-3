@@ -16,7 +16,7 @@ class Order(models.Model):
 
 
 class Repair(models.Model):
-    user=models.ForeignKey(Product, on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
    
     your_city = models.TextChoices("your_city", ["Riyadh", "Jeddah", "Dammam", "Al-kharj"])
     
