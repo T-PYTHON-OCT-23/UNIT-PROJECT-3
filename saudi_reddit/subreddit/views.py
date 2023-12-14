@@ -65,6 +65,7 @@ def subreddit_create(request):
             subreddit.name = request.POST.get('name')
             subreddit.description = request.POST.get('description')
             subreddit.author = request.user
+            subreddit.save()
             subreddit.subscribers.add(request.user)
         if request.FILES.get('icon') and request.FILES.get('header'):
             subreddit.icon = request.FILES.get('icon')
@@ -144,6 +145,7 @@ def comment_reply(request, comment_slug):
 
 def comment_detail(request, comment_slug):
     comment = get_object_or_404(Comment, slug=comment_slug)
+    
     return render(request, 'comment_detail.html', {'comment': comment})
 
 

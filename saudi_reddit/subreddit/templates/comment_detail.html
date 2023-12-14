@@ -1,0 +1,87 @@
+<!-- comment_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comment Detail</title>
+
+    <!-- Add your CSS styles here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #007bff;
+        }
+
+        .detail-container {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            color: #555;
+        }
+
+        .detail-link {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .detail-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+
+    <h1>Comment Detail</h1>
+
+    <!-- Assuming you have a context variable named 'comment' representing the comment object -->
+    <div class="detail-container">
+        <span class="detail-label">Created by:</span>
+        <span class="detail-value">{{ comment.author }}</span>
+    </div>
+
+    <div class="detail-container">
+        <span class="detail-label">Text:</span>
+        <span class="detail-value">{{ comment.content }}</span>
+    </div>
+
+    <div class="detail-container">
+        <span class="detail-label">Created at:</span>
+        <span class="detail-value">{{ comment.created_at }}</span>
+    </div>
+
+    <div class="detail-container">
+        <span class="detail-label">Subreddit:</span>
+        <span class="detail-value">{{ comment.post.subreddit }}</span>
+    </div>
+
+    <div class="detail-container">
+        <span class="detail-label">Post:</span>
+        <a href="{% url 'Fourm:post_detail' comment.post.subreddit comment.post.slug %}" class="detail-link">{{ comment.post.title }}</a>
+    </div>
+
+    <!-- Add more fields as needed -->
+
+</body>
+</html>
