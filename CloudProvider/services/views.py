@@ -35,10 +35,10 @@ def show_services_view(request:HttpRequest):
 def edit_service_view(request:HttpRequest,service_id):
     massage = ''
     try:
-        request_edit = ServiceDetails.objects.get(id=service_id)
+        request_edit = Service.objects.get(id=service_id)
     except Exception as e:
         massage = f'{e}'
-    return render(request,'services/review_service_request.html',{"massage":massage,'show':request_edit})
+    return render(request,'services/edit_services.html',{"massage":massage,'show':request_edit})
 
 # this is for both admin and user, admin can review the service and user can review his own service
 def review_service_view(request:HttpRequest):
@@ -84,7 +84,7 @@ def view_services_i_reqeust_view(request:HttpRequest):
     massage = ''
     if request.user.is_authenticated:
         try:
-            show_services = ServiceDetails.objects.filter(user=request.user.id,status='pending')#here i add service = service_id so i can supporate
+            show_services = ServiceDetails.objects.filter(user=request.user.id)#here i add service = service_id so i can supporate
 
         except Exception as e:
             massage = f'something went wrong "{e}"'

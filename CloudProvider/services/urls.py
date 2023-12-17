@@ -15,5 +15,6 @@ urlpatterns = [
     path('delete/request/id/<request_id>',views.delete_reqeust_view,name='delete_reqeust_view'),
     path('edit/request/<request_id>/',views.edit_request_view,name='edit_request_view'),
     path('delete/service/',views.delete_service_view,name='delete_service_view'),
-    path('delete/<service_id>',views.delete_service_now_view,name='delete_service_now_view')
+    path('delete/<service_id>',views.delete_service_now_view,name='delete_service_now_view'),
+    path('edit/service/<service_id>/',views.edit_service_view,name='edit_service_view'),
 ]

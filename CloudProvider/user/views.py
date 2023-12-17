@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from .models import Profile
 from django.db import IntegrityError
+# these for sending email to user
+from django.conf import settings
+from django.core.mail import send_mail
 # Create your views here.
 
 
@@ -14,7 +17,13 @@ def user_create_view(request:HttpRequest):
         try:
             new_user = User.objects.create_user(username=request.POST['username'],password=request.POST['password'],email=request.POST['email'])
             new_user.save()
-            return redirect('user:login_view')
+            subject = 'ARhhheennnpooo'.upper()
+            message = f'Hi {new_user.first_name} {new_user.last_name}, thank you for registering in HC.'.upper()
+            email_from = settings.EMAIL_HOST_USER
+            recipient_list = [new_user.email,]
+            send_mail( subject, message, email_from, recipient_list )
+
+            return render(request,'home/home.html')
         except Exception as e:
             massage = f'something went wrong, {e}'
     
