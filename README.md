@@ -21,7 +21,7 @@ Saudi Reddit is a simple Reddit-like web application built with Django.
 
    ```bash
    git clone https://github.com/BDR-Pro/Saudi-Reddit.git
-   cd myreddit
+   cd Saudi-reddit/saudi_reddit
    pip install -r requirements.txt
    python manage.py makemigrations
    python manage.py migrate
